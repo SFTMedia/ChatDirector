@@ -8,7 +8,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.internalModules.common.NullItem;
+import com.blalp.chatdirector.internalModules.format.Formatters;
+import com.blalp.chatdirector.internalModules.format.IFormatter;
 import com.blalp.chatdirector.model.BaseConfiguration;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.Item;
@@ -26,15 +29,14 @@ import com.blalp.chatdirector.modules.replacement.ReplacementModule;
 import com.blalp.chatdirector.modules.sponge.SpongeModule;
 import com.blalp.chatdirector.modules.vault.Vault;
 
-import org.yaml.snakeyaml.TypeDescription;
+import org.apache.commons.lang.NullArgumentException;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
 
 public class Configuration extends Loadable {
 
     String fileName;
     public List<IModule> loadedModules = new ArrayList<>();
-    HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
+    public HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
 
     public Configuration(String fileName) {
         this.fileName = fileName;
@@ -55,23 +57,38 @@ public class Configuration extends Loadable {
             }
             if (configuration.containsKey("modules")) {
                 for (Object key : (Iterable<Object>)configuration.get("modules")) {
-                    loadModule(key);
+                    loadedModules.add(loadModule(key));
                 }
             }
             if (configuration.containsKey("pipes")) {
                 for (LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>> outerKey : ((ArrayList<LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>>>)configuration.get("pipes"))) {
                     for (String key : outerKey.keySet()) {
-                        loadPipe(key, outerKey.get(key));
+                        pipes.put(key,loadPipe(key, outerKey.get(key)));
                     }
                 }
             }
-            System.out.println(configuration);
+            
+            System.out.println("Formatters");
+            for (IFormatter formatter : ((Formatters)ChatDirector.formatter).formatters) {
+                System.out.println(formatter);
+            }
+            System.out.println("Modules");
+            for (IModule module : loadedModules) {
+                System.out.println(module);
+            }
+            System.out.println("Pipes");
+            for (String pipeKey: pipes.keySet()) {
+                System.out.println("Pipe "+pipeKey);
+                System.out.println("Root item "+pipes.get(pipeKey).rootItem);
+            }
+
+
         } catch (FileNotFoundException e) {
             System.err.println("CONFIG NOT FOUND!");
             e.printStackTrace();
         }
     }
-    private void loadPipe(String name, ArrayList<LinkedHashMap<String,Object>> pipeObj) {
+    private Pipe loadPipe(String name, ArrayList<LinkedHashMap<String,Object>> pipeObj) {
         Pipe pipe = new Pipe();
         IItem nullItem = new NullItem();
         IItem lastItem = null;
@@ -88,6 +105,7 @@ public class Configuration extends Loadable {
         if(item instanceof Item){
             ((Item)item).next=nullItem;
         }
+        return pipe;
     }
     private IItem loadItem(String key, Object item) {
         for (IModule iModule : loadedModules) {
@@ -105,7 +123,7 @@ public class Configuration extends Loadable {
         }
         return null;
     }
-    private void loadModule(Object module) {
+    private IModule loadModule(Object module) {
         String type="";
         if (module instanceof String){
             type=(String)module;
@@ -116,41 +134,34 @@ public class Configuration extends Loadable {
         }
         switch (type) {
             case "bukkit":
-                loadedModules.add(new BukkitModule());
-                break;
+                return new BukkitModule();
             case "bungee":
-                loadedModules.add(new BungeeModule());
-                break;
+                return new BungeeModule();
             case "conditional":
-                loadedModules.add(new ConditionalModule());
-                break;
+                return new ConditionalModule();
             case "console":
-                loadedModules.add(new ConsoleModule());
-                break;
+                return new ConsoleModule();
             case "discord":
-                loadedModules.add(new DiscordModule((LinkedHashMap<String,ArrayList<LinkedHashMap<String,String>>>) ((Map)module).get(type)));
-                break;
+                return new DiscordModule((LinkedHashMap<String,ArrayList<LinkedHashMap<String,String>>>) ((Map)module).get(type));
             case "file":
-                loadedModules.add(new FileModule());
-                break;
+                return new FileModule();
             case "luckperms":
-                loadedModules.add(new LuckPerms());
-                break;
+                return new LuckPerms();
             case "replacement":
-                loadedModules.add(new ReplacementModule());
-                break;
+                return new ReplacementModule();
             case "sponge":
-                loadedModules.add(new SpongeModule());
-                break;
+                return new SpongeModule();
             case "vault":
-                loadedModules.add(new Vault());
-                break;
+                return new Vault();
+            default:
+                throw new NullArgumentException("Module "+type+" not found.");
         }
     }
 
     @Override
     public void unload() {
-
+        loadedModules = new ArrayList<>();
+        pipes = new HashMap<String,Pipe>();
     }
     
 }
