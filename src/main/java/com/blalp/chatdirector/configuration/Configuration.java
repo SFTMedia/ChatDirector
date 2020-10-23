@@ -93,7 +93,14 @@ public class Configuration extends Loadable {
         IItem nullItem = new NullItem();
         IItem lastItem = null;
         IItem item=nullItem;
-        for(LinkedHashMap<String,Object> pipeVal:pipeObj) {
+        LinkedHashMap<String,Object> pipeVal=null;
+        for(Object pipeValObj:pipeObj) {
+            try {
+                pipeVal = (LinkedHashMap<String, Object>) pipeValObj;
+            } catch (ClassCastException e){
+                System.err.println("Make sure to have a `: null` after any items that don't require configuration.");
+                continue;
+            }
             item = loadItem(pipeVal.keySet().toArray()[0].toString(),pipeVal.values().toArray()[0]);
             if(pipe.rootItem==null){
                 pipe.rootItem=item;

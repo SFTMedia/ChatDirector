@@ -8,24 +8,21 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListener {
     public static ChatDirectorBukkit instance;
+    private ChatDirector chatDirector;
 
     public ChatDirectorBukkit() {
         instance = this;
+        chatDirector = new ChatDirector();
     }
-
-    @Override
-    public void onLoad() {
-
-    }
-
+    
     @Override
     public void onEnable() {
-
+        chatDirector.load();
     }
 
     @Override
     public void onDisable() {
-
+        chatDirector.unload();
     }
 
     @Override
