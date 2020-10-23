@@ -1,0 +1,8 @@
+libs/
+target/
+.project
+.settings
+.classpath
+
+.vscode
+dependency-reduced-pom.xml
