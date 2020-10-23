@@ -12,7 +12,6 @@ public class DiscordBot extends Loadable {
 
     public DiscordBot(String token) {
         this.token = token;
-        load();
     }
 
     /**

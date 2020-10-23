@@ -15,7 +15,7 @@ public class BukkitModule extends Module {
     }
     @Override
     public String[] getItemNames() {
-        return new String[]{"BukkitInput","BukkitOutput","BukkitPlayerlist"};
+        return new String[]{"BukkitInput","BukkitOutput","BukkitPlayerlist","BukkitCommand"};
     }
 
     @Override
@@ -27,8 +27,9 @@ public class BukkitModule extends Module {
                 return new BukkitOutputItem();
             case "BukkitPlayerlist":
                 return new BukkitPlayerlistItem();
+            case "BukkitCommand":
+                return new BukkitCommandItem();
         }
         return null;
     }
-    
 }

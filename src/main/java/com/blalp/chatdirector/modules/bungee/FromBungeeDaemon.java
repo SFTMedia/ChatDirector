@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 public class FromBungeeDaemon extends ItemDaemon {
     public static FromBungeeDaemon instance;
 
-    private FromBungeeDaemon() {
+    public FromBungeeDaemon() {
         instance = this;
     }
 

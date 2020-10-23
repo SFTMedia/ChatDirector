@@ -1,6 +1,8 @@
 package com.blalp.chatdirector.modules.discord;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.blalp.chatdirector.model.IItem;
@@ -10,6 +12,14 @@ import org.apache.commons.lang.NotImplementedException;
 
 
 public class DiscordModule extends Module {
+    public DiscordModule(LinkedHashMap<String,ArrayList<LinkedHashMap<String,String>>> map){
+        for (LinkedHashMap<String,String> botMap : map.get("bots")) {
+            String botName = (String)botMap.keySet().toArray()[0];
+            String token = (String)botMap.values().toArray()[0];
+            DiscordBot bot = new DiscordBot(token);
+            discordBots.put(botName, bot);
+        }
+    }
     public static Map<String, DiscordBot> discordBots = new HashMap<>();
 
     @Override
