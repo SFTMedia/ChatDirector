@@ -5,13 +5,14 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.internalModules.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 
-import org.apache.commons.lang.NotImplementedException;
-
 
 public class DiscordModule extends Module {
+    public IFormatter formatter = new DiscordFormatter();
     public DiscordModule(LinkedHashMap<String,ArrayList<LinkedHashMap<String,String>>> map){
         for (LinkedHashMap<String,String> botMap : map.get("bots")) {
             String botName = (String)botMap.keySet().toArray()[0];
@@ -24,6 +25,7 @@ public class DiscordModule extends Module {
 
     @Override
     public void load() {
+        ChatDirector.addFormatter(new DiscordFormatter());
         for(DiscordBot bot : discordBots.values()){
             bot.load();
         }
@@ -66,6 +68,9 @@ public class DiscordModule extends Module {
                 return new DiscordResolveItem(configMap.get("bot"),configMap.get("server"));
         }
         return null;
+    }
+    public IFormatter getFormatter(){
+        return formatter;
     }
     
 }

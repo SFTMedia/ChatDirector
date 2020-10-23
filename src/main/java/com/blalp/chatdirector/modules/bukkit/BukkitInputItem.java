@@ -1,5 +1,7 @@
 package com.blalp.chatdirector.modules.bukkit;
 
+import java.util.Map;
+
 import com.blalp.chatdirector.model.Item;
 
 public class BukkitInputItem extends Item {
@@ -7,7 +9,7 @@ public class BukkitInputItem extends Item {
     public String format;
 
     @Override
-    public String process(String string) {
+    public String process(String string, Map<String,String> context) {
         return string;
     }
     public boolean isChat() {

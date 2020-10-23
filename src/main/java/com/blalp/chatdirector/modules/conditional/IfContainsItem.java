@@ -1,22 +1,25 @@
 package com.blalp.chatdirector.modules.conditional;
 
-import com.blalp.chatdirector.model.IItem;
+import java.util.Map;
 
-public class IfContainsItem implements IItem {
+import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.model.Item;
+
+public class IfContainsItem extends Item {
     IItem nextTrue;
     IItem nextFalse;
     String contains="";
     @Override
-    public String process(String string) {
+    public String process(String string, Map<String,String> context) {
         return string;
     }
 
     @Override
-    public void work(String string) {
+    public void work(String string, Map<String,String> context) {
         if(string.contains(contains)){
-            nextTrue.work(string);
+            nextTrue.work(string,context);
         } else {
-            nextFalse.work(string);
+            nextFalse.work(string,context);
         }
     }
     

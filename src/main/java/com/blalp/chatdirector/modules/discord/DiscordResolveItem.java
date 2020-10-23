@@ -1,6 +1,7 @@
 package com.blalp.chatdirector.modules.discord;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import com.blalp.chatdirector.model.Item;
@@ -17,7 +18,7 @@ public class DiscordResolveItem extends DiscordItem {
 	public boolean toDiscord, toPlain;
 
 	@Override
-	public String process(String string) {
+	public String process(String string, Map<String,String> context) {
 		String s = string;
 		Server server = DiscordModule.discordBots.get(botName).getDiscordApi().getServerById(serverID).get();
 		String output = "";

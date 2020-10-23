@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Map;
 import java.util.Stack;
 
 import com.blalp.chatdirector.model.ILoadable;
@@ -21,10 +22,9 @@ public class FileOutputItem extends Item implements Runnable, ILoadable {
     public FileOutputItem(String path) {
         this.path=path;
     }
-
-
+    
     @Override
-    public String process(String string) {
+    public String process(String string, Map<String,String> context) {
         buf.push(string);
         return string;
     }

@@ -33,7 +33,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 public class Configuration extends Loadable {
 
     String fileName;
-    List<IModule> loadedModules = new ArrayList<>();
+    public List<IModule> loadedModules = new ArrayList<>();
     HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
 
     public Configuration(String fileName) {

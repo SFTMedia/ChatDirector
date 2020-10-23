@@ -1,5 +1,7 @@
 package com.blalp.chatdirector.modules.bungee;
 
+import java.util.Map;
+
 import com.blalp.chatdirector.ChatDirectorBukkit;
 import com.blalp.chatdirector.model.Item;
 import com.google.common.collect.Iterables;
@@ -12,7 +14,7 @@ import org.bukkit.entity.Player;
 public class ToBungeeItem extends Item {
     public String channel;
     @Override
-    public String process(String string) {
+    public String process(String string, Map<String,String> context) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Forward");
         out.writeUTF("ALL"); // Should this be all or online https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#forward?

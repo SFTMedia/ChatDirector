@@ -6,7 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.internalModules.common.PassItem;
 
 public class FileInputItem extends PassItem implements Runnable {
@@ -20,6 +23,9 @@ public class FileInputItem extends PassItem implements Runnable {
     }
 
     public void run() {
+        HashMap<String,String> context = new HashMap<>();
+        context.put("PATH", path);
+        context.put("DELAY", path);
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(path))));
         } catch (FileNotFoundException e) {
@@ -29,7 +35,7 @@ public class FileInputItem extends PassItem implements Runnable {
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    this.work(line);
+                    this.startWork(line,true,context);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

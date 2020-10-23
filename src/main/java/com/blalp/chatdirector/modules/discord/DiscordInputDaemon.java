@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.modules.discord;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.ItemDaemon;
 
 import org.javacord.api.entity.message.Message;
@@ -43,7 +44,7 @@ public class DiscordInputDaemon extends ItemDaemon implements MessageCreateListe
                     }
                     output = "[" + role + "] " + name + ": " + message.getContent();
                 }
-                item.work(output);
+                item.startWork(output,false,ChatDirector.formatter.getContext(event));
             }
         }
     }

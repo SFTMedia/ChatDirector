@@ -1,9 +1,9 @@
 package com.blalp.chatdirector.modules.bukkit;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 
@@ -13,6 +13,7 @@ public class BukkitModule extends Module {
 
     @Override
     public void load() {
+        ChatDirector.addFormatter(new BukkitFormatter());
         new BukkitInputDaemon().load();
     }
 

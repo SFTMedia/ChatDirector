@@ -1,5 +1,7 @@
 package com.blalp.chatdirector.modules.sponge;
 
+import java.util.Map;
+
 import com.blalp.chatdirector.model.Item;
 
 import org.apache.commons.lang.NotImplementedException;
@@ -7,7 +9,7 @@ import org.apache.commons.lang.NotImplementedException;
 public class SpongeCommandItem extends Item {
 
     @Override
-    public String process(String string) {
+    public String process(String string, Map<String,String> context) {
         throw new NotImplementedException();
     }
     

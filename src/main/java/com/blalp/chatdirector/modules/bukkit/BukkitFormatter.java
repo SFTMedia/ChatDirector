@@ -1,20 +1,24 @@
 package com.blalp.chatdirector.modules.bukkit;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.blalp.chatdirector.internalModules.format.Formatter;
 
 import org.bukkit.Server;
 import org.bukkit.event.player.PlayerEvent;
 
 public class BukkitFormatter extends Formatter {
-    public String format(Object context, String format) {
-        format = super.format(context,format);
-        if (context instanceof Server){
-            format.replaceAll("%NUM_PLAYERS%",String.valueOf(((Server)context).getOnlinePlayers().size()));
-            format.replaceAll("%MAX_PLAYERS%",String.valueOf(((Server)context).getMaxPlayers()));
+    @Override
+    public Map<String, String> getContext(Object event) {
+        HashMap<String,String> context = new HashMap<>();
+        if (event instanceof Server){
+            context.put("%NUM_PLAYERS%",String.valueOf(((Server)event).getOnlinePlayers().size()));
+            context.put("%MAX_PLAYERS%",String.valueOf(((Server)event).getMaxPlayers()));
         }
-        if(context instanceof PlayerEvent) {
-            format.replaceAll("%PLAYER_NAME%", ((PlayerEvent)context).getPlayer().getDisplayName());
+        if(event instanceof PlayerEvent) {
+            context.put("%PLAYER_NAME%", ((PlayerEvent)event).getPlayer().getDisplayName());
         }
-        return format;
+        return context;
     }
 }

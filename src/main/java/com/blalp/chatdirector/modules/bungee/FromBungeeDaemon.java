@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.ItemDaemon;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
@@ -31,7 +32,7 @@ public class FromBungeeDaemon extends ItemDaemon {
             DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
             if (item.channel.equals(in.readUTF())) {
                 try {
-                    item.work(msgin.readUTF());
+                    item.startWork(msgin.readUTF(),true,ChatDirector.formatter.getContext(player));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

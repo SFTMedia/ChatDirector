@@ -1,5 +1,7 @@
 package com.blalp.chatdirector.modules.discord;
 
+import java.util.Map;
+
 /**
  * DiscordOutput
  */
@@ -11,7 +13,7 @@ public class DiscordOutputItem extends DiscordItem {
     private String botName;
 
     @Override
-    public String process(String string) {
+    public String process(String string, Map<String,String> context) {
         DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(this.getChannelID()).get().asServerTextChannel().get().sendMessage(string);
         return string;
     }

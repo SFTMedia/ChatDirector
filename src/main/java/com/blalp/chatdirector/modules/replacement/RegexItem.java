@@ -14,7 +14,7 @@ public class RegexItem extends Item {
     }
 
     @Override
-    public String process(String string) {
+    public String process(String string, Map<String,String> context) {
         String output = string;
         for (Entry<String, String> map : pairs.entrySet()) {
             output = output.replaceAll(map.getKey(), map.getValue());

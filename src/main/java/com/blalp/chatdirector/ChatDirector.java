@@ -1,7 +1,7 @@
 package com.blalp.chatdirector;
 
 import com.blalp.chatdirector.configuration.Configuration;
-import com.blalp.chatdirector.internalModules.format.Formatter;
+import com.blalp.chatdirector.internalModules.format.Formatters;
 import com.blalp.chatdirector.internalModules.format.IFormatter;
 import com.blalp.chatdirector.internalModules.permissions.DenyPermission;
 import com.blalp.chatdirector.internalModules.permissions.IPermission;
@@ -13,7 +13,7 @@ public class ChatDirector extends Loadable {
         ChatDirector chatDirector = new ChatDirector();
         chatDirector.load();
     }
-    public static IFormatter formatter = new Formatter();
+    public static IFormatter formatter = new Formatters();
     public static IPermission permission = new DenyPermission();
     public void load(){
         // Load config
@@ -25,4 +25,7 @@ public class ChatDirector extends Loadable {
     public void unload(){
         // call load again.
     }
+	public static void addFormatter(IFormatter formatter) {
+        ((Formatters)formatter).formatters.add(formatter);
+	}
 }
