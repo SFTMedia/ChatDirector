@@ -7,6 +7,10 @@ import org.bukkit.Bukkit;
 public class BukkitOutputItem extends Item {
     public String permission;
 
+    public BukkitOutputItem(String permission){
+        this.permission=permission;
+    }
+
     @Override
     public String process(String string) {
         if (permission.equals("")) {

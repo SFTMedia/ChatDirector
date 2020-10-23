@@ -1,5 +1,7 @@
 package com.blalp.chatdirector.modules.replacement;
 
+import java.util.Map;
+
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 
@@ -7,15 +9,15 @@ public class ReplacementModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"Regex","RemoveColors"};
+        return new String[]{"regex","remove-colors"};
     }
 
     @Override
     public IItem createItem(String type, Object config) {
         switch (type) {
-            case "Regex":
-                return new RegexItem();
-            case "RemoveColors":
+            case "regex":
+                return new RegexItem((Map<String,String>)config);
+            case "remove-colors":
                 return new RemoveColorsItem();
         }
         return null;

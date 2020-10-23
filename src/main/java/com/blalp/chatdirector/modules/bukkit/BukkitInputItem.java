@@ -3,7 +3,7 @@ package com.blalp.chatdirector.modules.bukkit;
 import com.blalp.chatdirector.model.Item;
 
 public class BukkitInputItem extends Item {
-    public boolean chat=true,checkCanceled=true,join=true,leave=true,serverStarted=true,serverStopped=true,newJoin=false;
+    public boolean chat=false,checkCanceled=false,join=false,leave=false,serverStarted=false,serverStopped=false,newJoin=false;
     public String format;
 
     @Override

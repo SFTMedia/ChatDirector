@@ -17,17 +17,17 @@ public class ConditionalModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"IfContains","IfEquals","IfRegexMatches"};
+        return new String[]{"if-contains","if-equals","if-regex-match"};
     }
 
     @Override
     public IItem createItem(String type, Object config) {
         switch (type) {
-            case "IfContains":
+            case "if-contains":
                 return new IfContainsItem();
-            case "IfEquals":
+            case "if-equals":
                 return new IfEqualsItem();
-            case "IfRegexMatches":
+            case "if-regex-match":
                 return new IfRegexMatchesItem();
         }
         return null;

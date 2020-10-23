@@ -39,28 +39,31 @@ public class DiscordModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"DiscordInput","DiscordOutput","DiscordResolve"};
+        return new String[]{"discord-input","discord-output","discord-resolve"};
     }
 
     @Override
     public IItem createItem(String type, Object config) {
+        LinkedHashMap<String, String> configMap = (LinkedHashMap<String, String>)config;
         switch (type) {
-            case "DiscordInput":
-                try {
-                    throw new NotImplementedException("BOTNAME NOT READ FROM Config DiscordModule createItem");
-                } catch (NotImplementedException e){
-                    e.printStackTrace();
+            case "discord-input":
+                if (!discordBots.containsKey(configMap.get("bot"))) {
+                    try{
+                        throw new NullPointerException("Please use an existing bot as specified in the module section, not "+configMap.get("bot"));
+                    } catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
                 }
-                if(discordBots.get("botname").daemon==null){
-                    discordBots.get("botname").daemon=new DiscordInputDaemon("botname");
+                if(discordBots.get(configMap.get("bot")).daemon==null){
+                    discordBots.get(configMap.get("bot")).daemon=new DiscordInputDaemon(configMap.get("bot"));
                 }
-                DiscordItem item = new DiscordItem();
-                discordBots.get("botname").daemon.addItem(item);
+                DiscordItem item = new DiscordItem(configMap.get("bot"),configMap.get("channel"));
+                discordBots.get(configMap.get("bot")).daemon.addItem(item);
                 return item;
-            case "DiscordOutput":
-                return new DiscordOutputItem();
-            case "DiscordResolve":
-                return new DiscordResolveItem();
+            case "discord-output":
+                return new DiscordOutputItem(configMap.get("bot"),configMap.get("channel"));
+            case "discord-resolve":
+                return new DiscordResolveItem(configMap.get("bot"),configMap.get("server"));
         }
         return null;
     }

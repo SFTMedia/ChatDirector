@@ -8,15 +8,18 @@ import com.blalp.chatdirector.model.Item;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
 
-public class DiscordResolveItem extends Item {
-	private DiscordBot bot;
-	public long serverID;
-	public boolean toDiscord,toPlain;
+public class DiscordResolveItem extends DiscordItem {
+	public DiscordResolveItem(String botName, String serverID) {
+		super(botName);
+		this.serverID=Long.parseLong(serverID);
+	}
+
+	public boolean toDiscord, toPlain;
 
 	@Override
 	public String process(String string) {
 		String s = string;
-		Server server = bot.getDiscordApi().getServerById(serverID).get();
+		Server server = DiscordModule.discordBots.get(botName).getDiscordApi().getServerById(serverID).get();
 		String output = "";
 		boolean found = false;
 		for (int i = 0; i < s.length(); i++) {
@@ -28,10 +31,10 @@ public class DiscordResolveItem extends Item {
 					if (s.charAt(i1) == '>') {
 						try {
 							if (s.charAt(i + 2) == '!') {
-								output += "@" + bot.getDiscordApi().getUserById(s.substring(i + 3, i1))
+								output += "@" + DiscordModule.discordBots.get(botName).getDiscordApi().getUserById(s.substring(i + 3, i1))
 										.get().getName();
 							} else {
-								output += "@" + bot.getDiscordApi().getUserById(s.substring(i + 2, i1))
+								output += "@" + DiscordModule.discordBots.get(botName).getDiscordApi().getUserById(s.substring(i + 2, i1))
 										.get().getName();
 							}
 							i += i1 - i;
@@ -44,7 +47,7 @@ public class DiscordResolveItem extends Item {
 			} else if (toPlain && (s.charAt(i) == '<' && i + 1 < s.length() && s.charAt(i + 1) == '#')) {
 				for (int i1 = i; i1 < s.length(); i1++) {
 					if (s.charAt(i1) == '>') {
-						output += "#" + bot.getDiscordApi().getChannelById(s.substring(i + 2, i1)).get()
+						output += "#" + DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(s.substring(i + 2, i1)).get()
 								.asServerChannel().get().getName();
 						i += i1 - i;
 						break;

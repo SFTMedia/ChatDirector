@@ -17,15 +17,15 @@ public class ConsoleModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"ConsoleOutputError","ConsoleOutput"};
+        return new String[]{"console-output-error","console-output"};
     }
 
     @Override
     public IItem createItem(String type, Object config) {
         switch (type){
-            case "ConsoleOutputError":
+            case "console-output-error":
                 return new ConsoleOutputErrorItem();
-            case "ConsoleOutput":
+            case "console-output":
                 return new ConsoleOutputItem();
         }
         return null;

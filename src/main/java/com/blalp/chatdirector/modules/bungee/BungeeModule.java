@@ -7,21 +7,23 @@ public class BungeeModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"ToBungee","FromBungee","BungeeCommand"};
+        return new String[]{"bungee-to","bungee-from","bungee-command"};
     }
 
     @Override
     public IItem createItem(String type, Object config) {
         switch (type){
-            case "ToBungee":
+            case "bungee-to":
                 return new ToBungeeItem();
-            case "FromBungee":
+            case "bungee-from":
                 if(FromBungeeDaemon.instance==null){
                     FromBungeeDaemon.instance=new FromBungeeDaemon();
                 }
                 FromBungeeItem item = new FromBungeeItem();
                 FromBungeeDaemon.instance.addItem(item);
                 return item;
+            case "bungee-command":
+                return new BungeeCommandItem();
         }
         return null;
     }

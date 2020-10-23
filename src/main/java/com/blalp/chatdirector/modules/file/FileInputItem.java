@@ -15,6 +15,10 @@ public class FileInputItem extends PassItem implements Runnable {
     public String path;
     public int delay = 500;
 
+    public FileInputItem(String path){
+        this.path=path;
+    }
+
     public void run() {
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(path))));

@@ -1,0 +1,95 @@
+# Example of everything at once.
+modules:
+  - discord:
+      bots:
+        - bot-name: TOKEN
+  - file
+  - replacement
+  - bukkit
+pipes:
+  - documentation:
+    - bukkit-input:
+      - chat
+      - leave
+      - join
+      - server
+      - checkCanceled
+    - file-input:
+        path: PATH_TO_FIFO
+        delay: 500
+    - discord-input:
+        server: "0" # SERVER_ID
+        channel: "0" # CHANNEL_ID
+        bot: bot-name
+    - bukkit-playerlist: null
+    - discord-resolve:
+        server: "0" # SERVER_ID
+        bot: bot-name
+        to-discord: false
+        to-plain: true
+    - regex:
+        "REGEX_PATTERN": "REGEX_PATTERN"
+    - remove-colors: null
+    - discord-output:
+        server: "0" # SERVER_ID
+        channel: "0" # CHANNEL_ID
+        bot: bot-name
+    - bukkit-output:
+        permission: "" # ['' or permission node]
+    - file-output:
+        path: PATH_TO_FIFO
+  - example-bukkit-to-discord:
+    - bukkit-input:
+      - chat
+      - leave
+      - join
+      - server
+    - discord-resolve:
+        server: "0" # SERVER_ID
+        bot: bot-name
+        to-discord: true
+        to-dlain: false
+    - remove-colors: null
+    - discord-output:
+        server: "0" # SERVER_ID
+        channel: "0" # CHANNEL_ID
+        bot: bot-name
+  - example-discord-to-bukkit:
+    - discord-input:
+        server: "0" # SERVER_ID
+        channel: "0" # CHANNEL_ID
+        bot: bot-name
+    - discord-resolve:
+        server: "0" # SERVER_ID
+        bot: bot-name
+        to-discord: true
+        to-dlain: false
+    - remove-colors: null
+    - regex:
+        '^\[.*?\] (.*?): playerlist$': ""
+        '^\[(.*?)\](.*?):(.*?)': "[&7$1&r]&7$2&r:$3"
+    - regex:
+        '^\[&7(.*?) JMod&r\]&7(.*?)&r:(.*?)': "[&2$1 JMod&r]&2$2&r:$3"
+        '^\[&7(.*?) Mod&r\]&7(.*?)&r:(.*?)': "[&9$1 Mod&r]&9$2&r:$3"
+        '^\[&7(.*?) Manager&r\]&7(.*?)&r:(.*?)': "[&4$1 Manager&r]&4$2&r:$3"
+        '^\[&7(Retired)&r\]&7(.*?)&r:(.*?)': "[&d$1&r]&d$2&r:$3"
+        '^\[&7(.*?) Admin&r\]&7(.*?)&r:(.*?)': "&0[&c$1 &cA&4d&6m&ei&an&0]&c$2&r:$3"
+        '^\[&7(.*?) Owner&r\]&7(.*?)&r:(.*?)': "&0[&c$1 &cO&4w&6n&ee&ar&0]&c$2&r:$3"
+        '^\[&7(Premium|Patreon|Hype Beast)&r\]&7(.*?)&r:(.*?)': "[&5$1&r]&5$2&r:$3"
+    - regex:
+        "^(.+)$": "[&7D&r]$1"
+    - bukkit-output:
+        permission: ""
+  - example-discord-playerlist:
+    - discord-input:
+        server: "0" # SERVER_ID
+        channel: "0" # CHANNEL_ID
+        bot: bot-name
+    - regex:
+        "^.*playerlist": "playerlist"
+        "^(?!playerlist).*$": ""
+    - bukkit-playerlist: null
+    - discord-output:
+        server: "0" # SERVER_ID
+        channel: "0" # CHANNEL_ID
+        bot: bot-name

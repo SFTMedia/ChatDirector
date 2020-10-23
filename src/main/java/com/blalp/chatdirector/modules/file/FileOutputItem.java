@@ -8,16 +8,18 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Stack;
 
+import com.blalp.chatdirector.model.ILoadable;
 import com.blalp.chatdirector.model.Item;
 
-public class FileOutputItem extends Item implements Runnable {
+public class FileOutputItem extends Item implements Runnable, ILoadable {
     private BufferedWriter writer;
     private Stack<String> buf = new Stack<>();
+    Thread thread;
     String path;
     int delay=500;
 
-    public FileOutputItem() {
-        new Thread(this).start();
+    public FileOutputItem(String path) {
+        this.path=path;
     }
 
 
@@ -55,6 +57,23 @@ public class FileOutputItem extends Item implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void load() {
+        thread=new Thread(this);
+        thread.start();
+    }
+
+    @Override
+    public void unload() {
+        thread.stop();
+    }
+
+    @Override
+    public void reload() {
+        unload();
+        load();
     }
 
 }

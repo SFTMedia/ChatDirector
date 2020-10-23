@@ -1,12 +1,17 @@
 package com.blalp.chatdirector.modules.replacement;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.model.Item;
 
 public class RegexItem extends Item {
-    LinkedHashMap<String, String> pairs;
+    Map<String, String> pairs;
+
+    public RegexItem(Map<String,String> pairs){
+        this.pairs=pairs;
+    }
 
     @Override
     public String process(String string) {
