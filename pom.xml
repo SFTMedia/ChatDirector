@@ -3,7 +3,7 @@
 
 	<groupId>com.blalp</groupId>
 	<artifactId>chatdirector</artifactId>
-	<version>0.0.2-alpha</version>
+	<version>0.0.3-alpha</version>
 	<packaging>jar</packaging>
 
 	<name>ChatDirector</name>
