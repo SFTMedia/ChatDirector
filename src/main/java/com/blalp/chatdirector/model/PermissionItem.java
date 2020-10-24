@@ -6,10 +6,10 @@ public abstract class PermissionItem extends Item implements IPermission {
 
     @Override
     public String process(String string, Map<String, String> context) {
-        if(context.containsKey("PLAYERNAME")){
-            context.put("PREFIX", getPrefix(context.get("PLAYERNAME")));
-            context.put("SUFFIX", getSuffix(context.get("PLAYERNAME")));
-            context.put("GROUP", getGroup(context.get("PLAYERNAME")));
+        if(context.containsKey("PLAYER_NAME")){
+            context.put("PREFIX", getPrefix(context.get("PLAYER_NAME")));
+            context.put("SUFFIX", getSuffix(context.get("PLAYER_NAME")));
+            context.put("GROUP", getGroup(context.get("PLAYER_NAME")));
         }
         this.context=context;
         return null;

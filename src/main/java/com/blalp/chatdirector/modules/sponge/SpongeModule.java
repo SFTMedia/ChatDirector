@@ -3,6 +3,7 @@ package com.blalp.chatdirector.modules.sponge;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 
@@ -12,7 +13,7 @@ public class SpongeModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"sponge-output","sponge-input"};
+        return new String[]{"sponge-output","sponge-input","sponge-playerlist"};
     }
 
     @Override
@@ -60,6 +61,25 @@ public class SpongeModule extends Module {
                     item2.leave=true;
                 }
                 SpongeInputDaemon.instance.addItem(item2);
+            case "sponge-playerlist":
+                SpongePlayerlistItem itemPlayerlist = new SpongePlayerlistItem();
+                LinkedHashMap<String,String> configMapPlayerlist = ((LinkedHashMap<String,String>)config);
+                if(configMapPlayerlist.containsKey("format")) {
+                    itemPlayerlist.format=configMapPlayerlist.get("format");
+                }
+                if(configMapPlayerlist.containsKey("format-no-players")) {
+                    itemPlayerlist.formatNoPlayers=configMapPlayerlist.get("format-no-players");
+                }
+                if(configMapPlayerlist.containsKey("format-player")) {
+                    itemPlayerlist.formatPlayer=configMapPlayerlist.get("format-player");
+                }
+                if(configMapPlayerlist.containsKey("ignore-case")) {
+                    itemPlayerlist.ignoreCase=Boolean.parseBoolean(configMapPlayerlist.get("ignore-case"));
+                }
+                if(configMapPlayerlist.containsKey("trigger-word")) {
+                    itemPlayerlist.triggerWord=configMapPlayerlist.get("trigger-word");
+                }
+                return itemPlayerlist;
             default:
                 return null;
         }
@@ -67,6 +87,7 @@ public class SpongeModule extends Module {
 
     @Override
     public void load() {
+        ChatDirector.addFormatter(new SpongeFormatter());
         if(SpongeInputDaemon.instance!=null){
             SpongeInputDaemon.instance.load();
         }

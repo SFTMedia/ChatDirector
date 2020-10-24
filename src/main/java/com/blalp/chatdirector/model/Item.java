@@ -19,10 +19,11 @@ public abstract class Item implements IItem, Runnable {
         work(string,context);
     }
     public void work(String string,Map<String,String> context){
-        string = this.process(string,context);
+        this.context=context;
+        string = this.process(string,this.context);
         if(string.equals("")){
             return;
         }
-        next.work(string,context);
+        next.work(string,this.context);
     }
 }

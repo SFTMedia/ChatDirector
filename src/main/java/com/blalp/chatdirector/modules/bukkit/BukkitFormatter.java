@@ -6,6 +6,7 @@ import java.util.Map;
 import com.blalp.chatdirector.internalModules.format.Formatter;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 
 public class BukkitFormatter extends Formatter {
@@ -18,6 +19,10 @@ public class BukkitFormatter extends Formatter {
         context.put("MOTD",String.valueOf(Bukkit.getMotd()));
         if(event instanceof PlayerEvent) {
             context.put("PLAYER_NAME", ((PlayerEvent)event).getPlayer().getDisplayName());
+        }
+        if(event instanceof Player) {
+            context.put("PLAYER_NAME",((Player)event).getName());
+            context.put("PLAYER_UUID",((Player)event).getUniqueId().toString());
         }
         return context;
     }

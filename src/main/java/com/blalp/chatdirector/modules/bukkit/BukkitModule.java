@@ -69,7 +69,24 @@ public class BukkitModule extends Module {
             case "bukkit-output":
                 return new BukkitOutputItem(((LinkedHashMap<String,String>)config).get("permission"));
             case "bukkit-playerlist":
-                return new BukkitPlayerlistItem();
+                BukkitPlayerlistItem itemPlayerlist = new BukkitPlayerlistItem();
+                LinkedHashMap<String,String> configMapPlayerlist = ((LinkedHashMap<String,String>)config);
+                if(configMapPlayerlist.containsKey("format")) {
+                    itemPlayerlist.format=configMapPlayerlist.get("format");
+                }
+                if(configMapPlayerlist.containsKey("format-no-players")) {
+                    itemPlayerlist.formatNoPlayers=configMapPlayerlist.get("format-no-players");
+                }
+                if(configMapPlayerlist.containsKey("ignore-case")) {
+                    itemPlayerlist.ignoreCase=Boolean.parseBoolean(configMapPlayerlist.get("ignore-case"));
+                }
+                if(configMapPlayerlist.containsKey("trigger-word")) {
+                    itemPlayerlist.triggerWord=configMapPlayerlist.get("trigger-word");
+                }
+                if(configMapPlayerlist.containsKey("format-player")) {
+                    itemPlayerlist.formatPlayer=configMapPlayerlist.get("format-player");
+                }
+                return itemPlayerlist;
             case "bukkit-command":
                 if(BukkitCommandInputDaemon.instance==null){
                     new BukkitCommandInputDaemon();

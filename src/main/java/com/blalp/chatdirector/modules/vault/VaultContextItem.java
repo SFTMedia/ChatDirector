@@ -23,8 +23,8 @@ public class VaultContextItem extends PermissionItem {
     @Override
     public String process(String string, Map<String, String> context) {
         super.process(string, context);
-        if(this.context.containsKey("PLAYERNAME")){
-            this.context.put("BALANCE", Double.toString(VaultModule.economy.getBalance(Bukkit.getOfflinePlayer(this.context.get("PLAYERNAME")))));
+        if(this.context.containsKey("PLAYER_NAME")){
+            this.context.put("BALANCE", Double.toString(VaultModule.economy.getBalance(Bukkit.getOfflinePlayer(this.context.get("PLAYER_NAME")))));
         }
         return string;
     }

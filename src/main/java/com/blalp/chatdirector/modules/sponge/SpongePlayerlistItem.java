@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.bukkit;
+package com.blalp.chatdirector.modules.sponge;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,10 +6,10 @@ import java.util.Map;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Item;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.entity.living.player.Player;
 
-public class BukkitPlayerlistItem extends Item {
+public class SpongePlayerlistItem extends Item {
     public String triggerWord = "playerlist";
     public boolean ignoreCase = true;
     public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
@@ -17,7 +17,7 @@ public class BukkitPlayerlistItem extends Item {
     public String formatPlayer = "%PLAYER_NAME%";
     @Override
     public String process(String string, Map<String,String> context) {
-        context.putAll(ChatDirector.formatter.getContext(Bukkit.getServer()));
+        context.putAll(ChatDirector.formatter.getContext(Sponge.getServer()));
         if (!((string.equalsIgnoreCase(triggerWord)&&ignoreCase)||(string.equals(triggerWord)))) {
             return string;
         }
@@ -25,7 +25,7 @@ public class BukkitPlayerlistItem extends Item {
         boolean first = true;
         Map<String,String> tempContext = new HashMap<>();
         tempContext.putAll(context);
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+        for (Player player : Sponge.getServer().getOnlinePlayers()) {
             if (!first) {
                 output += ", ";
             } else {
