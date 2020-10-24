@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.conditional;
+package com.blalp.chatdirector.modules.logic;
 
 import java.util.Map;
 

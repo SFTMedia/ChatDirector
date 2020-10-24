@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.conditional;
+package com.blalp.chatdirector.modules.logic;
 
 import java.util.Map;
 
@@ -12,6 +12,9 @@ public abstract class ConditionalItem extends PassItem {
 
     @Override
     public void work(String string, Map<String,String> context) {
+        if(string.isEmpty()){
+            return;
+        }
         if(test(string,context)){
             nestedTrue.work(string,context);
         } else {

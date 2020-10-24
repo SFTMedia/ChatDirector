@@ -21,10 +21,10 @@ import com.blalp.chatdirector.model.Pipe;
 import com.blalp.chatdirector.modules.IModule;
 import com.blalp.chatdirector.modules.bukkit.BukkitModule;
 import com.blalp.chatdirector.modules.bungee.BungeeModule;
-import com.blalp.chatdirector.modules.conditional.ConditionalModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
 import com.blalp.chatdirector.modules.discord.DiscordModule;
 import com.blalp.chatdirector.modules.file.FileModule;
+import com.blalp.chatdirector.modules.logic.LogicModule;
 import com.blalp.chatdirector.modules.luckperms.LuckPerms;
 import com.blalp.chatdirector.modules.replacement.ReplacementModule;
 import com.blalp.chatdirector.modules.sponge.SpongeModule;
@@ -159,8 +159,8 @@ public class Configuration extends Loadable {
                 return new BukkitModule();
             case "bungee":
                 return new BungeeModule();
-            case "conditional":
-                return new ConditionalModule();
+            case "logic":
+                return new LogicModule();
             case "console":
                 return new ConsoleModule();
             case "discord":

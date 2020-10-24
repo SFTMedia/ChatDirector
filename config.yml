@@ -2,7 +2,7 @@
 modules:
   - bukkit
   - bungee
-  - conditional
+  - logic
   - console
   - discord:
       bots:
@@ -43,7 +43,7 @@ pipes:
         command: "example-command"
         permission: "example-permission"
         format: "/%COMMAND% %ARGS%"
-  - conditional-demo:
+  - logic-demo:
     - if-contains:
         true: # this can be any list of items
             - pass-item: null
@@ -57,6 +57,12 @@ pipes:
         true: null
         false: null
         match: "[sS]tring"
+    - split:
+      - stream-1:
+        - pass-item: null
+        - pass-item: null
+      - stream-2:
+        - null-item: null
   - console-demo:
     - console-output: null
     - console-output-error: null
