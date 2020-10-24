@@ -26,7 +26,7 @@ public class LuckPermsContextItem extends PermissionItem {
     @Override
     public String process(String string, Map<String, String> context) {
         super.process(string,context);
-        this.context.put("SERVERNAME", LuckPermsProvider.get().getServerName());
+        this.context.put("SERVER_NAME", LuckPermsProvider.get().getServerName());
         return string;
     }
 

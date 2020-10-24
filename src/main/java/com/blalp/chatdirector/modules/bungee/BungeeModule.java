@@ -3,6 +3,7 @@ package com.blalp.chatdirector.modules.bungee;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommandInputDaemon;
@@ -58,6 +59,7 @@ public class BungeeModule extends Module {
 
     @Override
     public void load() {
+        ChatDirector.addFormatter(new BungeeFormatter());
         if(FromBungeeDaemon.instance!=null){
             FromBungeeDaemon.instance.load();
         }

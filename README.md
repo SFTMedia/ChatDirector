@@ -12,10 +12,34 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - MAX_PLAYERS
 - SERVER_NAME
 - MOTD
+- PLAYER_NAME
+- PLAYER_UUID
 ### Sometimes Depending on Who Fired the Input
 - PLAYER_NAME
 ## Discord
+## Sponge
+- NUM_PLAYERS
+- MAX_PLAYERS
+- MOTD
+- PLAYER_NAME
+- PLAYER_UUID
+## Bungee
+- PLAYER_NAME
+- PLAYER_UUID
+- PLAYER_SERVER_NAME
+- PLAYER_SERVER_MOTD
+## LuckPerms
+- SERVER_NAME
+- PLAYER_PREFIX
+- PLAYER_SUFFIX
+- PLAYER_GROUP
+## Vault
+- PLAYER_BALANCE
+- PLAYER_PREFIX
+- PLAYER_SUFFIX
+- PLAYER_GROUP
 
 # TODO
+- Anything that starts work should have context
 - Add format to discord-input
 - Add more contexts as needed.
