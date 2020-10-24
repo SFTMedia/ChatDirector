@@ -7,3 +7,4 @@ target/
 .vscode
 dependency-reduced-pom.xml
 .factorypath
+logs/
