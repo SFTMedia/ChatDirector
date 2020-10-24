@@ -29,20 +29,7 @@ public class DiscordInputDaemon extends ItemDaemon implements MessageCreateListe
         for (DiscordItem item : (DiscordItem[])items.toArray()) {
             if (event.getChannel().getIdAsString().equals(item.getChannelID())) {
                 if (output.equals("")) {
-                    String name;
-                    if (!message.getAuthor().asUser().get()
-                            .getNickname(event.getChannel().asServerChannel().get().getServer()).isPresent()) {
-                        name = message.getAuthor().getName();
-                    } else {
-                        name = message.getAuthor().asUser().get()
-                                .getNickname(event.getChannel().asServerChannel().get().getServer()).get();
-                    }
-                    String role = event.getChannel().asServerChannel().get().getServer()
-                            .getHighestRole(message.getAuthor().asUser().get()).get().getName();
-                    if (role.equals("@everyone")) {
-                        role = "Default";
-                    }
-                    output = "[" + role + "] " + name + ": " + message.getContent();
+                    output=ChatDirector.formatter.format(item.format, ChatDirector.formatter.getContext(event));
                 }
                 item.startWork(output,false,ChatDirector.formatter.getContext(event));
             }

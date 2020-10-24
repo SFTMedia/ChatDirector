@@ -12,7 +12,7 @@ import org.javacord.api.entity.user.User;
 public class DiscordResolveItem extends DiscordItem {
 	public DiscordResolveItem(String botName, String serverID,boolean toDiscord,boolean toPlain) {
 		super(botName);
-		this.serverID=Long.parseLong(serverID);
+		this.serverID=serverID;
 		this.toDiscord=toDiscord;
 		this.toPlain=toPlain;
 	}

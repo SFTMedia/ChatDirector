@@ -14,7 +14,7 @@ public class DiscordOutputItem extends DiscordItem {
 
     @Override
     public String process(String string, Map<String,String> context) {
-        DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(this.getChannelID()).get().asServerTextChannel().get().sendMessage(string);
+        DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(channelID).get().asServerTextChannel().get().sendMessage(string);
         return string;
     }
 }

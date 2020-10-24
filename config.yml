@@ -91,6 +91,7 @@ pipes:
         to-plain: true
     - discord-output:
         channel: "0" # CHANNEL_ID
+        format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
         bot: bot-name
   - file-demo:
     - file-input:

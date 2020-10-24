@@ -3,24 +3,25 @@ package com.blalp.chatdirector.modules.discord;
 import com.blalp.chatdirector.internalModules.common.PassItem;
 public class DiscordItem extends PassItem {
     public String botName;
-    public long channelID;
-	public long serverID;
+    public String channelID;
+	public String serverID;
+	public String format="[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%";
 	
 	public DiscordItem(String botName, String channelID, String serverID){
 		this.botName=botName;
-		this.channelID=Long.parseLong(channelID);
-		this.serverID=Long.parseLong(serverID);
+		this.channelID=channelID;
+		this.serverID=serverID;
 	}
 	
 	public DiscordItem(String botName, String channelID){
 		this.botName=botName;
-		this.channelID=Long.parseLong(channelID);
+		this.channelID=channelID;
 	}
 	public DiscordItem(String botName){
 		this.botName=botName;
 	}
 
-	public long getChannelID() {
+	public String getChannelID() {
 		return channelID;
 	}
 }

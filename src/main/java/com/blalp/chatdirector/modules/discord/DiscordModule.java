@@ -60,6 +60,9 @@ public class DiscordModule extends Module {
                     discordBots.get(configMap.get("bot")).daemon=new DiscordInputDaemon((String)configMap.get("bot"));
                 }
                 DiscordItem item = new DiscordItem((String)configMap.get("bot"),(String)configMap.get("channel"));
+                if(configMap.containsKey("format")) {
+                    item.format=(String)configMap.get("format");
+                }
                 discordBots.get(configMap.get("bot")).daemon.addItem(item);
                 return item;
             case "discord-output":
