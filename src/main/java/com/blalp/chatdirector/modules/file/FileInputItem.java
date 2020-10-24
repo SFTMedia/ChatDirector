@@ -24,8 +24,8 @@ public class FileInputItem extends PassItem implements Runnable {
 
     public void run() {
         HashMap<String,String> context = new HashMap<>();
-        context.put("PATH", path);
-        context.put("DELAY", path);
+        context.put("FILE_PATH", path);
+        context.put("FILE_DELAY", path);
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(path))));
         } catch (FileNotFoundException e) {
