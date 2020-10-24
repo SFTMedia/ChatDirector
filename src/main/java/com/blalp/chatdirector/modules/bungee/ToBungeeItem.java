@@ -1,6 +1,7 @@
 package com.blalp.chatdirector.modules.bungee;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirectorBukkit;
 import com.blalp.chatdirector.model.Item;
@@ -23,6 +24,11 @@ public class ToBungeeItem extends Item {
         out.writeUTF("ALL"); // Should this be all or online https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#forward?
         out.writeUTF("ChatDirector");
         out.writeUTF(channel);
+        out.writeInt(context.size());
+        for (Entry<String,String> contextItem : context.entrySet()) {
+            out.writeUTF(contextItem.getKey());
+            out.writeUTF(contextItem.getValue());
+        }
         out.writeUTF(string);
         Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
         player.sendPluginMessage(ChatDirectorBukkit.instance, "BungeeCord", out.toByteArray());

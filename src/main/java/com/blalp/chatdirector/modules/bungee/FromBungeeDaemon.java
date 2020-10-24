@@ -3,6 +3,8 @@ package com.blalp.chatdirector.modules.bungee;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.ItemDaemon;
@@ -28,11 +30,18 @@ public class FromBungeeDaemon extends ItemDaemon {
         short len = in.readShort();
         byte[] msgbytes = new byte[len];
         in.readFully(msgbytes);
+        Map<String,String> context = new LinkedHashMap<String,String>();
         for (FromBungeeItem item : (FromBungeeItem[]) instance.items.toArray()) {
             DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
             if (item.channel.equals(in.readUTF())) {
                 try {
-                    item.startWork(msgin.readUTF(),true,ChatDirector.formatter.getContext(player));
+                    context = new LinkedHashMap<String,String>();
+                    int contextLength = in.readInt();
+                    for (int i = 0; i < contextLength; i++) {
+                        context.put(in.readUTF(),in.readUTF());
+                    }
+                    context.putAll(ChatDirector.formatter.getContext(player));
+                    item.startWork(msgin.readUTF(),true,context);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
