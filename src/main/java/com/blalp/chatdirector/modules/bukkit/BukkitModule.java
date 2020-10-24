@@ -15,11 +15,16 @@ public class BukkitModule extends Module {
     @Override
     public void load() {
         ChatDirector.addFormatter(new BukkitFormatter());
-        new BukkitInputDaemon().load();
+        if(BukkitCommandInputDaemon.instance!=null){
+            BukkitCommandInputDaemon.instance.load();
+        }
     }
 
     @Override
     public void unload() {
+        if(BukkitCommandInputDaemon.instance!=null){
+            BukkitCommandInputDaemon.instance.unload();
+        }
     }
     @Override
     public String[] getItemNames() {

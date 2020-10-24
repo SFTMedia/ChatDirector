@@ -58,11 +58,16 @@ public class BungeeModule extends Module {
 
     @Override
     public void load() {
-        
+        if(FromBungeeDaemon.instance!=null){
+            FromBungeeDaemon.instance.load();
+        }
     }
 
     @Override
     public void unload() {
+        if(FromBungeeDaemon.instance!=null){
+            FromBungeeDaemon.instance.unload();
+        }
     }
     
 }
