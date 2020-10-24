@@ -53,57 +53,57 @@ public class BungeeModule extends Module {
                 return item2;
             case "bungee-playerlist":
                 BungeePlayerlistItem itemPlayerlist = new BungeePlayerlistItem();
-                LinkedHashMap<String,String> configMapPlayerlist = ((LinkedHashMap<String,String>)config);
+                LinkedHashMap<String,Object> configMapPlayerlist = ((LinkedHashMap<String,Object>)config);
                 if(configMapPlayerlist.containsKey("format")) {
-                    itemPlayerlist.format=configMapPlayerlist.get("format");
+                    itemPlayerlist.format= (String) configMapPlayerlist.get("format");
                 }
                 if(configMapPlayerlist.containsKey("format-no-players")) {
-                    itemPlayerlist.formatNoPlayers=configMapPlayerlist.get("format-no-players");
+                    itemPlayerlist.formatNoPlayers= (String) configMapPlayerlist.get("format-no-players");
                 }
                 if(configMapPlayerlist.containsKey("ignore-case")) {
-                    itemPlayerlist.ignoreCase=Boolean.parseBoolean(configMapPlayerlist.get("ignore-case"));
+                    itemPlayerlist.ignoreCase= (boolean) configMapPlayerlist.get("ignore-case");
                 }
                 if(configMapPlayerlist.containsKey("trigger-word")) {
-                    itemPlayerlist.triggerWord=configMapPlayerlist.get("trigger-word");
+                    itemPlayerlist.triggerWord= (String) configMapPlayerlist.get("trigger-word");
                 }
                 if(configMapPlayerlist.containsKey("format-player")) {
-                    itemPlayerlist.formatPlayer=configMapPlayerlist.get("format-player");
+                    itemPlayerlist.formatPlayer= (String) configMapPlayerlist.get("format-player");
                 }
                 if(configMapPlayerlist.containsKey("format-server")) {
-                    itemPlayerlist.formatServer=configMapPlayerlist.get("format-server");
+                    itemPlayerlist.formatServer= (String) configMapPlayerlist.get("format-server");
                 }
                 if(configMapPlayerlist.containsKey("split-by-server")) {
-                    itemPlayerlist.splitByServer=Boolean.parseBoolean(configMapPlayerlist.get("split-by-server"));
+                    itemPlayerlist.splitByServer= (boolean) configMapPlayerlist.get("split-by-server");
                 }
                 return itemPlayerlist;
             case "bungee-output":
                 return new BungeeOutputItem();
             case "bungee-input":
-                LinkedHashMap<String,String> configInput = ((LinkedHashMap<String,String>)config);
+                LinkedHashMap<String,Object> configInput = ((LinkedHashMap<String,Object>)config);
                 BungeeInputItem itemInput = new BungeeInputItem();
                 if(configInput.containsKey("chat")){
-                    itemInput.chat=Boolean.parseBoolean(configInput.get("chat"));
+                    itemInput.chat= (boolean) (configInput.get("chat"));
                 }
                 if(configInput.containsKey("format-chat")){
-                    itemInput.formatChat=configInput.get("format-chat");
+                    itemInput.formatChat= (String) configInput.get("format-chat");
                 }
                 if(configInput.containsKey("disconnect")){
-                    itemInput.disconnect=Boolean.parseBoolean(configInput.get("disconnect"));
+                    itemInput.disconnect= (boolean) (configInput.get("disconnect"));
                 }
                 if(configInput.containsKey("format-disconnect")){
-                    itemInput.disconnectFormat=configInput.get("format-disconnect");
+                    itemInput.disconnectFormat= (String) configInput.get("format-disconnect");
                 }
                 if(configInput.containsKey("switch-servers")){
-                    itemInput.switchServers=Boolean.parseBoolean(configInput.get("switch-servers"));
+                    itemInput.switchServers= (boolean) (configInput.get("switch-servers"));
                 }
                 if(configInput.containsKey("format-switch-servers")){
-                    itemInput.formatSwitch=configInput.get("format-switch-servers");
+                    itemInput.formatSwitch= (String) configInput.get("format-switch-servers");
                 }
                 if(configInput.containsKey("join")){
-                    itemInput.joinServer=Boolean.parseBoolean(configInput.get("join"));
+                    itemInput.joinServer= (boolean) (configInput.get("join"));
                 }
                 if(configInput.containsKey("format-join")){
-                    itemInput.formatSwitch=configInput.get("format-join");
+                    itemInput.formatSwitch= (String) configInput.get("format-join");
                 }
                 return itemInput;
         }

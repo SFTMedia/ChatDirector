@@ -30,7 +30,7 @@ pipes:
         format-player: "%PLAYER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
         trigger-word: "playerlist" # Optional
-        ignore-case: "true" # Optional
+        ignore-case: true # Optional
     - bukkit-output:
         permission: null # Optional
     - bukkit-command:
@@ -50,24 +50,64 @@ pipes:
         format-server: "%SERVER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
         trigger-word: "playerlist" # Optional
-        ignore-case: "true" # Optional
-        split-by-server: "false" # Optional
+        ignore-case: true # Optional
+        split-by-server: false # Optional
     - bungee-command:
         args: # optional
-            - subcommand-1
+          - subcommand-1
         command: "example-command"
         permission: "example-permission"
         format: "/%COMMAND% %ARGS%"
     - bungee-output: null
     - bungee-input: # All Optional
-        chat: "true"
-        disconnect: "true"
-        switch-servers: "true"
-        join: "true"
+        chat: true
+        disconnect: true
+        switch-servers: true
+        join: true
         format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
         format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
         format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
         format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
+  - console-demo:
+    - console-output: null
+    - console-output-error: null
+  - discord-demo:
+    - discord-input:
+        channel: "0" # CHANNEL_ID
+        bot: bot-name
+    - discord-resolve:
+        server: "0" # SERVER_ID
+        bot: bot-name
+        to-discord: false
+        to-plain: true
+    - discord-output:
+        channel: "0" # CHANNEL_ID
+        format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
+        bot: bot-name
+    - discord-embed: # Optional https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
+        format-author-avatar: "Author Avatar"
+        format-author-link: "Author Link"
+        format-author-name: "Author Name"
+        color: "BLUE"
+        format-description: "Description"
+        format-footer-avatar: "Footer Avatar"
+        format-footer-name: "Footer Name"
+        fields:
+          "field 1 header": "field 1 body"
+          "field 2 header": "field 2 body"
+        inline-fields:
+          "inline field 1 header": "inline field 1 body"
+          "inline field 2 header": "inline field 2 body"
+        format-image: "Image"
+        format-thumbnail: "Thumbnail"
+        format-title: "Title"
+  - file-demo:
+    - file-input:
+        path: PATH_TO_FIFO
+        delay: 500 # optional, defaults to 500
+    - file-output:
+        path: PATH_TO_FIFO
+        delay: 500 # optional, defaults to 500
   - logic-demo:
     - if-contains:
         true: # this can be any list of items
@@ -88,29 +128,6 @@ pipes:
         - pass-item: null
       - stream-2:
         - null-item: null
-  - console-demo:
-    - console-output: null
-    - console-output-error: null
-  - discord-demo:
-    - discord-input:
-        channel: "0" # CHANNEL_ID
-        bot: bot-name
-    - discord-resolve:
-        server: "0" # SERVER_ID
-        bot: bot-name
-        to-discord: false
-        to-plain: true
-    - discord-output:
-        channel: "0" # CHANNEL_ID
-        format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
-        bot: bot-name
-  - file-demo:
-    - file-input:
-        path: PATH_TO_FIFO
-        delay: 500 # optional, defaults to 500
-    - file-output:
-        path: PATH_TO_FIFO
-        delay: 500 # optional, defaults to 500
   - luckperms-demo:
     - luckperms-context: null  # This loads the PREFIX, SUFFIX and GROUP of the player in the PLAYER_NAME context.
   - replacement-demo:
@@ -130,7 +147,7 @@ pipes:
         format-player: "%PLAYER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
         trigger-word: "playerlist" # Optional
-        ignore-case: "true" # Optional
+        ignore-case: true # Optional
     - sponge-output:
         permission: null # Optional
         sender: "FakeME" # Optional

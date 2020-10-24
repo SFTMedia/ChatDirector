@@ -64,21 +64,21 @@ public class SpongeModule extends Module {
                 return item2;
             case "sponge-playerlist":
                 SpongePlayerlistItem itemPlayerlist = new SpongePlayerlistItem();
-                LinkedHashMap<String,String> configMapPlayerlist = ((LinkedHashMap<String,String>)config);
+                LinkedHashMap<String,Object> configMapPlayerlist = ((LinkedHashMap<String,Object>)config);
                 if(configMapPlayerlist.containsKey("format")) {
-                    itemPlayerlist.format=configMapPlayerlist.get("format");
+                    itemPlayerlist.format= (String) configMapPlayerlist.get("format");
                 }
                 if(configMapPlayerlist.containsKey("format-no-players")) {
-                    itemPlayerlist.formatNoPlayers=configMapPlayerlist.get("format-no-players");
+                    itemPlayerlist.formatNoPlayers= (String) configMapPlayerlist.get("format-no-players");
                 }
                 if(configMapPlayerlist.containsKey("format-player")) {
-                    itemPlayerlist.formatPlayer=configMapPlayerlist.get("format-player");
+                    itemPlayerlist.formatPlayer= (String) configMapPlayerlist.get("format-player");
                 }
                 if(configMapPlayerlist.containsKey("ignore-case")) {
-                    itemPlayerlist.ignoreCase=Boolean.parseBoolean(configMapPlayerlist.get("ignore-case"));
+                    itemPlayerlist.ignoreCase= (boolean) (configMapPlayerlist.get("ignore-case"));
                 }
                 if(configMapPlayerlist.containsKey("trigger-word")) {
-                    itemPlayerlist.triggerWord=configMapPlayerlist.get("trigger-word");
+                    itemPlayerlist.triggerWord= (String) configMapPlayerlist.get("trigger-word");
                 }
                 return itemPlayerlist;
             default:
