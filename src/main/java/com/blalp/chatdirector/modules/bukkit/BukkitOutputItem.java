@@ -7,11 +7,7 @@ import com.blalp.chatdirector.model.Item;
 import org.bukkit.Bukkit;
 
 public class BukkitOutputItem extends Item {
-    public String permission;
-
-    public BukkitOutputItem(String permission){
-        this.permission=permission;
-    }
+    public String permission=null;
 
     @Override
     public String process(String string, Map<String,String> context) {

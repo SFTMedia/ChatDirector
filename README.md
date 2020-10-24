@@ -23,6 +23,9 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - PLAYER_UUID
 - PLAYER_SERVER_NAME
 - PLAYER_SERVER_MOTD
+- SERVER_NAME
+- SERVER_MOTD
+- CHAT_MESSAGE
 ## Discord
 - DISCORD_MESSAGE
 - DISCORD_AUTHOR_ID

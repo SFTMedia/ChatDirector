@@ -15,7 +15,7 @@ public class BungeeModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"bungee-to","bungee-from","bungee-command","bungee-playerlist"};
+        return new String[]{"bungee-to","bungee-from","bungee-command","bungee-playerlist","bungee-output","bungee-input"};
     }
 
     @Override
@@ -76,6 +76,36 @@ public class BungeeModule extends Module {
                     itemPlayerlist.splitByServer=Boolean.parseBoolean(configMapPlayerlist.get("split-by-server"));
                 }
                 return itemPlayerlist;
+            case "bungee-output":
+                return new BungeeOutputItem();
+            case "bungee-input":
+                LinkedHashMap<String,String> configInput = ((LinkedHashMap<String,String>)config);
+                BungeeInputItem itemInput = new BungeeInputItem();
+                if(configInput.containsKey("chat")){
+                    itemInput.chat=Boolean.parseBoolean(configInput.get("chat"));
+                }
+                if(configInput.containsKey("format-chat")){
+                    itemInput.formatChat=configInput.get("format-chat");
+                }
+                if(configInput.containsKey("disconnect")){
+                    itemInput.disconnect=Boolean.parseBoolean(configInput.get("disconnect"));
+                }
+                if(configInput.containsKey("format-disconnect")){
+                    itemInput.disconnectFormat=configInput.get("format-disconnect");
+                }
+                if(configInput.containsKey("switch-servers")){
+                    itemInput.switchServers=Boolean.parseBoolean(configInput.get("switch-servers"));
+                }
+                if(configInput.containsKey("format-switch-servers")){
+                    itemInput.formatSwitch=configInput.get("format-switch-servers");
+                }
+                if(configInput.containsKey("join")){
+                    itemInput.joinServer=Boolean.parseBoolean(configInput.get("join"));
+                }
+                if(configInput.containsKey("format-join")){
+                    itemInput.formatSwitch=configInput.get("format-join");
+                }
+                return itemInput;
         }
         return null;
     }

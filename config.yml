@@ -24,6 +24,7 @@ pipes:
       - server
       - checkCanceled
       - new-join
+      - cancel-chat
     - bukkit-playerlist:
         format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
         format-player: "%PLAYER_NAME%" # Optional
@@ -31,7 +32,7 @@ pipes:
         trigger-word: "playerlist" # Optional
         ignore-case: "true" # Optional
     - bukkit-output:
-        permission: null
+        permission: null # Optional
     - bukkit-command:
         args: # optional
           - subcommand-1
@@ -57,6 +58,16 @@ pipes:
         command: "example-command"
         permission: "example-permission"
         format: "/%COMMAND% %ARGS%"
+    - bungee-output: null
+    - bungee-input: # All Optional
+        chat: "true"
+        disconnect: "true"
+        switch-servers: "true"
+        join: "true"
+        format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
+        format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
+        format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
+        format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
   - logic-demo:
     - if-contains:
         true: # this can be any list of items

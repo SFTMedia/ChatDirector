@@ -23,12 +23,15 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
-            if (event.isCancelled() && item.isCheckCanceled()) {
+            if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
-            if (item.isChat()) {
+            if (item.chat) {
                 Map<String,String> context = ChatDirector.formatter.getContext(event);
-                item.startWork(ChatDirector.formatter.format(item.getFormat(),context),false,context);
+                item.startWork(ChatDirector.formatter.format(item.format,context),false,context);
+            }
+            if(item.cancelChat){
+                event.setCancelled(true);
             }
         }
     }
@@ -42,11 +45,11 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
             newPlayerMessage = ChatDirector.formatter.format(newPlayerFormat,context);
         }
         for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
-            if (event.getResult().equals(Result.ALLOWED) && item.isCheckCanceled()) {
+            if (event.getResult().equals(Result.ALLOWED) && item.checkCanceled) {
                 continue;
             }
-            if (item.isJoin()) {
-                if(!event.getPlayer().hasPlayedBefore()&&item.isNewJoin()){
+            if (item.join) {
+                if(!event.getPlayer().hasPlayedBefore()&&item.newJoin){
                     item.startWork(newPlayerMessage,true,ChatDirector.formatter.getContext(event));
                 } else {
                     item.startWork(message,true,ChatDirector.formatter.getContext(event));
@@ -59,7 +62,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public void onLogout(PlayerQuitEvent event) {
         String message = "**" + event.getPlayer().getDisplayName() + " left the server**";
         for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
-            if (item.isLeave()) {
+            if (item.leave) {
                 item.startWork(message,true,ChatDirector.formatter.getContext(event));
             }
         }
@@ -72,7 +75,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
         }
         // Loaded the main world. Server started!
         for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
-            if (item.isServerStarted()) {
+            if (item.serverStarted) {
                 item.startWork("**Server Started**",true,ChatDirector.formatter.getContext(event));
             }
         }
@@ -85,7 +88,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
         }
         // Loaded the main world. Server started!
         for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
-            if (item.isServerStopped()) {
+            if (item.serverStopped) {
                 item.startWork("**Server Stopped**",true,ChatDirector.formatter.getContext(event));
             }
         }

@@ -65,9 +65,16 @@ public class BukkitModule extends Module {
                 if(configList.contains("new-join")){
                     item.newJoin=true;
                 }
+                if(configList.contains("cancel-chat")){
+                    item.cancelChat=true;
+                }
                 return item;
             case "bukkit-output":
-                return new BukkitOutputItem(((LinkedHashMap<String,String>)config).get("permission"));
+                BukkitOutputItem itemOutput = new BukkitOutputItem();
+                if(((LinkedHashMap<String,String>)config).containsKey("permission")) {
+                    itemOutput.permission=((LinkedHashMap<String,String>)config).get("permission");
+                }
+                return itemOutput;
             case "bukkit-playerlist":
                 BukkitPlayerlistItem itemPlayerlist = new BukkitPlayerlistItem();
                 LinkedHashMap<String,String> configMapPlayerlist = ((LinkedHashMap<String,String>)config);
