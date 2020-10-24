@@ -52,7 +52,30 @@ public class BungeeModule extends Module {
                 }
                 return item2;
             case "bungee-playerlist":
-                return new BungeePlayerlistItem();
+                BungeePlayerlistItem itemPlayerlist = new BungeePlayerlistItem();
+                LinkedHashMap<String,String> configMapPlayerlist = ((LinkedHashMap<String,String>)config);
+                if(configMapPlayerlist.containsKey("format")) {
+                    itemPlayerlist.format=configMapPlayerlist.get("format");
+                }
+                if(configMapPlayerlist.containsKey("format-no-players")) {
+                    itemPlayerlist.formatNoPlayers=configMapPlayerlist.get("format-no-players");
+                }
+                if(configMapPlayerlist.containsKey("ignore-case")) {
+                    itemPlayerlist.ignoreCase=Boolean.parseBoolean(configMapPlayerlist.get("ignore-case"));
+                }
+                if(configMapPlayerlist.containsKey("trigger-word")) {
+                    itemPlayerlist.triggerWord=configMapPlayerlist.get("trigger-word");
+                }
+                if(configMapPlayerlist.containsKey("format-player")) {
+                    itemPlayerlist.formatPlayer=configMapPlayerlist.get("format-player");
+                }
+                if(configMapPlayerlist.containsKey("format-server")) {
+                    itemPlayerlist.formatServer=configMapPlayerlist.get("format-server");
+                }
+                if(configMapPlayerlist.containsKey("split-by-server")) {
+                    itemPlayerlist.splitByServer=Boolean.parseBoolean(configMapPlayerlist.get("split-by-server"));
+                }
+                return itemPlayerlist;
         }
         return null;
     }

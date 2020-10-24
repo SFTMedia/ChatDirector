@@ -43,7 +43,14 @@ pipes:
         channel: "custom-channel"
     - bungee-from:
         channel: "custom-channel"
-    - bungee-playerlist: null
+    - bungee-playerlist:
+        format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
+        format-player: "%PLAYER_NAME%" # Optional
+        format-server: "%SERVER_NAME%" # Optional
+        format-no-players: "**No online players**" # Optional
+        trigger-word: "playerlist" # Optional
+        ignore-case: true # Optional
+        split-by-server: false # Optional
     - bungee-command:
         args: # optional
             - subcommand-1

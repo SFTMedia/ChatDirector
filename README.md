@@ -8,19 +8,19 @@ See config.yml
 # Valid Contexts
 USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item doesn't format, let me know.
 ## bukkit
-- NUM_PLAYERS
-- MAX_PLAYERS
+- SERVER_NUM_PLAYERS
+- SERVER_MAX_PLAYERS
 - SERVER_NAME
-- MOTD
+- SERVER_MOTD
 - PLAYER_NAME
 - PLAYER_UUID
 ### Sometimes Depending on Who Fired the Input
 - PLAYER_NAME
 ## Discord
 ## Sponge
-- NUM_PLAYERS
-- MAX_PLAYERS
-- MOTD
+- SERVER_NUM_PLAYERS
+- SERVER_MAX_PLAYERS
+- SERVER_MOTD
 - PLAYER_NAME
 - PLAYER_UUID
 ## Bungee
