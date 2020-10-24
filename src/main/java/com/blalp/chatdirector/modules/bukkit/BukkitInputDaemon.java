@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 
 public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public String format = "**%PLAYER_NAME% joined the server**";
@@ -78,7 +79,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     }
 
     @EventHandler
-    public void onServerStop(WorldLoadEvent event) {
+    public void onServerStop(WorldUnloadEvent event) {
         if(Bukkit.getWorlds().indexOf(event.getWorld())!=0){
             return;
         }
