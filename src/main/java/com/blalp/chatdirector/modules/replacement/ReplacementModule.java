@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.modules.replacement;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.blalp.chatdirector.model.IItem;
@@ -16,7 +17,7 @@ public class ReplacementModule extends Module {
     public IItem createItem(String type, Object config) {
         switch (type) {
             case "regex":
-                return new RegexItem((Map<String,String>)config);
+                return new RegexItem((ArrayList<Map<String,String>>)config);
             case "remove-colors":
                 return new RemoveColorsItem();
         }

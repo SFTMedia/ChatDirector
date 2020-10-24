@@ -28,7 +28,7 @@ public class ChatDirector extends Loadable {
         // Load config
         config = new Configuration("config.yml");
         config.load();
-        modules=config.loadedModules;
+        modules=Configuration.loadedModules;
         pipes=config.pipes;
         // Load modules
         for(IModule module:modules){

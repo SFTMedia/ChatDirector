@@ -8,6 +8,7 @@ import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.NullArgumentException;
 
 public class BukkitModule extends Module {
 
@@ -65,7 +66,27 @@ public class BukkitModule extends Module {
             case "bukkit-playerlist":
                 return new BukkitPlayerlistItem();
             case "bukkit-command":
-                return new BukkitCommandItem();
+                if(BukkitCommandInputDaemon.instance==null){
+                    new BukkitCommandInputDaemon();
+                }
+                LinkedHashMap<String,Object> configMap = ((LinkedHashMap<String,Object>)config);
+                BukkitCommandInputItem item2 = new BukkitCommandInputItem((String)configMap.get("command"), (String)configMap.get("permission"));
+                if (configMap.containsKey("args")){
+                    if(configMap.get("args") instanceof ArrayList<?>){
+                        item2.args=((ArrayList<?>)configMap.get("args")).toArray(item2.args);
+                    } else {
+                        try {
+                            throw new NullArgumentException("args needs to be a list.");
+                        } catch (NullArgumentException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                if(configMap.containsKey("format")){
+                    item2.format=(String)configMap.get("format");
+                }
+                BukkitCommandInputDaemon.instance.addItem(item2);
+                return item2;
         }
         return null;
     }

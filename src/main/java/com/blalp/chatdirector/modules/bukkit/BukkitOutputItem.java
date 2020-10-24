@@ -15,7 +15,7 @@ public class BukkitOutputItem extends Item {
 
     @Override
     public String process(String string, Map<String,String> context) {
-        if (permission.equals("")) {
+        if (permission==null) {
             Bukkit.broadcastMessage(string);
         } else {
             Bukkit.broadcast(string, permission);

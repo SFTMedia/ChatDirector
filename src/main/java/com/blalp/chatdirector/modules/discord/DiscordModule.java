@@ -46,7 +46,7 @@ public class DiscordModule extends Module {
 
     @Override
     public IItem createItem(String type, Object config) {
-        LinkedHashMap<String, String> configMap = (LinkedHashMap<String, String>)config;
+        LinkedHashMap<String, Object> configMap = (LinkedHashMap<String, Object>)config;
         switch (type) {
             case "discord-input":
                 if (!discordBots.containsKey(configMap.get("bot"))) {
@@ -57,15 +57,15 @@ public class DiscordModule extends Module {
                     }
                 }
                 if(discordBots.get(configMap.get("bot")).daemon==null){
-                    discordBots.get(configMap.get("bot")).daemon=new DiscordInputDaemon(configMap.get("bot"));
+                    discordBots.get(configMap.get("bot")).daemon=new DiscordInputDaemon((String)configMap.get("bot"));
                 }
-                DiscordItem item = new DiscordItem(configMap.get("bot"),configMap.get("channel"));
+                DiscordItem item = new DiscordItem((String)configMap.get("bot"),(String)configMap.get("channel"));
                 discordBots.get(configMap.get("bot")).daemon.addItem(item);
                 return item;
             case "discord-output":
-                return new DiscordOutputItem(configMap.get("bot"),configMap.get("channel"));
+                return new DiscordOutputItem((String)configMap.get("bot"),(String)configMap.get("channel"));
             case "discord-resolve":
-                return new DiscordResolveItem(configMap.get("bot"),configMap.get("server"));
+                return new DiscordResolveItem((String)configMap.get("bot"),(String)configMap.get("server"),(boolean)configMap.get("to-discord"),(boolean)configMap.get("to-plain"));
         }
         return null;
     }

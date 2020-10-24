@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.internalModules.common.CommonModule;
 import com.blalp.chatdirector.internalModules.common.NullItem;
 import com.blalp.chatdirector.internalModules.format.Formatters;
 import com.blalp.chatdirector.internalModules.format.IFormatter;
@@ -35,7 +36,7 @@ import org.yaml.snakeyaml.Yaml;
 public class Configuration extends Loadable {
 
     String fileName;
-    public List<IModule> loadedModules = new ArrayList<>();
+    public static List<IModule> loadedModules = new ArrayList<>();
     public HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
 
     public Configuration(String fileName) {
@@ -55,6 +56,7 @@ public class Configuration extends Loadable {
             if(configuration.containsKey("debug")){
                 baseConfiguration.debug=Boolean.parseBoolean((String)configuration.get("debug"));
             }
+            loadedModules.add(new CommonModule());
             if (configuration.containsKey("modules")) {
                 for (Object key : (Iterable<Object>)configuration.get("modules")) {
                     loadedModules.add(loadModule(key));
@@ -63,7 +65,7 @@ public class Configuration extends Loadable {
             if (configuration.containsKey("pipes")) {
                 for (LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>> outerKey : ((ArrayList<LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>>>)configuration.get("pipes"))) {
                     for (String key : outerKey.keySet()) {
-                        pipes.put(key,loadPipe(key, outerKey.get(key)));
+                        pipes.put(key,new Pipe(loadItems(outerKey.get(key))));
                     }
                 }
             }
@@ -79,7 +81,15 @@ public class Configuration extends Loadable {
             System.out.println("Pipes");
             for (String pipeKey: pipes.keySet()) {
                 System.out.println("Pipe "+pipeKey);
-                System.out.println("Root item "+pipes.get(pipeKey).rootItem);
+                IItem item = pipes.get(pipeKey).rootItem;
+                while(item!=null&&!(item instanceof NullItem)) {
+                    System.out.println(item);
+                    if (item instanceof Item){
+                        item=((Item)item).next;
+                    } else {
+                        System.out.println("Not an Item, don't know how to go deeper");
+                    }
+                }
             }
 
 
@@ -88,33 +98,38 @@ public class Configuration extends Loadable {
             e.printStackTrace();
         }
     }
-    private Pipe loadPipe(String name, ArrayList<LinkedHashMap<String,Object>> pipeObj) {
-        Pipe pipe = new Pipe();
+    public static IItem loadItems(ArrayList<LinkedHashMap<String,Object>> items) {
         IItem nullItem = new NullItem();
+        if(items==null){
+            return nullItem;
+        }
+        IItem output = null;
         IItem lastItem = null;
         IItem item=nullItem;
         LinkedHashMap<String,Object> pipeVal=null;
-        for(Object pipeValObj:pipeObj) {
+        for(Object pipeValObj:items) {
             try {
                 pipeVal = (LinkedHashMap<String, Object>) pipeValObj;
             } catch (ClassCastException e){
                 System.err.println("Make sure to have a `: null` after any items that don't require configuration.");
+                e.printStackTrace();
                 continue;
             }
             item = loadItem(pipeVal.keySet().toArray()[0].toString(),pipeVal.values().toArray()[0]);
-            if(pipe.rootItem==null){
-                pipe.rootItem=item;
+            if(output==null){
+                output=item;
             }
             if(lastItem instanceof Item){
-                ((Item)item).next=item;
+                ((Item)lastItem).next=item;
             }
+            lastItem=item;
         }
         if(item instanceof Item){
             ((Item)item).next=nullItem;
         }
-        return pipe;
+        return output;
     }
-    private IItem loadItem(String key, Object item) {
+    public static IItem loadItem(String key, Object item) {
         for (IModule iModule : loadedModules) {
             for(String itemType: iModule.getItemNames()){
                 if(key.equalsIgnoreCase(itemType)){

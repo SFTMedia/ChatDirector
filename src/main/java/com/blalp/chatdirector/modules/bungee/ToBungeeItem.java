@@ -13,6 +13,9 @@ import org.bukkit.entity.Player;
 
 public class ToBungeeItem extends Item {
     public String channel;
+    public ToBungeeItem(String channel){
+        this.channel=channel;
+    }
     @Override
     public String process(String string, Map<String,String> context) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
