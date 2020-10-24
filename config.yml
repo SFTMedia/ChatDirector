@@ -8,10 +8,10 @@ modules:
       bots:
         - bot-name: TOKEN
   - file
-#  - luckperms
+  - luckperms
   - replacement
-#  - sponge
-#  - vault
+  - sponge
+  - vault
 pipes:
   - common-demo: # This module is always loaded
     - pass-item: null # This just passes the string on
@@ -29,7 +29,7 @@ pipes:
         format-player: "%PLAYER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
         trigger-word: "playerlist" # Optional
-        ignore-case: true # Optional
+        ignore-case: "true" # Optional
     - bukkit-output:
         permission: null
     - bukkit-command:
@@ -49,8 +49,8 @@ pipes:
         format-server: "%SERVER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
         trigger-word: "playerlist" # Optional
-        ignore-case: true # Optional
-        split-by-server: false # Optional
+        ignore-case: "true" # Optional
+        split-by-server: "false" # Optional
     - bungee-command:
         args: # optional
             - subcommand-1
@@ -119,7 +119,7 @@ pipes:
         format-player: "%PLAYER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
         trigger-word: "playerlist" # Optional
-        ignore-case: true # Optional
+        ignore-case: "true" # Optional
     - sponge-output:
         permission: null
   - vault-demo:

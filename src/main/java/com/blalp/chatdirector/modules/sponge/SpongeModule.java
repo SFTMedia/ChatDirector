@@ -61,6 +61,7 @@ public class SpongeModule extends Module {
                     item2.leave=true;
                 }
                 SpongeInputDaemon.instance.addItem(item2);
+                return item2;
             case "sponge-playerlist":
                 SpongePlayerlistItem itemPlayerlist = new SpongePlayerlistItem();
                 LinkedHashMap<String,String> configMapPlayerlist = ((LinkedHashMap<String,String>)config);
