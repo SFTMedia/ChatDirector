@@ -55,6 +55,6 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - PLAYER_GROUP
 
 # TODO
-- Anything that starts work should have context
-- Add format to discord-input
-- Add more contexts as needed.
+- Add command inputs for Sponge (take a look at command-utils)
+- Add Bungee Input for transfer messages with formats
+- Add more formats as requested
