@@ -121,6 +121,7 @@ pipes:
         trigger-word: "playerlist" # Optional
         ignore-case: "true" # Optional
     - sponge-output:
-        permission: null
+        permission: null # Optional
+        sender: "FakeME" # Optional
   - vault-demo:
     - vault-context: null  # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.
