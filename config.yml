@@ -37,6 +37,7 @@ pipes:
         channel: "custom-channel"
     - bungee-from:
         channel: "custom-channel"
+    - bungee-playerlist: null
     - bungee-command:
         args: # optional
             - subcommand-1

@@ -14,7 +14,7 @@ public class BungeeModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"bungee-to","bungee-from","bungee-command"};
+        return new String[]{"bungee-to","bungee-from","bungee-command","bungee-playerlist"};
     }
 
     @Override
@@ -50,6 +50,8 @@ public class BungeeModule extends Module {
                     item2.format=(String)configMap.get("format");
                 }
                 return item2;
+            case "bungee-playerlist":
+                return new BungeePlayerlistItem();
         }
         return null;
     }
