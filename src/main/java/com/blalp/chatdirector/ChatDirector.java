@@ -7,8 +7,6 @@ import java.util.List;
 import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.internalModules.format.Formatters;
 import com.blalp.chatdirector.internalModules.format.IFormatter;
-import com.blalp.chatdirector.internalModules.permissions.DenyPermission;
-import com.blalp.chatdirector.internalModules.permissions.IPermission;
 import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.Pipe;
 import com.blalp.chatdirector.modules.IModule;
@@ -20,7 +18,6 @@ public class ChatDirector extends Loadable {
         chatDirector.load();
     }
     public static IFormatter formatter = new Formatters();
-    public static IPermission permission = new DenyPermission();
     List<IModule> modules = new ArrayList<>();
     HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
     Configuration config;

@@ -86,11 +86,13 @@ pipes:
     - file-output:
         path: PATH_TO_FIFO
         delay: 500 # optional, defaults to 500
-  - luckperms-demo: null
+  - luckperms-demo:
+    - luckperms-context: null  # This loads the PREFIX, SUFFIX and GROUP of the player in the PLAYERNAME context.
   - replacement-demo:
     - regex:
       - "Regex to find": "regex to replace"
       - "Regex to find": "regex to replace"
     - remove-colors: null
   - sponge-demo: null
-  - vault-demo: null
+  - vault-demo:
+    - vault-context: null  # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYERNAME context.
