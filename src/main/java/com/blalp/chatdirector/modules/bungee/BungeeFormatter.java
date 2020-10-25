@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.blalp.chatdirector.internalModules.format.Formatter;
-import com.mysql.fabric.Server;
 
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

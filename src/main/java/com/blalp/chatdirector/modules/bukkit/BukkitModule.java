@@ -2,13 +2,11 @@ package com.blalp.chatdirector.modules.bukkit;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
-
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.NullArgumentException;
 
 public class BukkitModule extends Module {
 
@@ -35,38 +33,34 @@ public class BukkitModule extends Module {
     public IItem createItem(String type, Object config) {
         switch (type){
             case "bukkit-input":
-                ArrayList<String> configList = (ArrayList<String>)config;
+                Map<String,Object> configList = (Map<String,Object>)config;
                 BukkitInputItem item = new BukkitInputItem();
-                if(configList.contains("server-stopped")){
-                    item.serverStopped=true;
+                if(configList.containsKey("server-stopped")){
+                    item.serverStopped= (boolean) configList.get("server-stopped");
                 }
-                if(configList.contains("server-started")){
-                    item.serverStarted=true;
+                if(configList.containsKey("server-started")){
+                    item.serverStarted=(boolean) configList.get("server-started");
                 }
-                if(configList.contains("chat")){
-                    item.chat=true;
+                if(configList.containsKey("chat")){
+                    item.chat=(boolean) configList.get("chat");
                 }
-                if(configList.contains("check-canceled")){
-                    item.checkCanceled=true;
+                if(configList.containsKey("check-canceled")){
+                    item.checkCanceled=(boolean) configList.get("check-canceled");
                 }
-                if(configList.contains("format")){
-                    try {
-                        throw new NotImplementedException();
-                    } catch (NotImplementedException e){
-                        e.printStackTrace();
-                    }
+                if(configList.containsKey("format")){
+                    item.format= (String) configList.get("format");
                 }
-                if(configList.contains("join")){
-                    item.join=true;
+                if(configList.containsKey("join")){
+                    item.join=(boolean) configList.get("join");
                 }
-                if(configList.contains("leave")){
-                    item.leave=true;
+                if(configList.containsKey("leave")){
+                    item.leave=(boolean) configList.get("leave");
                 }
-                if(configList.contains("new-join")){
-                    item.newJoin=true;
+                if(configList.containsKey("new-join")){
+                    item.newJoin=(boolean) configList.get("new-join");
                 }
-                if(configList.contains("cancel-chat")){
-                    item.cancelChat=true;
+                if(configList.containsKey("cancel-chat")){
+                    item.cancelChat=(boolean) configList.get("cancel-chat");
                 }
                 return item;
             case "bukkit-output":
@@ -105,8 +99,8 @@ public class BukkitModule extends Module {
                         item2.args=((ArrayList<?>)configMap.get("args")).toArray(item2.args);
                     } else {
                         try {
-                            throw new NullArgumentException("args needs to be a list.");
-                        } catch (NullArgumentException e){
+                            throw new NullPointerException("args needs to be a list.");
+                        } catch (NullPointerException e){
                             e.printStackTrace();
                         }
                     }

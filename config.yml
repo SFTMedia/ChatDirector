@@ -6,7 +6,7 @@ modules:
   - console
   - discord:
       bots:
-        - bot-name: TOKEN
+        bot-name: "TOKEN"
   - file
   - luckperms
   - replacement
@@ -18,13 +18,14 @@ pipes:
     - null-item: null # This sets the string to nothing
   - bukkit-demo:
     - bukkit-input: # All of these are optional
-      - chat
-      - leave
-      - join
-      - server
-      - checkCanceled
-      - new-join
-      - cancel-chat
+        chat: true
+        leave: true
+        join: true
+        server: true
+        check-canceled: true
+        new-join: true
+        cancel-chat: true
+        format: "%PLAYER_NAME%: %CHAT_MESSAGE%"
     - bukkit-playerlist:
         format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
         format-player: "%PLAYER_NAME%" # Optional
@@ -137,11 +138,12 @@ pipes:
     - remove-colors: null
   - sponge-demo:
     - sponge-input: # All of these are optional
-      - chat
-      - leave
-      - join
-      - server
-      - checkCanceled
+        chat: true
+        leave: true
+        join: true
+        server: true
+        check-canceled: true
+        format: "%PLAYER_NAME%: %CHAT_MESSAGE%"
     - sponge-playerlist:
         format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
         format-player: "%PLAYER_NAME%" # Optional

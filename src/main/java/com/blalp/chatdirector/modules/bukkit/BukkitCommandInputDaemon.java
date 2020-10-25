@@ -16,7 +16,7 @@ public class BukkitCommandInputDaemon extends ItemDaemon {
     }
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Map<String,String> context=null;
-        for(BukkitCommandInputItem item:(BukkitCommandInputItem[])items.toArray()) {
+        for(BukkitCommandInputItem item:items.toArray(new BukkitCommandInputItem[]{})) {
             if(item.commandName.equals(command.getName())&&sender.hasPermission(item.permission)){
                 for (int i = 0; i < item.args.length; i++) {
                     if(!item.args[i].equals(args[i])){

@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.modules.sponge;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
@@ -19,7 +20,7 @@ public class SpongeInputDaemon extends ItemDaemon {
     }
 	public void onServerStop(GameStoppedServerEvent e) {
         // Loaded the main world. Server started!
-        for (SpongeInputItem item : (SpongeInputItem[])items.toArray()) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (item.serverStopped) {
                 item.startWork("**Server Stopped**",true,ChatDirector.formatter.getContext(e));
             }
@@ -27,14 +28,14 @@ public class SpongeInputDaemon extends ItemDaemon {
 	}
 	public void onServerStart(GameStartedServerEvent event) {
         // Loaded the main world. Server started!
-        for (SpongeInputItem item : (SpongeInputItem[])items.toArray()) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (item.serverStarted) {
                 item.startWork("**Server Started**",true,ChatDirector.formatter.getContext(event));
             }
         }
 	}
 	public void onChat(Chat event) {
-        for (SpongeInputItem item : (SpongeInputItem[])items.toArray()) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
@@ -47,7 +48,7 @@ public class SpongeInputDaemon extends ItemDaemon {
 	public void onLogin(Login event) {
         Map<String,String> context = ChatDirector.formatter.getContext(event);
         String message = ChatDirector.formatter.format(format,context);
-        for (SpongeInputItem item : (SpongeInputItem[])items.toArray()) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
@@ -58,7 +59,7 @@ public class SpongeInputDaemon extends ItemDaemon {
 	}
 	public void onLogout(Disconnect event) {
         String message = "**" + event.getTargetEntity().getName() + " left the server**";
-        for (SpongeInputItem item : (SpongeInputItem[])items.toArray()) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (item.leave) {
                 item.startWork(message,true,ChatDirector.formatter.getContext(event));
             }

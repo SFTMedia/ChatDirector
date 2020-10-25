@@ -7,6 +7,7 @@ import com.blalp.chatdirector.internalModules.format.Formatter;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.message.MessageChannelEvent.Chat;
 import org.spongepowered.api.event.user.TargetUserEvent;
 
@@ -16,7 +17,12 @@ public class SpongeFormatter extends Formatter {
         HashMap<String,String> context = new HashMap<>();
         context.put("SERVER_NUM_PLAYERS",String.valueOf(Sponge.getServer().getOnlinePlayers().size()));
         context.put("SERVER_MAX_PLAYERS",String.valueOf(Sponge.getServer().getMaxPlayers()));
-        context.put("SERVER_MOTD",String.valueOf(Sponge.getServer().getMotd()));
+        context.put("SERVER_MOTD",String.valueOf(Sponge.getServer().getMotd().toPlain()));
+        if(event instanceof Event) {
+            if(((Event)event).getCause().first(Player.class).isPresent()){
+                context.putAll(getContext(((Event)event).getCause().first(Player.class).get()));
+            }
+        }
         if(event instanceof Player) {
             context.put("PLAYER_NAME",((Player)event).getName());
             context.put("PLAYER_UUID",((Player)event).getUniqueId().toString());
@@ -26,8 +32,7 @@ public class SpongeFormatter extends Formatter {
             context.put("CHAT_FORMAT",((Chat)event).getMessage().getFormat().toString());
         }
         if(event instanceof TargetUserEvent){
-            context.put("PLAYER_NAME",((TargetUserEvent)event).getTargetUser().getName());
-            context.put("PLAYER_UUID",((TargetUserEvent)event).getTargetUser().getUniqueId().toString());
+            context.putAll(getContext(((TargetUserEvent)event).getTargetUser()));
         }
         return context;
     }

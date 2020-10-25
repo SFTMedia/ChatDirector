@@ -24,13 +24,26 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.2</version>
 				<configuration>
-					<artifactSet>
-						<includes>
-							<include>org.yaml:snakeyaml</include>
-							<include>org.javacord:javacord-api</include>
-							<include>org.javacord:javacord-core</include>
-						</includes>
-					</artifactSet>
+					<transformers>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<manifestEntries>
+								<Main-Class>com.blalp.chatdirector.ChatDirector</Main-Class>
+								<Build-Number>1.0</Build-Number>
+							</manifestEntries>
+						</transformer>
+					</transformers>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/versions/</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					</filters>
 				</configuration>
 				<executions>
 					<execution>

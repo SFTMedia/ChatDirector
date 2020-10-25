@@ -22,7 +22,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public String newPlayerFormat = "Welcome %PLAYER_NAME%!";
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
+        for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
@@ -44,7 +44,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
         if(!event.getPlayer().hasPlayedBefore()){
             newPlayerMessage = ChatDirector.formatter.format(newPlayerFormat,context);
         }
-        for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
+        for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (event.getResult().equals(Result.ALLOWED) && item.checkCanceled) {
                 continue;
             }
@@ -61,7 +61,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     @EventHandler
     public void onLogout(PlayerQuitEvent event) {
         String message = "**" + event.getPlayer().getDisplayName() + " left the server**";
-        for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
+        for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (item.leave) {
                 item.startWork(message,true,ChatDirector.formatter.getContext(event));
             }
@@ -74,7 +74,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
             return;
         }
         // Loaded the main world. Server started!
-        for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
+        for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (item.serverStarted) {
                 item.startWork("**Server Started**",true,ChatDirector.formatter.getContext(event));
             }
@@ -87,7 +87,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
             return;
         }
         // Loaded the main world. Server started!
-        for (BukkitInputItem item : (BukkitInputItem[])items.toArray()) {
+        for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (item.serverStopped) {
                 item.startWork("**Server Stopped**",true,ChatDirector.formatter.getContext(event));
             }

@@ -9,8 +9,6 @@ import com.blalp.chatdirector.modules.Module;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommandInputDaemon;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommandInputItem;
 
-import org.apache.commons.lang.NullArgumentException;
-
 public class BungeeModule extends Module {
 
     @Override
@@ -41,8 +39,8 @@ public class BungeeModule extends Module {
                         item2.args=((ArrayList<?>)configMap.get("args")).toArray(item2.args);
                     } else {
                         try {
-                            throw new NullArgumentException("args needs to be a list.");
-                        } catch (NullArgumentException e){
+                            throw new NullPointerException("args needs to be a list.");
+                        } catch (NullPointerException e){
                             e.printStackTrace();
                         }
                     }

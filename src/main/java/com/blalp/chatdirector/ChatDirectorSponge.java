@@ -1,7 +1,10 @@
 package com.blalp.chatdirector;
 
+import java.io.File;
+
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
 
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
@@ -16,6 +19,8 @@ public class ChatDirectorSponge {
 
     public ChatDirectorSponge() {
         chatDirector = new ChatDirector();
+        new File("config"+File.separatorChar+"chatdirector").mkdirs();
+        chatDirector.path="config"+File.separatorChar+"chatdirector"+File.separatorChar+"config.yml";
     }
     
     @Listener

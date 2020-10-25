@@ -2,7 +2,6 @@ package com.blalp.chatdirector.modules.bungee;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Item;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.internalModules.format.IFormatter;
@@ -13,12 +14,10 @@ import com.blalp.chatdirector.modules.Module;
 
 public class DiscordModule extends Module {
     public IFormatter formatter = new DiscordFormatter();
-    public DiscordModule(LinkedHashMap<String,ArrayList<LinkedHashMap<String,String>>> map){
-        for (LinkedHashMap<String,String> botMap : map.get("bots")) {
-            String botName = (String)botMap.keySet().toArray()[0];
-            String token = (String)botMap.values().toArray()[0];
-            DiscordBot bot = new DiscordBot(token);
-            discordBots.put(botName, bot);
+    public DiscordModule(LinkedHashMap<String,LinkedHashMap<String,String>> map){
+        for (Entry<String,String> botMap : map.get("bots").entrySet()) {
+            DiscordBot bot = new DiscordBot(botMap.getValue());
+            discordBots.put(botMap.getKey(), bot);
         }
     }
     public static Map<String, DiscordBot> discordBots = new HashMap<>();
@@ -28,6 +27,9 @@ public class DiscordModule extends Module {
         ChatDirector.addFormatter(new DiscordFormatter());
         for(DiscordBot bot : discordBots.values()){
             bot.load();
+            if(bot.daemon!=null){
+                bot.daemon.load();
+            }
         }
     }
 
@@ -35,6 +37,9 @@ public class DiscordModule extends Module {
     public void unload() {
         for(DiscordBot bot : discordBots.values()){
             bot.unload();
+            if(bot.daemon!=null){
+                bot.daemon.unload();
+            }
         }
         discordBots = new HashMap<>();
     }

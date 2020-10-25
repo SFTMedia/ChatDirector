@@ -10,7 +10,7 @@ public class FileInputDaemon extends ItemDaemon {
 
     @Override
     public void load() {
-        for (FileInputItem item : (FileInputItem[])items.toArray()) {
+        for (FileInputItem item : items.toArray(new FileInputItem[]{})) {
             Thread thread = new Thread(item);
             thread.start();
             runners.add(item);

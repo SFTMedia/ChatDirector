@@ -2,12 +2,11 @@ package com.blalp.chatdirector.modules.sponge;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
-
-import org.apache.commons.lang.NotImplementedException;
 
 public class SpongeModule extends Module {
 
@@ -33,32 +32,28 @@ public class SpongeModule extends Module {
                 if(SpongeInputDaemon.instance==null){
                     new SpongeInputDaemon();
                 }
+                Map<String,Object> configList = (Map<String,Object>)config;
                 SpongeInputItem item2 = new SpongeInputItem();
-                ArrayList<String> configList = (ArrayList<String>)config;
-                if(configList.contains("server-stopped")){
-                    item2.serverStopped=true;
+                if(configList.containsKey("server-stopped")){
+                    item2.serverStopped= (boolean) configList.get("server-stopped");
                 }
-                if(configList.contains("server-started")){
-                    item2.serverStarted=true;
+                if(configList.containsKey("server-started")){
+                    item2.serverStarted=(boolean) configList.get("server-started");
                 }
-                if(configList.contains("chat")){
-                    item2.chat=true;
+                if(configList.containsKey("chat")){
+                    item2.chat=(boolean) configList.get("chat");
                 }
-                if(configList.contains("check-canceled")){
-                    item2.checkCanceled=true;
+                if(configList.containsKey("check-canceled")){
+                    item2.checkCanceled=(boolean) configList.get("check-canceled");
                 }
-                if(configList.contains("format")){
-                    try {
-                        throw new NotImplementedException();
-                    } catch (NotImplementedException e){
-                        e.printStackTrace();
-                    }
+                if(configList.containsKey("format")){
+                    item2.format= (String) configList.get("format");
                 }
-                if(configList.contains("join")){
-                    item2.join=true;
+                if(configList.containsKey("join")){
+                    item2.join=(boolean) configList.get("join");
                 }
-                if(configList.contains("leave")){
-                    item2.leave=true;
+                if(configList.containsKey("leave")){
+                    item2.leave=(boolean) configList.get("leave");
                 }
                 SpongeInputDaemon.instance.addItem(item2);
                 return item2;

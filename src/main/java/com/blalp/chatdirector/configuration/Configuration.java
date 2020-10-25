@@ -13,7 +13,6 @@ import com.blalp.chatdirector.internalModules.common.CommonModule;
 import com.blalp.chatdirector.internalModules.common.NullItem;
 import com.blalp.chatdirector.internalModules.format.Formatters;
 import com.blalp.chatdirector.internalModules.format.IFormatter;
-import com.blalp.chatdirector.model.BaseConfiguration;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.Loadable;
@@ -30,13 +29,13 @@ import com.blalp.chatdirector.modules.replacement.ReplacementModule;
 import com.blalp.chatdirector.modules.sponge.SpongeModule;
 import com.blalp.chatdirector.modules.vault.VaultModule;
 
-import org.apache.commons.lang.NullArgumentException;
 import org.yaml.snakeyaml.Yaml;
 
 public class Configuration extends Loadable {
 
     String fileName;
     public static List<IModule> loadedModules = new ArrayList<>();
+	public static boolean debug;
     public HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
 
     public Configuration(String fileName) {
@@ -51,10 +50,9 @@ public class Configuration extends Loadable {
 //        constructor.addTypeDescription(typeDescription);
         Yaml yaml = new Yaml();
         try {
-            BaseConfiguration baseConfiguration = new BaseConfiguration();
             Map<String,Object> configuration = (Map<String,Object>)yaml.load(new FileReader(fileName));
             if(configuration.containsKey("debug")){
-                baseConfiguration.debug=Boolean.parseBoolean((String)configuration.get("debug"));
+                debug= (boolean) configuration.get("debug");
             }
             loadedModules.add(new CommonModule());
             if (configuration.containsKey("modules")) {
@@ -164,7 +162,7 @@ public class Configuration extends Loadable {
             case "console":
                 return new ConsoleModule();
             case "discord":
-                return new DiscordModule((LinkedHashMap<String,ArrayList<LinkedHashMap<String,String>>>) ((Map)module).get(type));
+                return new DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             case "file":
                 return new FileModule();
             case "luckperms":
@@ -176,7 +174,7 @@ public class Configuration extends Loadable {
             case "vault":
                 return new VaultModule();
             default:
-                throw new NullArgumentException("Module "+type+" not found.");
+                throw new NullPointerException("Module "+type+" not found.");
         }
     }
 
