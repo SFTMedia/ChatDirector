@@ -2,6 +2,8 @@ package com.blalp.chatdirector;
 
 import java.io.File;
 
+import com.blalp.chatdirector.configuration.ConfigurationBungee;
+
 import net.md_5.bungee.api.plugin.Plugin;
 
 
@@ -11,9 +13,8 @@ public class ChatDirectorBungee extends Plugin {
 
     public ChatDirectorBungee() {
         instance = this;
-        chatDirector = new ChatDirector();
+        chatDirector = new ChatDirector(new ConfigurationBungee(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
         this.getDataFolder().mkdirs();
-        chatDirector.path=this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml";
     }
     
     @Override

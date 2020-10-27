@@ -2,6 +2,7 @@ package com.blalp.chatdirector;
 
 import java.io.File;
 
+import com.blalp.chatdirector.configuration.ConfigurationBukkit;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommandInputDaemon;
 import com.blalp.chatdirector.modules.bungee.FromBungeeDaemon;
 
@@ -17,9 +18,8 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
 
     public ChatDirectorBukkit() {
         instance = this;
-        chatDirector = new ChatDirector();
+        chatDirector = new ChatDirector(new ConfigurationBukkit(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
         this.getDataFolder().mkdirs();
-        chatDirector.path=this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml";
     }
     
     @Override

@@ -63,25 +63,26 @@ public class Configuration extends Loadable {
                     }
                 }
             }
-            
-            System.out.println("Formatters");
-            for (IFormatter formatter : ((Formatters)ChatDirector.formatter).formatters) {
-                System.out.println(formatter);
-            }
-            System.out.println("Modules");
-            for (IModule module : loadedModules) {
-                System.out.println(module);
-            }
-            System.out.println("Pipes");
-            for (String pipeKey: pipes.keySet()) {
-                System.out.println("Pipe "+pipeKey);
-                IItem item = pipes.get(pipeKey).rootItem;
-                while(item!=null&&!(item instanceof NullItem)) {
-                    System.out.println(item);
-                    if (item instanceof Item){
-                        item=((Item)item).next;
-                    } else {
-                        System.out.println("Not an Item, don't know how to go deeper");
+            if(debug){
+                System.out.println("Formatters");
+                for (IFormatter formatter : ((Formatters)ChatDirector.formatter).formatters) {
+                    System.out.println(formatter);
+                }
+                System.out.println("Modules");
+                for (IModule module : loadedModules) {
+                    System.out.println(module);
+                }
+                System.out.println("Pipes");
+                for (String pipeKey: pipes.keySet()) {
+                    System.out.println("Pipe "+pipeKey);
+                    IItem item = pipes.get(pipeKey).rootItem;
+                    while(item!=null&&!(item instanceof NullItem)) {
+                        System.out.println(item);
+                        if (item instanceof Item){
+                            item=((Item)item).next;
+                        } else {
+                            System.out.println("Not an Item, don't know how to go deeper");
+                        }
                     }
                 }
             }

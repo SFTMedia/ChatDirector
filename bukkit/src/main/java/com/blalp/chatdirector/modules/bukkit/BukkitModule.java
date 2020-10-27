@@ -16,12 +16,18 @@ public class BukkitModule extends Module {
         if(BukkitCommandInputDaemon.instance!=null){
             BukkitCommandInputDaemon.instance.load();
         }
+        if(BukkitInputDaemon.instance!=null){
+            BukkitInputDaemon.instance.load();
+        }
     }
 
     @Override
     public void unload() {
         if(BukkitCommandInputDaemon.instance!=null){
             BukkitCommandInputDaemon.instance.unload();
+        }
+        if(BukkitInputDaemon.instance!=null){
+            BukkitInputDaemon.instance.unload();
         }
     }
     @Override
@@ -33,6 +39,10 @@ public class BukkitModule extends Module {
     public IItem createItem(String type, Object config) {
         switch (type){
             case "bukkit-input":
+                if(BukkitInputDaemon.instance==null){
+                    new BukkitInputDaemon();
+                    BukkitInputDaemon.instance.load();
+                }
                 Map<String,Object> configList = (Map<String,Object>)config;
                 BukkitInputItem item = new BukkitInputItem();
                 if(configList.containsKey("server-stopped")){
@@ -62,6 +72,7 @@ public class BukkitModule extends Module {
                 if(configList.containsKey("cancel-chat")){
                     item.cancelChat=(boolean) configList.get("cancel-chat");
                 }
+                BukkitInputDaemon.instance.addItem(item);
                 return item;
             case "bukkit-output":
                 BukkitOutputItem itemOutput = new BukkitOutputItem();
@@ -91,6 +102,7 @@ public class BukkitModule extends Module {
             case "bukkit-command":
                 if(BukkitCommandInputDaemon.instance==null){
                     new BukkitCommandInputDaemon();
+                    BukkitCommandInputDaemon.instance.load();
                 }
                 LinkedHashMap<String,Object> configMap = ((LinkedHashMap<String,Object>)config);
                 BukkitCommandInputItem item2 = new BukkitCommandInputItem((String)configMap.get("command"), (String)configMap.get("permission"));

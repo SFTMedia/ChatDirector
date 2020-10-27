@@ -1,4 +1,4 @@
-main: com.blalp.chatdirector.ChatDirectorBukkit
+main: com.blalp.chatdirector.ChatDirectorBungee
 version: 0.0.4-alpha
 name: ChatDirector
 softdepend: [Vault,LuckPerms]

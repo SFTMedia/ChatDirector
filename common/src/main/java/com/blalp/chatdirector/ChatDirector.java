@@ -13,18 +13,19 @@ import com.blalp.chatdirector.modules.IModule;
 
 // Should implement both bungee, sponge and bukkit if possible
 public class ChatDirector extends Loadable {
-    public String path = "config.yml";
+    public static Configuration config;
     public static void main(String[] args) {
-        ChatDirector chatDirector = new ChatDirector();
+        ChatDirector chatDirector = new ChatDirector(new Configuration("config.yml"));
         chatDirector.load();
+    }
+    public ChatDirector(Configuration configuration){
+        this.config=configuration;
     }
     public static IFormatter formatter = new Formatters();
     List<IModule> modules = new ArrayList<>();
     HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
-    Configuration config;
     public void load(){
         // Load config
-        config = new Configuration(path);
         config.load();
         modules=Configuration.loadedModules;
         pipes=config.pipes;

@@ -20,6 +20,7 @@ public class BungeeModule extends Module {
             case "bungee-from":
                 if(FromBungeeDaemon.instance==null){
                     FromBungeeDaemon.instance=new FromBungeeDaemon();
+                    FromBungeeDaemon.instance.load();
                 }
                 FromBungeeItem item = new FromBungeeItem((String)((LinkedHashMap<String,Object>)config).get("channel"));
                 FromBungeeDaemon.instance.addItem(item);

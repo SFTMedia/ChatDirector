@@ -19,6 +19,7 @@ public class BungeeModule extends Module {
             /*case "bungee-command":
                 if(BukkitCommandInputDaemon.instance==null){
                     new BukkitCommandInputDaemon();
+                    BukkitCommandInputDaemon.instance.load();
                 }
                 LinkedHashMap<String,Object> configMap = ((LinkedHashMap<String,Object>)config);
                 BukkitCommandInputItem item2 = new BukkitCommandInputItem((String)configMap.get("command"), (String)configMap.get("permission"));

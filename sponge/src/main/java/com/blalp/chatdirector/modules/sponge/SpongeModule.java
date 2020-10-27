@@ -31,6 +31,7 @@ public class SpongeModule extends Module {
             case "sponge-input":
                 if(SpongeInputDaemon.instance==null){
                     new SpongeInputDaemon();
+                    SpongeInputDaemon.instance.load();
                 }
                 Map<String,Object> configList = (Map<String,Object>)config;
                 SpongeInputItem item2 = new SpongeInputItem();

@@ -18,8 +18,14 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
 public class BukkitInputDaemon extends ItemDaemon implements Listener {
+    public static BukkitInputDaemon instance;
     public String format = "**%PLAYER_NAME% joined the server**";
     public String newPlayerFormat = "Welcome %PLAYER_NAME%!";
+
+    public BukkitInputDaemon(){
+        instance=this;
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
