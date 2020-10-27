@@ -1,13 +1,9 @@
 package com.blalp.chatdirector.modules.bungee;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
-import com.blalp.chatdirector.modules.bukkit.BukkitCommandInputDaemon;
-import com.blalp.chatdirector.modules.bukkit.BukkitCommandInputItem;
 
 public class BungeeModule extends Module {
 

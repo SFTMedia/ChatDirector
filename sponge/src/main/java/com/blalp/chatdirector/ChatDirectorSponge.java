@@ -4,7 +4,6 @@ import java.io.File;
 
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
 
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;

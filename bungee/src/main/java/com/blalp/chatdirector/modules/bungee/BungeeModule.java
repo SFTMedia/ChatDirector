@@ -1,6 +1,5 @@
 package com.blalp.chatdirector.modules.bungee;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import com.blalp.chatdirector.ChatDirector;

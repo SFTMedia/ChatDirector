@@ -2,10 +2,7 @@ package com.blalp.chatdirector;
 
 import java.io.File;
 
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
-import com.blalp.chatdirector.ChatDirector;
 
 
 public class ChatDirectorBungee extends Plugin {
