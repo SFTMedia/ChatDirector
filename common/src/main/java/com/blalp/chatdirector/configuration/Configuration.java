@@ -10,7 +10,7 @@ import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.CommonModule;
-import com.blalp.chatdirector.modules.common.NullItem;
+import com.blalp.chatdirector.modules.common.StopItem;
 import com.blalp.chatdirector.modules.format.Formatters;
 import com.blalp.chatdirector.modules.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
@@ -54,6 +54,14 @@ public class Configuration extends Loadable {
             if (configuration.containsKey("modules")) {
                 for (Object key : (Iterable<Object>)configuration.get("modules")) {
                     loadedModules.add(loadModule(key));
+                    if(loadedModules.contains(null)){
+                        loadedModules.remove(null);
+                        try {
+                            throw new NullPointerException(key+" is not a valid module for this platform");
+                        } catch(NullPointerException e){
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
             if (configuration.containsKey("pipes")) {
@@ -76,7 +84,7 @@ public class Configuration extends Loadable {
                 for (String pipeKey: pipes.keySet()) {
                     System.out.println("Pipe "+pipeKey);
                     IItem item = pipes.get(pipeKey).rootItem;
-                    while(item!=null&&!(item instanceof NullItem)) {
+                    while(item!=null&&!(item instanceof StopItem)) {
                         System.out.println(item);
                         if (item instanceof Item){
                             item=((Item)item).next;
@@ -94,7 +102,7 @@ public class Configuration extends Loadable {
         }
     }
     public static IItem loadItems(ArrayList<LinkedHashMap<String,Object>> items) {
-        IItem nullItem = new NullItem();
+        IItem nullItem = new StopItem();
         if(items==null){
             return nullItem;
         }
@@ -110,7 +118,7 @@ public class Configuration extends Loadable {
                 e.printStackTrace();
                 continue;
             }
-            item = loadItem(pipeVal.keySet().toArray()[0].toString(),pipeVal.values().toArray()[0]);
+            item = loadItem((String)pipeVal.keySet().toArray()[0],pipeVal.values().toArray()[0]);
             if(output==null){
                 output=item;
             }

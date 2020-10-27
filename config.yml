@@ -15,7 +15,7 @@ modules:
 pipes:
   - common-demo: # This module is always loaded
     - pass: null # This just passes the string on
-    - null: null # This sets the string to nothing
+    - stop: null # This sets the string to nothing and stops
     - echo: "echo'd %CURRENT%" # This sets the string to the specifiedFormat. The Previous value is set to the CURRENT context
   - bukkit-demo:
     - bukkit-input: # All of these are optional
