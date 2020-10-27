@@ -19,7 +19,7 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
         instance = this;
         chatDirector = new ChatDirector();
         this.getDataFolder().mkdirs();
-        chatDirector.path=this.getDataFolder().getAbsolutePath()+File.pathSeparatorChar+"config.yml";
+        chatDirector.path=this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml";
     }
     
     @Override
