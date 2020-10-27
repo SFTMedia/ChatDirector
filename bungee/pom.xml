@@ -15,7 +15,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<finalName>ChatDirector-${version}-${artifactId}</finalName>                   
+					<finalName>ChatDirector-${project.version}-${project.artifactId}</finalName>                   
 				</configuration>
 			</plugin>  
 			<plugin>
@@ -53,6 +53,14 @@
 						</filter>
 					</filters>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -77,7 +85,7 @@
 		<dependency>
 			<groupId>com.blalp.chatdirector</groupId>
 			<artifactId>common</artifactId>
-			<version>${version}</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
