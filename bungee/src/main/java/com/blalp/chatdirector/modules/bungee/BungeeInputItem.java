@@ -1,6 +1,6 @@
 package com.blalp.chatdirector.modules.bungee;
 
-import com.blalp.chatdirector.internalModules.common.PassItem;
+import com.blalp.chatdirector.modules.common.PassItem;
 
 import net.md_5.bungee.api.plugin.Listener;
 

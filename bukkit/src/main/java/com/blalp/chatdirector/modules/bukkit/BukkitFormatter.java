@@ -3,7 +3,7 @@ package com.blalp.chatdirector.modules.bukkit;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.blalp.chatdirector.internalModules.format.Formatter;
+import com.blalp.chatdirector.modules.format.Formatter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

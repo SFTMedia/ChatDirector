@@ -3,7 +3,7 @@ package com.blalp.chatdirector.modules.logic;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.blalp.chatdirector.internalModules.common.PassItem;
+import com.blalp.chatdirector.modules.common.PassItem;
 import com.blalp.chatdirector.model.IItem;
 
 public class SplitItem extends PassItem {

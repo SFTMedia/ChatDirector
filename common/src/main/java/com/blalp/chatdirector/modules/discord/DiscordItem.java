@@ -1,6 +1,6 @@
 package com.blalp.chatdirector.modules.discord;
 
-import com.blalp.chatdirector.internalModules.common.PassItem;
+import com.blalp.chatdirector.modules.common.PassItem;
 public class DiscordItem extends PassItem {
     public String botName;
     public String channelID;

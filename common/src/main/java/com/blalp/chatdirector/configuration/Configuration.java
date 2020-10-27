@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.internalModules.common.CommonModule;
-import com.blalp.chatdirector.internalModules.common.NullItem;
-import com.blalp.chatdirector.internalModules.format.Formatters;
-import com.blalp.chatdirector.internalModules.format.IFormatter;
+import com.blalp.chatdirector.modules.common.CommonModule;
+import com.blalp.chatdirector.modules.common.NullItem;
+import com.blalp.chatdirector.modules.format.Formatters;
+import com.blalp.chatdirector.modules.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.Loadable;

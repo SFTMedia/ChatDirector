@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.internalModules.common;
+package com.blalp.chatdirector.modules.common;
 
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
@@ -7,16 +7,18 @@ public class CommonModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"pass-item","null-item"};
+        return new String[]{"pass","null"};
     }
 
     @Override
     public IItem createItem(String type, Object config) {
         switch (type){
-            case "pass-item":
+            case "pass":
                 return new PassItem();
-            case "null-item":
+            case "null":
                 return new NullItem();
+            case "echo":
+                return new EchoItem((String)config);
             default:
                 return null;
         }

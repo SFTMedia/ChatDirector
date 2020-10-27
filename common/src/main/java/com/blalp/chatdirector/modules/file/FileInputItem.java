@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.internalModules.common.PassItem;
+import com.blalp.chatdirector.modules.common.PassItem;
 
 public class FileInputItem extends PassItem implements Runnable {
     public boolean stop = false;

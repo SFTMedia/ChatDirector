@@ -1,6 +1,6 @@
 package com.blalp.chatdirector.modules.bukkit;
 
-import com.blalp.chatdirector.internalModules.common.PassItem;
+import com.blalp.chatdirector.modules.common.PassItem;
 
 public class BukkitCommandInputItem extends PassItem {
     public String commandName;

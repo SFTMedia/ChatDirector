@@ -7,6 +7,8 @@ See config.yml
 
 # Valid Contexts
 USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item doesn't format, let me know.
+## Common
+- CURRENT (Used in Echo to get the previous value)
 ## Bukkit
 - SERVER_NUM_PLAYERS
 - SERVER_MAX_PLAYERS

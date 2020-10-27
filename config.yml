@@ -14,8 +14,9 @@ modules:
   - vault
 pipes:
   - common-demo: # This module is always loaded
-    - pass-item: null # This just passes the string on
-    - null-item: null # This sets the string to nothing
+    - pass: null # This just passes the string on
+    - null: null # This sets the string to nothing
+    - echo: "echo'd %CURRENT%" # This sets the string to the specifiedFormat. The Previous value is set to the CURRENT context
   - bukkit-demo:
     - bukkit-input: # All of these are optional
         chat: true
