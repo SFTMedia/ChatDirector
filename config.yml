@@ -137,6 +137,7 @@ pipes:
       - "Regex to find": "regex to replace"
       - "Regex to find": "regex to replace"
     - remove-colors: null
+    - parse-colors: null # converts & into §
   - sponge-demo:
     - sponge-input: # All of these are optional
         chat: true
