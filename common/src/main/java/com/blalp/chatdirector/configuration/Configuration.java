@@ -18,16 +18,12 @@ import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.Pipe;
 import com.blalp.chatdirector.modules.IModule;
-import com.blalp.chatdirector.modules.bukkit.BukkitModule;
-import com.blalp.chatdirector.modules.bungee.BungeeModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
 import com.blalp.chatdirector.modules.discord.DiscordModule;
 import com.blalp.chatdirector.modules.file.FileModule;
 import com.blalp.chatdirector.modules.logic.LogicModule;
 import com.blalp.chatdirector.modules.luckperms.LuckPermsModule;
 import com.blalp.chatdirector.modules.replacement.ReplacementModule;
-import com.blalp.chatdirector.modules.sponge.SpongeModule;
-import com.blalp.chatdirector.modules.vault.VaultModule;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -143,7 +139,7 @@ public class Configuration extends Loadable {
         }
         return null;
     }
-    private IModule loadModule(Object module) {
+    protected IModule loadModule(Object module) {
         String type="";
         if (module instanceof String){
             type=(String)module;
@@ -153,10 +149,6 @@ public class Configuration extends Loadable {
             type=(String)((Map)module).keySet().toArray()[0];
         }
         switch (type) {
-            case "bukkit":
-                return new BukkitModule();
-            case "bungee":
-                return new BungeeModule();
             case "logic":
                 return new LogicModule();
             case "console":
@@ -169,12 +161,8 @@ public class Configuration extends Loadable {
                 return new LuckPermsModule();
             case "replacement":
                 return new ReplacementModule();
-            case "sponge":
-                return new SpongeModule();
-            case "vault":
-                return new VaultModule();
             default:
-                throw new NullPointerException("Module "+type+" not found.");
+                return null;
         }
     }
 
