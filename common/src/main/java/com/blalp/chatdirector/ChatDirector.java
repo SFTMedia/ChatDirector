@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.blalp.chatdirector.configuration.Configuration;
-import com.blalp.chatdirector.modules.format.Formatters;
-import com.blalp.chatdirector.modules.format.IFormatter;
+import com.blalp.chatdirector.model.format.Formatters;
+import com.blalp.chatdirector.model.format.IFormatter;
 import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.Pipe;
 import com.blalp.chatdirector.modules.IModule;

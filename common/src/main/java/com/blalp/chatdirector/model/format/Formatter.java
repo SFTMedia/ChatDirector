@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.format;
+package com.blalp.chatdirector.model.format;
 
 import java.util.Map;
 import java.util.Map.Entry;

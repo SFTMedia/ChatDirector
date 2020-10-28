@@ -3,7 +3,7 @@ package com.blalp.chatdirector.modules.file;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.blalp.chatdirector.modules.format.Formatter;
+import com.blalp.chatdirector.model.format.Formatter;
 
 public class FileFormatter extends Formatter {
 

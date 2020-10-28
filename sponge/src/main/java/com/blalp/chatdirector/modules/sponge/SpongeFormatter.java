@@ -3,7 +3,7 @@ package com.blalp.chatdirector.modules.sponge;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.blalp.chatdirector.modules.format.Formatter;
+import com.blalp.chatdirector.model.format.Formatter;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;

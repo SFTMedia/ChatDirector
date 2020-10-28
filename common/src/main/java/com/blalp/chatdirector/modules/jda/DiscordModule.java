@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.modules.format.IFormatter;
+import com.blalp.chatdirector.model.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 

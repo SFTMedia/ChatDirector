@@ -3,7 +3,7 @@ package com.blalp.chatdirector.modules.jda;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.blalp.chatdirector.modules.format.Formatter;
+import com.blalp.chatdirector.model.format.Formatter;
 
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

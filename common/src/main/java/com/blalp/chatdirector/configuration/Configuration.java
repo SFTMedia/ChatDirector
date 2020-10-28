@@ -11,14 +11,15 @@ import java.util.Map;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.CommonModule;
 import com.blalp.chatdirector.modules.common.StopItem;
-import com.blalp.chatdirector.modules.format.Formatters;
-import com.blalp.chatdirector.modules.format.IFormatter;
+import com.blalp.chatdirector.model.format.Formatters;
+import com.blalp.chatdirector.model.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.Pipe;
 import com.blalp.chatdirector.modules.IModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
+import com.blalp.chatdirector.modules.context.ContextModule;
 import com.blalp.chatdirector.modules.file.FileModule;
 import com.blalp.chatdirector.modules.logic.LogicModule;
 import com.blalp.chatdirector.modules.luckperms.LuckPermsModule;
@@ -161,6 +162,8 @@ public class Configuration extends Loadable {
                 return new LogicModule();
             case "console":
                 return new ConsoleModule();
+            case "context":
+                return new ContextModule();
             case "discord":
             case "discord-jda":
                 return new com.blalp.chatdirector.modules.jda.DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));

@@ -1,6 +1,6 @@
 package com.blalp.chatdirector.modules;
 
-import com.blalp.chatdirector.modules.format.IFormatter;
+import com.blalp.chatdirector.model.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.ILoadable;
 

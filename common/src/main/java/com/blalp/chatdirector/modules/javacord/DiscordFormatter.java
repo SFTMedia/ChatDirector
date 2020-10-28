@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.blalp.chatdirector.modules.format.Formatter;
+import com.blalp.chatdirector.model.format.Formatter;
 
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
