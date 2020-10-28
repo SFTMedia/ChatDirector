@@ -106,12 +106,18 @@ public class BungeeModule extends Module {
         if(BungeeInputItemDaemon.instance!=null){
             BungeeInputItemDaemon.instance.load();;
         }
+        for(BungeeCommand command:BungeeCommand.commands){
+            command.load();
+        }
     }
 
     @Override
     public void unload() {
         if(BungeeInputItemDaemon.instance!=null){
             BungeeInputItemDaemon.instance.unload();
+        }
+        for(BungeeCommand command:BungeeCommand.commands){
+            command.unload();
         }
     }
 }
