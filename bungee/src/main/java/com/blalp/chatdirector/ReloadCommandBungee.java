@@ -12,7 +12,9 @@ public class ReloadCommandBungee extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if(sender.hasPermission("chatdirector.reload")){
+            sender.sendMessage("Starting Bungee ChatDirector reload");
             ChatDirector.instance.reload();
+            sender.sendMessage("Finished Bungee ChatDirector reload");
         }
     }
     
