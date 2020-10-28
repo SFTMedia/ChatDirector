@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.modules.javacord;
 
 import com.blalp.chatdirector.modules.common.PassItem;
 public class DiscordItem extends PassItem {

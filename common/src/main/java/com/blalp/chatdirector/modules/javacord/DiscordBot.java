@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.modules.javacord;
 
 import com.blalp.chatdirector.model.Loadable;
 

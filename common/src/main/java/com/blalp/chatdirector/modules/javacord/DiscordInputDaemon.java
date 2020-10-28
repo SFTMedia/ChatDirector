@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.modules.javacord;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.ItemDaemon;
@@ -25,13 +25,9 @@ public class DiscordInputDaemon extends ItemDaemon implements MessageCreateListe
         if (message.getAuthor().getId() == DiscordModule.discordBots.get(botName).getDiscordApi().getYourself().getId()) {
             return;
         }
-        String output = "";
         for (DiscordItem item : items.toArray(new DiscordItem[]{})) {
             if (event.getChannel().getIdAsString().equals(item.getChannelID())) {
-                if (output.equals("")) {
-                    output=ChatDirector.formatter.format(item.format, ChatDirector.formatter.getContext(event));
-                }
-                item.startWork(output,false,ChatDirector.formatter.getContext(event));
+                item.startWork(ChatDirector.formatter.format(item.format, ChatDirector.formatter.getContext(event)),false,ChatDirector.formatter.getContext(event));
             }
         }
     }

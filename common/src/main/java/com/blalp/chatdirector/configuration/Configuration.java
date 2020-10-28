@@ -19,7 +19,6 @@ import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.Pipe;
 import com.blalp.chatdirector.modules.IModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
-import com.blalp.chatdirector.modules.discord.DiscordModule;
 import com.blalp.chatdirector.modules.file.FileModule;
 import com.blalp.chatdirector.modules.logic.LogicModule;
 import com.blalp.chatdirector.modules.luckperms.LuckPermsModule;
@@ -163,7 +162,10 @@ public class Configuration extends Loadable {
             case "console":
                 return new ConsoleModule();
             case "discord":
-                return new DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
+            case "discord-jda":
+                return new com.blalp.chatdirector.modules.jda.DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
+            case "discord-javacord":
+                return new com.blalp.chatdirector.modules.javacord.DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             case "file":
                 return new FileModule();
             case "luckperms":

@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.modules.javacord;
 
 import java.util.ArrayList;
 import java.util.HashMap;

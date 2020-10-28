@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.modules.javacord;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,13 +25,12 @@ public class DiscordFormatter extends Formatter {
                 } else {
                     context.put("DISCORD_AUTHOR_NICK_NAME", context.get("DISCORD_AUTHOR_DISPLAY_NAME"));
                 }
-                context.put("DISCORD_AUTHOR_ROLE", ((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer().getHighestRole(((MessageCreateEvent)event).getMessage().getUserAuthor().get()).get().getName());
+                context.put("DISCORD_AUTHOR_ROLE", ((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer().getRoles(((MessageCreateEvent)event).getMessage().getUserAuthor().get()).get(0).getName());
                 if(((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer().getHighestRole(((MessageCreateEvent)event).getMessage().getUserAuthor().get()).get().getColor().isPresent()){
-                    context.put("DISCORD_AUTHOR_ROLE_COLOR", ((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer().getHighestRole(((MessageCreateEvent)event).getMessage().getUserAuthor().get()).get().getColor().get().toString());
+                    context.put("DISCORD_AUTHOR_ROLE_COLOR", Integer.toString(((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer().getHighestRole(((MessageCreateEvent)event).getMessage().getUserAuthor().get()).get().getColor().get().getRGB()));
                 }
                 if(context.get("DISCORD_AUTHOR_ROLE").equals("@everyone")){
                     context.put("DISCORD_AUTHOR_ROLE", "Default");
-                    context.put("DISCORD_AUTHOR_ROLE_COLOR", "Default");
                 }
             } else {
                 context.put("DISCORD_AUTHOR_ROLE", "DMs");

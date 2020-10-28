@@ -4,7 +4,10 @@ modules:
   - bungee
   - logic
   - console
-  - discord:
+  - discord-javacord:
+      bots:
+        bot-name: "TOKEN"
+  - discord-jda:
       bots:
         bot-name: "TOKEN"
   - file
@@ -70,7 +73,7 @@ pipes:
   - console-demo:
     - console-output: null
     - console-output-error: null
-  - discord-demo:
+  - discord-demo: # This applies to both javacord and jda. Load only one of the new modules.
     - discord-input:
         channel: "0" # CHANNEL_ID
         bot: bot-name

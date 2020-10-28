@@ -1,13 +1,10 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.modules.jda;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
-import com.blalp.chatdirector.model.Item;
-
-import org.javacord.api.entity.server.Server;
-import org.javacord.api.entity.user.User;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 
 public class DiscordResolveItem extends DiscordItem {
 	public DiscordResolveItem(String botName, String serverID,boolean toDiscord,boolean toPlain) {
@@ -22,7 +19,7 @@ public class DiscordResolveItem extends DiscordItem {
 	@Override
 	public String process(String string, Map<String,String> context) {
 		String s = string;
-		Server server = DiscordModule.discordBots.get(botName).getDiscordApi().getServerById(serverID).get();
+		Guild guild = DiscordModule.discordBots.get(botName).getDiscordApi().getGuildById(serverID);
 		String output = "";
 		boolean found = false;
 		for (int i = 0; i < s.length(); i++) {
@@ -32,26 +29,19 @@ public class DiscordResolveItem extends DiscordItem {
 			} else if (toPlain && (s.charAt(i) == '<' && i + 1 < s.length() && s.charAt(i + 1) == '@')) {
 				for (int i1 = i; i1 < s.length(); i1++) {
 					if (s.charAt(i1) == '>') {
-						try {
-							if (s.charAt(i + 2) == '!') {
-								output += "@" + DiscordModule.discordBots.get(botName).getDiscordApi().getUserById(s.substring(i + 3, i1))
-										.get().getName();
-							} else {
-								output += "@" + DiscordModule.discordBots.get(botName).getDiscordApi().getUserById(s.substring(i + 2, i1))
-										.get().getName();
-							}
-							i += i1 - i;
-						} catch (ExecutionException | InterruptedException e) {
-							e.printStackTrace();
+						if (s.charAt(i + 2) == '!') {
+							output += "@" + DiscordModule.discordBots.get(botName).getDiscordApi().getUserById(s.substring(i + 3, i1)).getName();
+						} else {
+							output += "@" + DiscordModule.discordBots.get(botName).getDiscordApi().getUserById(s.substring(i + 2, i1)).getName();
 						}
+						i += i1 - i;
 						break;
 					}
 				}
 			} else if (toPlain && (s.charAt(i) == '<' && i + 1 < s.length() && s.charAt(i + 1) == '#')) {
 				for (int i1 = i; i1 < s.length(); i1++) {
 					if (s.charAt(i1) == '>') {
-						output += "#" + DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(s.substring(i + 2, i1)).get()
-								.asServerChannel().get().getName();
+						output += "#" + DiscordModule.discordBots.get(botName).getDiscordApi().getTextChannelById(s.substring(i + 2, i1)).getName();
 						i += i1 - i;
 						break;
 					}
@@ -65,23 +55,23 @@ public class DiscordResolveItem extends DiscordItem {
 					// System.out.println(s.charAt(i1));
 					if (s.charAt(i1) == ' ') {
 						// System.out.println(">"+s.substring(i,i1)+"<");
-						Collection<User> users = server.getMembersByNicknameIgnoreCase(s.substring(i + 1, i1));
+						Collection<Member> users = guild.getMembersByNickname(s.substring(i + 1, i1),true);
 						if (!users.isEmpty()) {
-							output += users.iterator().next().getMentionTag();
+							output += users.iterator().next().getAsMention();
 							i = i1 - 1;
 							found = true;
 							break;
 						}
-						users = server.getMembersByDisplayNameIgnoreCase(s.substring(i + 1, i1));
+						users = guild.getMembersByEffectiveName(s.substring(i + 1, i1),true);
 						if (!users.isEmpty()) {
-							output += users.iterator().next().getMentionTag();
+							output += users.iterator().next().getAsMention();
 							i = i1 - 1;
 							found = true;
 							break;
 						}
-						users = server.getMembersByNameIgnoreCase(s.substring(i + 1, i1));
+						users = guild.getMembersByName(s.substring(i + 1, i1),true);
 						if (!users.isEmpty()) {
-							output += users.iterator().next().getMentionTag();
+							output += users.iterator().next().getAsMention();
 							i = i1 - 1;
 							found = true;
 							break;
@@ -101,9 +91,8 @@ public class DiscordResolveItem extends DiscordItem {
 				for (int i1 = i; i1 < s.length(); i1++) {
 					// System.out.println(s.charAt(i1));
 					if (s.charAt(i1) == ' ') {
-						if (!server.getChannelsByNameIgnoreCase(s.substring(i + 1, i1)).isEmpty()) {
-							output += "<#" + server.getTextChannelsByName(s.substring(i + 1, i1)).get(0).getIdAsString()
-									+ '>';
+						if (!guild.getTextChannelsByName(s.substring(i + 1, i1),true).isEmpty()) {
+							output += guild.getTextChannelsByName(s.substring(i + 1, i1),true).get(0).getAsMention();
 							found = true;
 							i = i1 - 1;
 						}

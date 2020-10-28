@@ -1,10 +1,9 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.modules.javacord;
 
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Item;
 import java.awt.Color;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
