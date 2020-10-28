@@ -16,7 +16,7 @@ import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.text.Text;
 
-@Plugin(id="chatdirector",name = "Chat Director",version = "0.1.0",description = "Manages as much Chat as needed.")
+@Plugin(id="chatdirector",name = "Chat Director",version = "0.1.1-alpha",description = "Manages as much Chat as needed.")
 public class ChatDirectorSponge {
     private ChatDirector chatDirector;
 
