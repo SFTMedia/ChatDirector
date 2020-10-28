@@ -1,10 +1,12 @@
 package com.blalp.chatdirector.modules.javacord;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.blalp.chatdirector.modules.format.Formatter;
 
+import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class DiscordFormatter extends Formatter {
@@ -19,13 +21,14 @@ public class DiscordFormatter extends Formatter {
             context.put("DISCORD_CHANNEL_ID", ((MessageCreateEvent)event).getChannel().getIdAsString());
             context.put("DISCORD_AUTHOR_NAME", ((MessageCreateEvent)event).getMessageAuthor().getName());
             context.put("DISCORD_AUTHOR_DISPLAY_NAME", ((MessageCreateEvent)event).getMessageAuthor().getDisplayName());
-            if(((MessageCreateEvent)event).getChannel().asServerChannel().isPresent()){
-                if(((MessageCreateEvent)event).getMessageAuthor().asUser().get().getNickname(((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer()).isPresent()){
-                    context.put("DISCORD_AUTHOR_NICK_NAME", ((MessageCreateEvent)event).getMessageAuthor().asUser().get().getNickname(((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer()).get());
+            if(((MessageCreateEvent)event).getServer().isPresent()){
+                if(((MessageCreateEvent)event).getMessageAuthor().asUser().get().getNickname(((MessageCreateEvent)event).getServer().get()).isPresent()){
+                    context.put("DISCORD_AUTHOR_NICK_NAME", ((MessageCreateEvent)event).getMessageAuthor().asUser().get().getNickname(((MessageCreateEvent)event).getServer().get()).get());
                 } else {
                     context.put("DISCORD_AUTHOR_NICK_NAME", context.get("DISCORD_AUTHOR_DISPLAY_NAME"));
                 }
-                context.put("DISCORD_AUTHOR_ROLE", ((MessageCreateEvent)event).getMessageAuthor().asUser().get().getRoles(((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer()).get(0).getName());
+                List<Role> roles = ((MessageCreateEvent)event).getMessageAuthor().asUser().get().getRoles(((MessageCreateEvent)event).getServer().get());
+                context.put("DISCORD_AUTHOR_ROLE", roles.get(roles.size()-1).getName());
                 if(((MessageCreateEvent)event).getMessageAuthor().getRoleColor().isPresent()){
                     context.put("DISCORD_AUTHOR_ROLE_COLOR", Integer.toString(((MessageCreateEvent)event).getMessageAuthor().getRoleColor().get().getRGB()));
                 }

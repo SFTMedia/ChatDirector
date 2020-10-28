@@ -4,9 +4,11 @@ import java.io.File;
 
 import com.blalp.chatdirector.configuration.ConfigurationSponge;
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
+import com.google.inject.Inject;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
@@ -20,20 +22,14 @@ import org.spongepowered.api.text.Text;
 public class ChatDirectorSponge {
     private ChatDirector chatDirector;
 
-    public ChatDirectorSponge() {
-        chatDirector = new ChatDirector(new ConfigurationSponge("config"+File.separatorChar+"chatdirector"+File.separatorChar+"config.yml"));
-        new File("config"+File.separatorChar+"chatdirector").mkdirs();
-        CommandSpec myCommandSpec = CommandSpec.builder()
-            .description(Text.of("ChatDirector Local reload"))
-            .permission("chatdirector.reload")
-            .executor(new ReloadCommandSponge())
-            .build();
+    @Inject
+    @ConfigDir(sharedRoot = false)
+    public File configDir;
 
-        Sponge.getCommandManager().register(this, myCommandSpec, "chatdirectorlocal");
-    }
-    
     @Listener
     public void onServerStart(GameStartedServerEvent e){
+        chatDirector = new ChatDirector(new ConfigurationSponge(configDir.getAbsolutePath()+File.separatorChar+"config.yml"));
+        configDir.mkdirs();
         chatDirector.load();
         if(SpongeInputDaemon.instance!=null){
             SpongeInputDaemon.instance.onServerStart(e);

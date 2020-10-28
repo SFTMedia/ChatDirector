@@ -59,6 +59,9 @@ public class BungeeModule extends Module {
                     }
                 }
                 return itemPlayerlist;
+            case "bungee-command":
+                LinkedHashMap<String,String> configCommand = ((LinkedHashMap<String,String>)config);
+                return new BungeeCommandItem(configCommand.get("command"),configCommand.get("permission"));
             case "bungee-output":
                 return new BungeeOutputItem();
             case "bungee-input":

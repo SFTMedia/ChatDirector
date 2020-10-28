@@ -20,17 +20,19 @@ public class DiscordFormatter extends Formatter {
             context.put("DISCORD_AUTHOR_ID", ((MessageReceivedEvent)event).getMessage().getAuthor().getId());
             context.put("DISCORD_CHANNEL_ID", ((MessageReceivedEvent)event).getChannel().getId());
             context.put("DISCORD_AUTHOR_NAME", ((MessageReceivedEvent)event).getAuthor().getName());
-            context.put("DISCORD_SELF_ID", ((MessageReceivedEvent)event).getGuild().getSelfMember().getId());
+            context.put("DISCORD_SELF_ID", ((MessageReceivedEvent)event).getJDA().getSelfUser().getId());
             if(((MessageReceivedEvent)event).getChannel() instanceof TextChannel){
                 TextChannel channel = (TextChannel)((MessageReceivedEvent)event).getChannel();
-                channel.getGuild().retrieveMember(((MessageReceivedEvent)event).getAuthor()).complete();
-                if(channel.getGuild().getMember(((MessageReceivedEvent)event).getAuthor()).getNickname()!=null) {
-                    context.put("DISCORD_AUTHOR_NICK_NAME", channel.getGuild().getMember(((MessageReceivedEvent)event).getAuthor()).getNickname());
-                } else {
-                    context.put("DISCORD_AUTHOR_NICK_NAME", context.get("DISCORD_AUTHOR_NAME"));
+                channel.getGuild().retrieveMember(((MessageReceivedEvent)event).getAuthor(),false).complete();
+                if(((MessageReceivedEvent)event).getMember()!=null){
+                    if(((MessageReceivedEvent)event).getMember().getNickname()!=null) {
+                        context.put("DISCORD_AUTHOR_NICK_NAME", ((MessageReceivedEvent)event).getMember().getNickname());
+                    } else {
+                        context.put("DISCORD_AUTHOR_NICK_NAME", context.get("DISCORD_AUTHOR_NAME"));
+                    }
+                    context.put("DISCORD_AUTHOR_ROLE", ((MessageReceivedEvent)event).getMember().getRoles().get(0).getName());
                 }
-                context.put("DISCORD_AUTHOR_ROLE", channel.getGuild().getMember(((MessageReceivedEvent)event).getAuthor()).getRoles().get(0).getName());
-                context.put("DISCORD_AUTHOR_ROLE_COLOR", Integer.toString(channel.getGuild().getMember(((MessageReceivedEvent)event).getAuthor()).getRoles().get(0).getColorRaw()));
+                context.put("DISCORD_AUTHOR_ROLE_COLOR", Integer.toString(((MessageReceivedEvent)event).getMember().getRoles().get(0).getColorRaw()));
                 if(context.get("DISCORD_AUTHOR_ROLE").equals("@everyone")){
                     context.put("DISCORD_AUTHOR_ROLE", "Default");
                 }

@@ -30,6 +30,11 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - SERVER_NAME
 - SERVER_MOTD
 - CHAT_MESSAGE
+- COMMAND_ARG_##
+- COMMAND_NAME
+- COMMAND_PERMISSION
+- SERVER_##_PLAYERS
+- SERVER_##_NUM_PLAYERS
 ## Discord Javacord
 - DISCORD_MESSAGE
 - DISCORD_AUTHOR_ID
@@ -42,6 +47,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 ## Discord JDA
 - DISCORD_MESSAGE
 - DISCORD_AUTHOR_ID
+- DISCORD_SELF_ID
 - DISCORD_CHANNEL_ID
 - DISCORD_AUTHOR_NAME
 - DISCORD_AUTHOR_NICK_NAME
@@ -73,3 +79,4 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - context manipulation (set,remove.add,copy)
 - sql integration
 - custom commands
+- implement onMessage on bungee

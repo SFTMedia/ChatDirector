@@ -1,11 +1,11 @@
-package com.blalp.chatdirector.modules.sponge;
+package com.blalp.chatdirector.modules.bungee;
 
 import com.blalp.chatdirector.modules.common.PassItem;
 
-public class SpongeCommandItem extends PassItem {
+public class BungeeCommandItem extends PassItem {
     String command;
     String permission;
-    public SpongeCommandItem(String name,String permission){
+    public BungeeCommandItem(String name,String permission){
         this.command=name;
         this.permission=permission;
     }

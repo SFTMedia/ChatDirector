@@ -5,7 +5,6 @@ import java.io.File;
 import com.blalp.chatdirector.configuration.ConfigurationBungee;
 import com.blalp.chatdirector.modules.bungee.BungeeInputItemDaemon;
 
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 
@@ -19,8 +18,6 @@ public class ChatDirectorBungee extends Plugin {
         BungeeInputItemDaemon.instance=new BungeeInputItemDaemon();
 		getProxy().getPluginManager().registerListener(this, BungeeInputItemDaemon.instance);
         this.getDataFolder().mkdirs();
-
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new ReloadCommandBungee("chatdirector"));
     }
     
     @Override

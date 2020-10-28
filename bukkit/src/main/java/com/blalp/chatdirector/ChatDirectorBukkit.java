@@ -3,7 +3,7 @@ package com.blalp.chatdirector;
 import java.io.File;
 
 import com.blalp.chatdirector.configuration.ConfigurationBukkit;
-import com.blalp.chatdirector.modules.bukkit.BukkitCommandInputDaemon;
+import com.blalp.chatdirector.modules.bukkit.BukkitCommand;
 import com.blalp.chatdirector.modules.bungee.FromBungeeDaemon;
 
 import org.bukkit.command.Command;
@@ -40,13 +40,8 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(BukkitCommandInputDaemon.instance!=null){
-            return BukkitCommandInputDaemon.instance.onCommand(sender,command,label,args);
-        }
-        if(command.equals("chatdirectorlocal")&&sender.hasPermission("chatdirector.reload")){
-            sender.sendMessage("Starting Bukkit ChatDirector reload");
-            ChatDirector.instance.reload();
-            sender.sendMessage("Finished Bukkit ChatDirector reload");
+        for(BukkitCommand bukkitCommand : BukkitCommand.commands) {
+            bukkitCommand.execute(sender, command, label, args);
         }
         return false;
     }

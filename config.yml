@@ -20,6 +20,7 @@ chains:
     - pass: null # This just passes the string on
     - stop: null # This sets the string to nothing and stops
     - echo: "echo'd %CURRENT%" # This sets the string to the specifiedFormat. The Previous value is set to the CURRENT context
+    - reload: null # Reloads ChatDirector
   - bukkit-demo:
     - bukkit-input: # All of these are optional
         chat: true
@@ -37,12 +38,12 @@ chains:
     - bukkit-output:
         permission: null # Optional
     - bukkit-command:
-        args: # optional
-          - subcommand-1
         command: "example-command"
         permission: "example-permission"
-        format: "/%COMMAND% %ARGS%"
   - bungee-demo:
+    - bungee-command:
+        command: "command"
+        permission: "*"
     - bungee-to:
         channel: "custom-channel"
     - bungee-from:
@@ -150,6 +151,9 @@ chains:
     - remove-colors: null
     - parse-colors: null # converts & into §
   - sponge-demo:
+    - sponge-command:
+        command: "command"
+        permission: "*"
     - sponge-input: # All of these are optional
         chat: true
         leave: true

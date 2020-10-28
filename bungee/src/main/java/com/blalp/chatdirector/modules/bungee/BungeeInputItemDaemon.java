@@ -10,6 +10,7 @@ import com.blalp.chatdirector.model.ItemDaemon;
 
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
+import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -56,6 +57,10 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
                 item.startWork(ChatDirector.formatter.format(item.formatChat, context), true, context);
             }
         }
-    }   
+    }
+    @EventHandler
+    public void onMessage(PluginMessageEvent e){
+        // TODO
+    }
     
 }

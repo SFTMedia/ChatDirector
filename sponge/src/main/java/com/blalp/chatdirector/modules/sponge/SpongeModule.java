@@ -12,12 +12,15 @@ public class SpongeModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"sponge-output","sponge-input","sponge-playerlist"};
+        return new String[]{"sponge-output","sponge-input","sponge-playerlist","sponge-command"};
     }
 
     @Override
     public IItem createItem(String type, Object config) {
         switch (type){
+            case "sponge-command":
+                LinkedHashMap<String,String> configCommand = ((LinkedHashMap<String,String>)config);
+                return new SpongeCommandItem(configCommand.get("command"),configCommand.get("permission"));
             case "sponge-output":
                 SpongeOutputItem item = new SpongeOutputItem();
                 LinkedHashMap<String,String> configMap = ((LinkedHashMap<String,String>)config);
@@ -88,12 +91,18 @@ public class SpongeModule extends Module {
         if(SpongeInputDaemon.instance!=null){
             SpongeInputDaemon.instance.load();
         }
+        for(SpongeCommand command: SpongeCommand.commands){
+            command.load();
+        }
     }
 
     @Override
     public void unload() {
         if(SpongeInputDaemon.instance!=null){
             SpongeInputDaemon.instance.unload();
+        }
+        for(SpongeCommand command: SpongeCommand.commands){
+            command.unload();
         }
     }
     

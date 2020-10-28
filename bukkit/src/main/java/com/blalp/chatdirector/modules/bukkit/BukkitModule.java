@@ -13,9 +13,6 @@ public class BukkitModule extends Module {
     @Override
     public void load() {
         ChatDirector.addFormatter(new BukkitFormatter());
-        if(BukkitCommandInputDaemon.instance!=null){
-            BukkitCommandInputDaemon.instance.load();
-        }
         if(BukkitInputDaemon.instance!=null){
             BukkitInputDaemon.instance.load();
         }
@@ -23,9 +20,6 @@ public class BukkitModule extends Module {
 
     @Override
     public void unload() {
-        if(BukkitCommandInputDaemon.instance!=null){
-            BukkitCommandInputDaemon.instance.unload();
-        }
         if(BukkitInputDaemon.instance!=null){
             BukkitInputDaemon.instance.unload();
         }
@@ -94,27 +88,8 @@ public class BukkitModule extends Module {
                 }
                 return itemPlayerlist;
             case "bukkit-command":
-                if(BukkitCommandInputDaemon.instance==null){
-                    new BukkitCommandInputDaemon();
-                    BukkitCommandInputDaemon.instance.load();
-                }
                 LinkedHashMap<String,Object> configMap = ((LinkedHashMap<String,Object>)config);
-                BukkitCommandInputItem item2 = new BukkitCommandInputItem((String)configMap.get("command"), (String)configMap.get("permission"));
-                if (configMap.containsKey("args")){
-                    if(configMap.get("args") instanceof ArrayList<?>){
-                        item2.args=((ArrayList<?>)configMap.get("args")).toArray(item2.args);
-                    } else {
-                        try {
-                            throw new NullPointerException("args needs to be a list.");
-                        } catch (NullPointerException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                if(configMap.containsKey("format")){
-                    item2.format=(String)configMap.get("format");
-                }
-                BukkitCommandInputDaemon.instance.addItem(item2);
+                BukkitCommandItem item2 = new BukkitCommandItem((String)configMap.get("command"), (String)configMap.get("permission"));
                 return item2;
         }
         return null;
