@@ -50,6 +50,7 @@ public class BungeePlayerlistItem extends Item {
                     temp_output=ChatDirector.formatter.format(formatNoPlayers,context);
                 }
                 context.put("SERVER_"+server.getName()+"_PLAYERS",temp_output);
+                context.put("SERVER_"+server.getName()+"_NUM_PLAYERS",Integer.toString(server.getPlayers().size()));
                 output+=temp_output;
                 temp_output="";
                 tempContext= new HashMap<>();

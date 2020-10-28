@@ -7,11 +7,11 @@ import com.blalp.chatdirector.model.Loadable;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class DiscordBot extends Loadable {
     private JDA discordApi;
     private String token;
-    public String playing;
     public DiscordInputDaemon daemon;
 
     public DiscordBot(String token) {
@@ -28,9 +28,6 @@ public class DiscordBot extends Loadable {
     @Override
     public void load() {
         JDABuilder builder = JDABuilder.createDefault(token);
-        if (!playing.isEmpty()) {
-            builder.setActivity(Activity.playing(playing));
-        }
         try {
             discordApi = builder.build();
         } catch (LoginException e) {

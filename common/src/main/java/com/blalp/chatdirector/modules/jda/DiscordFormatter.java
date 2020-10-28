@@ -23,6 +23,7 @@ public class DiscordFormatter extends Formatter {
             context.put("DISCORD_SELF_ID", ((MessageReceivedEvent)event).getGuild().getSelfMember().getId());
             if(((MessageReceivedEvent)event).getChannel() instanceof TextChannel){
                 TextChannel channel = (TextChannel)((MessageReceivedEvent)event).getChannel();
+                channel.getGuild().retrieveMember(((MessageReceivedEvent)event).getAuthor()).complete();
                 if(channel.getGuild().getMember(((MessageReceivedEvent)event).getAuthor()).getNickname()!=null) {
                     context.put("DISCORD_AUTHOR_NICK_NAME", channel.getGuild().getMember(((MessageReceivedEvent)event).getAuthor()).getNickname());
                 } else {

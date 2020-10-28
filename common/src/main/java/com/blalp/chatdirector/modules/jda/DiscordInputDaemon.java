@@ -44,5 +44,6 @@ public class DiscordInputDaemon extends ListenerAdapter implements ILoadable {
     }
 
 	public void addItem(DiscordItem item) {
+        items.add(item);
 	}
 }

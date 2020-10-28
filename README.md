@@ -70,5 +70,6 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 
 # TODO
 - Add command inputs for Sponge (take a look at command-utils)
-- Add Bungee Input for transfer messages with formats
-- Add more formats as requested
+- context manipulation (set,remove.add,copy)
+- sql integration
+- custom commands
