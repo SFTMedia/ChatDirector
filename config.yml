@@ -15,7 +15,9 @@ modules:
   - replacement
   - sponge
   - vault
-  - sql
+  - sql:
+      connections:
+        all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
 chains:
   - common-demo: # This module is always loaded
     - pass: null # This just passes the string on
