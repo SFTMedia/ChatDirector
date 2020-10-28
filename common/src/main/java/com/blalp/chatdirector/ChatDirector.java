@@ -19,9 +19,11 @@ public class ChatDirector extends Loadable {
         chatDirector.load();
     }
     public ChatDirector(Configuration configuration){
-        this.config=configuration;
+        config=configuration;
+        instance=this;
     }
     public static IFormatter formatter = new Formatters();
+	public static ChatDirector instance;
     List<IModule> modules = new ArrayList<>();
     HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
     public void load(){

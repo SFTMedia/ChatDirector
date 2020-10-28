@@ -24,6 +24,7 @@ public abstract class ConditionalItem extends PassItem {
         }
         if(Configuration.debug){
             System.out.println("Conditional "+this.getClass().getCanonicalName()+" test returned "+result);
+            System.out.println("Trues is "+nestedTrue+" false is "+nestedFalse);
         }
         if(result){
             nestedTrue.work(string,context);
@@ -34,7 +35,7 @@ public abstract class ConditionalItem extends PassItem {
             next.work(string, context);
         } else {
             if(Configuration.debug){
-                System.out.println("Stopping here. StopOnFalse is true and failed. "+this.getClass().getCanonicalName()+" test returned "+result);
+                System.out.println("Stopping here. StopOnFalse is true and failed.");
             }
         }
     }

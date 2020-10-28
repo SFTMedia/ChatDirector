@@ -8,6 +8,6 @@ permissions:
   chatdirector.reload:
     description: "Allows reloading of chatdirector"
 commands:
-  chatdirector:
+  chatdirectorlocal:
     permission: chatdirector.reload
     description: "Allows reloading of chatdirector"

@@ -109,25 +109,25 @@ pipes:
         delay: 500 # optional, defaults to 500
   - logic-demo:
     - if-contains:
-        yes: # this can be any list of items
-            - pass-item: null
-            - null-item: null
-        no: null # Or this can be nothing
-        contains: "String";
+        yes-block: # this can be any list of items
+          - pass: null
+          - stop: null
+        no-block: null # Or this can be nothing
+        contains: "String"
         source: "%CURRENT%" # Optional. source.contains(contains)
         stop-on-false: false # Do not continue if it is false
         invert: false # Optional inverts the decision
     - if-equals:
-        yes: null
-        no: null
+        yes-block: null
+        no-block: null
         equals: "String"
         source: "%CURRENT%" # Optional. source.equals(contains)
         stop-on-false: false # Do not continue if it is false
         invert: false # Optional inverts the decision
         ignore-case: false # optional
     - if-regex-match:
-        yes: null
-        no: null
+        yes-block: null
+        no-block: null
         match: "[sS]tring"
         source: "%CURRENT%" # Optional. source.match(contains)
         stop-on-false: false # Do not continue if it is false

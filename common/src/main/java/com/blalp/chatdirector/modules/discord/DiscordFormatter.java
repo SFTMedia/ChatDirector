@@ -26,8 +26,12 @@ public class DiscordFormatter extends Formatter {
                     context.put("DISCORD_AUTHOR_NICK_NAME", context.get("DISCORD_AUTHOR_DISPLAY_NAME"));
                 }
                 context.put("DISCORD_AUTHOR_ROLE", ((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer().getHighestRole(((MessageCreateEvent)event).getMessage().getUserAuthor().get()).get().getName());
+                if(((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer().getHighestRole(((MessageCreateEvent)event).getMessage().getUserAuthor().get()).get().getColor().isPresent()){
+                    context.put("DISCORD_AUTHOR_ROLE_COLOR", ((MessageCreateEvent)event).getChannel().asServerChannel().get().getServer().getHighestRole(((MessageCreateEvent)event).getMessage().getUserAuthor().get()).get().getColor().get().toString());
+                }
                 if(context.get("DISCORD_AUTHOR_ROLE").equals("@everyone")){
                     context.put("DISCORD_AUTHOR_ROLE", "Default");
+                    context.put("DISCORD_AUTHOR_ROLE_COLOR", "Default");
                 }
             } else {
                 context.put("DISCORD_AUTHOR_ROLE", "DMs");

@@ -43,6 +43,9 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
         if(BukkitCommandInputDaemon.instance!=null){
             return BukkitCommandInputDaemon.instance.onCommand(sender,command,label,args);
         }
+        if(command.equals("chatdirectorlocal")&&sender.hasPermission("chatdirector.reload")){
+            ChatDirector.instance.reload();
+        }
         return false;
     }
 }

@@ -5,6 +5,8 @@ import java.io.File;
 import com.blalp.chatdirector.configuration.ConfigurationSponge;
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
 
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
@@ -12,6 +14,7 @@ import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
 import org.spongepowered.api.event.message.MessageChannelEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.text.Text;
 
 @Plugin(id="chatdirector",name = "Chat Director",version = "0.0.4-alpha",description = "Manages as much Chat as needed.")
 public class ChatDirectorSponge {
@@ -20,6 +23,13 @@ public class ChatDirectorSponge {
     public ChatDirectorSponge() {
         chatDirector = new ChatDirector(new ConfigurationSponge("config"+File.separatorChar+"chatdirector"+File.separatorChar+"config.yml"));
         new File("config"+File.separatorChar+"chatdirector").mkdirs();
+        CommandSpec myCommandSpec = CommandSpec.builder()
+            .description(Text.of("ChatDirector Local reload"))
+            .permission("chatdirector.reload")
+            .executor(new ReloadCommandSponge())
+            .build();
+
+        Sponge.getCommandManager().register(this, myCommandSpec, "chatdirectorlocal");
     }
     
     @Listener
