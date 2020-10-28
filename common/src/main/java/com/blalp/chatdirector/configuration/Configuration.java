@@ -24,6 +24,7 @@ import com.blalp.chatdirector.modules.file.FileModule;
 import com.blalp.chatdirector.modules.logic.LogicModule;
 import com.blalp.chatdirector.modules.luckperms.LuckPermsModule;
 import com.blalp.chatdirector.modules.replacement.ReplacementModule;
+import com.blalp.chatdirector.modules.sql.SQLModule;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -175,6 +176,8 @@ public class Configuration extends Loadable {
                 return new LuckPermsModule();
             case "replacement":
                 return new ReplacementModule();
+            case "sql":
+                return new SQLModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             default:
                 return null;
         }
