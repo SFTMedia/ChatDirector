@@ -2,24 +2,28 @@ package com.blalp.chatdirector.modules.file;
 
 import java.util.ArrayList;
 
+import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.ItemDaemon;
 
 public class FileInputDaemon extends ItemDaemon {
-    public static FileInputDaemon instance = new FileInputDaemon();
-    private ArrayList<FileInputItem> runners = new ArrayList<>();
-
+    public static FileInputDaemon instance;
+    private ArrayList<FileInputItemWorker> runners = new ArrayList<>();
+    public FileInputDaemon(){
+        instance=this;
+    }
     @Override
     public void load() {
         for (FileInputItem item : items.toArray(new FileInputItem[]{})) {
-            Thread thread = new Thread(item);
+            FileInputItemWorker worker = new FileInputItemWorker(item);
+            Thread thread = new Thread(worker);
             thread.start();
-            runners.add(item);
+            runners.add(worker);
         }
     }
 
     @Override
     public void unload() {
-        for (FileInputItem runner : runners) {
+        for (FileInputItemWorker runner : runners) {
             try {
                 runner.stop();
             } catch (ThreadDeath e) {

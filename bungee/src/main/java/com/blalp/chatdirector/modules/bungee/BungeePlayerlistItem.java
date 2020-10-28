@@ -11,8 +11,6 @@ import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class BungeePlayerlistItem extends Item {
-    public String triggerWord = "playerlist";
-    public boolean ignoreCase = true;
     public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
     public String formatNoPlayers = "**No online players**";
     public String formatPlayer = "%PLAYER_NAME%";
@@ -21,10 +19,12 @@ public class BungeePlayerlistItem extends Item {
     @Override
     public String process(String string, Map<String,String> context) {
         context.putAll(ChatDirector.formatter.getContext(ProxyServer.getInstance()));
-        if (!((string.equalsIgnoreCase(triggerWord)&&ignoreCase)||(string.equals(triggerWord)))) {
-            return string;
-        }
+        context.put("CURRENT", string);
+
+        // Put it into pipe no matter what.
+
         String output = ChatDirector.formatter.format(format,context);
+        String temp_output="";
         boolean first = true;
         Map<String,String> tempContext = new HashMap<>();
         Map<String,String> tempContext2 = new HashMap<>();
@@ -36,16 +36,22 @@ public class BungeePlayerlistItem extends Item {
                 first=true;
                 for (ProxiedPlayer player : server.getPlayers()) {
                     if (!first) {
-                        output += ", ";
+                        temp_output += ", ";
                     } else {
                         first = false;
                     }
                     tempContext2.putAll(tempContext);
                     tempContext2.putAll(ChatDirector.formatter.getContext(player));
-                    output += ChatDirector.formatter.format(formatPlayer, tempContext2);
+                    temp_output += ChatDirector.formatter.format(formatPlayer, tempContext2);
                     tempContext2= new HashMap<>();
                     tempContext2.putAll(tempContext);
                 }
+                if(temp_output.isEmpty()){
+                    temp_output=ChatDirector.formatter.format(formatNoPlayers,context);
+                }
+                context.put("SERVER_"+server.getName()+"_PLAYERS",temp_output);
+                output+=temp_output;
+                temp_output="";
                 tempContext= new HashMap<>();
                 tempContext.putAll(context);
             }

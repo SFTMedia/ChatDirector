@@ -41,26 +41,22 @@ public class BungeeModule extends Module {
             case "bungee-playerlist":
                 BungeePlayerlistItem itemPlayerlist = new BungeePlayerlistItem();
                 LinkedHashMap<String,Object> configMapPlayerlist = ((LinkedHashMap<String,Object>)config);
-                if(configMapPlayerlist.containsKey("format")) {
-                    itemPlayerlist.format= (String) configMapPlayerlist.get("format");
-                }
-                if(configMapPlayerlist.containsKey("format-no-players")) {
-                    itemPlayerlist.formatNoPlayers= (String) configMapPlayerlist.get("format-no-players");
-                }
-                if(configMapPlayerlist.containsKey("ignore-case")) {
-                    itemPlayerlist.ignoreCase= (boolean) configMapPlayerlist.get("ignore-case");
-                }
-                if(configMapPlayerlist.containsKey("trigger-word")) {
-                    itemPlayerlist.triggerWord= (String) configMapPlayerlist.get("trigger-word");
-                }
-                if(configMapPlayerlist.containsKey("format-player")) {
-                    itemPlayerlist.formatPlayer= (String) configMapPlayerlist.get("format-player");
-                }
-                if(configMapPlayerlist.containsKey("format-server")) {
-                    itemPlayerlist.formatServer= (String) configMapPlayerlist.get("format-server");
-                }
-                if(configMapPlayerlist.containsKey("split-by-server")) {
-                    itemPlayerlist.splitByServer= (boolean) configMapPlayerlist.get("split-by-server");
+                if(configMapPlayerlist!=null){
+                    if(configMapPlayerlist.containsKey("format")) {
+                        itemPlayerlist.format= (String) configMapPlayerlist.get("format");
+                    }
+                    if(configMapPlayerlist.containsKey("format-no-players")) {
+                        itemPlayerlist.formatNoPlayers= (String) configMapPlayerlist.get("format-no-players");
+                    }
+                    if(configMapPlayerlist.containsKey("format-player")) {
+                        itemPlayerlist.formatPlayer= (String) configMapPlayerlist.get("format-player");
+                    }
+                    if(configMapPlayerlist.containsKey("format-server")) {
+                        itemPlayerlist.formatServer= (String) configMapPlayerlist.get("format-server");
+                    }
+                    if(configMapPlayerlist.containsKey("split-by-server")) {
+                        itemPlayerlist.splitByServer= (boolean) configMapPlayerlist.get("split-by-server");
+                    }
                 }
                 return itemPlayerlist;
             case "bungee-output":
@@ -92,6 +88,10 @@ public class BungeeModule extends Module {
                 if(configInput.containsKey("format-join")){
                     itemInput.formatSwitch= (String) configInput.get("format-join");
                 }
+                if(configInput.containsKey("command")){
+                    itemInput.command= (boolean) configInput.get("command");
+                }
+                BungeeInputItemDaemon.instance.addItem(itemInput);
                 return itemInput;
         }
         return null;
@@ -100,9 +100,15 @@ public class BungeeModule extends Module {
     @Override
     public void load() {
         ChatDirector.addFormatter(new BungeeFormatter());
+        if(BungeeInputItemDaemon.instance!=null){
+            BungeeInputItemDaemon.instance.load();;
+        }
     }
 
     @Override
     public void unload() {
+        if(BungeeInputItemDaemon.instance!=null){
+            BungeeInputItemDaemon.instance.unload();
+        }
     }
 }

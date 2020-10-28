@@ -46,17 +46,13 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public void onLogin(PlayerLoginEvent event) {
         Map<String,String> context = ChatDirector.formatter.getContext(event);
         String message = ChatDirector.formatter.format(format,context);
-        String newPlayerMessage="";
-        if(!event.getPlayer().hasPlayedBefore()){
-            newPlayerMessage = ChatDirector.formatter.format(newPlayerFormat,context);
-        }
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (event.getResult().equals(Result.ALLOWED) && item.checkCanceled) {
                 continue;
             }
             if (item.join) {
                 if(!event.getPlayer().hasPlayedBefore()&&item.newJoin){
-                    item.startWork(newPlayerMessage,true,ChatDirector.formatter.getContext(event));
+                    item.startWork(ChatDirector.formatter.format(newPlayerFormat,context),true,ChatDirector.formatter.getContext(event));
                 } else {
                     item.startWork(message,true,ChatDirector.formatter.getContext(event));
                 }

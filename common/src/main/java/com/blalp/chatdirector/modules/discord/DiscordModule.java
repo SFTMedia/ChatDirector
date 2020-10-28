@@ -76,41 +76,41 @@ public class DiscordModule extends Module {
                 return new DiscordResolveItem((String)configMap.get("bot"),(String)configMap.get("server"),(boolean)configMap.get("to-discord"),(boolean)configMap.get("to-plain"));
             case "discord-embed":
                 DiscordEmbedItem itemEmbed = new DiscordEmbedItem((String)configMap.get("bot"),(String)configMap.get("channel"));
-                if(configMap.containsKey("format-author-avatar")){
-                    itemEmbed.authorAvatar= (String) configMap.get("format-author-avatar");
+                if(configMap.containsKey("author-avatar")){
+                    itemEmbed.authorAvatar= (String) configMap.get("author-avatar");
                 }
-                if(configMap.containsKey("format-author-link")){
-                    itemEmbed.authorLink= (String) configMap.get("format-author-link");
+                if(configMap.containsKey("author-link")){
+                    itemEmbed.authorLink= (String) configMap.get("author-link");
                 }
-                if(configMap.containsKey("format-author-name")){
-                    itemEmbed.authorName= (String) configMap.get("format-author-name");
+                if(configMap.containsKey("author-name")){
+                    itemEmbed.authorName= (String) configMap.get("author-name");
                 }
                 if(configMap.containsKey("color")){
                     itemEmbed.color= (String) configMap.get("color");
                 }
-                if(configMap.containsKey("format-description")){
-                    itemEmbed.description= (String) configMap.get("format-description");
+                if(configMap.containsKey("description")){
+                    itemEmbed.description= (String) configMap.get("description");
                 }
-                if(configMap.containsKey("format-footer-avatar")){
-                    itemEmbed.footerAvatar= (String) configMap.get("format-footer-avatar");
+                if(configMap.containsKey("footer-avatar")){
+                    itemEmbed.footerAvatar= (String) configMap.get("footer-avatar");
                 }
-                if(configMap.containsKey("format-footer-name")){
-                    itemEmbed.footerName = (String) configMap.get("format-footer-name");
+                if(configMap.containsKey("footer-name")){
+                    itemEmbed.footerName = (String) configMap.get("footer-name");
                 }
                 if(configMap.containsKey("fields")){
                     itemEmbed.fields= (Map<String, String>) configMap.get("fields");
                 }
-                if(configMap.containsKey("format-image")){
-                    itemEmbed.image= (String) configMap.get("format-image");
+                if(configMap.containsKey("image")){
+                    itemEmbed.image= (String) configMap.get("image");
                 }
                 if(configMap.containsKey("inline-fields")){
                     itemEmbed.inlineFields= (Map<String, String>) configMap.get("inline-fields");
                 }
-                if(configMap.containsKey("format-thumbnail")){
-                    itemEmbed.thumbnail= (String) configMap.get("format-thumbnail");
+                if(configMap.containsKey("thumbnail")){
+                    itemEmbed.thumbnail= (String) configMap.get("thumbnail");
                 }
-                if(configMap.containsKey("format-title")){
-                    itemEmbed.title= (String) configMap.get("format-title");
+                if(configMap.containsKey("title")){
+                    itemEmbed.title= (String) configMap.get("title");
                 }
                 return itemEmbed;
         }

@@ -10,17 +10,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class BukkitPlayerlistItem extends Item {
-    public String triggerWord = "playerlist";
-    public boolean ignoreCase = true;
     public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
     public String formatNoPlayers = "**No online players**";
     public String formatPlayer = "%PLAYER_NAME%";
     @Override
     public String process(String string, Map<String,String> context) {
         context.putAll(ChatDirector.formatter.getContext(Bukkit.getServer()));
-        if (!((string.equalsIgnoreCase(triggerWord)&&ignoreCase)||(string.equals(triggerWord)))) {
-            return string;
-        }
+        context.put("CURRENT", string);
+        
+        // Put it into pipe no matter what.
+        
         String output = ChatDirector.formatter.format(format,context);
         boolean first = true;
         Map<String,String> tempContext = new HashMap<>();

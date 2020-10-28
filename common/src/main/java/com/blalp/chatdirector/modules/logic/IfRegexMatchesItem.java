@@ -15,7 +15,8 @@ public class IfRegexMatchesItem extends ConditionalItem {
 
     @Override
     public boolean test(String string, Map<String, String> context) {
-        return (ChatDirector.formatter.format(string, context).matches(regex));
+        context.put("CURRENT", string);
+        return (ChatDirector.formatter.format(source, context)).matches((ChatDirector.formatter.format(regex, context)));
     }
     
 }

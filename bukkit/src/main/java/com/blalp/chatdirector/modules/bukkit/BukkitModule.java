@@ -89,12 +89,6 @@ public class BukkitModule extends Module {
                 if(configMapPlayerlist.containsKey("format-no-players")) {
                     itemPlayerlist.formatNoPlayers= (String) configMapPlayerlist.get("format-no-players");
                 }
-                if(configMapPlayerlist.containsKey("ignore-case")) {
-                    itemPlayerlist.ignoreCase= (boolean) configMapPlayerlist.get("ignore-case");
-                }
-                if(configMapPlayerlist.containsKey("trigger-word")) {
-                    itemPlayerlist.triggerWord= (String) configMapPlayerlist.get("trigger-word");
-                }
                 if(configMapPlayerlist.containsKey("format-player")) {
                     itemPlayerlist.formatPlayer= (String) configMapPlayerlist.get("format-player");
                 }

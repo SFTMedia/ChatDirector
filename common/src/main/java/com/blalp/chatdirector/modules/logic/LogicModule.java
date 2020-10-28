@@ -29,16 +29,50 @@ public class LogicModule extends Module {
     @Override
     public IItem createItem(String type, Object config) {
         Map<String, Object> configMap;
+        ConditionalItem output;
         switch (type) {
             case "if-contains":
                 configMap= (Map<String, Object>) config;
-                return new IfContainsItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("true")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("false")),(String)configMap.get("contains"));
+                output = new IfContainsItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no")),(String)configMap.get("contains"));
+                if(configMap.containsKey("stop-on-false")){
+                    output.stopOnFalse= (boolean) configMap.get("stop-on-false");
+                }
+                if(configMap.containsKey("source")){
+                    output.source= (String) configMap.get("source");
+                }
+                if(configMap.containsKey("invert")){
+                    output.invert= (boolean) configMap.get("invert");
+                }
+                return output;
             case "if-equals":
                 configMap= (Map<String, Object>) config;
-                return new IfEqualsItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("true")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("false")),(String)configMap.get("equals"));
+                output = new IfEqualsItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no")),(String)configMap.get("equals"));
+                if(configMap.containsKey("stop-on-false")){
+                    output.stopOnFalse= (boolean) configMap.get("stop-on-false");
+                }
+                if(configMap.containsKey("source")){
+                    output.source= (String) configMap.get("source");
+                }
+                if(configMap.containsKey("invert")){
+                    output.invert= (boolean) configMap.get("invert");
+                }
+                if(configMap.containsKey("ignore-case")){
+                    ((IfEqualsItem)output).ignoreCase= (boolean) configMap.get("ignore-case");
+                }
+                return output;
             case "if-regex-match":
                 configMap= (Map<String, Object>) config;
-                return new IfRegexMatchesItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("true")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("false")),(String)configMap.get("regex"));
+                output = new IfRegexMatchesItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no")),(String)configMap.get("regex"));
+                if(configMap.containsKey("stop-on-false")){
+                    output.stopOnFalse= (boolean) configMap.get("stop-on-false");
+                }
+                if(configMap.containsKey("source")){
+                    output.source= (String) configMap.get("source");
+                }
+                if(configMap.containsKey("invert")){
+                    output.invert= (boolean) configMap.get("invert");
+                }
+                return output;
             case "split":
                 ArrayList<IItem> items = new ArrayList<>();
                 for (Object item: (ArrayList<?>)config) {

@@ -1,6 +1,7 @@
 package com.blalp.chatdirector.modules.discord;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Item;
@@ -18,6 +19,7 @@ public class DiscordEmbedItem extends DiscordItem {
     @Override
     public String process(String string, Map<String, String> context) {
         EmbedBuilder embed = new EmbedBuilder();
+        String temp;
         if(title!=null) {
             embed.setTitle(ChatDirector.formatter.format(title, context));
         }
@@ -50,6 +52,22 @@ public class DiscordEmbedItem extends DiscordItem {
         }
         if(thumbnail!=null){
             embed.setThumbnail(ChatDirector.formatter.format(thumbnail,context));
+        }
+        if(fields!=null) {
+            for (Entry<String,String> field : fields.entrySet()){
+                temp=ChatDirector.formatter.format(field.getValue(),context);
+                if(!temp.isEmpty()) {
+                    embed.addField(ChatDirector.formatter.format(field.getKey(),context), temp);
+                }
+            }
+        }
+        if(inlineFields!=null) {
+            for (Entry<String,String> field : inlineFields.entrySet()){
+                temp=ChatDirector.formatter.format(field.getValue(),context);
+                if(!temp.isEmpty()) {
+                    embed.addInlineField(ChatDirector.formatter.format(field.getKey(),context), temp);
+                }
+            }
         }
         DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(channelID).get().asServerTextChannel().get().sendMessage(embed);
         return string;

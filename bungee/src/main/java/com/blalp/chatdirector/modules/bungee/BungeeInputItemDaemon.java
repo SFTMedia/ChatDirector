@@ -26,7 +26,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
 	public void onEvent(PlayerDisconnectEvent e) {
         Map<String,String> context = ChatDirector.formatter.getContext(e);
 		existing_players.remove(e.getPlayer().getUniqueId());
-        for (BungeeInputItem item : (BungeeInputItem[]) instance.items.toArray()) {
+        for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[]{})) {
             if(item.disconnect){
                 item.startWork(ChatDirector.formatter.format(item.disconnectFormat, context), true, context);
             }
@@ -36,7 +36,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
 	public void onEvent(ServerConnectedEvent e) {
         Map<String,String> context = ChatDirector.formatter.getContext(e);
 		// this is needed as ServerConnectEvent is also called for the first time.
-        for (BungeeInputItem item : (BungeeInputItem[]) instance.items.toArray()) {
+        for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[]{})) {
             if (existing_players.contains(e.getPlayer().getUniqueId())) {
                 if(item.switchServers){
                     item.startWork(ChatDirector.formatter.format(item.formatSwitch, context), true, context);
@@ -51,8 +51,8 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
     @EventHandler
     public void onChat(ChatEvent e){
         Map<String,String> context = ChatDirector.formatter.getContext(e);
-        for (BungeeInputItem item : (BungeeInputItem[]) instance.items.toArray()) {
-            if(item.chat){
+        for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[]{})) {
+            if((item.chat&&!e.getMessage().startsWith("/"))||item.command&&e.getMessage().startsWith("/")){
                 item.startWork(ChatDirector.formatter.format(item.formatChat, context), true, context);
             }
         }

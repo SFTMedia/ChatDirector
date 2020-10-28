@@ -9,12 +9,16 @@ public class FileModule extends Module {
 
     @Override
     public void load() {
-        FileInputDaemon.instance.load();
+        if(FileInputDaemon.instance!=null){
+            FileInputDaemon.instance.load();
+        }
     }
 
     @Override
     public void unload() {
-        FileInputDaemon.instance.unload();
+        if(FileInputDaemon.instance!=null){
+            FileInputDaemon.instance.unload();
+        }
     }
 
     @Override
@@ -27,6 +31,9 @@ public class FileModule extends Module {
         LinkedHashMap<String,Object> configMap = (LinkedHashMap<String,Object>)config;
         switch (type) {
             case "file-input":
+                if(FileInputDaemon.instance==null){
+                    new FileInputDaemon();
+                }
                 FileInputItem item = new FileInputItem((String)configMap.get("path"));
                 if(configMap.containsKey("delay")) {
                     item.delay=(int)configMap.get("delay");

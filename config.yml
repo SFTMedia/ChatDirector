@@ -31,8 +31,6 @@ pipes:
         format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
         format-player: "%PLAYER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
-        trigger-word: "playerlist" # Optional
-        ignore-case: true # Optional
     - bukkit-output:
         permission: null # Optional
     - bukkit-command:
@@ -51,8 +49,6 @@ pipes:
         format-player: "%PLAYER_NAME%" # Optional
         format-server: "%SERVER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
-        trigger-word: "playerlist" # Optional
-        ignore-case: true # Optional
         split-by-server: false # Optional
     - bungee-command:
         args: # optional
@@ -66,6 +62,7 @@ pipes:
         disconnect: true
         switch-servers: true
         join: true
+        command: false
         format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
         format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
         format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
@@ -87,22 +84,22 @@ pipes:
         format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
         bot: bot-name
     - discord-embed: # Optional https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
-        format-author-avatar: "Author Avatar"
-        format-author-link: "Author Link"
-        format-author-name: "Author Name"
+        author-avatar: "Author Avatar"
+        author-link: "Author Link"
+        author-name: "Author Name"
         color: "BLUE"
-        format-description: "Description"
-        format-footer-avatar: "Footer Avatar"
-        format-footer-name: "Footer Name"
+        description: "Description"
+        footer-avatar: "Footer Avatar"
+        footer-name: "Footer Name"
         fields:
           "field 1 header": "field 1 body"
           "field 2 header": "field 2 body"
         inline-fields:
           "inline field 1 header": "inline field 1 body"
           "inline field 2 header": "inline field 2 body"
-        format-image: "Image"
-        format-thumbnail: "Thumbnail"
-        format-title: "Title"
+        image: "Image"
+        thumbnail: "Thumbnail"
+        title: "Title"
   - file-demo:
     - file-input:
         path: PATH_TO_FIFO
@@ -112,18 +109,29 @@ pipes:
         delay: 500 # optional, defaults to 500
   - logic-demo:
     - if-contains:
-        true: # this can be any list of items
+        yes: # this can be any list of items
             - pass-item: null
             - null-item: null
-        false: null # Or this can be nothing
+        no: null # Or this can be nothing
+        contains: "String";
+        source: "%CURRENT%" # Optional. source.contains(contains)
+        stop-on-false: false # Do not continue if it is false
+        invert: false # Optional inverts the decision
     - if-equals:
-        true: null
-        false: null
+        yes: null
+        no: null
         equals: "String"
+        source: "%CURRENT%" # Optional. source.equals(contains)
+        stop-on-false: false # Do not continue if it is false
+        invert: false # Optional inverts the decision
+        ignore-case: false # optional
     - if-regex-match:
-        true: null
-        false: null
+        yes: null
+        no: null
         match: "[sS]tring"
+        source: "%CURRENT%" # Optional. source.match(contains)
+        stop-on-false: false # Do not continue if it is false
+        invert: false # Optional inverts the decision
     - split:
       - stream-1:
         - pass-item: null

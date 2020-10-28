@@ -10,6 +10,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 ## Common
 - CURRENT (Used in Echo to get the previous value)
 ## Bukkit
+- CURRENT (Used in playerlist to get the previous value)
 - SERVER_NUM_PLAYERS
 - SERVER_MAX_PLAYERS
 - SERVER_NAME
@@ -21,6 +22,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - CHAT_MESSAGE
 - PLAYER_QUIT_MESSAGE
 ## Bungee
+- CURRENT (Used in playerlist to get the previous value)
 - PLAYER_NAME
 - PLAYER_UUID
 - PLAYER_SERVER_NAME

@@ -3,6 +3,7 @@ package com.blalp.chatdirector;
 import java.io.File;
 
 import com.blalp.chatdirector.configuration.ConfigurationBungee;
+import com.blalp.chatdirector.modules.bungee.BungeeInputItemDaemon;
 
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -14,6 +15,8 @@ public class ChatDirectorBungee extends Plugin {
     public ChatDirectorBungee() {
         instance = this;
         chatDirector = new ChatDirector(new ConfigurationBungee(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
+        BungeeInputItemDaemon.instance=new BungeeInputItemDaemon();
+		getProxy().getPluginManager().registerListener(this, BungeeInputItemDaemon.instance);
         this.getDataFolder().mkdirs();
     }
     

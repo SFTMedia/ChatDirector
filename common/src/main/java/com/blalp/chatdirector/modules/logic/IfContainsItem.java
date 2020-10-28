@@ -15,6 +15,7 @@ public class IfContainsItem extends ConditionalItem {
 
     @Override
     public boolean test(String string, Map<String, String> context) {
-        return ChatDirector.formatter.format(string, context).contains(contains);
+        context.put("CURRENT", string);
+        return ChatDirector.formatter.format(source, context).contains(ChatDirector.formatter.format(contains, context));
     }
 }
