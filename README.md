@@ -35,6 +35,8 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - COMMAND_PERMISSION
 - SERVER_##_PLAYERS
 - SERVER_##_NUM_PLAYERS
+## Context
+- CURRENT
 ## Discord Javacord
 - DISCORD_MESSAGE
 - DISCORD_AUTHOR_ID
@@ -68,6 +70,8 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - PLAYER_UUID
 - CHAT_MESSAGE
 - CHAT_FORMAT
+## SQL
+- SQL_RESULT
 ## Vault
 - PLAYER_BALANCE
 - PLAYER_PREFIX

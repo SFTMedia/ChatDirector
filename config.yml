@@ -15,6 +15,7 @@ modules:
   - replacement
   - sponge
   - vault
+  - sql
 chains:
   - common-demo: # This module is always loaded
     - pass: null # This just passes the string on
@@ -71,6 +72,14 @@ chains:
         format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
         format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
         format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
+  - context-demo:
+    - get-context:
+        context: "SERVER_%SERVER_NAME%_Players" # Normally such a nested contexts would not be possible
+    - set-context:
+        context: "TARGET_CONTEXT"
+        value: "Hello %PLAYER_NAME% you have %BALANCE% money!" # Optional. defaults to CURRENT
+    - remove-context:
+        context: "SERVER_NAME"
   - console-demo:
     - console-output: null
     - console-output-error: null
@@ -170,5 +179,16 @@ chains:
     - sponge-output:
         permission: null # Optional
         sender: "FakeME" # Optional
+  - sql-demo:
+    - send-data:
+        table: ""
+        name: ""
+        key: ""
+        value: ""
+    - receive-data:
+        table: ""
+        name: ""
+        key: ""
+        value: ""
   - vault-demo:
     - vault-context: null  # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.
