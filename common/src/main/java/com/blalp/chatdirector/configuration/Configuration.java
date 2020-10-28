@@ -31,7 +31,7 @@ public class Configuration extends Loadable {
     String fileName;
     public static List<IModule> loadedModules = new ArrayList<>();
 	public static boolean debug;
-    public HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
+    public HashMap<String,Pipe> chains = new HashMap<String,Pipe>();
 
     public Configuration(String fileName) {
         this.fileName = fileName;
@@ -63,10 +63,10 @@ public class Configuration extends Loadable {
                     }
                 }
             }
-            if (configuration.containsKey("pipes")) {
-                for (LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>> outerKey : ((ArrayList<LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>>>)configuration.get("pipes"))) {
+            if (configuration.containsKey("chains")) {
+                for (LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>> outerKey : ((ArrayList<LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>>>)configuration.get("chains"))) {
                     for (String key : outerKey.keySet()) {
-                        pipes.put(key,new Pipe(loadItems(outerKey.get(key))));
+                        chains.put(key,new Pipe(loadItems(outerKey.get(key))));
                     }
                 }
             }
@@ -80,9 +80,9 @@ public class Configuration extends Loadable {
                     System.out.println(module);
                 }
                 System.out.println("Pipes");
-                for (String pipeKey: pipes.keySet()) {
+                for (String pipeKey: chains.keySet()) {
                     System.out.println("Pipe "+pipeKey);
-                    IItem item = pipes.get(pipeKey).rootItem;
+                    IItem item = chains.get(pipeKey).rootItem;
                     while(item!=null&&!(item instanceof StopItem)) {
                         System.out.println(item);
                         if (item instanceof Item){
@@ -180,7 +180,7 @@ public class Configuration extends Loadable {
     @Override
     public void unload() {
         loadedModules = new ArrayList<>();
-        pipes = new HashMap<String,Pipe>();
+        chains = new HashMap<String,Pipe>();
     }
     
 }

@@ -8,5 +8,6 @@ public class SpongeCommandItem extends PassItem {
     public SpongeCommandItem(String name,String permission){
         this.command=name;
         this.permission=permission;
+        new SpongeCommand(name, this);
     }
 }

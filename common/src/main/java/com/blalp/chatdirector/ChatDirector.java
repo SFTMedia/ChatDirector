@@ -30,7 +30,7 @@ public class ChatDirector extends Loadable {
         // Load config
         config.load();
         modules=Configuration.loadedModules;
-        pipes=config.pipes;
+        pipes=config.chains;
         // Load modules
         for(IModule module:modules){
             module.load();

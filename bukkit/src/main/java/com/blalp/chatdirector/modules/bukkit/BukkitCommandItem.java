@@ -8,5 +8,6 @@ public class BukkitCommandItem extends PassItem {
     public BukkitCommandItem(String name,String permission){
         this.command=name;
         this.permission=permission;
+        new BukkitCommand(name, this);
     }
 }

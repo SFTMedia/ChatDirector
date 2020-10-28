@@ -12,7 +12,7 @@ public abstract class PermissionItem extends Item implements IPermission {
             context.put("PLAYER_GROUP", getGroup(context.get("PLAYER_NAME")));
         }
         this.context=context;
-        return null;
+        return string;
     }
     
 }

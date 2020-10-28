@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.ChatDirectorSponge;
 import com.blalp.chatdirector.model.ILoadable;
 
 import org.spongepowered.api.Sponge;
@@ -29,8 +30,9 @@ public class SpongeCommand implements CommandExecutor, ILoadable {
             .permission(item.permission)
             .executor(this)
             .build();
-
-        Sponge.getCommandManager().register(this, myCommandSpec, item.command);
+        if(!Sponge.getCommandManager().containsAlias(item.command)){
+            Sponge.getCommandManager().register(ChatDirectorSponge.instance, myCommandSpec, item.command);
+        }
     }
 
     @Override

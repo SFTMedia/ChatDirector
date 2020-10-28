@@ -4,7 +4,6 @@ import com.blalp.chatdirector.model.Loadable;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
-import org.javacord.api.entity.intent.Intent;
 
 public class DiscordBot extends Loadable {
     private DiscordApi discordApi;

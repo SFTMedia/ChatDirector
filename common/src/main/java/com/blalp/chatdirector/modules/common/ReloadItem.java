@@ -10,7 +10,7 @@ public class ReloadItem extends Item {
     @Override
     public String process(String string, Map<String, String> context) {
         ChatDirector.instance.reload();
-        return null;
+        return string;
     }
     
 }

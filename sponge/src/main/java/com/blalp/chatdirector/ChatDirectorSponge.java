@@ -21,6 +21,7 @@ import org.spongepowered.api.text.Text;
 @Plugin(id="chatdirector",name = "Chat Director",version = "0.1.1-alpha",description = "Manages as much Chat as needed.")
 public class ChatDirectorSponge {
     private ChatDirector chatDirector;
+    public static ChatDirectorSponge instance;
 
     @Inject
     @ConfigDir(sharedRoot = false)
@@ -28,6 +29,7 @@ public class ChatDirectorSponge {
 
     @Listener
     public void onServerStart(GameStartedServerEvent e){
+        instance=this;
         chatDirector = new ChatDirector(new ConfigurationSponge(configDir.getAbsolutePath()+File.separatorChar+"config.yml"));
         configDir.mkdirs();
         chatDirector.load();

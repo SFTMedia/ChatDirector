@@ -18,7 +18,7 @@ public class SpongeOutputItem extends Item {
         } else {
             Sponge.getServer().getBroadcastChannel().send(Text.of(ChatDirector.formatter.format(string, context)));
         }
-        return null;
+        return string;
     }
     
 }

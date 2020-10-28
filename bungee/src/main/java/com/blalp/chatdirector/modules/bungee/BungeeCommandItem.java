@@ -8,5 +8,6 @@ public class BungeeCommandItem extends PassItem {
     public BungeeCommandItem(String name,String permission){
         this.command=name;
         this.permission=permission;
+        new BungeeCommand(name, this);
     }
 }
