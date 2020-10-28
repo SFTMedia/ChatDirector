@@ -75,8 +75,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - PLAYER_GROUP
 
 # TODO
-- Add command inputs for Sponge (take a look at command-utils)
 - context manipulation (set,remove.add,copy)
 - sql integration
-- custom commands
+- fallback reload command in case config doesn't load
 - implement onMessage on bungee
