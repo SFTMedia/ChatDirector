@@ -16,7 +16,7 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.command.spec.CommandSpec;
 
 public class SpongeCommand implements CommandExecutor, ILoadable {
-    static ArrayList<SpongeCommand> commands = new ArrayList<>();
+    public static ArrayList<SpongeCommand> commands = new ArrayList<>();
     SpongeCommandItem item;
 
     public SpongeCommand(String name,SpongeCommandItem item) {

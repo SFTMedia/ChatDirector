@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.modules.sql;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,9 +51,7 @@ public class SQLModule extends Module {
             connection.getValue().load();
             for (String table : tables.get(connection.getKey())) {
                 try {
-                    connection.getValue().connection.prepareStatement(
-                            "CREATE TABLE IF NOT EXISTS ? (name varchar(255),key varchar(255), value varchar(255));")
-                            .execute();
+                    connection.getValue().connection.prepareStatement("CREATE TABLE IF NOT EXISTS "+table+" (`name` varchar(255) NOT NULL,`key` varchar(255) NOT NULL, `value` varchar(255) NOT NULL, PRIMARY KEY (`key`, `name`));").execute();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

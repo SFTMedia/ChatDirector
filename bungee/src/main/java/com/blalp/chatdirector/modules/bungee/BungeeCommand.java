@@ -12,7 +12,7 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
 
 public class BungeeCommand extends Command implements ILoadable {
-    static ArrayList<BungeeCommand> commands = new ArrayList<>();
+    public static ArrayList<BungeeCommand> commands = new ArrayList<>();
     BungeeCommandItem item;
     public BungeeCommand(String name,BungeeCommandItem item) {
         super(name);

@@ -19,12 +19,17 @@ public class SQLRetrieveDataItem extends SQLItem {
     public String process(String string, Map<String, String> context) {
         context.put("CURRENT", string);
         try {
-            PreparedStatement statement = SQLModule.connections.get(connectionName).connection.prepareStatement("SELECT value from ? WHERE name=? AND key=? LIMIT 1");
-            statement.setString(1, ChatDirector.formatter.format(table, context));
-            statement.setString(2, ChatDirector.formatter.format(name, context));
-            statement.setString(3, ChatDirector.formatter.format(key, context));
+            PreparedStatement statement = SQLModule.connections.get(connectionName).connection.prepareStatement("SELECT `value` from "+ChatDirector.formatter.format(table, context)+" WHERE `name`=? AND `key`=? LIMIT 1");
+            statement.setString(1, ChatDirector.formatter.format(name, context));
+            statement.setString(2, ChatDirector.formatter.format(key, context));
             ResultSet results = statement.executeQuery();
-            this.context.put("SQL_RESULT", results.getString("value"));
+            if(results.next()) {
+                this.context.put("SQL_RESULT", results.getString("value"));
+            } else {
+                if(Configuration.debug){
+                    System.out.println("No result was found ");
+                }
+            }
         } catch (SQLException e){
             System.err.println(this+" failed on "+string);
             if(Configuration.debug){

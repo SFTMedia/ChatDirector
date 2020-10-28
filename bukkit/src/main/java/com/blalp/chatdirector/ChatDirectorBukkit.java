@@ -3,8 +3,11 @@ package com.blalp.chatdirector;
 import java.io.File;
 
 import com.blalp.chatdirector.configuration.ConfigurationBukkit;
+import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommand;
+import com.blalp.chatdirector.modules.bukkit.BukkitCommandItem;
 import com.blalp.chatdirector.modules.bungee.FromBungeeDaemon;
+import com.blalp.chatdirector.modules.common.ReloadItem;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,14 +20,30 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
     private ChatDirector chatDirector;
 
     public ChatDirectorBukkit() {
-        instance = this;
-        chatDirector = new ChatDirector(new ConfigurationBukkit(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
-        this.getDataFolder().mkdirs();
+        try {
+            instance = this;
+            chatDirector = new ChatDirector(new ConfigurationBukkit(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
+            this.getDataFolder().mkdirs();
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("YIKES! Some error. Registering /chatdirector for you so you can reload.");
+            registerReload();
+        }
     }
-    
+    private void registerReload(){
+        // In case anything goes wrong, register the reload command
+        Item item = new BukkitCommandItem("chatdirector","chatdirector.reload");
+        item.next=new ReloadItem();
+    }
     @Override
     public void onEnable() {
-        chatDirector.load();
+        try {
+            chatDirector.load();
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("YIKES! Some error. Registering /chatdirector for you so you can reload.");
+            registerReload();
+        }
     }
 
     @Override

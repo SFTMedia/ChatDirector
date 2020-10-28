@@ -14,6 +14,9 @@ public class EchoItem extends Item {
 
     @Override
     public String process(String string, Map<String,String> context) {
+        if(context.containsKey("CURRENT")){
+            context.put("LAST", context.get("CURRENT"));
+        }
         context.put("CURRENT", string);
         return ChatDirector.formatter.format(format, context);
     }

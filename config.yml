@@ -187,10 +187,9 @@ chains:
         name: ""
         key: ""
         value: ""
-    - receive-data:
+    - retrieve-data:
         table: ""
         name: ""
         key: ""
-        value: ""
   - vault-demo:
     - vault-context: null  # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.

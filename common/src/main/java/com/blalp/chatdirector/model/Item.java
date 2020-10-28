@@ -22,16 +22,20 @@ public abstract class Item implements IItem, Runnable {
     }
     public void work(String string,Map<String,String> context){
         if(Configuration.debug){
-            System.out.println("Starting work of "+getClass().getCanonicalName()+"("+this+") with string >"+string+"<");
+            System.out.println();
+            System.out.println(getClass().getName()+"> Starting work of "+getClass().getCanonicalName()+"("+this+") with string >"+string+"<");
+            System.out.print("    ");
             System.out.println(context);
         }
         this.context=context;
         string = this.process(string,this.context);
         if(Configuration.debug){
-            System.out.println("Processed to "+getClass().getCanonicalName()+"("+this+") with string >"+string+"<");
+            System.out.println(getClass().getName()+"> Finished work of "+getClass().getCanonicalName()+"("+this+") with result >"+string+"<");
+            System.out.print("    ");
             System.out.println(context);
+            System.out.println();
         }
-        if(string.equals("")){
+        if(string==null||string.equals("")){
             return;
         }
         if(next!=null){
