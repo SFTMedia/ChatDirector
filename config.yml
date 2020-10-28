@@ -15,7 +15,7 @@ modules:
   - replacement
   - sponge
   - vault
-pipes:
+chains:
   - common-demo: # This module is always loaded
     - pass: null # This just passes the string on
     - stop: null # This sets the string to nothing and stops
