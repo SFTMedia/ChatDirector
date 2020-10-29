@@ -38,6 +38,7 @@ public abstract class Item implements IItem, Runnable {
         if(string==null||string.equals("")){
             return;
         }
+        this.context.put("STRING", string);
         if(next!=null){
             next.work(string,this.context);
         } else {

@@ -31,6 +31,10 @@ public abstract class ConditionalItem extends PassItem {
         } else {
             nestedFalse.work(string,context);
         }
+        if(context.containsKey("STRING")){
+            string=context.get("STRING");
+        }
+        context.put("STRING", string);
         if(!(stopOnFalse&&!result)){
             next.work(string, context);
         } else {
