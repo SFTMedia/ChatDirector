@@ -70,28 +70,20 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
         }
     }
 
-    @EventHandler
-    public void onServerStart(WorldLoadEvent event) {
-        if(Bukkit.getWorlds().indexOf(event.getWorld())!=0){
-            return;
-        }
+    public void onServerStart() {
         // Loaded the main world. Server started!
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (item.serverStarted) {
-                item.startWork("**Server Started**",true,ChatDirector.formatter.getContext(event));
+                item.startWork("**Server Started**",true,ChatDirector.formatter.getContext(null));
             }
         }
     }
 
-    @EventHandler
-    public void onServerStop(WorldUnloadEvent event) {
-        if(Bukkit.getWorlds().indexOf(event.getWorld())!=0){
-            return;
-        }
+    public void onServerStop() {
         // Loaded the main world. Server started!
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (item.serverStopped) {
-                item.startWork("**Server Stopped**",true,ChatDirector.formatter.getContext(event));
+                item.startWork("**Server Stopped**",true,ChatDirector.formatter.getContext(null));
             }
         }
     }

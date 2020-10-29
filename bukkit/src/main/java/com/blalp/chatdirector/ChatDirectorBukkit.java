@@ -6,6 +6,7 @@ import com.blalp.chatdirector.configuration.ConfigurationBukkit;
 import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommand;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommandItem;
+import com.blalp.chatdirector.modules.bukkit.BukkitInputDaemon;
 import com.blalp.chatdirector.modules.bungee.FromBungeeDaemon;
 import com.blalp.chatdirector.modules.common.ReloadItem;
 
@@ -26,31 +27,37 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
             this.getDataFolder().mkdirs();
         } catch (Exception e){
             e.printStackTrace();
-            System.out.println("YIKES! Some error. Registering /chatdirector for you so you can reload.");
+            System.out.println("YIKES! Some error. Registering /chatdirectorlocal for you so you can reload.");
             registerReload();
         }
     }
     private void registerReload(){
         // In case anything goes wrong, register the reload command
-        Item item = new BukkitCommandItem("chatdirector","chatdirector.reload");
+        Item item = new BukkitCommandItem("chatdirectorlocal","chatdirector.reload");
         item.next=new ReloadItem();
     }
     @Override
     public void onEnable() {
         try {
             chatDirector.load();
+            if(BukkitInputDaemon.instance!=null){
+                BukkitInputDaemon.instance.onServerStart();
+            }
             if(chatDirector.chains.size()==0){
                 throw new Exception("NO CHAINS!");
             }
         } catch (Exception e){
             e.printStackTrace();
-            System.out.println("YIKES! Some error. Registering /chatdirector for you so you can reload.");
+            System.out.println("YIKES! Some error. Registering /chatdirectorlocal for you so you can reload.");
             registerReload();
         }
     }
 
     @Override
     public void onDisable() {
+        if(BukkitInputDaemon.instance!=null){
+            BukkitInputDaemon.instance.onServerStop();
+        }
         chatDirector.unload();
     }
 

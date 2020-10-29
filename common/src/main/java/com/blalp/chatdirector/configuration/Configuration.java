@@ -169,9 +169,10 @@ public class Configuration extends Loadable {
                 return new ConsoleModule();
             case "context":
                 return new ContextModule();
+            // JDA isn't working and functionally the same as javacord anyways
+            //case "discord-jda":
+            //   return new com.blalp.chatdirector.modules.jda.DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             case "discord":
-            case "discord-jda":
-                return new com.blalp.chatdirector.modules.jda.DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             case "discord-javacord":
                 return new com.blalp.chatdirector.modules.javacord.DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             case "file":
