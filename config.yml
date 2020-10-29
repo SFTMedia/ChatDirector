@@ -29,7 +29,8 @@ chains:
         chat: true
         leave: true
         join: true
-        server: true
+        server-started: true
+        server-stopped: true
         check-canceled: true
         new-join: true
         cancel-chat: true
@@ -169,7 +170,8 @@ chains:
         chat: true
         leave: true
         join: true
-        server: true
+        server-started: true
+        server-stopped: true
         check-canceled: true
         format: "%PLAYER_NAME%: %CHAT_MESSAGE%"
     - sponge-playerlist:
