@@ -43,6 +43,9 @@ public class ChatDirectorBungee extends Plugin {
     public void onEnable() {
         try {
             chatDirector.load();
+            if(chatDirector.chains.size()==0){
+                throw new Exception("NO CHAINS!");
+            }
         } catch (Exception e){
             e.printStackTrace();
             System.out.println("YIKES! Some error. Registering /chatdirector for you so you can reload.");

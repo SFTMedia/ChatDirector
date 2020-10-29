@@ -41,6 +41,9 @@ public class ChatDirectorSponge {
             if(SpongeInputDaemon.instance!=null){
                 SpongeInputDaemon.instance.onServerStart(e);
             }
+            if(chatDirector.chains.size()==0){
+                throw new Exception("NO CHAINS!");
+            }
         } catch (Exception ex){
             ex.printStackTrace();
             System.out.println("YIKES! Some error. Registering /chatdirector for you so you can reload.");

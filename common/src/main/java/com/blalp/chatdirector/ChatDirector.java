@@ -25,12 +25,12 @@ public class ChatDirector extends Loadable {
     public static IFormatter formatter = new Formatters();
 	public static ChatDirector instance;
     List<IModule> modules = new ArrayList<>();
-    HashMap<String,Pipe> pipes = new HashMap<String,Pipe>();
+    HashMap<String,Pipe> chains = new HashMap<String,Pipe>();
     public void load(){
         // Load config
         config.load();
         modules=Configuration.loadedModules;
-        pipes=config.chains;
+        chains=config.chains;
         // Load modules
         for(IModule module:modules){
             module.load();
@@ -42,7 +42,7 @@ public class ChatDirector extends Loadable {
         }
         config.unload();
         modules= new ArrayList<>();
-        pipes= new HashMap<String,Pipe>();
+        chains= new HashMap<String,Pipe>();
         formatter=new Formatters();
     }
 	public static void addFormatter(IFormatter newFormatter) {
