@@ -25,7 +25,7 @@ public class SQLSendDataItem extends SQLItem {
             statement.setString(2, ChatDirector.formatter.format(key, context));
             statement.setString(3, ChatDirector.formatter.format(value, context));
             statement.setString(4, ChatDirector.formatter.format(value, context));
-            statement.executeQuery();
+            statement.execute();
         } catch (SQLException e){
             System.err.println(this+" failed on "+string);
             if(Configuration.debug){

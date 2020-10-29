@@ -43,6 +43,7 @@ public class ChatDirector extends Loadable {
         config.unload();
         modules= new ArrayList<>();
         pipes= new HashMap<String,Pipe>();
+        formatter=new Formatters();
     }
 	public static void addFormatter(IFormatter newFormatter) {
         ((Formatters)formatter).formatters.add(newFormatter);

@@ -20,7 +20,7 @@ public class BukkitFormatter extends Formatter {
         HashMap<String,String> context = new HashMap<>();
         context.put("SERVER_NUM_PLAYERS",String.valueOf(Bukkit.getOnlinePlayers().size()));
         context.put("SERVER_MAX_PLAYERS",String.valueOf(Bukkit.getMaxPlayers()));
-        context.put("SERVER_NAME",String.valueOf(Bukkit.getServerName()));
+        context.put("SERVER_NAME",String.valueOf(Bukkit.getServer().getName()));
         context.put("SERVER_MOTD",String.valueOf(Bukkit.getMotd()));
         if(event instanceof PlayerEvent) {
             context.put("PLAYER_NAME", ((PlayerEvent)event).getPlayer().getName());
