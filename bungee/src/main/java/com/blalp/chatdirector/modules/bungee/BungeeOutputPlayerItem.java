@@ -10,17 +10,27 @@ import net.md_5.bungee.api.ProxyServer;
 
 public class BungeeOutputPlayerItem extends Item {
     String player;
-    boolean uuid;
-    public BungeeOutputPlayerItem(String player,boolean uuid){
+    String permission;
+    public BungeeOutputPlayerItem(String player){
         this.player=player;
-        this.uuid=uuid;
     }
     @Override
     public String process(String string, Map<String, String> context) {
-        if(uuid){
-            ProxyServer.getInstance().getPlayer(UUID.fromString(player)).sendMessage(ChatDirector.formatter.format(string, context));
+        if(permission!=null){
+            if(ChatDirector.formatter.format(player, context).length()>16){
+                if(!ProxyServer.getInstance().getPlayer(UUID.fromString(ChatDirector.formatter.format(player, context))).hasPermission(ChatDirector.formatter.format(permission, context))){
+                    return string;
+                }
+            } else {
+                if(!ProxyServer.getInstance().getPlayer(ChatDirector.formatter.format(player, context)).hasPermission(ChatDirector.formatter.format(permission, context))){
+                    return string;
+                }
+            }
+        }
+        if(ChatDirector.formatter.format(player, context).length()>16){
+            ProxyServer.getInstance().getPlayer(UUID.fromString(ChatDirector.formatter.format(player, context))).sendMessage(ChatDirector.formatter.format(string, context));
         } else {
-            ProxyServer.getInstance().getPlayer(player).sendMessage(ChatDirector.formatter.format(string, context));
+            ProxyServer.getInstance().getPlayer(ChatDirector.formatter.format(player, context)).sendMessage(ChatDirector.formatter.format(string, context));
         }
         return string;
     }

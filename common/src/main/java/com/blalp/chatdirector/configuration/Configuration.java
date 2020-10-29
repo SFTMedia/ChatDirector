@@ -27,6 +27,7 @@ import com.blalp.chatdirector.modules.replacement.ReplacementModule;
 import com.blalp.chatdirector.modules.sql.SQLModule;
 
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.scanner.ScannerException;
 
 public class Configuration extends Loadable {
@@ -101,9 +102,11 @@ public class Configuration extends Loadable {
         } catch (FileNotFoundException e) {
             System.err.println("CONFIG NOT FOUND!");
             e.printStackTrace();
-        } catch (ScannerException e){
+        } catch (Exception e){
             System.err.println("Invalid YAML");
             e.printStackTrace();
+            System.out.println("Reloading every 10 seconds");
+            new Thread(new TimedLoad()).start();
         }
     }
     public static IItem loadItems(ArrayList<LinkedHashMap<String,Object>> items) {

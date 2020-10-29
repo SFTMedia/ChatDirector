@@ -10,7 +10,7 @@ public class BungeeModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"bungee-command","bungee-playerlist","bungee-output","bungee-input"};
+        return new String[]{"bungee-command","bungee-playerlist","bungee-output","bungee-input","bungee-output-player","bungee-output-server"};
     }
 
     @Override
@@ -64,6 +64,20 @@ public class BungeeModule extends Module {
                 return new BungeeCommandItem(configCommand.get("command"),configCommand.get("permission"));
             case "bungee-output":
                 return new BungeeOutputItem();
+            case "bungee-output-player":
+                LinkedHashMap<String,String> configOutputPlayer = ((LinkedHashMap<String,String>)config);
+                BungeeOutputPlayerItem outputPlayer = new BungeeOutputPlayerItem(configOutputPlayer.get("player"));
+                if(configOutputPlayer.containsKey("permission")){
+                    outputPlayer.permission=configOutputPlayer.get("permission");
+                }
+                return outputPlayer;
+            case "bungee-output-server":
+                LinkedHashMap<String,String> configOutputServer = ((LinkedHashMap<String,String>)config);
+                BungeeOutputServerItem outputServer = new BungeeOutputServerItem(configOutputServer.get("server"));
+                if(configOutputServer.containsKey("permission")){
+                    outputServer.permission=configOutputServer.get("permission");
+                }
+                return outputServer;
             case "bungee-input":
                 LinkedHashMap<String,Object> configInput = ((LinkedHashMap<String,Object>)config);
                 BungeeInputItem itemInput = new BungeeInputItem();
