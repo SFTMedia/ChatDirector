@@ -10,7 +10,9 @@ public abstract class Formatter implements IFormatter {
             return null;
         }
         for (Entry<String,String> singleContext : context.entrySet()) {
-            format=format.replace("%"+singleContext.getKey()+"%", singleContext.getValue());
+            if(singleContext.getKey()!=null&singleContext.getValue()!=null){
+                format=format.replace("%"+singleContext.getKey()+"%", singleContext.getValue());
+            }
         }
         return format;
     }
