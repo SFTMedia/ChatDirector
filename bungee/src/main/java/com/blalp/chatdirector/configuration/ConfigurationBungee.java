@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.blalp.chatdirector.modules.IModule;
 import com.blalp.chatdirector.modules.bungee.BungeeModule;
+import com.blalp.chatdirector.modules.multichat.MultiChatModule;
 
 public class ConfigurationBungee extends Configuration {
 
@@ -28,6 +29,8 @@ public class ConfigurationBungee extends Configuration {
         switch (type) {
             case "bungee":
                 return new BungeeModule();
+            case "multichat":
+                return new MultiChatModule();
             default:
                 return null;
         }

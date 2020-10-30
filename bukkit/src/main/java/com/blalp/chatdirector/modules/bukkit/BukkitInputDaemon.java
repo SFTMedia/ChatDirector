@@ -14,8 +14,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
-import org.bukkit.event.world.WorldLoadEvent;
-import org.bukkit.event.world.WorldUnloadEvent;
 
 public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public static BukkitInputDaemon instance;
@@ -86,9 +84,5 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
                 item.startWork("**Server Stopped**",true,ChatDirector.formatter.getContext(null));
             }
         }
-    }
-    @Override
-    public void load() {
-        Bukkit.getPluginManager().registerEvents(this, ChatDirectorBukkit.instance);
     }
 }

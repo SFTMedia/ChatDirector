@@ -22,7 +22,7 @@ public class BungeeFormatter extends Formatter {
         if(event instanceof ProxiedPlayer){
             context.put("PLAYER_NAME", ((ProxiedPlayer)event).getDisplayName());
             context.put("PLAYER_UUID", ((ProxiedPlayer)event).getUniqueId().toString());
-            if(((ProxiedPlayer)event).getServer()!=null){
+            if(((ProxiedPlayer)event).getServer()!=null&&((ProxiedPlayer)event).getServer().getInfo()!=null){
                 context.put("PLAYER_SERVER_NAME", ((ProxiedPlayer)event).getServer().getInfo().getName());
                 context.put("PLAYER_SERVER_MOTD", ((ProxiedPlayer)event).getServer().getInfo().getMotd());
             }

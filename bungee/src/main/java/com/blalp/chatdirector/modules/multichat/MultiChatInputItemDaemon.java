@@ -28,11 +28,13 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
 	}
 	@EventHandler
 	public void onEvent(PostGlobalChatEvent e) {
+        System.out.println("GLOBAL CHAT "+e.getMessage());
         Map<String,String> context = ChatDirector.formatter.getContext(e);
-		// this is needed as ServerConnectEvent is also called for the first time.
         for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
             if(item.global){
                 item.startWork(ChatDirector.formatter.format(e.getMessage(), context), true, context);
+            } else {
+                System.out.println(" no global for "+item);
             }
         }
 	}
@@ -45,5 +47,14 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
             }
         }
     }
-    
+    /*
+    @Override
+    public void load() {
+        ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(ChatDirectorBungee.instance, this);
+    }
+    @Override
+    public void unload() {
+        ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(this);
+    }
+    */
 }

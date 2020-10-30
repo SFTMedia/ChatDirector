@@ -8,6 +8,7 @@ import com.blalp.chatdirector.modules.bungee.BungeeCommand;
 import com.blalp.chatdirector.modules.bungee.BungeeCommandItem;
 import com.blalp.chatdirector.modules.bungee.BungeeInputItemDaemon;
 import com.blalp.chatdirector.modules.common.ReloadItem;
+import com.blalp.chatdirector.modules.multichat.MultiChatInputItemDaemon;
 
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -22,6 +23,8 @@ public class ChatDirectorBungee extends Plugin {
             chatDirector = new ChatDirector(new ConfigurationBungee(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
             BungeeInputItemDaemon.instance=new BungeeInputItemDaemon();
             getProxy().getPluginManager().registerListener(this, BungeeInputItemDaemon.instance);
+            MultiChatInputItemDaemon.instance=new MultiChatInputItemDaemon();
+            getProxy().getPluginManager().registerListener(this, MultiChatInputItemDaemon.instance);
             this.getDataFolder().mkdirs();
         } catch (Exception e){
             e.printStackTrace();

@@ -108,6 +108,9 @@ public class BungeeModule extends Module {
                 if(configInput.containsKey("command")){
                     itemInput.command= (boolean) configInput.get("command");
                 }
+                if(BungeeInputItemDaemon.instance==null){
+                    BungeeInputItemDaemon.instance=new BungeeInputItemDaemon();
+                }
                 BungeeInputItemDaemon.instance.addItem(itemInput);
                 return itemInput;
         }
@@ -118,7 +121,7 @@ public class BungeeModule extends Module {
     public void load() {
         ChatDirector.addFormatter(new BungeeFormatter());
         if(BungeeInputItemDaemon.instance!=null){
-            BungeeInputItemDaemon.instance.load();;
+            BungeeInputItemDaemon.instance.load();
         }
         for(BungeeCommand command:BungeeCommand.commands){
             command.load();

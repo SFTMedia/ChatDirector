@@ -43,6 +43,10 @@ public class MultiChatModule extends Module {
                 if(configInput.containsKey("broadcast")){
                     itemInput.broadcast= (boolean) (configInput.get("broadcast"));
                 }
+                if(MultiChatInputItemDaemon.instance==null){
+                    MultiChatInputItemDaemon.instance=new MultiChatInputItemDaemon();
+                }
+                MultiChatInputItemDaemon.instance.addItem(itemInput);
                 return itemInput;
             case "multichat-context":
                 return new MultiChatContextItem();
