@@ -82,6 +82,13 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>xyz.olivermartin.multichat</groupId>
+            <artifactId>multichat</artifactId>
+            <version>1.9.5-custom-5</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.blalp.chatdirector</groupId>
 			<artifactId>common</artifactId>

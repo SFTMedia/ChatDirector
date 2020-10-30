@@ -12,6 +12,7 @@ modules:
         bot-name: "TOKEN"
   - file
   - luckperms
+  - multichat
   - replacement
   - sponge
   - vault
@@ -163,6 +164,12 @@ chains:
         - null-item: null
   - luckperms-demo:
     - luckperms-context: null  # This loads the PREFIX, SUFFIX and GROUP of the player in the PLAYER_NAME context.
+  - multichat-demo:
+    - multichat-context: null # Adds more contexts
+    - multichat-input:
+      global: true
+      staff: true
+      broadcast: true
   - replacement-demo:
     - regex:
       - "Regex to find": "regex to replace"
