@@ -10,8 +10,6 @@ import com.blalp.chatdirector.modules.sponge.SpongeCommandItem;
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
 import com.google.inject.Inject;
 
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
@@ -20,7 +18,6 @@ import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
 import org.spongepowered.api.event.message.MessageChannelEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.text.Text;
 
 @Plugin(id="chatdirector",name = "Chat Director",version = "0.1.3",description = "Manages as much Chat as needed.")
 public class ChatDirectorSponge {

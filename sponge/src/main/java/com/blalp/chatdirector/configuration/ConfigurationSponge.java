@@ -3,7 +3,6 @@ package com.blalp.chatdirector.configuration;
 import java.util.List;
 import java.util.Map;
 
-
 import com.blalp.chatdirector.modules.IModule;
 import com.blalp.chatdirector.modules.sponge.SpongeModule;
 

@@ -27,8 +27,6 @@ import com.blalp.chatdirector.modules.replacement.ReplacementModule;
 import com.blalp.chatdirector.modules.sql.SQLModule;
 
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.error.YAMLException;
-import org.yaml.snakeyaml.scanner.ScannerException;
 
 public class Configuration extends Loadable {
 

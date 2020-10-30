@@ -7,8 +7,6 @@ import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.Configuration;
-import com.blalp.chatdirector.model.Item;
-
 public class SQLRetrieveDataItem extends SQLItem {
 
     public SQLRetrieveDataItem(String table, String name, String key, String connectionName) {

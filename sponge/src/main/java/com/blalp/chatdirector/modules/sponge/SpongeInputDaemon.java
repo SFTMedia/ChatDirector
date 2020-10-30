@@ -1,6 +1,5 @@
 package com.blalp.chatdirector.modules.sponge;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;

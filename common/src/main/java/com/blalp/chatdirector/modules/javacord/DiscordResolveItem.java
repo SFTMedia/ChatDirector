@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import com.blalp.chatdirector.model.Item;
-
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
 

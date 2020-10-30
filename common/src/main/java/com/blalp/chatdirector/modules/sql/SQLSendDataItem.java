@@ -1,14 +1,11 @@
 package com.blalp.chatdirector.modules.sql;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.Configuration;
-import com.blalp.chatdirector.model.Item;
-
 public class SQLSendDataItem extends SQLItem {
     String value;
     public SQLSendDataItem(String table, String name, String key, String connectionName,String value) {

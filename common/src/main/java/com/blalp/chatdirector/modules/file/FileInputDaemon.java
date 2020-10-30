@@ -2,7 +2,6 @@ package com.blalp.chatdirector.modules.file;
 
 import java.util.ArrayList;
 
-import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.ItemDaemon;
 
 public class FileInputDaemon extends ItemDaemon {
