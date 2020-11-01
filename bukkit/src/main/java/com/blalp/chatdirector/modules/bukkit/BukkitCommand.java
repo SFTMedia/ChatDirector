@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Configuration;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

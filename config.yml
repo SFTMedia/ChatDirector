@@ -91,6 +91,7 @@ chains:
         value: "Hello %PLAYER_NAME% you have %BALANCE% money!" # Optional. defaults to CURRENT
     - remove-context:
         context: "SERVER_NAME"
+    - resolve-context: null # This resolves the input string as a formattable message. Normally this shouldn't be needed and could allow for formatting injection.
   - console-demo:
     - console-output: null
     - console-output-error: null
@@ -175,11 +176,12 @@ chains:
       - "Regex to find": "regex to replace"
       - "Regex to find": "regex to replace"
     - remove-colors: null
-    - parse-colors: null # converts & into §
+    - resolve-colors: null # converts & into §
   - sponge-demo:
     - sponge-command:
         command: "command"
         permission: "*"
+        args: true # Optional
     - sponge-input: # All of these are optional
         chat: true
         leave: true
@@ -187,6 +189,7 @@ chains:
         server-started: true
         server-stopped: true
         check-canceled: true
+        cancel-chat: true
         format: "%PLAYER_NAME%: %CHAT_MESSAGE%"
     - sponge-playerlist:
         format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional

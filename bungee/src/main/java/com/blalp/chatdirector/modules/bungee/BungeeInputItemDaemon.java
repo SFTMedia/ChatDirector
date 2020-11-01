@@ -12,6 +12,7 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
+import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
@@ -34,7 +35,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
         }
 	}
 	@EventHandler
-	public void onEvent(ServerConnectedEvent e) {
+	public void onEvent(ServerSwitchEvent e) {
         Map<String,String> context = ChatDirector.formatter.getContext(e);
 		// this is needed as ServerConnectEvent is also called for the first time.
         for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[]{})) {
@@ -43,6 +44,16 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
                     item.startWork(ChatDirector.formatter.format(item.formatSwitch, context), true, context);
                 }
             } else {
+                existing_players.add(e.getPlayer().getUniqueId());
+            }
+        }
+    }
+	@EventHandler
+	public void onEvent(ServerConnectedEvent e) {
+        Map<String,String> context = ChatDirector.formatter.getContext(e);
+		// this is needed as ServerConnectEvent is also called for the first time.
+        for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[]{})) {
+            if (!existing_players.contains(e.getPlayer().getUniqueId())) {
                 if(item.joinServer){
                     item.startWork(ChatDirector.formatter.format(item.formatJoin, context), true, context);
                 }

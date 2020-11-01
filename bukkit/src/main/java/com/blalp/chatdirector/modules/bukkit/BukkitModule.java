@@ -8,6 +8,8 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 
+import org.bukkit.Bukkit;
+
 public class BukkitModule extends Module {
 
     @Override
@@ -23,6 +25,7 @@ public class BukkitModule extends Module {
         if(BukkitInputDaemon.instance!=null){
             BukkitInputDaemon.instance.unload();
         }
+        BukkitCommand.commands=new ArrayList<>();
     }
     @Override
     public String[] getItemNames() {

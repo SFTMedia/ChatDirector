@@ -10,7 +10,7 @@ public class ReplacementModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"regex","remove-colors","parse-colors"};
+        return new String[]{"regex","remove-colors","resolve-colors"};
     }
 
     @Override
@@ -20,8 +20,8 @@ public class ReplacementModule extends Module {
                 return new RegexItem((ArrayList<Map<String,String>>)config);
             case "remove-colors":
                 return new RemoveColorsItem();
-            case "parse-colors":
-                return new ParseColorsItem();
+            case "resolve-colors":
+                return new ResolveColorsItem();
         }
         return null;
     }

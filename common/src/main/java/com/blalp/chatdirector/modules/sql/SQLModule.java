@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
 
@@ -45,6 +46,9 @@ public class SQLModule extends Module {
 
     @Override
     public void load() {
+        if(Configuration.debug){
+            System.out.println("Loading "+this);
+        }
         for (Entry<String, SQLConnection> connection : connections.entrySet()) {
             connection.getValue().load();
             for (String table : tables.get(connection.getKey())) {
@@ -59,6 +63,9 @@ public class SQLModule extends Module {
 
     @Override
     public void unload() {
+        if(Configuration.debug){
+            System.out.println("Unloading "+this);
+        }
         for(SQLConnection connection:connections.values()){
             connection.unload();
         }

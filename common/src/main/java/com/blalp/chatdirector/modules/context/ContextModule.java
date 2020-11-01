@@ -9,7 +9,7 @@ public class ContextModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"get-context","set-context","remove-context"};
+        return new String[]{"get-context","set-context","remove-context","resolve-context"};
     }
 
     @Override
@@ -18,6 +18,8 @@ public class ContextModule extends Module {
         switch (type){
             case "get-context":
                 return new ContextGetItem(configMap.get("context"));
+            case "resolve-context":
+                return new ContextResolveItem();
             case "set-context":
                 ContextSetItem item = new ContextSetItem(configMap.get("context"));
                 if(configMap.containsKey("value")){

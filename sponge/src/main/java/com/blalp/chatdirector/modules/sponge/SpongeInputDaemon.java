@@ -41,6 +41,9 @@ public class SpongeInputDaemon extends ItemDaemon {
             if (item.chat) {
                 Map<String,String> context = ChatDirector.formatter.getContext(event);
                 item.startWork(ChatDirector.formatter.format(item.format,context),false,context);
+                if(item.cancelChat){
+                    event.setCancelled(true);
+                }
             }
         }
     }

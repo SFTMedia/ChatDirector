@@ -28,7 +28,9 @@ public class SpongeFormatter extends Formatter {
             context.put("PLAYER_UUID",((Player)event).getUniqueId().toString());
         }
         if(event instanceof Chat) {
-            context.put("CHAT_MESSAGE",((Chat)event).getMessage().toPlain());
+            context.put("CHAT_MESSAGE",((Chat)event).getRawMessage().toPlain());
+            context.put("CHAT_MESSAGE_FORMATTED",((Chat)event).getMessage().toPlain());
+            context.put("CHAT_MESSAGE_ORIGINAL",((Chat)event).getOriginalMessage().toPlain());
             context.put("CHAT_FORMAT",((Chat)event).getMessage().getFormat().toString());
         }
         if(event instanceof TargetUserEvent){

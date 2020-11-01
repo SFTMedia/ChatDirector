@@ -5,7 +5,6 @@ import java.io.File;
 import com.blalp.chatdirector.configuration.ConfigurationSponge;
 import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.modules.common.ReloadItem;
-import com.blalp.chatdirector.modules.sponge.SpongeCommand;
 import com.blalp.chatdirector.modules.sponge.SpongeCommandItem;
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
 import com.google.inject.Inject;
@@ -19,7 +18,7 @@ import org.spongepowered.api.event.message.MessageChannelEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
 
-@Plugin(id="chatdirector",name = "Chat Director",version = "0.1.3",description = "Manages as much Chat as needed.")
+@Plugin(id="chatdirector",name = "Chat Director",version = "0.1.4",description = "Manages as much Chat as needed.")
 public class ChatDirectorSponge {
     private ChatDirector chatDirector;
     public static ChatDirectorSponge instance;
@@ -52,7 +51,7 @@ public class ChatDirectorSponge {
         // In case anything goes wrong, register the reload command
         Item item = new SpongeCommandItem("chatdirector","chatdirector.reload");
         item.next=new ReloadItem();
-        for(SpongeCommand command : SpongeCommand.commands){
+        for(SpongeCommandItem command : SpongeCommandItem.commands){
             command.load();
         }
     }
