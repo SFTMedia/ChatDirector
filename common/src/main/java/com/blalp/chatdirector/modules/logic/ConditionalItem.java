@@ -10,7 +10,7 @@ public abstract class ConditionalItem extends PassItem {
     
     IItem nestedTrue;
     IItem nestedFalse;
-    boolean stopOnFalse=false,invert=false,stopOnTrue=false;
+    boolean invert=false;
     String source="%CURRENT%";
 
     @Override
@@ -24,7 +24,7 @@ public abstract class ConditionalItem extends PassItem {
         }
         if(Configuration.debug){
             System.out.println("Conditional "+this.getClass().getCanonicalName()+" test returned "+result);
-            System.out.println("Trues is "+nestedTrue+" false is "+nestedFalse);
+            System.out.println("True is "+nestedTrue+" false is "+nestedFalse);
         }
         if(result){
             nestedTrue.work(string,context);
@@ -35,11 +35,17 @@ public abstract class ConditionalItem extends PassItem {
             string=context.get("STRING");
         }
         context.put("STRING", string);
-        if(stopOnFalse&&!result||stopOnTrue&&result){
+        if(string==null||string.equals("")){
+            if(Configuration.debug){
+                System.out.println("Stopping here. Next was "+next+" and string was >"+string+"<. "+result);
+            }
+            return;
+        }
+        if(next!=null){
             next.work(string, context);
         } else {
             if(Configuration.debug){
-                System.out.println("Stopping here. StopOnFalse is true and failed or Stop on True is true and was true. Check: "+result);
+                System.out.println("Stopping here. Next was "+next+" and string was >"+string+"<. "+result);
             }
         }
     }
