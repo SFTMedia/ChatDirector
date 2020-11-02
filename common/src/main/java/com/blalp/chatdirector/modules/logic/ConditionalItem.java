@@ -10,7 +10,7 @@ public abstract class ConditionalItem extends PassItem {
     
     IItem nestedTrue;
     IItem nestedFalse;
-    boolean stopOnFalse=false,invert=false;
+    boolean stopOnFalse=false,invert=false,stopOnTrue=false;
     String source="%CURRENT%";
 
     @Override
@@ -35,11 +35,11 @@ public abstract class ConditionalItem extends PassItem {
             string=context.get("STRING");
         }
         context.put("STRING", string);
-        if(!(stopOnFalse&&!result)){
+        if(stopOnFalse&&!result||stopOnTrue&&result){
             next.work(string, context);
         } else {
             if(Configuration.debug){
-                System.out.println("Stopping here. StopOnFalse is true and failed.");
+                System.out.println("Stopping here. StopOnFalse is true and failed or Stop on True is true and was true. Check: "+result);
             }
         }
     }

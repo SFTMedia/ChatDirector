@@ -37,6 +37,9 @@ public class LogicModule extends Module {
                 if(configMap.containsKey("stop-on-false")){
                     output.stopOnFalse= (boolean) configMap.get("stop-on-false");
                 }
+                if(configMap.containsKey("stop-on-true")){
+                    output.stopOnTrue= (boolean) configMap.get("stop-on-true");
+                }
                 if(configMap.containsKey("source")){
                     output.source= (String) configMap.get("source");
                 }
@@ -49,6 +52,9 @@ public class LogicModule extends Module {
                 output = new IfEqualsItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("equals"));
                 if(configMap.containsKey("stop-on-false")){
                     output.stopOnFalse= (boolean) configMap.get("stop-on-false");
+                }
+                if(configMap.containsKey("stop-on-true")){
+                    output.stopOnTrue= (boolean) configMap.get("stop-on-true");
                 }
                 if(configMap.containsKey("source")){
                     output.source= (String) configMap.get("source");
@@ -65,6 +71,9 @@ public class LogicModule extends Module {
                 output = new IfRegexMatchesItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("regex"));
                 if(configMap.containsKey("stop-on-false")){
                     output.stopOnFalse= (boolean) configMap.get("stop-on-false");
+                }
+                if(configMap.containsKey("stop-on-true")){
+                    output.stopOnTrue= (boolean) configMap.get("stop-on-true");
                 }
                 if(configMap.containsKey("source")){
                     output.source= (String) configMap.get("source");

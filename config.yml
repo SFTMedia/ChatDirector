@@ -141,6 +141,7 @@ chains:
         contains: "String"
         source: "%CURRENT%" # Optional. source.contains(contains)
         stop-on-false: false # Do not continue if it is false
+        stop-on-true: false # Do not continue if it is true
         invert: false # Optional inverts the decision
     - if-equals:
         yes-chain: null
@@ -148,6 +149,7 @@ chains:
         equals: "String"
         source: "%CURRENT%" # Optional. source.equals(contains)
         stop-on-false: false # Do not continue if it is false
+        stop-on-true: false # Do not continue if it is true
         invert: false # Optional inverts the decision
         ignore-case: false # optional
     - if-regex-match:
@@ -156,6 +158,7 @@ chains:
         match: "[sS]tring"
         source: "%CURRENT%" # Optional. source.match(contains)
         stop-on-false: false # Do not continue if it is false
+        stop-on-true: false # Do not continue if it is true
         invert: false # Optional inverts the decision
     - split:
       - stream-1:
