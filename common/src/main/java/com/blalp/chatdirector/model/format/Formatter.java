@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.model.format;
 
+import java.util.ConcurrentModificationException;
 import java.util.Map;
 import java.util.Map.Entry;
 public abstract class Formatter implements IFormatter {
