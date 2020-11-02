@@ -8,7 +8,7 @@ public class StopItem implements IItem {
 
     @Override
     public String process(String string, Map<String,String> context) {
-        return null;
+        return "";
     }
 
     @Override
