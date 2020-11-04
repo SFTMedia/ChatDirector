@@ -1,5 +1,5 @@
 main: com.blalp.chatdirector.ChatDirectorBukkit
-version: 0.1.4
+version: 0.1.5
 name: ChatDirector
 softdepend: [Vault,LuckPerms]
 load: POSTWORLD
