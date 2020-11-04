@@ -1,5 +1,7 @@
 package com.blalp.chatdirector.modules.bungee;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
@@ -97,24 +99,28 @@ public class BungeeOutputFancyItem extends Item {
         }
         return output;
     }
-
+    
     @Override
     public String process(String string, Map<String, String> context) {
-        Map<String,String> playerContext = context;
+        Map<String,String> playerContext = (HashMap<String,String>)((HashMap<String,String>)context).clone();
+        FancyMessage fancyBase = fancyMessage.duplicate().withContext(context); // Resolve all of the contexts that you can before resolving player related ones
         for(ProxiedPlayer player : ProxyServer.getInstance().getPlayers()){
             if(player.hasPermission(permission)){
                 if(!sendToCurrentServer&&context.containsKey("SERVER_NAME")){
                     if(player.getServer()!=null&&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(context.get("SERVER_NAME"))){
+                        if(Configuration.debug){
+                            System.out.println("Server name matches player ("+player.getName()+") server >"+player.getServer().getInfo().getName()+"< to context server >"+context.get("SERVER_NAME")+"< not sending... ");
+                        }
                         continue;
                     }
                 }
                 playerContext.putAll(ChatDirector.getContext(player));
-                BaseComponent message = fromFancyMessage(fancyMessage.duplicate().withContext(playerContext));
+                BaseComponent message = fromFancyMessage(fancyBase.duplicate().withContext(playerContext));
                 player.sendMessage(message); // Since we want to do context resolution per player we need to duplicate
                 if(Configuration.debug){
                     System.out.println("Sent >"+message.toLegacyText()+"< to "+player.getName());
                 }
-                playerContext=context;
+                playerContext=(HashMap<String,String>)((HashMap<String,String>)context).clone();;
             }
         }
         return string;
