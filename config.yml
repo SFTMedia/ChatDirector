@@ -70,7 +70,7 @@ chains:
     - bungee-output: null
     - bukkit-output-fancy:
         permission: null
-        send-to-current-server: true
+        send-to-current-server: true # This checks against SERVER_NAME with a player's connected server.
         fancy-format: # Can have any number of fancy formats
           - click:
               click-run-command: "/test"

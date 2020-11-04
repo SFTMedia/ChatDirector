@@ -3,6 +3,7 @@ package com.blalp.chatdirector.modules.bungee;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.fancychat.FancyMessage;
 import com.blalp.chatdirector.model.fancychat.FancyMessageEnum;
@@ -62,9 +63,13 @@ public class BungeeOutputFancyItem extends Item {
     public static BaseComponent fromFancyMessage(FancyMessage fancyMessage){
         BaseComponent output = new TextComponent();
         for (BaseComponent component : TextComponent.fromLegacyText(fancyMessage.text)){
-            System.out.println("appending >"+component.toLegacyText()+"< to >"+output.toLegacyText()+"<");
+            if(Configuration.debug) {
+                System.out.println("appending >"+component.toLegacyText()+"< to >"+output.toLegacyText()+"<");
+            }
             output.addExtra(component);
-            System.out.println("output is now >"+output.toLegacyText()+"<");
+            if(Configuration.debug) {
+                System.out.println("output is now >"+output.toLegacyText()+"<");
+            }
         }
         if(fancyMessage.bold){
             output.setBold(true);
@@ -99,7 +104,7 @@ public class BungeeOutputFancyItem extends Item {
         for(ProxiedPlayer player : ProxyServer.getInstance().getPlayers()){
             if(player.hasPermission(permission)){
                 if(!sendToCurrentServer&&context.containsKey("SERVER_NAME")){
-                    if(player.getServer()!=null&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(context.get("PLAYER_NAME"))){
+                    if(player.getServer()!=null&&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(context.get("SERVER_NAME"))){
                         continue;
                     }
                 }
