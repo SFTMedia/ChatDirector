@@ -23,7 +23,8 @@ modules:
 chains:
   - common-demo: # This module is always loaded
     - pass: null # This just passes the string on
-    - stop: null # This sets the string to nothing and stops
+    - break: null # This stops the chain, but returns the value
+    - halt: null # Exits at that current point, do not continue afterwards (this used to be called stop)
     - echo: "echo'd %CURRENT%" # This sets the string to the specifiedFormat. The Previous value is set to the CURRENT context
     - reload: null # Reloads ChatDirector
   - bukkit-demo:
