@@ -14,9 +14,9 @@ public abstract class ConditionalItem extends PassItem {
     String source="%CURRENT%";
 
     @Override
-    public void work(String string, Map<String,String> context) {
+    public String work(String string, Map<String,String> context) {
         if(string.isEmpty()){
-            return;
+            return "";
         }
         boolean result= test(string,context);
         if(invert){
@@ -39,14 +39,15 @@ public abstract class ConditionalItem extends PassItem {
             if(Configuration.debug){
                 System.out.println("Stopping here. Next was "+next+" and string was >"+string+"<. "+result);
             }
-            return;
+            return string;
         }
         if(next!=null){
-            next.work(string, context);
+            return next.work(string, context);
         } else {
             if(Configuration.debug){
                 System.out.println("Stopping here. Next was "+next+" and string was >"+string+"<. "+result);
             }
+            return string;
         }
     }
     public abstract boolean test(String string,Map<String,String> context);

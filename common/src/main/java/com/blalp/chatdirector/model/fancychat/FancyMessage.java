@@ -153,6 +153,7 @@ public class FancyMessage {
                     }
                     break;
                 case "raw":
+                    break;
                     // This should already be handled, no additional parsing needed
                 default:
                     System.err.println(type+ " is not a valid fancy type");

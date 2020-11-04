@@ -12,12 +12,13 @@ public class SplitItem extends PassItem {
         this.items=items;
     }
     @Override
-    public void work(String string, Map<String, String> context) {
+    public String work(String string, Map<String, String> context) {
         if(string.isEmpty()){
-            return;
+            return "";
         }
         for (IItem item : items) {
             item.startWork(string, true, context);
         }
+        return string;
     }
 }

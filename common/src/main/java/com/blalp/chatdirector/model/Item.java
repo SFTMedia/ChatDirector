@@ -13,14 +13,15 @@ public abstract class Item implements IItem, Runnable {
         this.string=string;
         this.context=context;
         if (newThread){
-            new Thread(this);
+            new Thread(this).start();
+        } else {
+            run();
         }
-        run();
     }
     public void run() {
         work(string,context);
     }
-    public void work(String string,Map<String,String> context){
+    public String work(String string,Map<String,String> context){
         if(Configuration.debug){
             System.out.println();
             System.out.println(getClass().getName()+"> Starting work of "+getClass().getCanonicalName()+"("+this+") with string >"+string+"<");
@@ -35,16 +36,17 @@ public abstract class Item implements IItem, Runnable {
             System.out.println(context);
             System.out.println();
         }
-        if(string==null||string.equals("")){
-            return;
-        }
-        this.context.put("STRING", string);
         if(next!=null){
-            next.work(string,this.context);
+            if(string==null||string.equals("")){
+                return "";
+            }
+            this.context.put("STRING", string);
+            return next.work(string,this.context);
         } else {
             if(Configuration.debug){
                 System.out.println("Next was null, aborting with string >"+string+"<");
             }
+            return "";
         }
     }
 }

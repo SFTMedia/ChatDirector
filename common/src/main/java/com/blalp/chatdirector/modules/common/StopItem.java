@@ -12,8 +12,8 @@ public class StopItem implements IItem {
     }
 
     @Override
-    public void work(String string, Map<String,String> context) {
-        return;
+    public String work(String string, Map<String,String> context) {
+        return "";
     }
 
     @Override
