@@ -54,12 +54,18 @@ public class BungeeOutputFancyItem extends Item {
 */
     FancyMessage fancyMessage;
     String permission;
+    boolean sendToCurrentServer = true;
     public BungeeOutputFancyItem(FancyMessage fancyMessage,String permission){
         this.fancyMessage=fancyMessage;
         this.permission=permission;
     }
     public static BaseComponent fromFancyMessage(FancyMessage fancyMessage){
-        BaseComponent output = new TextComponent(fancyMessage.text);
+        BaseComponent output = new TextComponent();
+        for (BaseComponent component : TextComponent.fromLegacyText(fancyMessage.text)){
+            System.out.println("appending >"+component.toLegacyText()+"< to >"+output.toLegacyText()+"<");
+            output.addExtra(component);
+            System.out.println("output is now >"+output.toLegacyText()+"<");
+        }
         if(fancyMessage.bold){
             output.setBold(true);
         }
@@ -92,6 +98,11 @@ public class BungeeOutputFancyItem extends Item {
         Map<String,String> playerContext = context;
         for(ProxiedPlayer player : ProxyServer.getInstance().getPlayers()){
             if(player.hasPermission(permission)){
+                if(!sendToCurrentServer&&context.containsKey("SERVER_NAME")){
+                    if(player.getServer()!=null&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(context.get("PLAYER_NAME"))){
+                        continue;
+                    }
+                }
                 playerContext.putAll(ChatDirector.getContext(player));
                 player.sendMessage(fromFancyMessage(fancyMessage.duplicate().withContext(playerContext))); // Since we want to do context resolution per player we need to duplicate
                 playerContext=context;

@@ -70,6 +70,7 @@ chains:
     - bungee-output: null
     - bukkit-output-fancy:
         permission: null
+        send-to-current-server: true
         fancy-format: # Can have any number of fancy formats
           - click:
               click-run-command: "/test"

@@ -66,7 +66,11 @@ public class BungeeModule extends Module {
             case "bungee-output":
                 return new BungeeOutputItem();
             case "bungee-output-fancy":
-                return new BungeeOutputFancyItem(FancyMessage.parse(((LinkedHashMap<String,String>)config).get("fancy-format")), ((LinkedHashMap<String,String>)config).get("permission"));
+                BungeeOutputFancyItem bungeeOutputFancyItem = new BungeeOutputFancyItem(FancyMessage.parse(((LinkedHashMap<String,Object>)config).get("fancy-format")),(String) ((LinkedHashMap<String,Object>)config).get("permission"));
+                if(((LinkedHashMap<String,Object>)config).containsKey("send-to-current-server")){
+                    bungeeOutputFancyItem.sendToCurrentServer=(boolean)((LinkedHashMap<String,Object>)config).get("send-to-current-server");
+                }
+                return bungeeOutputFancyItem;
             case "bungee-output-player":
                 LinkedHashMap<String,String> configOutputPlayer = ((LinkedHashMap<String,String>)config);
                 BungeePlayerItem outputPlayer = new BungeePlayerItem(configOutputPlayer.get("player"));
