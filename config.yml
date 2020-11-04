@@ -196,6 +196,14 @@ chains:
         - null-item: null
   - luckperms-demo:
     - luckperms-context: null  # This loads the PREFIX, SUFFIX and GROUP of the player in the PLAYER_NAME context.
+    - luckperms-has: # This is checked against the player in PLAYER_UUID
+        yes-chain: null # Chain of items
+        no-chain: null  # Chain of items
+        permission: "permission.node" # Just normal nodes, no regex, no contexts.
+    - luckperms-set: # This is applied to the player in PLAYER_UUID. No regex allowed here.
+        permission: "permission.node" # Just normal nodes, no regex, no contexts.
+    - luckperms-unset: # This is applied to the player in PLAYER_UUID
+        permission: "permission.node" # Just normal nodes, no regex, no contexts.
   - multichat-demo:
     - multichat-context: null # Adds more contexts
     - multichat-input:
