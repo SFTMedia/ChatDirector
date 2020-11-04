@@ -18,6 +18,7 @@ import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.Pipe;
 import com.blalp.chatdirector.modules.IModule;
+import com.blalp.chatdirector.modules.cache.CacheModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
 import com.blalp.chatdirector.modules.context.ContextModule;
 import com.blalp.chatdirector.modules.file.FileModule;
@@ -182,6 +183,8 @@ public class Configuration extends Loadable {
                 return new LuckPermsModule();
             case "replacement":
                 return new ReplacementModule();
+            case "cache":
+                return new CacheModule();
             case "sql":
                 return new SQLModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             default:
