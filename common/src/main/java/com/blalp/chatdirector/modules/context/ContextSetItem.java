@@ -12,7 +12,7 @@ public class ContextSetItem extends ContextItem {
     @Override
     public String process(String string, Map<String, String> context) {
         this.context.put("CURRENT", string);
-        this.context.put(ChatDirector.formatter.format(this.contextName, context), ChatDirector.formatter.format(value, context));
+        this.context.put(ChatDirector.format(this.contextName, context), ChatDirector.format(value, context));
         return string;
     }
     

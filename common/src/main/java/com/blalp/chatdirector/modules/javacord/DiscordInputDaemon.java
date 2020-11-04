@@ -27,7 +27,7 @@ public class DiscordInputDaemon extends ItemDaemon implements MessageCreateListe
         }
         for (DiscordItem item : items.toArray(new DiscordItem[]{})) {
             if (event.getChannel().getIdAsString().equals(item.getChannelID())) {
-                item.startWork(ChatDirector.formatter.format(item.format, ChatDirector.formatter.getContext(event)),false,ChatDirector.formatter.getContext(event));
+                item.startWork(ChatDirector.format(item.format, ChatDirector.formatter.getContext(event)),false,ChatDirector.formatter.getContext(event));
             }
         }
     }

@@ -40,7 +40,7 @@ public class SpongeInputDaemon extends ItemDaemon {
             }
             if (item.chat) {
                 Map<String,String> context = ChatDirector.formatter.getContext(event);
-                item.startWork(ChatDirector.formatter.format(item.format,context),false,context);
+                item.startWork(ChatDirector.format(item.format,context),false,context);
                 if(item.cancelChat){
                     event.setCancelled(true);
                 }
@@ -49,7 +49,7 @@ public class SpongeInputDaemon extends ItemDaemon {
     }
 	public void onLogin(Login event) {
         Map<String,String> context = ChatDirector.formatter.getContext(event);
-        String message = ChatDirector.formatter.format(format,context);
+        String message = ChatDirector.format(format,context);
         for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;

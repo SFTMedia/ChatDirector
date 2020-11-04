@@ -11,7 +11,7 @@ public class BungeeOutputItem extends Item {
 
     @Override
     public String process(String string, Map<String, String> context) {
-        ProxyServer.getInstance().broadcast(ChatDirector.formatter.format(string, context));
+        ProxyServer.getInstance().broadcast(ChatDirector.format(string, context));
         return string;
     }
     

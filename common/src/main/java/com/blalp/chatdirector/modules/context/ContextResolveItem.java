@@ -10,7 +10,7 @@ public class ContextResolveItem extends Item {
     @Override
     public String process(String string, Map<String, String> context) {
         context.put("CURRENT", string);
-        return ChatDirector.formatter.format(string, context);
+        return ChatDirector.format(string, context);
     }
     
 }

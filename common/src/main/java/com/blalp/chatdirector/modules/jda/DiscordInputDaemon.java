@@ -28,7 +28,7 @@ public class DiscordInputDaemon extends ListenerAdapter implements ILoadable {
     public void onMessageReceived(MessageReceivedEvent event) {
         for (DiscordItem item : items) {
             if (event.getChannel().getId().equals(item.getChannelID())) {
-                item.startWork(ChatDirector.formatter.format(item.format, ChatDirector.formatter.getContext(event)),false,ChatDirector.formatter.getContext(event));
+                item.startWork(ChatDirector.format(item.format, ChatDirector.formatter.getContext(event)),false,ChatDirector.formatter.getContext(event));
             }
         }
     }

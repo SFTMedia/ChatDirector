@@ -18,7 +18,7 @@ public class EchoItem extends Item {
             context.put("LAST", context.get("CURRENT"));
         }
         context.put("CURRENT", string);
-        return ChatDirector.formatter.format(format, context);
+        return ChatDirector.format(format, context);
     }
     
 }

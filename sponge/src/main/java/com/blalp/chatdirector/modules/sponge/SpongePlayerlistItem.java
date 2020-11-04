@@ -21,7 +21,7 @@ public class SpongePlayerlistItem extends Item {
         if (!((string.equalsIgnoreCase(triggerWord)&&ignoreCase)||(string.equals(triggerWord)))) {
             return string;
         }
-        String output = ChatDirector.formatter.format(format,context);
+        String output = ChatDirector.format(format,context);
         boolean first = true;
         Map<String,String> tempContext = new HashMap<>();
         tempContext.putAll(context);
@@ -32,13 +32,13 @@ public class SpongePlayerlistItem extends Item {
                 first = false;
             }
             tempContext.putAll(ChatDirector.formatter.getContext(player));
-            output += ChatDirector.formatter.format(formatPlayer, tempContext);
+            output += ChatDirector.format(formatPlayer, tempContext);
             tempContext= new HashMap<>();
             tempContext.putAll(context);
         }
         output += "\n```";
-        if (output.equals(ChatDirector.formatter.format(format.replace("%NUM_PLAYERS%", "0"),context))) {
-            output = ChatDirector.formatter.format(formatNoPlayers,context);
+        if (output.equals(ChatDirector.format(format.replace("%NUM_PLAYERS%", "0"),context))) {
+            output = ChatDirector.format(formatNoPlayers,context);
         }
         return output;
     }

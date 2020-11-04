@@ -23,16 +23,16 @@ public class DiscordEmbedItem extends DiscordItem {
         EmbedBuilder embed = new EmbedBuilder();
         String temp;
         if(title!=null) {
-            embed.setTitle(ChatDirector.formatter.format(title, context));
+            embed.setTitle(ChatDirector.format(title, context));
         }
         if(description!=null){
-            embed.setDescription(ChatDirector.formatter.format(description,context));
+            embed.setDescription(ChatDirector.format(description,context));
         }
         if(authorName!=null){
             if(authorAvatar!=null){
-                embed.setAuthor(ChatDirector.formatter.format(authorName,context),ChatDirector.formatter.format(authorLink,context),ChatDirector.formatter.format(authorAvatar,context));
+                embed.setAuthor(ChatDirector.format(authorName,context),ChatDirector.format(authorLink,context),ChatDirector.format(authorAvatar,context));
             } else {
-                embed.setAuthor(ChatDirector.formatter.format(authorName,context));
+                embed.setAuthor(ChatDirector.format(authorName,context));
             }
         }
         if(color!=null){
@@ -44,30 +44,30 @@ public class DiscordEmbedItem extends DiscordItem {
         }
         if(footerName!=null){
             if(footerAvatar!=null){
-                embed.setFooter(ChatDirector.formatter.format(footerName,context), ChatDirector.formatter.format(footerAvatar,context));
+                embed.setFooter(ChatDirector.format(footerName,context), ChatDirector.format(footerAvatar,context));
             } else {
-                embed.setFooter(ChatDirector.formatter.format(footerName,context));
+                embed.setFooter(ChatDirector.format(footerName,context));
             }
         }
         if(image!=null){
-            embed.setImage(ChatDirector.formatter.format(image,context));
+            embed.setImage(ChatDirector.format(image,context));
         }
         if(thumbnail!=null){
-            embed.setThumbnail(ChatDirector.formatter.format(thumbnail,context));
+            embed.setThumbnail(ChatDirector.format(thumbnail,context));
         }
         if(fields!=null) {
             for (Entry<String,String> field : fields.entrySet()){
-                temp=ChatDirector.formatter.format(field.getValue(),context);
+                temp=ChatDirector.format(field.getValue(),context);
                 if(!temp.isEmpty()) {
-                    embed.addField(ChatDirector.formatter.format(field.getKey(),context), temp,false);
+                    embed.addField(ChatDirector.format(field.getKey(),context), temp,false);
                 }
             }
         }
         if(inlineFields!=null) {
             for (Entry<String,String> field : inlineFields.entrySet()){
-                temp=ChatDirector.formatter.format(field.getValue(),context);
+                temp=ChatDirector.format(field.getValue(),context);
                 if(!temp.isEmpty()) {
-                    embed.addField(ChatDirector.formatter.format(field.getKey(),context), temp,true);
+                    embed.addField(ChatDirector.format(field.getKey(),context), temp,true);
                 }
             }
         }

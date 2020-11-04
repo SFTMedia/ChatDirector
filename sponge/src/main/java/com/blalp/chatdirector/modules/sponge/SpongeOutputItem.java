@@ -17,11 +17,11 @@ public class SpongeOutputItem extends Item {
         if(permission!=null&&!permission.isEmpty()) {
             for (Player player : Sponge.getServer().getOnlinePlayers()) {
                 if(player.hasPermission(permission)) {
-                    player.sendMessage(Text.of(ChatDirector.formatter.format(string, context)));
+                    player.sendMessage(Text.of(ChatDirector.format(string, context)));
                 }
             }
         } else {
-            Sponge.getServer().getBroadcastChannel().send(Text.of(ChatDirector.formatter.format(string, context)));
+            Sponge.getServer().getBroadcastChannel().send(Text.of(ChatDirector.format(string, context)));
         }
         return string;
     }

@@ -17,11 +17,11 @@ public class SQLSendDataItem extends SQLItem {
     public String process(String string, Map<String, String> context) {
         context.put("CURRENT", string);
         try {
-            PreparedStatement statement = SQLModule.connections.get(connectionName).connection.prepareStatement("INSERT INTO "+ChatDirector.formatter.format(table, context)+" (`name`,`key`,`value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value`=?");
-            statement.setString(1, ChatDirector.formatter.format(name, context));
-            statement.setString(2, ChatDirector.formatter.format(key, context));
-            statement.setString(3, ChatDirector.formatter.format(value, context));
-            statement.setString(4, ChatDirector.formatter.format(value, context));
+            PreparedStatement statement = SQLModule.connections.get(connectionName).connection.prepareStatement("INSERT INTO "+ChatDirector.format(table, context)+" (`name`,`key`,`value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value`=?");
+            statement.setString(1, ChatDirector.format(name, context));
+            statement.setString(2, ChatDirector.format(key, context));
+            statement.setString(3, ChatDirector.format(value, context));
+            statement.setString(4, ChatDirector.format(value, context));
             statement.execute();
         } catch (SQLException e){
             System.err.println(this+" failed on "+string);
