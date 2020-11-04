@@ -4,13 +4,14 @@ import java.util.LinkedHashMap;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.model.fancychat.FancyMessage;
 import com.blalp.chatdirector.modules.Module;
 
 public class BungeeModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"bungee-command","bungee-playerlist","bungee-output","bungee-input","bungee-output-player","bungee-output-server"};
+        return new String[]{"bungee-command","bungee-playerlist","bungee-output","bungee-input","bungee-output-player","bungee-output-server","bungee-output-fancy"};
     }
 
     @Override
@@ -64,9 +65,15 @@ public class BungeeModule extends Module {
                 return new BungeeCommandItem(configCommand.get("command"),configCommand.get("permission"));
             case "bungee-output":
                 return new BungeeOutputItem();
+            case "bungee-output-fancy":
+                BungeeOutputFancyItem bungeeOutputFancyItem = new BungeeOutputFancyItem(FancyMessage.parse(((LinkedHashMap<String,Object>)config).get("fancy-format")),(String) ((LinkedHashMap<String,Object>)config).get("permission"));
+                if(((LinkedHashMap<String,Object>)config).containsKey("send-to-current-server")){
+                    bungeeOutputFancyItem.sendToCurrentServer=(boolean)((LinkedHashMap<String,Object>)config).get("send-to-current-server");
+                }
+                return bungeeOutputFancyItem;
             case "bungee-output-player":
                 LinkedHashMap<String,String> configOutputPlayer = ((LinkedHashMap<String,String>)config);
-                BungeeOutputPlayerItem outputPlayer = new BungeeOutputPlayerItem(configOutputPlayer.get("player"));
+                BungeePlayerItem outputPlayer = new BungeePlayerItem(configOutputPlayer.get("player"));
                 if(configOutputPlayer.containsKey("permission")){
                     outputPlayer.permission=configOutputPlayer.get("permission");
                 }
@@ -86,6 +93,9 @@ public class BungeeModule extends Module {
                 }
                 if(configInput.containsKey("format-chat")){
                     itemInput.formatChat= (String) configInput.get("format-chat");
+                }
+                if(configInput.containsKey("override-chat")){
+                    itemInput.overrideChat= (boolean) configInput.get("override-chat");
                 }
                 if(configInput.containsKey("disconnect")){
                     itemInput.disconnect= (boolean) (configInput.get("disconnect"));

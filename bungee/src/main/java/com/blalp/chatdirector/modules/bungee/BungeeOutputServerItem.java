@@ -17,9 +17,9 @@ public class BungeeOutputServerItem extends Item {
     @Override
     public String process(String string, Map<String, String> context) {
         for(ProxiedPlayer player:ProxyServer.getInstance().getPlayers()) {
-            if(player.getServer()!=null&&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(ChatDirector.formatter.format(server, context))){
-                if(permission==null||(permission!=null&player.hasPermission(ChatDirector.formatter.format(permission, context)))){
-                    player.sendMessage(ChatDirector.formatter.format(string, context));
+            if(player.getServer()!=null&&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(ChatDirector.format(server, context))){
+                if(permission==null||(permission!=null&player.hasPermission(ChatDirector.format(permission, context)))){
+                    player.sendMessage(ChatDirector.format(string, context));
                 }
             }
         }

@@ -17,8 +17,8 @@ public class IfEqualsItem extends ConditionalItem {
     @Override
     public boolean test(String string, Map<String, String> context) {
         context.put("CURRENT", string);
-        String str =  ChatDirector.formatter.format(source, context);
-        return (str.equals(ChatDirector.formatter.format(equals,context))||(ignoreCase&&str.equalsIgnoreCase(ChatDirector.formatter.format(equals,context))));
+        String str =  ChatDirector.format(source, context);
+        return (str.equals(ChatDirector.format(equals,context))||(ignoreCase&&str.equalsIgnoreCase(ChatDirector.format(equals,context))));
     }
     
 }

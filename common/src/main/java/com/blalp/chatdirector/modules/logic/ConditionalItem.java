@@ -10,13 +10,13 @@ public abstract class ConditionalItem extends PassItem {
     
     IItem nestedTrue;
     IItem nestedFalse;
-    boolean stopOnFalse=false,invert=false;
+    boolean invert=false;
     String source="%CURRENT%";
 
     @Override
-    public void work(String string, Map<String,String> context) {
+    public String work(String string, Map<String,String> context) {
         if(string.isEmpty()){
-            return;
+            return "";
         }
         boolean result= test(string,context);
         if(invert){
@@ -24,7 +24,7 @@ public abstract class ConditionalItem extends PassItem {
         }
         if(Configuration.debug){
             System.out.println("Conditional "+this.getClass().getCanonicalName()+" test returned "+result);
-            System.out.println("Trues is "+nestedTrue+" false is "+nestedFalse);
+            System.out.println("True is "+nestedTrue+" false is "+nestedFalse);
         }
         if(result){
             nestedTrue.work(string,context);
@@ -35,12 +35,19 @@ public abstract class ConditionalItem extends PassItem {
             string=context.get("STRING");
         }
         context.put("STRING", string);
-        if(!(stopOnFalse&&!result)){
-            next.work(string, context);
+        if(string==null||string.equals("")){
+            if(Configuration.debug){
+                System.out.println("Stopping here. Next was "+next+" and string was >"+string+"<. "+result);
+            }
+            return string;
+        }
+        if(next!=null){
+            return next.work(string, context);
         } else {
             if(Configuration.debug){
-                System.out.println("Stopping here. StopOnFalse is true and failed.");
+                System.out.println("Stopping here. Next was "+next+" and string was >"+string+"<. "+result);
             }
+            return string;
         }
     }
     public abstract boolean test(String string,Map<String,String> context);

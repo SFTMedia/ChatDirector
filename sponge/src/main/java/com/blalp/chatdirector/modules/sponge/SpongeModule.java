@@ -18,8 +18,12 @@ public class SpongeModule extends Module {
     public IItem createItem(String type, Object config) {
         switch (type){
             case "sponge-command":
-                LinkedHashMap<String,String> configCommand = ((LinkedHashMap<String,String>)config);
-                return new SpongeCommandItem(configCommand.get("command"),configCommand.get("permission"));
+                LinkedHashMap<String,Object> configCommand = ((LinkedHashMap<String,Object>)config);
+                SpongeCommandItem itemCommand = new SpongeCommandItem((String)configCommand.get("command"),(String)configCommand.get("permission"));
+                if(configCommand.containsKey("args")){
+                    itemCommand.args=(boolean)configCommand.get("args");
+                }
+                return itemCommand;
             case "sponge-output":
                 SpongeOutputItem item = new SpongeOutputItem();
                 LinkedHashMap<String,String> configMap = ((LinkedHashMap<String,String>)config);
@@ -46,8 +50,14 @@ public class SpongeModule extends Module {
                 if(configList.containsKey("chat")){
                     item2.chat=(boolean) configList.get("chat");
                 }
+                if(configList.containsKey("override-chat")){
+                    item2.overrideChat=(boolean) configList.get("override-chat");
+                }
                 if(configList.containsKey("check-canceled")){
                     item2.checkCanceled=(boolean) configList.get("check-canceled");
+                }
+                if(configList.containsKey("cancel-chat")){
+                    item2.cancelChat=(boolean) configList.get("cancel-chat");
                 }
                 if(configList.containsKey("format")){
                     item2.format= (String) configList.get("format");
@@ -90,7 +100,7 @@ public class SpongeModule extends Module {
         if(SpongeInputDaemon.instance!=null){
             SpongeInputDaemon.instance.load();
         }
-        for(SpongeCommand command: SpongeCommand.commands){
+        for(SpongeCommandItem command: SpongeCommandItem.commands){
             command.load();
         }
     }
@@ -100,7 +110,7 @@ public class SpongeModule extends Module {
         if(SpongeInputDaemon.instance!=null){
             SpongeInputDaemon.instance.unload();
         }
-        for(SpongeCommand command: SpongeCommand.commands){
+        for(SpongeCommandItem command: SpongeCommandItem.commands){
             command.unload();
         }
     }

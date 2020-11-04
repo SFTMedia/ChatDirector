@@ -22,7 +22,7 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
         Map<String,String> context = ChatDirector.formatter.getContext(e);
         for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
             if(item.broadcast){
-                item.startWork(ChatDirector.formatter.format(e.getMessage(), context), true, context);
+                item.startWork(ChatDirector.format(e.getMessage(), context), true, context);
             }
         }
 	}
@@ -32,7 +32,7 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
         Map<String,String> context = ChatDirector.formatter.getContext(e);
         for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
             if(item.global){
-                item.startWork(ChatDirector.formatter.format(e.getMessage(), context), true, context);
+                item.startWork(ChatDirector.format(e.getMessage(), context), true, context);
             } else {
                 System.out.println(" no global for "+item);
             }
@@ -43,7 +43,7 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
         Map<String,String> context = ChatDirector.formatter.getContext(e);
         for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
             if(item.staff){
-                item.startWork(ChatDirector.formatter.format(e.getMessage(), context), true, context);
+                item.startWork(ChatDirector.format(e.getMessage(), context), true, context);
             }
         }
     }

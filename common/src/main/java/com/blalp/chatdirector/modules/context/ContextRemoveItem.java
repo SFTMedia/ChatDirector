@@ -11,7 +11,7 @@ public class ContextRemoveItem extends ContextItem {
     }
     @Override
     public String process(String string, Map<String, String> context) {
-        this.context.remove(ChatDirector.formatter.format(this.contextName, context));
+        this.context.remove(ChatDirector.format(this.contextName, context));
         return string;
     }
     

@@ -9,7 +9,7 @@ public class ConsoleOutputErrorItem extends Item {
 
     @Override
     public String process(String string, Map<String,String> context) {
-        System.err.println(ChatDirector.formatter.format(string, context));
+        System.err.println(ChatDirector.format(string, context));
         return string;
     }
 }

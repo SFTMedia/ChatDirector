@@ -10,6 +10,7 @@ import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
 import org.spongepowered.api.event.message.MessageChannelEvent.Chat;
 import org.spongepowered.api.event.network.ClientConnectionEvent.Disconnect;
 import org.spongepowered.api.event.network.ClientConnectionEvent.Login;
+import org.spongepowered.api.text.Text;
 
 public class SpongeInputDaemon extends ItemDaemon {
     public static SpongeInputDaemon instance;
@@ -40,13 +41,20 @@ public class SpongeInputDaemon extends ItemDaemon {
             }
             if (item.chat) {
                 Map<String,String> context = ChatDirector.formatter.getContext(event);
-                item.startWork(ChatDirector.formatter.format(item.format,context),false,context);
+                if (item.overrideChat){
+                    event.setMessage(Text.of(item.work(ChatDirector.format(item.format,context), context)));
+                } else {
+                    item.startWork(ChatDirector.format(item.format,context),false,context);
+                }
+                if(item.cancelChat){
+                    event.setCancelled(true);
+                }
             }
         }
     }
 	public void onLogin(Login event) {
         Map<String,String> context = ChatDirector.formatter.getContext(event);
-        String message = ChatDirector.formatter.format(format,context);
+        String message = ChatDirector.format(format,context);
         for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;

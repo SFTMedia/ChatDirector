@@ -24,6 +24,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 ## Bungee
 - CURRENT (Used in playerlist to get the previous value)
 - PLAYER_NAME
+- PLAYER_DISPLAYNAME
 - PLAYER_UUID
 - PLAYER_SERVER_NAME
 - PLAYER_SERVER_MOTD
@@ -84,7 +85,8 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - PLAYER_NAME
 - PLAYER_UUID
 - CHAT_MESSAGE
-- CHAT_FORMAT
+- CHAT_MESSAGE_FORMATTED
+- CHAT_MESSAGE_ORIGINAL
 ## SQL
 - SQL_RESULT
 ## Vault

@@ -9,7 +9,7 @@ public class ConsoleOutputItem extends Item {
 
     @Override
     public String process(String string, Map<String,String> context) {
-        System.out.println(ChatDirector.formatter.format(string, context));
+        System.out.println(ChatDirector.format(string, context));
         return string;
     }
 }

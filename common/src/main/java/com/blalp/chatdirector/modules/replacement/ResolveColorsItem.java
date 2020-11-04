@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.blalp.chatdirector.model.Item;
 
-public class ParseColorsItem extends Item {
+public class ResolveColorsItem extends Item {
 
     @Override
     public String process(String string, Map<String,String> context) {

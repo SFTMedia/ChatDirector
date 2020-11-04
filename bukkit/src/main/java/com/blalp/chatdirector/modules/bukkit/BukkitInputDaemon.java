@@ -32,7 +32,11 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
             }
             if (item.chat) {
                 Map<String,String> context = ChatDirector.formatter.getContext(event);
-                item.startWork(ChatDirector.formatter.format(item.format,context),false,context);
+                if (item.overrideChat) {
+                    event.setFormat(item.work(ChatDirector.format(item.format,context),context));
+                } else {
+                    item.startWork(ChatDirector.format(item.format,context),false,context);
+                }
             }
             if(item.cancelChat){
                 event.setCancelled(true);
@@ -43,14 +47,14 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerLoginEvent event) {
         Map<String,String> context = ChatDirector.formatter.getContext(event);
-        String message = ChatDirector.formatter.format(format,context);
+        String message = ChatDirector.format(format,context);
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (event.getResult().equals(Result.ALLOWED) && item.checkCanceled) {
                 continue;
             }
             if (item.join) {
                 if(!event.getPlayer().hasPlayedBefore()&&item.newJoin){
-                    item.startWork(ChatDirector.formatter.format(newPlayerFormat,context),true,ChatDirector.formatter.getContext(event));
+                    item.startWork(ChatDirector.format(newPlayerFormat,context),true,ChatDirector.formatter.getContext(event));
                 } else {
                     item.startWork(message,true,ChatDirector.formatter.getContext(event));
                 }

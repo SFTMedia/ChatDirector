@@ -3,6 +3,7 @@ package com.blalp.chatdirector.modules.bungee;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.format.Formatter;
 
 import net.md_5.bungee.api.ProxyServer;
@@ -11,6 +12,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
+import net.md_5.bungee.api.event.ServerSwitchEvent;
 
 public class BungeeFormatter extends Formatter {
 
@@ -20,7 +22,8 @@ public class BungeeFormatter extends Formatter {
         context.put("NUM_PLAYERS", Integer.toString(ProxyServer.getInstance().getOnlineCount()));
         context.put("MAX_PLAYERS", Integer.toString(ProxyServer.getInstance().getConfig().getPlayerLimit()));
         if(event instanceof ProxiedPlayer){
-            context.put("PLAYER_NAME", ((ProxiedPlayer)event).getDisplayName());
+            context.put("PLAYER_NAME", ((ProxiedPlayer)event).getName());
+            context.put("PLAYER_DISPLAYNAME", ((ProxiedPlayer)event).getDisplayName());
             context.put("PLAYER_UUID", ((ProxiedPlayer)event).getUniqueId().toString());
             if(((ProxiedPlayer)event).getServer()!=null&&((ProxiedPlayer)event).getServer().getInfo()!=null){
                 context.put("PLAYER_SERVER_NAME", ((ProxiedPlayer)event).getServer().getInfo().getName());
@@ -43,6 +46,14 @@ public class BungeeFormatter extends Formatter {
                 context.putAll(getContext(((ChatEvent)event).getSender()));
             }
             context.put("CHAT_MESSAGE",((ChatEvent)event).getMessage());
+        }
+        if(event instanceof ServerSwitchEvent) {
+            if(((ServerSwitchEvent)event).getFrom()!=null){
+                context.putAll(ChatDirector.formatter.getContext(((ServerSwitchEvent)event).getFrom()));
+            }
+            if(((ServerSwitchEvent)event).getPlayer()!=null){
+                context.putAll(ChatDirector.formatter.getContext(((ServerSwitchEvent)event).getPlayer()));
+            }
         }
         if(context.containsKey("PLAYER_SERVER_NAME")){
             context.put("SERVER_NAME", context.get("PLAYER_SERVER_NAME"));

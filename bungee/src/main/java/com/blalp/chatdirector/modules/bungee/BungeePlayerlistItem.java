@@ -23,7 +23,7 @@ public class BungeePlayerlistItem extends Item {
 
         // Put it into pipe no matter what.
 
-        String output = ChatDirector.formatter.format(format,context);
+        String output = ChatDirector.format(format,context);
         String temp_output="";
         boolean first = true;
         Map<String,String> tempContext = new HashMap<>();
@@ -32,7 +32,7 @@ public class BungeePlayerlistItem extends Item {
         if(splitByServer){
             for(ServerInfo server : ProxyServer.getInstance().getServers().values()){
                 tempContext.putAll(ChatDirector.formatter.getContext(server));
-                output += ChatDirector.formatter.format(formatServer, tempContext);
+                output += ChatDirector.format(formatServer, tempContext);
                 first=true;
                 for (ProxiedPlayer player : server.getPlayers()) {
                     if (!first) {
@@ -42,12 +42,12 @@ public class BungeePlayerlistItem extends Item {
                     }
                     tempContext2.putAll(tempContext);
                     tempContext2.putAll(ChatDirector.formatter.getContext(player));
-                    temp_output += ChatDirector.formatter.format(formatPlayer, tempContext2);
+                    temp_output += ChatDirector.format(formatPlayer, tempContext2);
                     tempContext2= new HashMap<>();
                     tempContext2.putAll(tempContext);
                 }
                 if(temp_output.isEmpty()){
-                    temp_output=ChatDirector.formatter.format(formatNoPlayers,context);
+                    temp_output=ChatDirector.format(formatNoPlayers,context);
                 }
                 context.put("SERVER_"+server.getName()+"_PLAYERS",temp_output);
                 context.put("SERVER_"+server.getName()+"_NUM_PLAYERS",Integer.toString(server.getPlayers().size()));
@@ -64,14 +64,14 @@ public class BungeePlayerlistItem extends Item {
                     first = false;
                 }
                 tempContext.putAll(ChatDirector.formatter.getContext(player));
-                output += ChatDirector.formatter.format(formatPlayer, tempContext);
+                output += ChatDirector.format(formatPlayer, tempContext);
                 tempContext= new HashMap<>();
                 tempContext.putAll(context);
             }
         }
         output += "\n```";
-        if (output.equals(ChatDirector.formatter.format(format.replace("%NUM_PLAYERS%", "0"),context))) {
-            output = ChatDirector.formatter.format(formatNoPlayers,context);
+        if (output.equals(ChatDirector.format(format.replace("%NUM_PLAYERS%", "0"),context))) {
+            output = ChatDirector.format(formatNoPlayers,context);
         }
         return output;
     }

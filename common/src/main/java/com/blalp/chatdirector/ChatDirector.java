@@ -3,6 +3,7 @@ package com.blalp.chatdirector;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.model.format.Formatters;
@@ -14,38 +15,52 @@ import com.blalp.chatdirector.modules.IModule;
 // Should implement both bungee, sponge and bukkit if possible
 public class ChatDirector extends Loadable {
     public static Configuration config;
+
     public static void main(String[] args) {
         ChatDirector chatDirector = new ChatDirector(new Configuration("config.yml"));
         chatDirector.load();
     }
-    public ChatDirector(Configuration configuration){
-        config=configuration;
-        instance=this;
+
+    public ChatDirector(Configuration configuration) {
+        config = configuration;
+        instance = this;
     }
+
     public static IFormatter formatter = new Formatters();
-	public static ChatDirector instance;
+    public static ChatDirector instance;
     List<IModule> modules = new ArrayList<>();
-    HashMap<String,Pipe> chains = new HashMap<String,Pipe>();
-    public void load(){
+    HashMap<String, Pipe> chains = new HashMap<String, Pipe>();
+
+    public void load() {
         // Load config
         config.load();
-        modules=Configuration.loadedModules;
-        chains=config.chains;
+        modules = Configuration.loadedModules;
+        chains = config.chains;
         // Load modules
-        for(IModule module:modules){
+        for (IModule module : modules) {
             module.load();
         }
     }
-    public void unload(){
-        for(IModule module:modules){
+
+    public void unload() {
+        for (IModule module : modules) {
             module.unload();
         }
         config.unload();
-        modules= new ArrayList<>();
-        chains= new HashMap<String,Pipe>();
-        formatter=new Formatters();
+        modules = new ArrayList<>();
+        chains = new HashMap<String, Pipe>();
+        formatter = new Formatters();
     }
-	public static void addFormatter(IFormatter newFormatter) {
-        ((Formatters)formatter).formatters.add(newFormatter);
-	}
+
+    public static void addFormatter(IFormatter newFormatter) {
+        ((Formatters) formatter).formatters.add(newFormatter);
+    }
+
+    public static String format(String input, Map<String, String> context) {
+        return formatter.format(input, context);
+    }
+
+    public static Map<String, String> getContext(Object event) {
+        return formatter.getContext(event);
+    }
 }

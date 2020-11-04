@@ -20,27 +20,17 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
     public static ChatDirectorBukkit instance;
     private ChatDirector chatDirector;
 
-    public ChatDirectorBukkit() {
+    @Override
+    public void onEnable() {
+        instance = this;
+        // In case anything goes wrong, register the reload command
+        Item item = new BukkitCommandItem("chatdirectorlocal","chatdirector.reload");
+        item.next=new ReloadItem();
         try {
-            instance = this;
             chatDirector = new ChatDirector(new ConfigurationBukkit(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
             BukkitInputDaemon.instance=new BukkitInputDaemon();
             getServer().getPluginManager().registerEvents(BukkitInputDaemon.instance,this);
             this.getDataFolder().mkdirs();
-        } catch (Exception e){
-            e.printStackTrace();
-            System.out.println("YIKES! Some error. Registering /chatdirectorlocal for you so you can reload.");
-            registerReload();
-        }
-    }
-    private void registerReload(){
-        // In case anything goes wrong, register the reload command
-        Item item = new BukkitCommandItem("chatdirectorlocal","chatdirector.reload");
-        item.next=new ReloadItem();
-    }
-    @Override
-    public void onEnable() {
-        try {
             chatDirector.load();
             if(BukkitInputDaemon.instance!=null){
                 BukkitInputDaemon.instance.onServerStart();
@@ -51,7 +41,6 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
         } catch (Exception e){
             e.printStackTrace();
             System.out.println("YIKES! Some error. Registering /chatdirectorlocal for you so you can reload.");
-            registerReload();
         }
     }
 

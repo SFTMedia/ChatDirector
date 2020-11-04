@@ -85,14 +85,16 @@ public class Configuration extends Loadable {
                 for (String pipeKey: chains.keySet()) {
                     System.out.println("Pipe "+pipeKey);
                     IItem item = chains.get(pipeKey).rootItem;
-                    while(item!=null&&!(item instanceof StopItem)) {
+                    while(item!=null) {
                         System.out.println(item);
                         if (item instanceof Item){
                             item=((Item)item).next;
                         } else {
                             System.out.println("Not an Item, don't know how to go deeper");
+                            break;
                         }
                     }
+                    System.out.println("NULL");
                 }
             }
 
@@ -108,13 +110,12 @@ public class Configuration extends Loadable {
         }
     }
     public static IItem loadItems(ArrayList<LinkedHashMap<String,Object>> items) {
-        IItem nullItem = new StopItem();
         if(items==null){
-            return nullItem;
+            return new StopItem();
         }
         IItem output = null;
         IItem lastItem = null;
-        IItem item=nullItem;
+        IItem item=null;
         LinkedHashMap<String,Object> pipeVal=null;
         for(Object pipeValObj:items) {
             try {
@@ -134,7 +135,7 @@ public class Configuration extends Loadable {
             lastItem=item;
         }
         if(item instanceof Item){
-            ((Item)item).next=nullItem;
+            ((Item)item).next=null;
         }
         return output;
     }
@@ -182,6 +183,7 @@ public class Configuration extends Loadable {
                 return new LuckPermsModule();
             case "replacement":
                 return new ReplacementModule();
+            case "cache":
             case "sql":
                 return new SQLModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             default:
