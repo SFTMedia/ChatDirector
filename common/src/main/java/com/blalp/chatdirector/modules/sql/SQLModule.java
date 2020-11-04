@@ -29,16 +29,16 @@ public class SQLModule extends Module {
 
     @Override
     public IItem createItem(String type, Object config) {
-        LinkedHashMap<String, String> configMap = (LinkedHashMap<String, String>) config;
+        LinkedHashMap<String, Object> configMap = (LinkedHashMap<String, Object>) config;
         switch (type) {
             case "send-data":
-                tables.get(configMap.get("connection")).add(configMap.get("table"));
-                return new SQLSendDataItem(configMap.get("table"), configMap.get("name"), configMap.get("key"),
-                        configMap.get("connection"), configMap.get("value"));
+                tables.get((String)configMap.get("connection")).add((String)configMap.get("table"));
+                return new SQLSendDataItem((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
+                (String)configMap.get("connection"), (String)configMap.get("value"), (boolean)configMap.get("cache"));
             case "retrieve-data":
-                tables.get(configMap.get("connection")).add(configMap.get("table"));
-                return new SQLRetrieveDataItem(configMap.get("table"), configMap.get("name"), configMap.get("key"),
-                        configMap.get("connection"));
+                tables.get((String)configMap.get("connection")).add((String)configMap.get("table"));
+                return new SQLRetrieveDataItem((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
+                (String)configMap.get("connection"), (boolean)configMap.get("cache"));
             default:
                 return null;
         }
