@@ -29,8 +29,12 @@ public class ChatDirectorSponge {
 
     @Listener
     public void onServerStart(GameStartedServerEvent e){
+        instance=this;
+        // In case anything goes wrong, register the reload command
+        SpongeCommandItem item = new SpongeCommandItem("chatdirector","chatdirector.reload");
+        item.next=new ReloadItem();
+        item.load();
         try {
-            instance=this;
             chatDirector = new ChatDirector(new ConfigurationSponge(configDir.getAbsolutePath()+File.separatorChar+"config.yml"));
             configDir.mkdirs();
             chatDirector.load();
@@ -43,15 +47,10 @@ public class ChatDirectorSponge {
         } catch (Exception ex){
             ex.printStackTrace();
             System.out.println("YIKES! Some error. Registering /chatdirector for you so you can reload.");
-            registerReload();
         }
     }
 
     private void registerReload(){
-        // In case anything goes wrong, register the reload command
-        SpongeCommandItem item = new SpongeCommandItem("chatdirector","chatdirector.reload");
-        item.next=new ReloadItem();
-        item.load();
     }
     
     @Listener
