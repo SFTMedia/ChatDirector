@@ -37,16 +37,26 @@ public abstract class Item implements IItem, Runnable {
             System.out.println();
         }
         if(next!=null){
-            if(string==null||string.equals("")){
+            if(string==null||string.isEmpty()){
+                if(Configuration.debug){
+                    System.out.println("string is empty, returning.");
+                }
                 return "";
             }
             this.context.put("STRING", string);
-            return next.work(string,this.context);
+            if(Configuration.debug){
+                System.out.println("starting the next's work of "+next);
+            }
+            String temp = next.work(string,this.context);
+            if(Configuration.debug){
+                System.out.println("returning "+temp+ " from "+next);
+            }
+            return temp;
         } else {
             if(Configuration.debug){
                 System.out.println("Next was null, aborting with string >"+string+"<");
             }
-            return "";
+            return string;
         }
     }
 }

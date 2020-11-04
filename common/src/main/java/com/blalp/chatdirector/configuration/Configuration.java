@@ -18,7 +18,6 @@ import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.Pipe;
 import com.blalp.chatdirector.modules.IModule;
-import com.blalp.chatdirector.modules.cache.CacheModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
 import com.blalp.chatdirector.modules.context.ContextModule;
 import com.blalp.chatdirector.modules.file.FileModule;
@@ -86,14 +85,16 @@ public class Configuration extends Loadable {
                 for (String pipeKey: chains.keySet()) {
                     System.out.println("Pipe "+pipeKey);
                     IItem item = chains.get(pipeKey).rootItem;
-                    while(item!=null&&!(item instanceof StopItem)) {
+                    while(item!=null) {
                         System.out.println(item);
                         if (item instanceof Item){
                             item=((Item)item).next;
                         } else {
                             System.out.println("Not an Item, don't know how to go deeper");
+                            break;
                         }
                     }
+                    System.out.println("NULL");
                 }
             }
 
@@ -109,13 +110,12 @@ public class Configuration extends Loadable {
         }
     }
     public static IItem loadItems(ArrayList<LinkedHashMap<String,Object>> items) {
-        IItem nullItem = new StopItem();
         if(items==null){
-            return nullItem;
+            return new StopItem();
         }
         IItem output = null;
         IItem lastItem = null;
-        IItem item=nullItem;
+        IItem item=null;
         LinkedHashMap<String,Object> pipeVal=null;
         for(Object pipeValObj:items) {
             try {
@@ -135,7 +135,7 @@ public class Configuration extends Loadable {
             lastItem=item;
         }
         if(item instanceof Item){
-            ((Item)item).next=nullItem;
+            ((Item)item).next=null;
         }
         return output;
     }
@@ -184,7 +184,6 @@ public class Configuration extends Loadable {
             case "replacement":
                 return new ReplacementModule();
             case "cache":
-                return new CacheModule();
             case "sql":
                 return new SQLModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
             default:
