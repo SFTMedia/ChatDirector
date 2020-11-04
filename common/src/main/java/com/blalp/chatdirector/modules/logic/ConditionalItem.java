@@ -27,12 +27,9 @@ public abstract class ConditionalItem extends PassItem {
             System.out.println("True is "+nestedTrue+" false is "+nestedFalse);
         }
         if(result){
-            nestedTrue.work(string,context);
+            string=nestedTrue.work(string,context);
         } else {
-            nestedFalse.work(string,context);
-        }
-        if(context.containsKey("STRING")){
-            string=context.get("STRING");
+            string=nestedFalse.work(string,context);
         }
         context.put("STRING", string);
         if(string==null||string.equals("")){

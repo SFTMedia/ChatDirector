@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.modules.common.BreakItem;
 import com.blalp.chatdirector.modules.common.CommonModule;
-import com.blalp.chatdirector.modules.common.StopItem;
 import com.blalp.chatdirector.model.format.Formatters;
 import com.blalp.chatdirector.model.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
@@ -111,7 +111,7 @@ public class Configuration extends Loadable {
     }
     public static IItem loadItems(ArrayList<LinkedHashMap<String,Object>> items) {
         if(items==null){
-            return new StopItem();
+            return new BreakItem();
         }
         IItem output = null;
         IItem lastItem = null;

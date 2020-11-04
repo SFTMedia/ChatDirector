@@ -7,7 +7,7 @@ public class CommonModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"pass","stop","echo","reload"};
+        return new String[]{"pass","stop","halt","break","echo","reload"};
     }
 
     @Override
@@ -16,7 +16,10 @@ public class CommonModule extends Module {
             case "pass":
                 return new PassItem();
             case "stop":
-                return new StopItem();
+            case "halt":
+                return new HaltItem();
+            case "break":
+                return new BreakItem();
             case "echo":
                 return new EchoItem((String)config);
             case "reload":
