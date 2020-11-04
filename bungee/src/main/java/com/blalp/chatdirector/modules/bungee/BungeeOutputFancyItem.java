@@ -17,7 +17,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class BungeeOutputFancyItem extends Item {
     /*
-            - bukkit-output-fancy:
+            - bungee-output-fancy:
                 permission: null
                 fancy-format:
                     - click:

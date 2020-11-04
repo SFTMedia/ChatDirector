@@ -3,6 +3,7 @@ modules:
   - bukkit
   - bungee
   - logic
+  - cache
   - console
   - discord-javacord:
       bots:
@@ -66,6 +67,28 @@ chains:
         permission: "example-permission"
         format: "/%COMMAND% %ARGS%"
     - bungee-output: null
+    - bukkit-output-fancy:
+        permission: null
+        fancy-format: # Can have any number of fancy formats
+          - click:
+              click-file: "PATH"
+              click-change-page: page_num
+              click-run-command: "/test"
+              click-suggest-command: "/suggestion"
+              click-url: "https://sftmc.org"
+              text: "text to show" # This can also be a list of fancy formats
+          - color:
+              color: "RED"
+              bold: false
+              italics: true
+              strikethrough: true
+              obfuscated: false
+              text: "TEST" # This can also be a list of fancy formats
+          - hover:
+              show-text: "text"
+              text: "TEST" # This can also be a list of fancy formats
+          - raw:
+              text: "TEST"
     - bungee-output-server:
         server: "SERVER NAME"
         permission: null # optional
@@ -83,6 +106,13 @@ chains:
         format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
         format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
         format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
+  - cache-demo:
+    - cache-get:
+        key: "SomeUnqiueKey" # Where get the value from
+    - cache-set:
+        key: ""
+        value: ""
+    - cache-if:
   - context-demo:
     - get-context:
         context: "SERVER_%SERVER_NAME%_Players" # Normally such a nested contexts would not be possible
@@ -198,14 +228,18 @@ chains:
         permission: null # Optional
         sender: "FakeME" # Optional
   - sql-demo:
+    # The Table looks like this
+    # name  key   value
     - send-data:
-        table: ""
-        name: ""
-        key: ""
-        value: ""
+        table: "" # Table name
+        name: "" # First key
+        key: "" # Second key
+        value: "" # This is set
+        cache: true
     - retrieve-data:
         table: ""
         name: ""
         key: ""
+        cache: true
   - vault-demo:
     - vault-context: null  # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.

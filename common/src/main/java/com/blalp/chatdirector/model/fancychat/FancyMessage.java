@@ -149,6 +149,8 @@ public class FancyMessage {
                     if(dataMap.containsKey("show-text")){
                         output.setHoverEvent(FancyMessageEnum.SHOW_TEXT, (String)dataMap.get("show-text"));
                     }
+                case "raw":
+                    // This should already be handled, no additional parsing needed
                 default:
                     System.err.println(type+ " is not a valid fancy type");
             }
