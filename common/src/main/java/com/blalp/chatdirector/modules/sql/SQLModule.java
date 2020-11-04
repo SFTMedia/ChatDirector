@@ -24,7 +24,7 @@ public class SQLModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[] { "send-data", "retrieve-data" };
+        return new String[] { "send-data", "retrieve-data","sql-cache-if" };
     }
 
     @Override
@@ -38,6 +38,10 @@ public class SQLModule extends Module {
             case "retrieve-data":
                 tables.get((String)configMap.get("connection")).add((String)configMap.get("table"));
                 return new SQLRetrieveDataItem((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
+                (String)configMap.get("connection"), (boolean)configMap.get("cache"));
+            case "sql-cache-if":
+                return new SQLCacheIfItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),
+                (String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
                 (String)configMap.get("connection"), (boolean)configMap.get("cache"));
             default:
                 return null;

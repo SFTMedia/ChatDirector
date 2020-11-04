@@ -16,7 +16,7 @@ public class SQLRetrieveDataItem extends SQLItem {
     @Override
     public String process(String string, Map<String, String> context) {
         context.put("CURRENT", string);
-        if (cache&&SQLCacheStore.containsKey(connectionName,table,name,key)){
+        if (cache&&SQLCacheStore.containsKey(connectionName,ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context))){
             this.context.put("SQL_RESULT", SQLCacheStore.getValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context)));
             this.context.put("CACHE_RESULT", SQLCacheStore.getValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context)));
         }

@@ -113,6 +113,10 @@ chains:
         key: ""
         value: ""
     - cache-if:
+        yes-chain: # List of items to run if there is a cached value
+          - stop: null
+        no-chain: null # List of items to run if there is no cached value
+        key: "KEY" # The key to check for
   - context-demo:
     - get-context:
         context: "SERVER_%SERVER_NAME%_Players" # Normally such a nested contexts would not be possible
@@ -241,5 +245,13 @@ chains:
         name: ""
         key: ""
         cache: true
+    - sql-cache-if:
+        table: "" # Table name
+        name: "" # First key
+        key: "" # Second key
+        value: "" # This is set
+        yes-chain: # List of items to run if there is a cached value
+          - stop: null
+        no-chain: null # List of items to run if there is no cached value
   - vault-demo:
     - vault-context: null  # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.
