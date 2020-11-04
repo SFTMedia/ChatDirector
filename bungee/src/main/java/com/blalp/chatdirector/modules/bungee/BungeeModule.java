@@ -4,13 +4,14 @@ import java.util.LinkedHashMap;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.model.fancychat.FancyMessage;
 import com.blalp.chatdirector.modules.Module;
 
 public class BungeeModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"bungee-command","bungee-playerlist","bungee-output","bungee-input","bungee-output-player","bungee-output-server"};
+        return new String[]{"bungee-command","bungee-playerlist","bungee-output","bungee-input","bungee-output-player","bungee-output-server","bungee-output-fancy"};
     }
 
     @Override
@@ -64,9 +65,11 @@ public class BungeeModule extends Module {
                 return new BungeeCommandItem(configCommand.get("command"),configCommand.get("permission"));
             case "bungee-output":
                 return new BungeeOutputItem();
+            case "bungee-output-fancy":
+                return new BungeeOutputFancyItem(FancyMessage.parse(((LinkedHashMap<String,String>)config).get("fancy-format")), ((LinkedHashMap<String,String>)config).get("permission"));
             case "bungee-output-player":
                 LinkedHashMap<String,String> configOutputPlayer = ((LinkedHashMap<String,String>)config);
-                BungeeOutputPlayerItem outputPlayer = new BungeeOutputPlayerItem(configOutputPlayer.get("player"));
+                BungeePlayerItem outputPlayer = new BungeePlayerItem(configOutputPlayer.get("player"));
                 if(configOutputPlayer.containsKey("permission")){
                     outputPlayer.permission=configOutputPlayer.get("permission");
                 }
