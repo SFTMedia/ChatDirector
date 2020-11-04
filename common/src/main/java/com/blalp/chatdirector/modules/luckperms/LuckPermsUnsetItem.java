@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.blalp.chatdirector.modules.common.PassItem;
 
 import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
 
 public class LuckPermsUnsetItem extends PassItem {
@@ -17,7 +18,9 @@ public class LuckPermsUnsetItem extends PassItem {
     public String process(String string, Map<String, String> context) {
         // DO NOT RESOLVE CONTEXTS ON THE PERMISSION NODE
         if(context.containsKey("PLAYER_UUID")) {
-            LuckPermsProvider.get().getUserManager().getUser(UUID.fromString(context.get("PLAYER_UUID"))).data().remove(Node.builder(permission).build());
+            User user = LuckPermsProvider.get().getUserManager().getUser(UUID.fromString(context.get("PLAYER_UUID")));
+            user.data().remove(Node.builder(permission).value(true).build());
+            LuckPermsProvider.get().getUserManager().saveUser(user);
         } else {
             System.err.println("PLAYER_UUID not set");
         }

@@ -71,8 +71,6 @@ chains:
         permission: null
         fancy-format: # Can have any number of fancy formats
           - click:
-              click-file: "PATH"
-              click-change-page: page_num
               click-run-command: "/test"
               click-suggest-command: "/suggestion"
               click-url: "https://sftmc.org"

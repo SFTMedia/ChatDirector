@@ -49,11 +49,9 @@ public class ChatDirectorSponge {
 
     private void registerReload(){
         // In case anything goes wrong, register the reload command
-        Item item = new SpongeCommandItem("chatdirector","chatdirector.reload");
+        SpongeCommandItem item = new SpongeCommandItem("chatdirector","chatdirector.reload");
         item.next=new ReloadItem();
-        for(SpongeCommandItem command : SpongeCommandItem.commands){
-            command.load();
-        }
+        item.load();
     }
     
     @Listener

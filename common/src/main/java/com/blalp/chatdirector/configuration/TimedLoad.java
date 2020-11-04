@@ -25,7 +25,7 @@ public class TimedLoad implements Runnable {
             }
             System.out.println("Timed load attempting to load");
             try {
-                ChatDirector.instance.load();
+                ChatDirector.instance.reload();
                 if(ChatDirector.config.chains.size()==0){
                     throw new Exception("No CHAINS!");
                 }

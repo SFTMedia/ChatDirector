@@ -101,7 +101,7 @@ public class FancyMessage {
         if (data instanceof Map){
             // This is the actual map
             String type = ((LinkedHashMap<String,Object>)data).keySet().toArray(new String[1])[0];
-            LinkedHashMap<String,Object> dataMap = (LinkedHashMap<String, Object>) ((LinkedHashMap<String,Object>)data).values().toArray()[1];
+            LinkedHashMap<String,Object> dataMap = (LinkedHashMap<String, Object>) ((LinkedHashMap<String,Object>)data).values().toArray()[0];
             output = parse(dataMap.get("text"));
             switch (type){
                 case "click":
@@ -120,6 +120,7 @@ public class FancyMessage {
                     if(dataMap.containsKey("click-url")){
                         output.setClickEvent(FancyMessageEnum.OPEN_URL, (String)dataMap.get("click-url"));
                     }
+                    break;
                 case "color":
                     if(dataMap.containsKey("color")){
                         output.setColor((String)dataMap.get("color"));
@@ -136,6 +137,7 @@ public class FancyMessage {
                     if(dataMap.containsKey("obfuscated")){
                         output.setObfuscated((boolean)dataMap.get("obfuscated"));
                     }
+                    break;
                 case "hover":
                     if(dataMap.containsKey("show-achievement")){
                         output.setHoverEvent(FancyMessageEnum.SHOW_ACHIEVEMENT, (String)dataMap.get("show-achievement"));
@@ -149,6 +151,7 @@ public class FancyMessage {
                     if(dataMap.containsKey("show-text")){
                         output.setHoverEvent(FancyMessageEnum.SHOW_TEXT, (String)dataMap.get("show-text"));
                     }
+                    break;
                 case "raw":
                     // This should already be handled, no additional parsing needed
                 default:

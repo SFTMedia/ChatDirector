@@ -7,6 +7,7 @@ import com.blalp.chatdirector.model.Item;
 import com.blalp.chatdirector.model.fancychat.FancyMessage;
 import com.blalp.chatdirector.model.fancychat.FancyMessageEnum;
 
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -61,6 +62,9 @@ public class BungeeOutputFancyItem extends Item {
         BaseComponent output = new TextComponent(fancyMessage.text);
         if(fancyMessage.bold){
             output.setBold(true);
+        }
+        if(fancyMessage.color!=null){
+            output.setColor(ChatColor.valueOf(fancyMessage.color));
         }
         if(fancyMessage.italics){
             output.setItalic(true);

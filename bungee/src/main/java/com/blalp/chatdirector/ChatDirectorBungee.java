@@ -38,7 +38,9 @@ public class ChatDirectorBungee extends Plugin {
         Item item = new BungeeCommandItem("chatdirector","chatdirector.reload");
         item.next=new ReloadItem();
         for(BungeeCommand command : BungeeCommand.commands){
-            command.load();
+            if(command.item.equals(item)){
+                command.load();
+            }
         }
     }
 

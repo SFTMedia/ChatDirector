@@ -13,7 +13,7 @@ import net.md_5.bungee.api.plugin.Command;
 
 public class BungeeCommand extends Command implements ILoadable {
     public static ArrayList<BungeeCommand> commands = new ArrayList<>();
-    BungeeCommandItem item;
+    public BungeeCommandItem item;
     public BungeeCommand(String name,BungeeCommandItem item) {
         super(name);
         this.item=item;

@@ -43,7 +43,7 @@ public class LuckPermsModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"luckperms-context","luckperms-set","luckperms-unset"};
+        return new String[]{"luckperms-context","luckperms-set","luckperms-unset","luckperms-has"};
     }
 
 }
