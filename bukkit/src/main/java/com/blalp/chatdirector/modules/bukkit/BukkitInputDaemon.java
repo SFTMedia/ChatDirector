@@ -32,7 +32,11 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
             }
             if (item.chat) {
                 Map<String,String> context = ChatDirector.formatter.getContext(event);
-                item.startWork(ChatDirector.format(item.format,context),false,context);
+                if (item.overrideChat) {
+                    event.setFormat(item.work(ChatDirector.format(item.format,context),context));
+                } else {
+                    item.startWork(ChatDirector.format(item.format,context),false,context);
+                }
             }
             if(item.cancelChat){
                 event.setCancelled(true);

@@ -12,4 +12,5 @@ public class BungeeInputItem extends PassItem implements Listener {
     public String formatJoin="&0[&2->&0] &e%PLAYER_NAME% joined the network on %SERVER_NAME%!";
     public boolean disconnect,switchServers,chat,joinServer;
 	public boolean command=false;
+	public boolean overrideChat;
 }

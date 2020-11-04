@@ -50,6 +50,9 @@ public class SpongeModule extends Module {
                 if(configList.containsKey("chat")){
                     item2.chat=(boolean) configList.get("chat");
                 }
+                if(configList.containsKey("override-chat")){
+                    item2.overrideChat=(boolean) configList.get("override-chat");
+                }
                 if(configList.containsKey("check-canceled")){
                     item2.checkCanceled=(boolean) configList.get("check-canceled");
                 }

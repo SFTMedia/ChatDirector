@@ -46,6 +46,9 @@ public class BukkitModule extends Module {
                 if(configList.containsKey("server-started")){
                     item.serverStarted=(boolean) configList.get("server-started");
                 }
+                if(configList.containsKey("override-chat")){
+                    item.overrideChat=(boolean) configList.get("override-chat");
+                }
                 if(configList.containsKey("chat")){
                     item.chat=(boolean) configList.get("chat");
                 }

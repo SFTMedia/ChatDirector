@@ -90,6 +90,9 @@ public class BungeeModule extends Module {
                 if(configInput.containsKey("format-chat")){
                     itemInput.formatChat= (String) configInput.get("format-chat");
                 }
+                if(configInput.containsKey("override-chat")){
+                    itemInput.overrideChat= (boolean) configInput.get("override-chat");
+                }
                 if(configInput.containsKey("disconnect")){
                     itemInput.disconnect= (boolean) (configInput.get("disconnect"));
                 }

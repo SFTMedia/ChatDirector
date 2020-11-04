@@ -65,7 +65,11 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
         Map<String,String> context = ChatDirector.formatter.getContext(e);
         for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[]{})) {
             if((item.chat&&!e.getMessage().startsWith("/"))||item.command&&e.getMessage().startsWith("/")){
-                item.startWork(ChatDirector.format(item.formatChat, context), true, context);
+                if(item.overrideChat){
+                    e.setMessage(item.work(ChatDirector.format(item.formatChat, context), context));
+                } else {
+                    item.startWork(ChatDirector.format(item.formatChat, context), true, context);
+                }
             }
         }
     }
