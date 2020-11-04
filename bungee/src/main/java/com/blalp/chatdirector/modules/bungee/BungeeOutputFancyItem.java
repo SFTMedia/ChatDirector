@@ -109,7 +109,11 @@ public class BungeeOutputFancyItem extends Item {
                     }
                 }
                 playerContext.putAll(ChatDirector.getContext(player));
-                player.sendMessage(fromFancyMessage(fancyMessage.duplicate().withContext(playerContext))); // Since we want to do context resolution per player we need to duplicate
+                BaseComponent message = fromFancyMessage(fancyMessage.duplicate().withContext(playerContext));
+                player.sendMessage(message); // Since we want to do context resolution per player we need to duplicate
+                if(Configuration.debug){
+                    System.out.println("Sent >"+message.toLegacyText()+"< to "+player.getName());
+                }
                 playerContext=context;
             }
         }

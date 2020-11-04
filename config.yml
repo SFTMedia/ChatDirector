@@ -201,8 +201,10 @@ chains:
         yes-chain: null # Chain of items
         no-chain: null  # Chain of items
         permission: "permission.node" # Just normal nodes, no regex, no contexts.
+        value: false # Set the node to true or false ( (non-functional?)
     - luckperms-set: # This is applied to the player in PLAYER_UUID. No regex allowed here.
         permission: "permission.node" # Just normal nodes, no regex, no contexts.
+        value: false # Set the node to true or false (non-functional?)
     - luckperms-unset: # This is applied to the player in PLAYER_UUID
         permission: "permission.node" # Just normal nodes, no regex, no contexts.
   - multichat-demo:
