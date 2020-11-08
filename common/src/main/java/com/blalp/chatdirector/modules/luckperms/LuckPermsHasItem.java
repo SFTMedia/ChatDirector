@@ -17,10 +17,9 @@ public class LuckPermsHasItem extends ConditionalItem {
     }
 
     String permission;
-    boolean value=true;
 
     @Override
     public boolean test(String string, Map<String, String> context) {
-        return LuckPermsProvider.get().getUserManager().getUser(UUID.fromString(context.get("PLAYER_UUID"))).data().contains(Node.builder(permission).value(value).build(),NodeEqualityPredicate.ONLY_KEY).asBoolean();
+        return LuckPermsProvider.get().getUserManager().getUser(UUID.fromString(context.get("PLAYER_UUID"))).data().contains(Node.builder(permission).build(),NodeEqualityPredicate.ONLY_KEY).asBoolean();
     }
 }

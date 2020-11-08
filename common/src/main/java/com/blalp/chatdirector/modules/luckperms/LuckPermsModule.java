@@ -33,20 +33,17 @@ public class LuckPermsModule extends Module {
             case "luckperms-set":
                 LuckPermsSetItem luckPermsSetItem = new LuckPermsSetItem((String)configMap.get("permission"));
                 if(configMap.containsKey("value")) {
-                    luckPermsSetItem.value=(boolean)configMap.containsKey("value");
+                    luckPermsSetItem.value=(boolean)configMap.get("value");
                 }
                 return luckPermsSetItem;
             case "luckperms-unset":
                 LuckPermsUnsetItem unsetItem = new LuckPermsUnsetItem((String)configMap.get("permission"));
                 if(configMap.containsKey("value")) {
-                    unsetItem.value=(boolean)configMap.containsKey("value");
+                    unsetItem.value=(boolean)configMap.get("value");
                 }
                 return unsetItem;
             case "luckperms-has":
                 LuckPermsHasItem luckPermsHasItem = new LuckPermsHasItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("permission"));
-                if(configMap.containsKey("value")) {
-                    luckPermsHasItem.value=(boolean)configMap.containsKey("value");
-                }
                 return luckPermsHasItem;
             default:
                 return null;
