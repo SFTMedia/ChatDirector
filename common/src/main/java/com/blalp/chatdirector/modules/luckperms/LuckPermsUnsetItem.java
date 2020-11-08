@@ -11,6 +11,7 @@ import net.luckperms.api.node.Node;
 
 public class LuckPermsUnsetItem extends PassItem {
     String permission;
+    boolean value=true;
     public LuckPermsUnsetItem(String permission) {
         this.permission=permission;
     }
@@ -19,7 +20,7 @@ public class LuckPermsUnsetItem extends PassItem {
         // DO NOT RESOLVE CONTEXTS ON THE PERMISSION NODE
         if(context.containsKey("PLAYER_UUID")) {
             User user = LuckPermsProvider.get().getUserManager().getUser(UUID.fromString(context.get("PLAYER_UUID")));
-            user.data().remove(Node.builder(permission).value(true).build());
+            user.data().remove(Node.builder(permission).value(value).build());
             LuckPermsProvider.get().getUserManager().saveUser(user);
         } else {
             System.err.println("PLAYER_UUID not set");
