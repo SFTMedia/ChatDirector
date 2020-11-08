@@ -22,4 +22,7 @@ public class SQLCacheStore {
 	public static boolean containsKey(String connection, String table, String name, String key) {
 		return data.containsKey(getKey(connection, table, name, key));
 	}
+    public static void removeValue(String connection,String table,String name,String key){
+        data.remove(getKey(connection, table, name, key), data.get(getKey(connection, table, name, key)));
+    }
 }

@@ -24,7 +24,7 @@ public class SQLModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[] { "send-data", "retrieve-data","sql-cache-if" };
+        return new String[] { "send-data", "retrieve-data","sql-cache-if","sql-cache-remove" };
     }
 
     @Override
@@ -34,15 +34,18 @@ public class SQLModule extends Module {
             case "send-data":
                 tables.get((String)configMap.get("connection")).add((String)configMap.get("table"));
                 return new SQLSendDataItem((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
-                (String)configMap.get("connection"), (String)configMap.get("value"), (boolean)configMap.get("cache"));
+                    (String)configMap.get("connection"), (String)configMap.get("value"), (boolean)configMap.get("cache"));
             case "retrieve-data":
                 tables.get((String)configMap.get("connection")).add((String)configMap.get("table"));
                 return new SQLRetrieveDataItem((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
-                (String)configMap.get("connection"), (boolean)configMap.get("cache"));
+                    (String)configMap.get("connection"), (boolean)configMap.get("cache"));
             case "sql-cache-if":
                 return new SQLCacheIfItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),
-                (String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
-                (String)configMap.get("connection"), (boolean)configMap.get("cache"));
+                    (String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
+                    (String)configMap.get("connection"), (boolean)configMap.get("cache"));
+            case "sql-cache-remove":
+                return new SQLCacheRemove((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
+                    (String)configMap.get("connection"), (boolean)configMap.get("cache"));
             default:
                 return null;
         }
@@ -73,6 +76,8 @@ public class SQLModule extends Module {
         for(SQLConnection connection:connections.values()){
             connection.unload();
         }
+        connections = new HashMap<>();
+        tables = new HashMap<>();
     }
     
 }

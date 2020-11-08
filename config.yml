@@ -258,6 +258,10 @@ chains:
         name: ""
         key: ""
         cache: true
+    - sql-cache-remove:
+        table: ""
+        name: ""
+        key: ""
     - sql-cache-if:
         table: "" # Table name
         name: "" # First key

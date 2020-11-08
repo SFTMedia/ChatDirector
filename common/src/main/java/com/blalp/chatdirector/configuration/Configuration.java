@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,7 +141,9 @@ public class Configuration extends Loadable {
         return output;
     }
     public static IItem loadItem(String key, Object item) {
-        for (IModule iModule : loadedModules) {
+        Iterator<IModule> iterator = loadedModules.iterator();
+        while(iterator.hasNext()) {
+            IModule iModule = iterator.next();
             for(String itemType: iModule.getItemNames()){
                 if(key.equalsIgnoreCase(itemType)){
                     return iModule.createItem(key, item);
