@@ -132,18 +132,37 @@ chains:
   - console-demo:
     - console-output: null
     - console-output-error: null
-  - discord-demo: # This applies to both javacord and jda. Load only one of the new modules.
+  - discord-demo: # This applies to both javacord and jda. Load only one of the new modules. WANRING: THE JDA ONE DOESN'T HAVE THIS MANY FEATURES.
     - discord-input:
         channel: "0" # CHANNEL_ID
         bot: bot-name
+        category: "CATEGORY_ID"  # optional
+        messageID: "MESSAGE_ID" # optional
+	      reaction-add: true # optional
+        reaction-remove: false # optional
+	      message: true # optional
     - discord-resolve:
         server: "0" # SERVER_ID
         bot: bot-name
         to-discord: false
         to-plain: true
-    - discord-output:
+    - discord-output: # Sends string with NO CONTEXT RESOLVING.
         channel: "0" # CHANNEL_ID
         format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
+        bot: bot-name
+    - discord-output-reaction:
+        channel: "0" # CHANNEL_ID
+        format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
+        bot: bot-name
+        message: "MESSAGE ID"
+        emoji: "either a custom emoji id or unicode"
+        add: true # true to add an emoji, false to remove one
+    - discord-get-dm-channel: # Puts the ID into DISCORD_DM_CHANNEL_ID
+        bot: "bot-name"
+        user: "USER ID"
+    - discord-output-file:
+        channel: "0" # CHANNEL_ID
+        file-name: "hello world" # Optional
         bot: bot-name
     - discord-embed: # Optional https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
         author-avatar: "Author Avatar"

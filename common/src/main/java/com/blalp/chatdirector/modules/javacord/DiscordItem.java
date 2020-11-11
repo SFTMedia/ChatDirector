@@ -6,6 +6,8 @@ public class DiscordItem extends PassItem {
     public String channelID;
 	public String serverID;
 	public String format="[%DISCORD_AUTHOR_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%";
+	public String categoryID;
+	public String messageID;
 	
 	public DiscordItem(String botName, String channelID, String serverID){
 		this.botName=botName;
@@ -19,9 +21,5 @@ public class DiscordItem extends PassItem {
 	}
 	public DiscordItem(String botName){
 		this.botName=botName;
-	}
-
-	public String getChannelID() {
-		return channelID;
 	}
 }

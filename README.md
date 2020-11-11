@@ -40,6 +40,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - CURRENT
 ## Discord Javacord
 - DISCORD_MESSAGE
+- DISCORD_DM_USER_ID
 - DISCORD_AUTHOR_ID
 - DISCORD_SELF_ID
 - DISCORD_CHANNEL_ID
