@@ -19,28 +19,29 @@ public class SQLRetrieveDataItem extends SQLItem {
         if (cache&&SQLCacheStore.containsKey(connectionName,ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context))){
             this.context.put("SQL_RESULT", SQLCacheStore.getValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context)));
             this.context.put("CACHE_RESULT", SQLCacheStore.getValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context)));
-        }
-        try {
-            PreparedStatement statement = SQLModule.connections.get(connectionName).connection.prepareStatement("SELECT `value` from "+ChatDirector.format(table, context)+" WHERE `name`=? AND `key`=? LIMIT 1");
-            statement.setString(1, ChatDirector.format(name, context));
-            statement.setString(2, ChatDirector.format(key, context));
-            ResultSet results = statement.executeQuery();
-            if(results.next()) {
-                this.context.put("SQL_RESULT", results.getString("value"));
-                if(cache){
-                    SQLCacheStore.setValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context), results.getString("value"));
+        } else {
+            try {
+                PreparedStatement statement = SQLModule.connections.get(connectionName).connection.prepareStatement("SELECT `value` from "+ChatDirector.format(table, context)+" WHERE `name`=? AND `key`=? LIMIT 1");
+                statement.setString(1, ChatDirector.format(name, context));
+                statement.setString(2, ChatDirector.format(key, context));
+                ResultSet results = statement.executeQuery();
+                if(results.next()) {
+                    this.context.put("SQL_RESULT", results.getString("value"));
+                    if(cache){
+                        SQLCacheStore.setValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context), results.getString("value"));
+                    }
+                } else {
+                    if(Configuration.debug){
+                        System.out.println("No result was found ");
+                    }
                 }
-            } else {
+            } catch (SQLException e){
+                System.err.println(this+" failed on "+string);
                 if(Configuration.debug){
-                    System.out.println("No result was found ");
+                    System.out.println("Failed SQL "+e.getSQLState());
                 }
+                e.printStackTrace();
             }
-        } catch (SQLException e){
-            System.err.println(this+" failed on "+string);
-            if(Configuration.debug){
-                System.out.println("Failed SQL "+e.getSQLState());
-            }
-            e.printStackTrace();
         }
         return string;
     }

@@ -70,6 +70,9 @@ public class BungeeModule extends Module {
                 if(((LinkedHashMap<String,Object>)config).containsKey("send-to-current-server")){
                     bungeeOutputFancyItem.sendToCurrentServer=(boolean)((LinkedHashMap<String,Object>)config).get("send-to-current-server");
                 }
+                if(((LinkedHashMap<String,Object>)config).containsKey("player")){
+                    bungeeOutputFancyItem.playerTarget=(String)((LinkedHashMap<String,Object>)config).get("player");
+                }
                 return bungeeOutputFancyItem;
             case "bungee-output-player":
                 LinkedHashMap<String,String> configOutputPlayer = ((LinkedHashMap<String,String>)config);

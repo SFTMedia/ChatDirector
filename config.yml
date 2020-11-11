@@ -71,6 +71,7 @@ chains:
     - bungee-output: null
     - bukkit-output-fancy:
         permission: null
+        player: "player name or player UUID" # This takes prescience over permission, and does NOT check permission when sending to a player
         send-to-current-server: true # This checks against SERVER_NAME with a player's connected server.
         fancy-format: # Can have any number of fancy formats
           - click:
@@ -170,23 +171,23 @@ chains:
         delay: 500 # optional, defaults to 500
   - logic-demo:
     - if-contains:
-        yes-chain: # this can be any list of items
+        yes-chain: # this can be any list of items or optional
           - pass: null
           - stop: null
-        no-chain: null # Or this can be nothing
+        no-chain: null # Or this can be nothing or optional
         contains: "String"
         source: "%CURRENT%" # Optional. source.contains(contains)
         invert: false # Optional inverts the decision
     - if-equals:
-        yes-chain: null
-        no-chain: null
+        yes-chain: null # Optional
+        no-chain: null # Optional
         equals: "String"
         source: "%CURRENT%" # Optional. source.equals(contains)
         invert: false # Optional inverts the decision
         ignore-case: false # optional
     - if-regex-match:
-        yes-chain: null
-        no-chain: null
+        yes-chain: null # Optional
+        no-chain: null # Optional
         match: "[sS]tring"
         source: "%CURRENT%" # Optional. source.match(contains)
         invert: false # Optional inverts the decision

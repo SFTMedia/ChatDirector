@@ -58,6 +58,7 @@ public class BungeeOutputFancyItem extends Item {
     FancyMessage fancyMessage;
     String permission;
     boolean sendToCurrentServer = true;
+	public String playerTarget=null;
     public BungeeOutputFancyItem(FancyMessage fancyMessage,String permission){
         this.fancyMessage=fancyMessage;
         this.permission=permission;
@@ -105,7 +106,10 @@ public class BungeeOutputFancyItem extends Item {
         Map<String,String> playerContext = (HashMap<String,String>)((HashMap<String,String>)context).clone();
         FancyMessage fancyBase = fancyMessage.duplicate().withContext(context); // Resolve all of the contexts that you can before resolving player related ones
         for(ProxiedPlayer player : ProxyServer.getInstance().getPlayers()){
-            if(player.hasPermission(permission)){
+            if(playerTarget==null||(ChatDirector.format(playerTarget, context).length()>16&&player.getUniqueId().toString().equals(ChatDirector.format(playerTarget, context)))||(ChatDirector.format(playerTarget, context).length()<16&&player.getName().equals(ChatDirector.format(playerTarget, context)))) {
+                if(permission!=null&&!player.hasPermission(permission)) {
+                    continue;
+                }
                 if(!sendToCurrentServer&&context.containsKey("SERVER_NAME")){
                     if(player.getServer()!=null&&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(context.get("SERVER_NAME"))){
                         if(Configuration.debug){
