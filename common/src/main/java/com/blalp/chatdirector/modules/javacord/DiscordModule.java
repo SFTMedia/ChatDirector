@@ -45,7 +45,7 @@ public class DiscordModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"discord-input","discord-output","discord-output-file","discord-output-reaction","discord-resolve","discord-embed","discord-get-dm-channel","discord-message-history"};
+        return new String[]{"discord-input","discord-output","discord-output-file","discord-output-reaction","discord-resolve","discord-embed","discord-get-dm-channel","discord-message-history","discord-create-channel"};
     }
 
     @Override
@@ -159,8 +159,24 @@ public class DiscordModule extends Module {
                     historyItem.format= (String) configMap.get("format");
                 }
                 return historyItem;
+            case "discord-create-channel":
+                DiscordCreateChannelItem createChannelItem = new DiscordCreateChannelItem((String)configMap.get("bot"),(String)configMap.get("server"));
+                if(configMap.containsKey("channel-name")){
+                    createChannelItem.name=(String)configMap.get("channel-name");
+                }
+                if(configMap.containsKey("category")){
+                    createChannelItem.categoryID=(String)configMap.get("category");
+                }
+                if(configMap.containsKey("user")){
+                    createChannelItem.userID=(String)configMap.get("user");
+                }
+                if(configMap.containsKey("topic")){
+                    createChannelItem.topic=(String)configMap.get("topic");
+                }
+                return createChannelItem;
+            default:
+                return null;
         }
-        return null;
     }
     public IFormatter getFormatter(){
         return formatter;

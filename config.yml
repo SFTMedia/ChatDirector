@@ -164,6 +164,13 @@ chains:
         channel: "0" # CHANNEL_ID
         file-name: "hello world" # Optional
         bot: bot-name
+    - discord-create-channel:
+        server: "0" # SERVER_ID
+        bot: bot-name
+        channel-name: "channel" # Optional
+        category: "%CATEGORY_ID%" # Optional
+        user: "%DISCORD_AUTHOR ID%" # Optional
+        topic: "hello world" # Optional
     - discord-embed: # Optional https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
         author-avatar: "Author Avatar"
         author-link: "Author Link"
