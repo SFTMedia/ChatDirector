@@ -221,6 +221,12 @@ chains:
       - "Regex to find": "regex to replace"
     - remove-colors: null
     - resolve-colors: null # converts & into §
+    - to-upper: null # to upper case
+    - to-lower: null # to lower case
+    - to-word: null # Capitalize each word
+    - sub-string:
+      start: 2 # number of characters to end at (optional)
+      end: 4 # number of characters to end at (optional)
   - sponge-demo:
     - sponge-command:
         command: "command"
