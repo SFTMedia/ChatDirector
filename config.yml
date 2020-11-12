@@ -198,6 +198,10 @@ chains:
         server: "server id" # Contexts do not resolve here, meant as a guard to make sure the bot doesn't delete more than its supposed to
         category: "category id" # Contexts do not resolve here, meant as a guard to make sure the bot doesn't delete more than its supposed to
         channel: "channel id" # Contexts do resolve here
+    - discord-rename-channel:
+        bot: "bot name"
+        channel: "channel id"
+        name: "channel name"
   - file-demo:
     - file-input:
         path: PATH_TO_FIFO
@@ -233,6 +237,16 @@ chains:
         - pass-item: null
       - stream-2:
         - null-item: null
+    - if-starts-with:
+        yes-chain: null # Optional
+        no-chain: null # Optional
+        starts: "String"
+        source: "%CURRENT%" # Optional. source.startsWith(contains)
+    - if-ends-with:
+        yes-chain: null # Optional
+        no-chain: null # Optional
+        ends: "String"
+        source: "%CURRENT%" # Optional. source.endsWith(contains)
   - luckperms-demo:
     - luckperms-context: null  # This loads the PREFIX, SUFFIX and GROUP of the player in the PLAYER_NAME context.
     - luckperms-has: # This is checked against the player in PLAYER_UUID

@@ -45,7 +45,7 @@ public class DiscordModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"discord-input","discord-output","discord-output-file","discord-output-reaction","discord-resolve","discord-embed","discord-get-dm-channel","discord-message-history","discord-create-channel","discord-delete-channel"};
+        return new String[]{"discord-input","discord-output","discord-output-file","discord-output-reaction","discord-resolve","discord-embed","discord-get-dm-channel","discord-message-history","discord-create-channel","discord-delete-channel","discord-rename-channel"};
     }
 
     @Override
@@ -179,6 +179,8 @@ public class DiscordModule extends Module {
                 return createChannelItem;
             case "discord-delete-channel":
                 return new DiscordDeleteChannel((String)configMap.get("bot"),(String)configMap.get("server"),(String)configMap.get("category"),(String)configMap.get("channel"));
+            case "discord-rename-channel":
+                return new DiscordChannelRename((String)configMap.get("bot"), (String)configMap.get("channel"), (String)configMap.get("name"));
             default:
                 return null;
         }

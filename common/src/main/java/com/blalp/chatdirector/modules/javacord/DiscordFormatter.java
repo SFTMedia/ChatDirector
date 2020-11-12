@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.format.Formatter;
 
 import org.javacord.api.entity.message.Message;
@@ -58,6 +57,9 @@ public class DiscordFormatter extends Formatter {
         }
         if(event instanceof TextChannelEvent) {
             context.put("DISCORD_CHANNEL_ID", ((TextChannelEvent)event).getChannel().getIdAsString());
+            if(((TextChannelEvent)event).getChannel().asServerChannel().isPresent()) {
+                context.put("DISCORD_CHANNEL_NAME", ((TextChannelEvent)event).getChannel().asServerChannel().get().getName());
+            }
             if(((TextChannelEvent)event).getChannel().asPrivateChannel().isPresent()) {
                 context.put("DISCORD_DM_USER_ID", ((TextChannelEvent)event).getChannel().asPrivateChannel().get().getRecipient().getIdAsString());
             }

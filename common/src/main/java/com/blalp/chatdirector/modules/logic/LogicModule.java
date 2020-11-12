@@ -23,7 +23,7 @@ public class LogicModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[] { "if-contains", "if-equals", "if-regex-match","split" };
+        return new String[] { "if-contains", "if-equals", "if-regex-match","split","if-starts-with","if-ends-with"};
     }
 
     @Override
@@ -70,6 +70,12 @@ public class LogicModule extends Module {
                     items.add(Configuration.loadItems((ArrayList<LinkedHashMap<String,Object>>)((LinkedHashMap<String,?>)item).values().toArray()[0]));
                 }
                 return new SplitItem(items);
+            case "if-starts-with":
+                configMap= (Map<String, Object>) config;
+                return new IfStartsWithItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("starts"),(String)configMap.get("source"));
+            case "if-ends-with":
+                configMap= (Map<String, Object>) config;
+                return new IfEndsWithItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("ends"),(String)configMap.get("source"));
             default:
                 return null;
         }
