@@ -23,9 +23,15 @@ public class TimedLoad implements Runnable {
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
+            System.out.println("Timed load attempting to unload");
+            try {
+                ChatDirector.instance.unload();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
             System.out.println("Timed load attempting to load");
             try {
-                ChatDirector.instance.reload();
+                ChatDirector.instance.load();
                 if(ChatDirector.config.chains.size()==0){
                     throw new Exception("No CHAINS!");
                 }
