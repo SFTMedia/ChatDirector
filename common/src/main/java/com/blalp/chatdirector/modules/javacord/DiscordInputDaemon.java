@@ -22,26 +22,25 @@ public class DiscordInputDaemon extends ItemDaemon
     @Override
     public void load() {
         DiscordModule.discordBots.get(botName).getDiscordApi().addMessageCreateListener(this);
+        DiscordModule.discordBots.get(botName).getDiscordApi().addReactionAddListener(this);
+        DiscordModule.discordBots.get(botName).getDiscordApi().addReactionRemoveListener(this);
     }
 
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
-        if (message.getAuthor().getId() == DiscordModule.discordBots.get(botName).getDiscordApi().getYourself()
-                .getId()) {
+        if (message.getAuthor().isYourself()) {
             return;
         }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
             if(!item.message){
-                return;
+                continue;
             }
             if (event.getChannel().getIdAsString().equals(item.channelID)
-                    || (event.getChannel().asServerChannel().isPresent()
-                            && event.getChannel().asServerChannel().get().asCategorizable().isPresent()
-                            && event.getChannel().asServerChannel().get().asCategorizable().get().getCategory()
-                                    .isPresent()
-                            && event.getChannel().asServerChannel().get().asCategorizable().get().getCategory().get()
-                                    .getIdAsString().equals(item.categoryID))) {
+                || (event.getChannel().asCategorizable().isPresent()
+                        && event.getChannel().asCategorizable().get().getCategory().isPresent()
+                        && event.getChannel().asCategorizable().get().getCategory().get().getIdAsString().equals(item.categoryID))
+                ) {
                 item.startWork(ChatDirector.format(item.format, ChatDirector.formatter.getContext(event)), false,
                         ChatDirector.formatter.getContext(event));
             }
@@ -50,9 +49,12 @@ public class DiscordInputDaemon extends ItemDaemon
 
     @Override
     public void onReactionRemove(ReactionRemoveEvent event) {
+        if (event.getUser().isPresent()&&event.getUser().get().isYourself()) {
+            return;
+        }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
             if(!item.reactionRemove){
-                return;
+                continue;
             }
             if (event.getChannel().getIdAsString().equals(item.channelID)
                 || (event.getChannel().asCategorizable().isPresent()&& event.getChannel().asCategorizable().get().getCategory().isPresent()
@@ -67,12 +69,12 @@ public class DiscordInputDaemon extends ItemDaemon
 
     @Override
     public void onReactionAdd(ReactionAddEvent event) {
+        if (event.getUser().isPresent()&&event.getUser().get().isYourself()) {
+            return;
+        }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
             if(!item.reactionAdd){
-                return;
-            }
-            if(event.getServer().isPresent()&&!event.getMessage().get().getServer().get().getIdAsString().equals(item.serverID)){
-                return;
+                continue;
             }
             if (event.getChannel().getIdAsString().equals(item.channelID)
                 || (event.getChannel().asCategorizable().isPresent()&& event.getChannel().asCategorizable().get().getCategory().isPresent()

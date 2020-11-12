@@ -137,10 +137,10 @@ chains:
         channel: "0" # CHANNEL_ID
         bot: bot-name
         category: "CATEGORY_ID"  # optional
-        messageID: "MESSAGE_ID" # optional
-	      reaction-add: true # optional
-        reaction-remove: false # optional
-	      message: true # optional
+        message: "MESSAGE_ID" # optional
+	      reaction-add-event: true # optional
+        reaction-remove-event: false # optional
+	      message-event: true # optional
     - discord-resolve:
         server: "0" # SERVER_ID
         bot: bot-name
@@ -152,7 +152,6 @@ chains:
         bot: bot-name
     - discord-output-reaction:
         channel: "0" # CHANNEL_ID
-        format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
         bot: bot-name
         message: "MESSAGE ID"
         emoji: "either a custom emoji id or unicode"
@@ -171,23 +170,34 @@ chains:
         category: "%CATEGORY_ID%" # Optional
         user: "%DISCORD_AUTHOR ID%" # Optional
         topic: "hello world" # Optional
-    - discord-embed: # Optional https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
-        author-avatar: "Author Avatar"
-        author-link: "Author Link"
-        author-name: "Author Name"
-        color: "BLUE"
-        description: "Description"
-        footer-avatar: "Footer Avatar"
-        footer-name: "Footer Name"
-        fields:
+    - discord-message-history:
+        bot: "bot name"
+        length: 50 # Optional how many messages of history ot get
+        format: "%DISCORD_MESSAGE%" # Optional
+    - discord-embed: # https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
+        bot: "bot name"
+        channel: "channel name"
+        author-avatar: "Author Avatar" # Optional
+        author-link: "Author Link" # Optional
+        author-name: "Author Name" # Optional
+        color: "BLUE" # Optional
+        description: "Description" # Optional
+        footer-avatar: "Footer Avatar" # Optional
+        footer-name: "Footer Name" # Optional
+        fields: # Optional
           "field 1 header": "field 1 body"
           "field 2 header": "field 2 body"
-        inline-fields:
+        inline-fields: # Optional
           "inline field 1 header": "inline field 1 body"
           "inline field 2 header": "inline field 2 body"
-        image: "Image"
-        thumbnail: "Thumbnail"
-        title: "Title"
+        image: "Image" # Optional
+        thumbnail: "Thumbnail" # Optional
+        title: "Title" # Optional
+    - discord-delete-channel:
+        bot: "bot name"
+        server: "server id" # Contexts do not resolve here, meant as a guard to make sure the bot doesn't delete more than its supposed to
+        category: "category id" # Contexts do not resolve here, meant as a guard to make sure the bot doesn't delete more than its supposed to
+        channel: "channel id" # Contexts do resolve here
   - file-demo:
     - file-input:
         path: PATH_TO_FIFO

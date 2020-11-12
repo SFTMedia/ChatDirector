@@ -45,7 +45,7 @@ public class DiscordModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"discord-input","discord-output","discord-output-file","discord-output-reaction","discord-resolve","discord-embed","discord-get-dm-channel","discord-message-history","discord-create-channel"};
+        return new String[]{"discord-input","discord-output","discord-output-file","discord-output-reaction","discord-resolve","discord-embed","discord-get-dm-channel","discord-message-history","discord-create-channel","discord-delete-channel"};
     }
 
     @Override
@@ -67,11 +67,14 @@ public class DiscordModule extends Module {
                 if(configMap.containsKey("channel")) {
                     item.channelID=(String)configMap.get("channel");
                 }
+                if(configMap.containsKey("server")) {
+                    item.serverID=(String)configMap.get("server");
+                }
                 if(configMap.containsKey("format")) {
                     item.format=(String)configMap.get("format");
                 }
-                if(configMap.containsKey("message")) {
-                    item.message=(boolean)configMap.get("message");
+                if(configMap.containsKey("message-event")) {
+                    item.message=(boolean)configMap.get("message-event");
                 }
                 if(configMap.containsKey("category")) {
                     item.categoryID=(String)configMap.get("category");
@@ -79,11 +82,11 @@ public class DiscordModule extends Module {
                 if(configMap.containsKey("message")) {
                     item.messageID=(String)configMap.get("message");
                 }
-                if(configMap.containsKey("reaction-add")) {
-                    item.reactionAdd=(boolean)configMap.get("reaction-add");
+                if(configMap.containsKey("reaction-add-event")) {
+                    item.reactionAdd=(boolean)configMap.get("reaction-add-event");
                 }
-                if(configMap.containsKey("reaction-remove")) {
-                    item.reactionRemove=(boolean)configMap.get("reaction-remove");
+                if(configMap.containsKey("reaction-remove-event")) {
+                    item.reactionRemove=(boolean)configMap.get("reaction-remove-event");
                 }
                 discordBots.get(configMap.get("bot")).daemon.addItem(item);
                 return item;
@@ -105,7 +108,7 @@ public class DiscordModule extends Module {
                     outFile.name=(String)configMap.get("name");
                 }
                 return outFile;
-            case "discord-reaction":
+            case "discord-output-reaction":
                 return new DiscordOutputReactionItem((String)configMap.get("bot"),(String)configMap.get("channel"),(boolean)configMap.get("add"),(String)configMap.get("emoji"),(String)configMap.get("message"));
             case "discord-resolve":
                 return new DiscordResolveItem((String)configMap.get("bot"),(String)configMap.get("server"),(boolean)configMap.get("to-discord"),(boolean)configMap.get("to-plain"));
@@ -151,7 +154,7 @@ public class DiscordModule extends Module {
             case "discord-get-dm-channel":
                 return new DiscordGetDMChannelItem((String)configMap.get("bot"),(String)configMap.get("user"));
             case "discord-message-history":
-                DiscordMessageHistoryItem historyItem = new DiscordMessageHistoryItem((String)configMap.get("bot"),(String)configMap.get("user"));
+                DiscordMessageHistoryItem historyItem = new DiscordMessageHistoryItem((String)configMap.get("bot"),(String)configMap.get("channel"));
                 if(configMap.containsKey("length")){
                     historyItem.length= (int) configMap.get("length");
                 }
@@ -174,6 +177,8 @@ public class DiscordModule extends Module {
                     createChannelItem.topic=(String)configMap.get("topic");
                 }
                 return createChannelItem;
+            case "discord-delete-channel":
+                return new DiscordDeleteChannel((String)configMap.get("bot"),(String)configMap.get("server"),(String)configMap.get("category"),(String)configMap.get("channel"));
             default:
                 return null;
         }
