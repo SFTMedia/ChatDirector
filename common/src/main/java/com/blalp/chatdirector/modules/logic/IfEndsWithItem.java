@@ -11,6 +11,9 @@ public class IfEndsWithItem extends ConditionalItem {
     public IfEndsWithItem(IItem nestedTrue, IItem nestedFalse, String startsWith,String source) {
         super(nestedTrue, nestedFalse);
         this.startsWith=startsWith;
+        if(source==null){
+            source="%CURRENT%";
+        }
         this.source=source;
     }
     @Override

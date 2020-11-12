@@ -10,12 +10,15 @@ public class IfStartsWithItem extends ConditionalItem {
     public IfStartsWithItem (IItem nestedTrue,IItem nestedFalse, String startsWith,String source) {
         super(nestedTrue, nestedFalse);
         this.startsWith=startsWith;
+        if(source==null){
+            source="%CURRENT%";
+        }
         this.source=source;
     }
     @Override
     public boolean test(String string, Map<String, String> context) {
         context.put("CURRENT", string);
         String str =  ChatDirector.format(source, context);
-        return str.endsWith(startsWith);
+        return str.startsWith(startsWith);
     }
 }

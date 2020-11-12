@@ -35,6 +35,8 @@ public class DiscordFormatter extends Formatter {
             }
         }
         if(event instanceof Message) {
+            context.put("DISCORD_MESSAGE_CREATE_TIME", ((Message)event).getCreationTimestamp().toString());
+            context.put("DISCORD_MESSAGE_EDIT_TIME", ((Message)event).getLastEditTimestamp().toString());
             context.put("DISCORD_AUTHOR_ID", ((Message)event).getAuthor().getIdAsString());
             context.put("DISCORD_USER_ID", ((Message)event).getAuthor().getIdAsString());
             context.put("DISCORD_MESSAGE", ((Message)event).getContent());
@@ -83,14 +85,16 @@ public class DiscordFormatter extends Formatter {
             } else {
                 user=((SingleReactionEvent)event).requestUser().join();
             }
-            context.putAll(getContextUserServer(user, ((SingleReactionEvent)event).getServer()));
             context.putAll(getContext(user));
+            context.putAll(getContextUserServer(user, ((SingleReactionEvent)event).getServer()));
         }
         return context;
     }
     private static Map<String,String> getContextUserServer(User user,Optional<Server> server) {
         Map<String,String> context = new HashMap<>();
         if(server.isPresent()){
+            context.put("DISCORD_SERVER_NAME", server.get().getName());
+            context.put("DISCORD_SERVER_ID", server.get().getIdAsString());
             if(user.getNickname(server.get()).isPresent()){
                 context.put("DISCORD_AUTHOR_NICK_NAME", user.getNickname(server.get()).get());
             } else {

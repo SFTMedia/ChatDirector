@@ -5,7 +5,6 @@ import java.util.Map;
 import com.blalp.chatdirector.ChatDirector;
 
 import org.javacord.api.DiscordApi;
-import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.Reaction;
 import org.javacord.api.entity.user.User;

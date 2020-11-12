@@ -24,7 +24,7 @@ public class DiscordCreateChannelItem extends DiscordItem {
     @Override
     public String process(String string, Map<String, String> context) {
         DiscordApi api = DiscordModule.discordBots.get(botName).getDiscordApi();
-        ServerTextChannelBuilder builder = api.getServerById(serverID).get().createTextChannelBuilder();
+        ServerTextChannelBuilder builder = api.getServerById(ChatDirector.format(serverID, context)).get().createTextChannelBuilder();
         if(categoryID!=null){
             ChannelCategory category = api.getChannelCategoryById(ChatDirector.format(categoryID, context)).get();
             builder.setCategory(category);

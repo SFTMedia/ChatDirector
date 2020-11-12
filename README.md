@@ -39,6 +39,8 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 ## Context
 - CURRENT
 ## Discord Javacord
+- DISCORD_SERVER_NAME
+- DISCORD_SERVER_ID
 - DISCORD_MESSAGE
 - DISCORD_MESSAGE_ID
 - DISCORD_DM_USER_ID

@@ -1,11 +1,13 @@
 package com.blalp.chatdirector.modules.javacord;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.model.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.Module;
@@ -45,7 +47,7 @@ public class DiscordModule extends Module {
 
     @Override
     public String[] getItemNames() {
-        return new String[]{"discord-input","discord-output","discord-output-file","discord-output-reaction","discord-resolve","discord-embed","discord-get-dm-channel","discord-message-history","discord-create-channel","discord-delete-channel","discord-rename-channel"};
+        return new String[]{"discord-input","discord-output","discord-output-file","discord-output-reaction","discord-resolve","discord-embed","discord-get-dm-channel","discord-message-history","discord-create-channel","discord-delete-channel","discord-rename-channel","discord-participants"};
     }
 
     @Override
@@ -181,6 +183,12 @@ public class DiscordModule extends Module {
                 return new DiscordDeleteChannel((String)configMap.get("bot"),(String)configMap.get("server"),(String)configMap.get("category"),(String)configMap.get("channel"));
             case "discord-rename-channel":
                 return new DiscordChannelRename((String)configMap.get("bot"), (String)configMap.get("channel"), (String)configMap.get("name"));
+            case "discord-participants":
+                DiscordParticipatesItem participatesItem = new DiscordParticipatesItem((String)configMap.get("bot"), (String)configMap.get("channel"), Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("each")));
+                if(configMap.containsKey("length")){
+                    participatesItem.length=(int)configMap.get("length");
+                }
+                return participatesItem;
             default:
                 return null;
         }

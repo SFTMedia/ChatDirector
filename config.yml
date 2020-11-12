@@ -172,6 +172,7 @@ chains:
         topic: "hello world" # Optional
     - discord-message-history:
         bot: "bot name"
+        channel: "channel id"
         length: 50 # Optional how many messages of history ot get
         format: "%DISCORD_MESSAGE%" # Optional
     - discord-embed: # https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
@@ -195,13 +196,16 @@ chains:
         title: "Title" # Optional
     - discord-delete-channel:
         bot: "bot name"
-        server: "server id" # Contexts do not resolve here, meant as a guard to make sure the bot doesn't delete more than its supposed to
-        category: "category id" # Contexts do not resolve here, meant as a guard to make sure the bot doesn't delete more than its supposed to
-        channel: "channel id" # Contexts do resolve here
+        channel: "channel id"
     - discord-rename-channel:
         bot: "bot name"
         channel: "channel id"
         name: "channel name"
+    - discord-participants:
+        bot: "bot name"
+        length: 50 # Optional how many messages of history ot get
+        channel: "channel id"
+        each: null # List of Items
   - file-demo:
     - file-input:
         path: PATH_TO_FIFO
