@@ -90,6 +90,10 @@ public class DiscordModule extends Module {
                 if(configMap.containsKey("reaction-remove-event")) {
                     item.reactionRemove=(boolean)configMap.get("reaction-remove-event");
                 }
+                if(!item.message&&!item.reactionAdd&&!item.reactionRemove){
+                    System.err.println("Please specify a type of event to listen to for discord input "+item+" falling back to listening to messages");
+                    item.message=true;
+                }
                 discordBots.get(configMap.get("bot")).daemon.addItem(item);
                 return item;
             case "discord-output":
