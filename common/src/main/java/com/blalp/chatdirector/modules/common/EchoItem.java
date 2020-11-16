@@ -1,24 +1,24 @@
 package com.blalp.chatdirector.modules.common;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 
-public class EchoItem extends Item {
-    public String format = "%CURRENT%";
+public class EchoItem implements IItem {
+    public String format;
 
-    public EchoItem(String format){
-        this.format=format;
+    public EchoItem(String format) {
+        this.format = format;
     }
 
     @Override
-    public String process(String string, Map<String,String> context) {
-        if(context.containsKey("CURRENT")){
-            context.put("LAST", context.get("CURRENT"));
-        }
-        context.put("CURRENT", string);
-        return ChatDirector.format(format, context);
+    public boolean isValid() {
+        return format!=null;
+    }
+
+    @Override
+    public Context process(Context context) {
+        return new Context(ChatDirector.format(format, context));
     }
     
 }

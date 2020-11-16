@@ -1,11 +1,9 @@
-package com.blalp.chatdirector;
+package com.blalp.chatdirector.platform.sponge;
 
 import java.io.File;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.ConfigurationSponge;
-import com.blalp.chatdirector.model.Item;
-import com.blalp.chatdirector.modules.common.ReloadItem;
-import com.blalp.chatdirector.modules.sponge.SpongeCommandItem;
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
 import com.google.inject.Inject;
 
@@ -30,10 +28,7 @@ public class ChatDirectorSponge {
     @Listener
     public void onServerStart(GameStartedServerEvent e){
         instance=this;
-        // In case anything goes wrong, register the reload command
-        SpongeCommandItem item = new SpongeCommandItem("chatdirector","chatdirector.reload");
-        item.next=new ReloadItem();
-        item.load();
+        new ReloadCommand().load();
         try {
             chatDirector = new ChatDirector(new ConfigurationSponge(configDir.getAbsolutePath()+File.separatorChar+"config.yml"));
             configDir.mkdirs();
@@ -41,16 +36,13 @@ public class ChatDirectorSponge {
             if(SpongeInputDaemon.instance!=null){
                 SpongeInputDaemon.instance.onServerStart(e);
             }
-            if(chatDirector.chains.size()==0){
+            if(!ChatDirector.hasChains()){
                 throw new Exception("NO CHAINS!");
             }
         } catch (Exception ex){
             ex.printStackTrace();
             System.out.println("YIKES! Some error. Registering /chatdirector for you so you can reload.");
         }
-    }
-
-    private void registerReload(){
     }
     
     @Listener

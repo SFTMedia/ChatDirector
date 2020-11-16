@@ -1,9 +1,16 @@
 package com.blalp.chatdirector.modules.console;
 
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.Module;
+import java.util.Arrays;
+import java.util.List;
 
-public class ConsoleModule extends Module {
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class ConsoleModule implements IModule {
 
     @Override
     public void load() {
@@ -16,18 +23,29 @@ public class ConsoleModule extends Module {
     }
 
     @Override
-    public String[] getItemNames() {
-        return new String[]{"console-output-error","console-output"};
+    public boolean isValid() {
+        return false;
     }
 
     @Override
-    public IItem createItem(String type, Object config) {
-        switch (type){
+    public List<String> getItemNames() {
+        return Arrays.asList( "console-output-error", "console-output");
+    }
+
+    @Override
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+        switch (type) {
             case "console-output-error":
                 return new ConsoleOutputErrorItem();
             case "console-output":
                 return new ConsoleOutputItem();
+            default:
+                return null;
         }
-        return null;
+    }
+
+    @Override
+    public Context getContext(Object object) {
+        return new Context();
     }
 }

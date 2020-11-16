@@ -1,9 +1,6 @@
 package com.blalp.chatdirector.modules.sql;
-
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Configuration;
+import com.blalp.chatdirector.model.Context;
 
 public class SQLCacheRemove extends SQLItem {
     public SQLCacheRemove(String table, String name, String key, String connectionName, boolean cache) {
@@ -11,17 +8,13 @@ public class SQLCacheRemove extends SQLItem {
     }
 
     @Override
-    public String process(String string, Map<String, String> context) {
+    public Context process(Context context) {
         if(SQLCacheStore.containsKey(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context))) {
             SQLCacheStore.removeValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context));
-            if (Configuration.debug){
-                System.out.println("Cache Hit "+connectionName+" "+ChatDirector.format(table,context)+" "+ChatDirector.format(name,context)+" "+ChatDirector.format(key,context)+", removing...");
-            }
+            ChatDirector.logDebug("Cache Hit "+connectionName+" "+ChatDirector.format(table,context)+" "+ChatDirector.format(name,context)+" "+ChatDirector.format(key,context)+", removing...");
         } else {
-            if (Configuration.debug){
-                System.out.println("Cache Miss "+connectionName+" "+ChatDirector.format(table,context)+" "+ChatDirector.format(name,context)+" "+ChatDirector.format(key,context));
-            }
+            ChatDirector.logDebug("Cache Miss "+connectionName+" "+ChatDirector.format(table,context)+" "+ChatDirector.format(name,context)+" "+ChatDirector.format(key,context));
         }
-        return string;
+        return new Context();
     }
 }

@@ -1,10 +1,11 @@
 package com.blalp.chatdirector.model.fancychat;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IteratorIterable;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class FancyMessage {
     public String text,color=null;
@@ -20,7 +21,7 @@ public class FancyMessage {
         text="";
     }
 
-    public FancyMessage withContext(Map<String,String> context){
+    public FancyMessage withContext(Context context){
         text=ChatDirector.format(text, context);
         for(FancyMessage message:next){
             message.withContext(context);
@@ -81,82 +82,67 @@ public class FancyMessage {
         this.obfuscated = obfuscated;
     }
     
-    public static FancyMessage parse(Object data) {
+    public static FancyMessage parse(JsonNode data) {
         FancyMessage output=new FancyMessage();
         if(data==null){
             System.err.println("Fancy text object resolved to null, this shouldn't happen, check your YAML.");
         }
-        if(data instanceof String){
-            return new FancyMessage((String)data);
-        }
-        if(data instanceof ArrayList){
-            for (Object nestedData:(ArrayList)data){
+        if(data.isTextual()){
+            return new FancyMessage(data.asText());
+        } else if(data.isArray()){
+            for (JsonNode nestedData:new IteratorIterable<JsonNode>(data.elements())){
                 if(output==null){
                     output=parse(nestedData);
                 } else {
                     output.append(parse(nestedData));
                 }
             }
-        }
-        if (data instanceof Map){
+        } else {
             // This is the actual map
-            String type = ((LinkedHashMap<String,Object>)data).keySet().toArray(new String[1])[0];
-            LinkedHashMap<String,Object> dataMap = (LinkedHashMap<String, Object>) ((LinkedHashMap<String,Object>)data).values().toArray()[0];
-            output = parse(dataMap.get("text"));
-            switch (type){
-                case "click":
-                    if(dataMap.containsKey("click-file")){
-                        output.setClickEvent(FancyMessageEnum.OPEN_FILE, (String)dataMap.get("click-file"));
-                    }
-                    if(dataMap.containsKey("click-change-page")){
-                        output.setClickEvent(FancyMessageEnum.CHANGE_PAGE, (String)dataMap.get("click-change-page"));
-                    }
-                    if(dataMap.containsKey("click-run-command")){
-                        output.setClickEvent(FancyMessageEnum.RUN_COMMAND, (String)dataMap.get("click-run-command"));
-                    }
-                    if(dataMap.containsKey("click-suggest-command")){
-                        output.setClickEvent(FancyMessageEnum.SUGGEST_COMMAND, (String)dataMap.get("click-suggest-command"));
-                    }
-                    if(dataMap.containsKey("click-url")){
-                        output.setClickEvent(FancyMessageEnum.OPEN_URL, (String)dataMap.get("click-url"));
-                    }
-                    break;
-                case "color":
-                    if(dataMap.containsKey("color")){
-                        output.setColor((String)dataMap.get("color"));
-                    }
-                    if(dataMap.containsKey("bold")){
-                        output.setBold((boolean)dataMap.get("bold"));
-                    }
-                    if(dataMap.containsKey("italics")){
-                        output.setItalics((boolean)dataMap.get("italics"));
-                    }
-                    if(dataMap.containsKey("strikethrough")){
-                        output.setStrikethrough((boolean)dataMap.get("strikethrough"));
-                    }
-                    if(dataMap.containsKey("obfuscated")){
-                        output.setObfuscated((boolean)dataMap.get("obfuscated"));
-                    }
-                    break;
-                case "hover":
-                    if(dataMap.containsKey("show-achievement")){
-                        output.setHoverEvent(FancyMessageEnum.SHOW_ACHIEVEMENT, (String)dataMap.get("show-achievement"));
-                    }
-                    if(dataMap.containsKey("show-entity")){
-                        output.setHoverEvent(FancyMessageEnum.SHOW_ENTITY, (String)dataMap.get("show-entity"));
-                    }
-                    if(dataMap.containsKey("show-item")){
-                        output.setHoverEvent(FancyMessageEnum.SHOW_ITEM, (String)dataMap.get("show-item"));
-                    }
-                    if(dataMap.containsKey("show-text")){
-                        output.setHoverEvent(FancyMessageEnum.SHOW_TEXT, (String)dataMap.get("show-text"));
-                    }
-                    break;
-                case "raw":
-                    break;
-                    // This should already be handled, no additional parsing needed
-                default:
-                    System.err.println(type+ " is not a valid fancy type");
+            output = parse(data.at("text"));
+            for (JsonNode node : new IteratorIterable<JsonNode>(data.elements())){
+                if(node.has("click-file")){
+                    output.setClickEvent(FancyMessageEnum.OPEN_FILE, data.get("click-file").asText());
+                }
+                if(node.has("click-change-page")){
+                    output.setClickEvent(FancyMessageEnum.CHANGE_PAGE, data.get("click-change-page").asText());
+                }
+                if(node.has("click-run-command")){
+                    output.setClickEvent(FancyMessageEnum.RUN_COMMAND, data.get("click-run-command").asText());
+                }
+                if(node.has("click-suggest-command")){
+                    output.setClickEvent(FancyMessageEnum.SUGGEST_COMMAND, data.get("click-suggest-command").asText());
+                }
+                if(node.has("click-url")){
+                    output.setClickEvent(FancyMessageEnum.OPEN_URL, data.get("click-url").asText());
+                }
+                if(node.has("color")){
+                    output.setColor(data.get("color").asText());
+                }
+                if(node.has("bold")){
+                    output.setBold(data.get("bold").asBoolean());
+                }
+                if(node.has("italics")){
+                    output.setItalics(data.get("italics").asBoolean());
+                }
+                if(node.has("strikethrough")){
+                    output.setStrikethrough(data.get("strikethrough").asBoolean());
+                }
+                if(node.has("obfuscated")){
+                    output.setObfuscated(data.get("obfuscated").asBoolean());
+                }
+                if(node.has("show-achievement")){
+                    output.setHoverEvent(FancyMessageEnum.SHOW_ACHIEVEMENT, data.get("show-achievement").asText());
+                }
+                if(node.has("show-entity")){
+                    output.setHoverEvent(FancyMessageEnum.SHOW_ENTITY, data.get("show-entity").asText());
+                }
+                if(node.has("show-item")){
+                    output.setHoverEvent(FancyMessageEnum.SHOW_ITEM, data.get("show-item").asText());
+                }
+                if(node.has("show-text")){
+                    output.setHoverEvent(FancyMessageEnum.SHOW_TEXT, data.get("show-text").asText());
+                }
             }
         }
         return output;

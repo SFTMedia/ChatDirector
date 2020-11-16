@@ -100,7 +100,9 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - PLAYER_GROUP
 
 # TODO
-- context manipulation (set,remove.add,copy)
-- sql integration
-- fallback reload command in case config doesn't load
-- implement onMessage on bungee
+- implement onMessage on bungee/bukkit
+- implement dynamic command loading on bukkit
+- console command item
+- more conditional support for support for switch statements
+- fallback config mechanism
+- config versioning mechanism

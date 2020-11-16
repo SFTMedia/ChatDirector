@@ -1,15 +1,19 @@
 package com.blalp.chatdirector.modules.logic;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Arrays;
+import java.util.List;
 
-import com.blalp.chatdirector.configuration.Configuration;
+import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.Module;
+import com.blalp.chatdirector.model.IteratorIterable;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class LogicModule extends Module {
+public class LogicModule implements IModule {
 
     @Override
     public void load() {
@@ -22,63 +26,72 @@ public class LogicModule extends Module {
     }
 
     @Override
-    public String[] getItemNames() {
-        return new String[] { "if-contains", "if-equals", "if-regex-match","split","if-starts-with","if-ends-with"};
+    public List<String> getItemNames() {
+        return Arrays.asList("if-contains", "if-equals", "if-regex-match", "split", "if-starts-with", "if-ends-with");
+    }
+    @Override
+    public boolean isValid() {
+        return true;
     }
 
     @Override
-    public IItem createItem(String type, Object config) {
-        Map<String, Object> configMap;
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
         ConditionalItem output;
         switch (type) {
             case "if-contains":
-                configMap= (Map<String, Object>) config;
-                output = new IfContainsItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("contains"));
-                if(configMap.containsKey("source")){
-                    output.source= (String) configMap.get("source");
+                output = new IfContainsItem(ChatDirector.loadChain(om, config.get("yes-chain")), ChatDirector.loadChain(om, config.get("no-chain")), config.get("contains").asText());
+                if (config.has("source")) {
+                    output.source = config.get("source").asText();
                 }
-                if(configMap.containsKey("invert")){
-                    output.invert= (boolean) configMap.get("invert");
+                if (config.has("invert")) {
+                    output.invert = config.get("invert").asBoolean();
                 }
                 return output;
             case "if-equals":
-                configMap= (Map<String, Object>) config;
-                output = new IfEqualsItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("equals"));
-                if(configMap.containsKey("source")){
-                    output.source= (String) configMap.get("source");
+                output = new IfEqualsItem(ChatDirector.loadChain(om, config.get("yes-chain")),ChatDirector.loadChain(om, config.get("no-chain")),config.get("equals").asText());
+                if (config.has("source")) {
+                    output.source = config.get("source").asText();
                 }
-                if(configMap.containsKey("invert")){
-                    output.invert= (boolean) configMap.get("invert");
+                if (config.has("invert")) {
+                    output.invert = config.get("invert").asBoolean();
                 }
-                if(configMap.containsKey("ignore-case")){
-                    ((IfEqualsItem)output).ignoreCase= (boolean) configMap.get("ignore-case");
+                if (config.has("ignore-case")) {
+                    ((IfEqualsItem) output).ignoreCase = config.get("ignore-case").asBoolean();
                 }
                 return output;
             case "if-regex-match":
-                configMap= (Map<String, Object>) config;
-                output = new IfRegexMatchesItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("regex"));
-                if(configMap.containsKey("source")){
-                    output.source= (String) configMap.get("source");
+                output = new IfRegexMatchesItem(ChatDirector.loadChain(om, config.get("yes-chain")),ChatDirector.loadChain(om, config.get("no-chain")),config.get("regex").asText());
+                if (config.has("source")) {
+                    output.source = config.get("source").asText();
                 }
-                if(configMap.containsKey("invert")){
-                    output.invert= (boolean) configMap.get("invert");
+                if (config.has("invert")) {
+                    output.invert = config.get("invert").asBoolean();
                 }
                 return output;
             case "split":
-                ArrayList<IItem> items = new ArrayList<>();
-                for (Object item: (ArrayList<?>)config) {
-                    items.add(Configuration.loadItems((ArrayList<LinkedHashMap<String,Object>>)((LinkedHashMap<String,?>)item).values().toArray()[0]));
+                ArrayList<Chain> chains = new ArrayList<>();
+                for (JsonNode jsonChain : new IteratorIterable<>(config.elements())) {
+                    chains.add(ChatDirector.loadChain(om,jsonChain));
                 }
-                return new SplitItem(items);
+                return new SplitItem(chains);
             case "if-starts-with":
-                configMap= (Map<String, Object>) config;
-                return new IfStartsWithItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("starts"),(String)configMap.get("source"));
+                return new IfStartsWithItem(
+                        ChatDirector.loadChain(om, config.get("yes-chain")),
+                        ChatDirector.loadChain(om, config.get("no-chain")),
+                        config.get("starts").asText(), config.get("source").asText());
             case "if-ends-with":
-                configMap= (Map<String, Object>) config;
-                return new IfEndsWithItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("ends"),(String)configMap.get("source"));
+                return new IfEndsWithItem(
+                        ChatDirector.loadChain(om, config.get("yes-chain")),
+                        ChatDirector.loadChain(om, config.get("no-chain")),
+                        config.get("ends").asText(), config.get("source").asText());
             default:
                 return null;
         }
+    }
+
+    @Override
+    public Context getContext(Object object) {
+        return new Context();
     }
     
 }

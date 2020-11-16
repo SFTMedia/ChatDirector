@@ -1,13 +1,13 @@
 package com.blalp.chatdirector.modules.sponge;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.ChatDirectorSponge;
-import com.blalp.chatdirector.configuration.Configuration;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.ILoadable;
 import com.blalp.chatdirector.modules.common.PassItem;
+import com.blalp.chatdirector.platform.sponge.ChatDirectorSponge;
+import com.blalp.chatdirector.utils.ValidationUtils;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
@@ -33,12 +33,8 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
     
     @Override
     public void load() {
-        if(Configuration.debug) {
-            System.out.println("Starting load of "+this);
-        }
-        Builder myCommandSpec = CommandSpec.builder()
-            .permission(permission)
-            .executor(this);
+        ChatDirector.logDebug("Starting load of "+this);
+        Builder myCommandSpec = CommandSpec.builder().permission(permission).executor(this);
         if (args) {
             myCommandSpec.arguments(GenericArguments.remainingRawJoinedStrings(Text.of("args")));
         }
@@ -51,9 +47,7 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
 
     @Override
     public void unload() {
-        if(Configuration.debug) {
-            System.out.println("Starting unload of "+this);
-        }
+        ChatDirector.logDebug("Starting unload of "+this);
         if(Sponge.getCommandManager().get(command).isPresent()){
             Sponge.getCommandManager().removeMapping(Sponge.getCommandManager().get(command).get());
         } else {
@@ -63,15 +57,9 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
     }
 
     @Override
-    public void reload() {
-        unload();
-        load();
-    }
-
-    @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        Map<String, String> context = ChatDirector.formatter.getContext(src);
-        context.putAll(ChatDirector.formatter.getContext(args));
+        Context context = SpongeModule.instance.getContext(src);
+        context.merge(SpongeModule.instance.getContext(args));
         String output = command;
         if(args.<String>getOne(Text.of("args")).isPresent()){
             output=args.<String>getOne(Text.of("args")).get();
@@ -79,7 +67,12 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
         }
         context.put("COMMAND_NAME", command);
         context.put("COMMAND_PERMISSION", permission);
-        startWork(output, true, context);
+        context.put("CURRENT", output);
+        ChatDirector.run(this, context, true);
         return CommandResult.success();
+    }
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.hasContent(command,permission);
     }
 }

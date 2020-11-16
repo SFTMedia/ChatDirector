@@ -1,19 +1,23 @@
 package com.blalp.chatdirector.modules.replacement;
 
-import java.util.Map;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 
-import com.blalp.chatdirector.model.Item;
-
-public class SubStringItem extends Item {
+public class SubStringItem implements IItem {
     public int start=0;
     public int end=-1;
     @Override
-    public String process(String string, Map<String, String> context) {
+    public Context process(Context context) {
         if(end==-1){
-            return string.substring(start);
+            return new Context(context.getCurrent().substring(start));
         } else {
-            return string.substring(start,end);
+            return new Context(context.getCurrent().substring(start,end));
         }
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
     
 }

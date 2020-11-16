@@ -295,12 +295,15 @@ chains:
         override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
         check-canceled: true
         cancel-chat: true
-        format: "%PLAYER_NAME%: %CHAT_MESSAGE%"
+        format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
+        format-started: "**Server Started**"
+        format-stopped: "**Server Stopped**"
+        format-login: "**%PLAYER_NAME% joined the server**"
+        format-logout: "**%PLAYER_NAME% left the server**"
     - sponge-playerlist:
         format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
         format-player: "%PLAYER_NAME%" # Optional
         format-no-players: "**No online players**" # Optional
-        trigger-word: "playerlist" # Optional
         ignore-case: true # Optional
     - sponge-output:
         permission: null # Optional

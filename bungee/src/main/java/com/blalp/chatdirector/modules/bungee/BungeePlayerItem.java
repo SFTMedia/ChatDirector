@@ -1,38 +1,45 @@
 package com.blalp.chatdirector.modules.bungee;
 
-import java.util.Map;
 import java.util.UUID;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.utils.ValidationUtils;
 
 import net.md_5.bungee.api.ProxyServer;
 
-public class BungeePlayerItem extends Item {
+public class BungeePlayerItem implements IItem {
     String player;
     String permission;
     public BungeePlayerItem(String player){
         this.player=player;
     }
+    @SuppressWarnings("deprecation")
     @Override
-    public String process(String string, Map<String, String> context) {
+    public Context process(Context context) {
         if(permission!=null){
             if(ChatDirector.format(player, context).length()>16){
                 if(!ProxyServer.getInstance().getPlayer(UUID.fromString(ChatDirector.format(player, context))).hasPermission(ChatDirector.format(permission, context))){
-                    return string;
+                    return new Context();
                 }
             } else {
                 if(!ProxyServer.getInstance().getPlayer(ChatDirector.format(player, context)).hasPermission(ChatDirector.format(permission, context))){
-                    return string;
+                    return new Context();
                 }
             }
         }
         if(ChatDirector.format(player, context).length()>16){
-            ProxyServer.getInstance().getPlayer(UUID.fromString(ChatDirector.format(player, context))).sendMessage(ChatDirector.format(string, context));
+            ProxyServer.getInstance().getPlayer(UUID.fromString(ChatDirector.format(player, context))).sendMessage(ChatDirector.format(context));
         } else {
-            ProxyServer.getInstance().getPlayer(ChatDirector.format(player, context)).sendMessage(ChatDirector.format(string, context));
+            ProxyServer.getInstance().getPlayer(ChatDirector.format(player, context)).sendMessage(ChatDirector.format(context));
         }
-        return string;
+        return new Context();
+    }
+
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.hasContent(player);
     }
     
 }

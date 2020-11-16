@@ -1,8 +1,7 @@
 package com.blalp.chatdirector.modules.luckperms;
 
-import java.util.Map;
-
-import com.blalp.chatdirector.model.PermissionItem;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.utils.PermissionItem;
 
 import net.luckperms.api.LuckPermsProvider;
 
@@ -24,13 +23,18 @@ public class LuckPermsContextItem extends PermissionItem {
     }
 
     @Override
-    public String process(String string, Map<String, String> context) {
-        super.process(string,context);
-        this.context.put("SERVER_LUCKPERMS_NAME", LuckPermsProvider.get().getServerName());
-        if(!this.context.containsKey("SERVER_NAME")) {
-            this.context.put("SERVER_NAME", LuckPermsProvider.get().getServerName());
+    public Context process(Context context) {
+        Context output = super.process(context);
+        output.put("SERVER_LUCKPERMS_NAME", LuckPermsProvider.get().getServerName());
+        if(!context.containsKey("SERVER_NAME")) {
+            output.put("SERVER_NAME", LuckPermsProvider.get().getServerName());
         }
-        return string;
+        return output;
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
 
 }

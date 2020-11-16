@@ -1,153 +1,145 @@
 package com.blalp.chatdirector.modules.bungee;
 
-import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.List;
 
-import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.fancychat.FancyMessage;
-import com.blalp.chatdirector.modules.Module;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class BungeeModule extends Module {
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.config.ServerInfo;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.event.ChatEvent;
+import net.md_5.bungee.api.event.PlayerDisconnectEvent;
+import net.md_5.bungee.api.event.ServerConnectedEvent;
+import net.md_5.bungee.api.event.ServerSwitchEvent;
 
-    @Override
-    public String[] getItemNames() {
-        return new String[]{"bungee-command","bungee-playerlist","bungee-output","bungee-input","bungee-output-player","bungee-output-server","bungee-output-fancy"};
-    }
+public class BungeeModule implements IModule {
 
-    @Override
-    public IItem createItem(String type, Object config) {
-        switch (type){
-            /*case "bungee-command":
-                if(BukkitCommandInputDaemon.instance==null){
-                    new BukkitCommandInputDaemon();
-                    BukkitCommandInputDaemon.instance.load();
-                }
-                LinkedHashMap<String,Object> configMap = ((LinkedHashMap<String,Object>)config);
-                BukkitCommandInputItem item2 = new BukkitCommandInputItem((String)configMap.get("command"), (String)configMap.get("permission"));
-                if (configMap.containsKey("args")){
-                    if(configMap.get("args") instanceof ArrayList<?>){
-                        item2.args=((ArrayList<?>)configMap.get("args")).toArray(item2.args);
-                    } else {
-                        try {
-                            throw new NullPointerException("args needs to be a list.");
-                        } catch (NullPointerException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                if(configMap.containsKey("format")){
-                    item2.format=(String)configMap.get("format");
-                }
-                return item2;*/
-            case "bungee-playerlist":
-                BungeePlayerlistItem itemPlayerlist = new BungeePlayerlistItem();
-                LinkedHashMap<String,Object> configMapPlayerlist = ((LinkedHashMap<String,Object>)config);
-                if(configMapPlayerlist!=null){
-                    if(configMapPlayerlist.containsKey("format")) {
-                        itemPlayerlist.format= (String) configMapPlayerlist.get("format");
-                    }
-                    if(configMapPlayerlist.containsKey("format-no-players")) {
-                        itemPlayerlist.formatNoPlayers= (String) configMapPlayerlist.get("format-no-players");
-                    }
-                    if(configMapPlayerlist.containsKey("format-player")) {
-                        itemPlayerlist.formatPlayer= (String) configMapPlayerlist.get("format-player");
-                    }
-                    if(configMapPlayerlist.containsKey("format-server")) {
-                        itemPlayerlist.formatServer= (String) configMapPlayerlist.get("format-server");
-                    }
-                    if(configMapPlayerlist.containsKey("split-by-server")) {
-                        itemPlayerlist.splitByServer= (boolean) configMapPlayerlist.get("split-by-server");
-                    }
-                }
-                return itemPlayerlist;
-            case "bungee-command":
-                LinkedHashMap<String,String> configCommand = ((LinkedHashMap<String,String>)config);
-                return new BungeeCommandItem(configCommand.get("command"),configCommand.get("permission"));
-            case "bungee-output":
-                return new BungeeOutputItem();
-            case "bungee-output-fancy":
-                BungeeOutputFancyItem bungeeOutputFancyItem = new BungeeOutputFancyItem(FancyMessage.parse(((LinkedHashMap<String,Object>)config).get("fancy-format")),(String) ((LinkedHashMap<String,Object>)config).get("permission"));
-                if(((LinkedHashMap<String,Object>)config).containsKey("send-to-current-server")){
-                    bungeeOutputFancyItem.sendToCurrentServer=(boolean)((LinkedHashMap<String,Object>)config).get("send-to-current-server");
-                }
-                if(((LinkedHashMap<String,Object>)config).containsKey("player")){
-                    bungeeOutputFancyItem.playerTarget=(String)((LinkedHashMap<String,Object>)config).get("player");
-                }
-                return bungeeOutputFancyItem;
-            case "bungee-output-player":
-                LinkedHashMap<String,String> configOutputPlayer = ((LinkedHashMap<String,String>)config);
-                BungeePlayerItem outputPlayer = new BungeePlayerItem(configOutputPlayer.get("player"));
-                if(configOutputPlayer.containsKey("permission")){
-                    outputPlayer.permission=configOutputPlayer.get("permission");
-                }
-                return outputPlayer;
-            case "bungee-output-server":
-                LinkedHashMap<String,String> configOutputServer = ((LinkedHashMap<String,String>)config);
-                BungeeOutputServerItem outputServer = new BungeeOutputServerItem(configOutputServer.get("server"));
-                if(configOutputServer.containsKey("permission")){
-                    outputServer.permission=configOutputServer.get("permission");
-                }
-                return outputServer;
-            case "bungee-input":
-                LinkedHashMap<String,Object> configInput = ((LinkedHashMap<String,Object>)config);
-                BungeeInputItem itemInput = new BungeeInputItem();
-                if(configInput.containsKey("chat")){
-                    itemInput.chat= (boolean) (configInput.get("chat"));
-                }
-                if(configInput.containsKey("format-chat")){
-                    itemInput.formatChat= (String) configInput.get("format-chat");
-                }
-                if(configInput.containsKey("override-chat")){
-                    itemInput.overrideChat= (boolean) configInput.get("override-chat");
-                }
-                if(configInput.containsKey("disconnect")){
-                    itemInput.disconnect= (boolean) (configInput.get("disconnect"));
-                }
-                if(configInput.containsKey("format-disconnect")){
-                    itemInput.disconnectFormat= (String) configInput.get("format-disconnect");
-                }
-                if(configInput.containsKey("switch-servers")){
-                    itemInput.switchServers= (boolean) (configInput.get("switch-servers"));
-                }
-                if(configInput.containsKey("format-switch-servers")){
-                    itemInput.formatSwitch= (String) configInput.get("format-switch-servers");
-                }
-                if(configInput.containsKey("join")){
-                    itemInput.joinServer= (boolean) (configInput.get("join"));
-                }
-                if(configInput.containsKey("format-join")){
-                    itemInput.formatSwitch= (String) configInput.get("format-join");
-                }
-                if(configInput.containsKey("command")){
-                    itemInput.command= (boolean) configInput.get("command");
-                }
-                if(BungeeInputItemDaemon.instance==null){
-                    BungeeInputItemDaemon.instance=new BungeeInputItemDaemon();
-                }
-                BungeeInputItemDaemon.instance.addItem(itemInput);
-                return itemInput;
-        }
-        return null;
+    public static BungeeModule instance;
+
+    public BungeeModule() {
+        instance = this;
     }
 
     @Override
     public void load() {
-        ChatDirector.addFormatter(new BungeeFormatter());
-        if(BungeeInputItemDaemon.instance!=null){
+        if (BungeeInputItemDaemon.instance != null) {
             BungeeInputItemDaemon.instance.load();
         }
-        for(BungeeCommand command:BungeeCommand.commands){
+        for (BungeeCommand command : BungeeCommand.commands) {
             command.load();
         }
     }
 
     @Override
     public void unload() {
-        if(BungeeInputItemDaemon.instance!=null){
+        if (BungeeInputItemDaemon.instance != null) {
             BungeeInputItemDaemon.instance.unload();
         }
-        for(BungeeCommand command:BungeeCommand.commands){
+        for (BungeeCommand command : BungeeCommand.commands) {
             command.unload();
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public Context getContext(Object event) {
+        Context context = new Context();
+        context.put("NUM_PLAYERS", Integer.toString(ProxyServer.getInstance().getOnlineCount()));
+        context.put("MAX_PLAYERS", Integer.toString(ProxyServer.getInstance().getConfig().getPlayerLimit()));
+        if(event instanceof ProxiedPlayer){
+            context.put("PLAYER_NAME", ((ProxiedPlayer)event).getName());
+            context.put("PLAYER_DISPLAYNAME", ((ProxiedPlayer)event).getDisplayName());
+            context.put("PLAYER_UUID", ((ProxiedPlayer)event).getUniqueId().toString());
+            if(((ProxiedPlayer)event).getServer()!=null&&((ProxiedPlayer)event).getServer().getInfo()!=null){
+                context.put("PLAYER_SERVER_NAME", ((ProxiedPlayer)event).getServer().getInfo().getName());
+                context.put("PLAYER_SERVER_MOTD", ((ProxiedPlayer)event).getServer().getInfo().getMotd());
+            }
+        }
+        if(event instanceof ServerInfo) {
+            context.put("SERVER_NAME", ((ServerInfo)event).getName());
+            context.put("SERVER_MOTD", ((ServerInfo)event).getMotd());
+        }
+        if(event instanceof PlayerDisconnectEvent){
+            context.merge(getContext(((PlayerDisconnectEvent)event).getPlayer()));
+        }
+        if(event instanceof ServerConnectedEvent){
+            context.merge(getContext(((ServerConnectedEvent)event).getPlayer()));
+            context.merge(getContext(((ServerConnectedEvent)event).getServer().getInfo()));
+        }
+        if(event instanceof ChatEvent){
+            if(((ChatEvent)event).getSender() instanceof ProxiedPlayer) {
+                context.merge(getContext(((ChatEvent)event).getSender()));
+            }
+            context.put("CHAT_MESSAGE",((ChatEvent)event).getMessage());
+        }
+        if(event instanceof ServerSwitchEvent) {
+            if(((ServerSwitchEvent)event).getFrom()!=null){
+                context.merge(getContext(((ServerSwitchEvent)event).getFrom()));
+            }
+            if(((ServerSwitchEvent)event).getPlayer()!=null){
+                context.merge(getContext(((ServerSwitchEvent)event).getPlayer()));
+            }
+        }
+        if(context.containsKey("PLAYER_SERVER_NAME")){
+            context.put("SERVER_NAME", context.get("PLAYER_SERVER_NAME"));
+        }
+        if(context.containsKey("PLAYER_SERVER_MOTD")){
+            context.put("SERVER_MOTD", context.get("PLAYER_SERVER_MOTD"));
+        }
+        return context;
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
+    public List<String> getItemNames() {
+        return Arrays.asList("bungee-command", "bungee-playerlist", "bungee-output", "bungee-input",
+                "bungee-output-player", "bungee-output-server", "bungee-output-fancy" );
+    }
+
+    @Override
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+        switch (type) {
+            case "bungee-playerlist":
+                return om.convertValue(config, BungeePlayerlistItem.class);
+            case "bungee-command":
+                return om.convertValue(config, BungeeCommandItem.class);
+            case "bungee-output":
+                return om.convertValue(config, BungeeOutputItem.class);
+            case "bungee-output-fancy":
+                BungeeOutputFancyItem bungeeOutputFancyItem = new BungeeOutputFancyItem(
+                        FancyMessage.parse(config.get("fancy-format")),
+                        config.get("permission").asText());
+                if (config.has("send-to-current-server")) {
+                    bungeeOutputFancyItem.sendToCurrentServer =config.get("send-to-current-server").asBoolean();
+                }
+                if (config.has("player")) {
+                    bungeeOutputFancyItem.playerTarget = config.get("player").asText();
+                }
+                return bungeeOutputFancyItem;
+            case "bungee-output-player":
+                return om.convertValue(config, BungeePlayerItem.class);
+            case "bungee-output-server":
+                return om.convertValue(config, BungeeOutputServerItem.class);
+            case "bungee-input":
+                BungeeInputItem itemInput = om.convertValue(config, BungeeInputItem.class);
+                if (BungeeInputItemDaemon.instance == null) {
+                    BungeeInputItemDaemon.instance = new BungeeInputItemDaemon();
+                }
+                BungeeInputItemDaemon.instance.addItem(itemInput,chain);
+                return itemInput;
+            default:
+                return null;
         }
     }
 }

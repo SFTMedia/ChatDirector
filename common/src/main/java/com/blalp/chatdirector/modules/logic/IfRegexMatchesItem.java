@@ -1,22 +1,23 @@
 package com.blalp.chatdirector.modules.logic;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.utils.ValidationUtils;
 
 public class IfRegexMatchesItem extends ConditionalItem {
     String regex;
-    public IfRegexMatchesItem(IItem nestedTrue, IItem nestedFalse,String regex) {
+    public IfRegexMatchesItem(Chain nestedTrue, Chain nestedFalse,String regex) {
         super(nestedTrue, nestedFalse);
         this.regex=regex;
     }
 
     @Override
-    public boolean test(String string, Map<String, String> context) {
-        context.put("CURRENT", string);
+    public boolean test(Context context) {
         return (ChatDirector.format(source, context)).matches((ChatDirector.format(regex, context)));
     }
-    
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.hasContent(regex)&&super.isValid();
+    }
 }

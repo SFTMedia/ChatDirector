@@ -1,118 +1,103 @@
 package com.blalp.chatdirector.modules.sponge;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import com.blalp.chatdirector.ChatDirector;
+import java.util.Arrays;
+import java.util.List;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.Module;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class SpongeModule extends Module {
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Event;
+import org.spongepowered.api.event.message.MessageChannelEvent.Chat;
+import org.spongepowered.api.event.user.TargetUserEvent;
 
-    @Override
-    public String[] getItemNames() {
-        return new String[]{"sponge-output","sponge-input","sponge-playerlist","sponge-command"};
+public class SpongeModule implements IModule {
+    public static SpongeModule instance;
+    public SpongeModule(){
+        instance=this;
     }
 
     @Override
-    public IItem createItem(String type, Object config) {
-        switch (type){
-            case "sponge-command":
-                LinkedHashMap<String,Object> configCommand = ((LinkedHashMap<String,Object>)config);
-                SpongeCommandItem itemCommand = new SpongeCommandItem((String)configCommand.get("command"),(String)configCommand.get("permission"));
-                if(configCommand.containsKey("args")){
-                    itemCommand.args=(boolean)configCommand.get("args");
-                }
-                return itemCommand;
-            case "sponge-output":
-                SpongeOutputItem item = new SpongeOutputItem();
-                LinkedHashMap<String,String> configMap = ((LinkedHashMap<String,String>)config);
-                if(configMap.containsKey("permission")) {
-                    item.permission=configMap.get("permission");
-                }
-                if(configMap.containsKey("sender")) {
-                    item.sender=configMap.get("sender");
-                }
-                return item;
-            case "sponge-input":
-                if(SpongeInputDaemon.instance==null){
-                    new SpongeInputDaemon();
-                    SpongeInputDaemon.instance.load();
-                }
-                Map<String,Object> configList = (Map<String,Object>)config;
-                SpongeInputItem item2 = new SpongeInputItem();
-                if(configList.containsKey("server-stopped")){
-                    item2.serverStopped= (boolean) configList.get("server-stopped");
-                }
-                if(configList.containsKey("server-started")){
-                    item2.serverStarted=(boolean) configList.get("server-started");
-                }
-                if(configList.containsKey("chat")){
-                    item2.chat=(boolean) configList.get("chat");
-                }
-                if(configList.containsKey("override-chat")){
-                    item2.overrideChat=(boolean) configList.get("override-chat");
-                }
-                if(configList.containsKey("check-canceled")){
-                    item2.checkCanceled=(boolean) configList.get("check-canceled");
-                }
-                if(configList.containsKey("cancel-chat")){
-                    item2.cancelChat=(boolean) configList.get("cancel-chat");
-                }
-                if(configList.containsKey("format")){
-                    item2.format= (String) configList.get("format");
-                }
-                if(configList.containsKey("join")){
-                    item2.join=(boolean) configList.get("join");
-                }
-                if(configList.containsKey("leave")){
-                    item2.leave=(boolean) configList.get("leave");
-                }
-                SpongeInputDaemon.instance.addItem(item2);
-                return item2;
-            case "sponge-playerlist":
-                SpongePlayerlistItem itemPlayerlist = new SpongePlayerlistItem();
-                LinkedHashMap<String,Object> configMapPlayerlist = ((LinkedHashMap<String,Object>)config);
-                if(configMapPlayerlist.containsKey("format")) {
-                    itemPlayerlist.format= (String) configMapPlayerlist.get("format");
-                }
-                if(configMapPlayerlist.containsKey("format-no-players")) {
-                    itemPlayerlist.formatNoPlayers= (String) configMapPlayerlist.get("format-no-players");
-                }
-                if(configMapPlayerlist.containsKey("format-player")) {
-                    itemPlayerlist.formatPlayer= (String) configMapPlayerlist.get("format-player");
-                }
-                if(configMapPlayerlist.containsKey("ignore-case")) {
-                    itemPlayerlist.ignoreCase= (boolean) (configMapPlayerlist.get("ignore-case"));
-                }
-                if(configMapPlayerlist.containsKey("trigger-word")) {
-                    itemPlayerlist.triggerWord= (String) configMapPlayerlist.get("trigger-word");
-                }
-                return itemPlayerlist;
-            default:
-                return null;
-        }
+    public List<String> getItemNames() {
+        return Arrays.asList("sponge-output", "sponge-input", "sponge-playerlist", "sponge-command");
     }
 
     @Override
     public void load() {
-        ChatDirector.addFormatter(new SpongeFormatter());
-        if(SpongeInputDaemon.instance!=null){
+        if (SpongeInputDaemon.instance != null) {
             SpongeInputDaemon.instance.load();
         }
-        for(SpongeCommandItem command: SpongeCommandItem.commands){
+        for (SpongeCommandItem command : SpongeCommandItem.commands) {
             command.load();
         }
     }
 
     @Override
     public void unload() {
-        if(SpongeInputDaemon.instance!=null){
+        if (SpongeInputDaemon.instance != null) {
             SpongeInputDaemon.instance.unload();
         }
-        for(SpongeCommandItem command: SpongeCommandItem.commands){
+        for (SpongeCommandItem command : SpongeCommandItem.commands) {
             command.unload();
         }
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+        switch (type) {
+            case "sponge-command":
+                return om.convertValue(config, SpongeCommandItem.class);
+            case "sponge-output":
+                return om.convertValue(config, SpongeOutputItem.class);
+            case "sponge-input":
+                if (SpongeInputDaemon.instance == null) {
+                    new SpongeInputDaemon();
+                    SpongeInputDaemon.instance.load();
+                }
+                SpongeInputItem item2 = om.convertValue(config, SpongeInputItem.class);
+                SpongeInputDaemon.instance.addItem(item2,chain);
+                return item2;
+            case "sponge-playerlist":
+                return om.convertValue(config, SpongePlayerlistItem.class);
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public Context getContext(Object event) {
+        Context context = new Context();
+        context.put("SERVER_NUM_PLAYERS",String.valueOf(Sponge.getServer().getOnlinePlayers().size()));
+        context.put("SERVER_MAX_PLAYERS",String.valueOf(Sponge.getServer().getMaxPlayers()));
+        context.put("SERVER_MOTD",String.valueOf(Sponge.getServer().getMotd().toPlain()));
+        if(event instanceof Event) {
+            if(((Event)event).getCause().first(Player.class).isPresent()){
+                context.merge(getContext(((Event)event).getCause().first(Player.class).get()));
+            }
+        }
+        if(event instanceof Player) {
+            context.put("PLAYER_NAME",((Player)event).getName());
+            context.put("PLAYER_UUID",((Player)event).getUniqueId().toString());
+        }
+        if(event instanceof Chat) {
+            context.put("CHAT_MESSAGE",((Chat)event).getRawMessage().toPlain());
+            context.put("CHAT_MESSAGE_FORMATTED",((Chat)event).getMessage().toPlain());
+            context.put("CHAT_MESSAGE_ORIGINAL",((Chat)event).getOriginalMessage().toPlain());
+            context.put("CHAT_FORMAT",((Chat)event).getMessage().getFormat().toString());
+        }
+        if(event instanceof TargetUserEvent){
+            context.merge(getContext(((TargetUserEvent)event).getTargetUser()));
+        }
+        return context;
     }
     
 }

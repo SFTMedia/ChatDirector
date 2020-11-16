@@ -3,11 +3,11 @@ package com.blalp.chatdirector.modules.bungee;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.ItemDaemon;
+import com.blalp.chatdirector.modules.bukkit.BukkitModule;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
@@ -30,18 +30,19 @@ public class FromBungeeDaemon extends ItemDaemon {
         short len = in.readShort();
         byte[] msgbytes = new byte[len];
         in.readFully(msgbytes);
-        Map<String,String> context = new LinkedHashMap<String,String>();
+        Context context;
         for (FromBungeeItem item : (FromBungeeItem[]) instance.items.toArray()) {
             DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
             if (item.channel.equals(in.readUTF())) {
                 try {
-                    context = new LinkedHashMap<String,String>();
+                    context = new Context();
                     int contextLength = in.readInt();
                     for (int i = 0; i < contextLength; i++) {
                         context.put(in.readUTF(),in.readUTF());
                     }
-                    context.putAll(ChatDirector.formatter.getContext(player));
-                    item.startWork(msgin.readUTF(),true,context);
+                    context.merge(BukkitModule.instance.getContext(player));
+                    context.put("CURRENT", msgin.readUTF());
+                    ChatDirector.run(item, context, true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -1,8 +1,8 @@
 package com.blalp.chatdirector.modules.javacord;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.utils.ValidationUtils;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.message.Message;
@@ -13,18 +13,17 @@ import org.javacord.api.entity.user.User;
  * DiscordOutput
  */
 public class DiscordOutputReactionItem extends DiscordItem {
-    private String emoji;
+    private String emoji,channelID,messageID;
     private boolean add;
 
     public DiscordOutputReactionItem(String botName, String channelID, boolean add, String emoji,String message) {
-        super(botName,channelID);
+        super(botName);
         this.add=add;
         this.emoji=emoji;
         this.messageID=message;
     }
     @Override
-    public String process(String string, Map<String,String> context) {
-        context.put("CURRENT", string);
+    public Context process(Context context) {
         DiscordApi api = DiscordModule.discordBots.get(botName).getDiscordApi();
         Message message = api.getMessageById(ChatDirector.format(messageID, context), api.getChannelById(ChatDirector.format(channelID, context)).get().asTextChannel().get()).join();
         if(add){ 
@@ -46,6 +45,11 @@ public class DiscordOutputReactionItem extends DiscordItem {
                 }
             }
         }
-        return string;
+        return new Context();
+    }
+
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.hasContent(emoji,channelID,messageID)&&super.isValid();
     }
 }

@@ -1,101 +1,112 @@
 package com.blalp.chatdirector.modules.bukkit;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
-import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.Module;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class BukkitModule extends Module {
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+
+public class BukkitModule implements IModule {
+
+    public static BukkitModule instance;
+
+    public BukkitModule() {
+        instance = this;
+    }
 
     @Override
     public void load() {
-        ChatDirector.addFormatter(new BukkitFormatter());
-        if(BukkitInputDaemon.instance!=null){
+        if (BukkitInputDaemon.instance != null) {
             BukkitInputDaemon.instance.load();
         }
     }
 
     @Override
     public void unload() {
-        if(BukkitInputDaemon.instance!=null){
+        if (BukkitInputDaemon.instance != null) {
             BukkitInputDaemon.instance.unload();
         }
-        BukkitCommand.commands=new ArrayList<>();
-    }
-    @Override
-    public String[] getItemNames() {
-        return new String[]{"bukkit-input","bukkit-output","bukkit-playerlist","bukkit-command"};
+        BukkitCommand.commands = new ArrayList<>();
     }
 
     @Override
-    public IItem createItem(String type, Object config) {
-        switch (type){
+    public boolean isValid() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public List<String> getItemNames() {
+        return Arrays.asList("bukkit-input", "bukkit-output", "bukkit-playerlist", "bukkit-command");
+    }
+
+    @Override
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+        switch (type) {
             case "bukkit-input":
-                if(BukkitInputDaemon.instance==null){
+                if (BukkitInputDaemon.instance == null) {
                     new BukkitInputDaemon();
                     BukkitInputDaemon.instance.load();
                 }
-                Map<String,Object> configList = (Map<String,Object>)config;
-                BukkitInputItem item = new BukkitInputItem();
-                if(configList.containsKey("server-stopped")){
-                    item.serverStopped= (boolean) configList.get("server-stopped");
-                }
-                if(configList.containsKey("server-started")){
-                    item.serverStarted=(boolean) configList.get("server-started");
-                }
-                if(configList.containsKey("override-chat")){
-                    item.overrideChat=(boolean) configList.get("override-chat");
-                }
-                if(configList.containsKey("chat")){
-                    item.chat=(boolean) configList.get("chat");
-                }
-                if(configList.containsKey("check-canceled")){
-                    item.checkCanceled=(boolean) configList.get("check-canceled");
-                }
-                if(configList.containsKey("format")){
-                    item.format= (String) configList.get("format");
-                }
-                if(configList.containsKey("join")){
-                    item.join=(boolean) configList.get("join");
-                }
-                if(configList.containsKey("leave")){
-                    item.leave=(boolean) configList.get("leave");
-                }
-                if(configList.containsKey("new-join")){
-                    item.newJoin=(boolean) configList.get("new-join");
-                }
-                if(configList.containsKey("cancel-chat")){
-                    item.cancelChat=(boolean) configList.get("cancel-chat");
-                }
-                BukkitInputDaemon.instance.addItem(item);
+                BukkitInputItem item = om.convertValue(config, BukkitInputItem.class);
+                BukkitInputDaemon.instance.addItem(item,chain);
                 return item;
             case "bukkit-output":
-                BukkitOutputItem itemOutput = new BukkitOutputItem();
-                if(((LinkedHashMap<String,String>)config).containsKey("permission")) {
-                    itemOutput.permission=((LinkedHashMap<String,String>)config).get("permission");
-                }
-                return itemOutput;
+                return om.convertValue(config, BukkitOutputItem.class);
             case "bukkit-playerlist":
-                BukkitPlayerlistItem itemPlayerlist = new BukkitPlayerlistItem();
-                LinkedHashMap<String,Object> configMapPlayerlist = ((LinkedHashMap<String,Object>)config);
-                if(configMapPlayerlist.containsKey("format")) {
-                    itemPlayerlist.format= (String) configMapPlayerlist.get("format");
-                }
-                if(configMapPlayerlist.containsKey("format-no-players")) {
-                    itemPlayerlist.formatNoPlayers= (String) configMapPlayerlist.get("format-no-players");
-                }
-                if(configMapPlayerlist.containsKey("format-player")) {
-                    itemPlayerlist.formatPlayer= (String) configMapPlayerlist.get("format-player");
-                }
-                return itemPlayerlist;
+                return om.convertValue(config, BukkitPlayerlistItem.class);
             case "bukkit-command":
-                LinkedHashMap<String,Object> configMap = ((LinkedHashMap<String,Object>)config);
-                BukkitCommandItem item2 = new BukkitCommandItem((String)configMap.get("command"), (String)configMap.get("permission"));
-                return item2;
+                return om.convertValue(config, BukkitCommandItem.class);
+            default:
+                return null;
         }
-        return null;
+    }
+
+    @Override
+    public Context getContext(Object event) {
+        Context context = new Context();
+        context.put("SERVER_NUM_PLAYERS",String.valueOf(Bukkit.getOnlinePlayers().size()));
+        context.put("SERVER_MAX_PLAYERS",String.valueOf(Bukkit.getMaxPlayers()));
+        context.put("SERVER_NAME",String.valueOf(Bukkit.getServer().getName()));
+        context.put("SERVER_MOTD",String.valueOf(Bukkit.getMotd()));
+        if(event instanceof PlayerEvent) {
+            context.put("PLAYER_NAME", ((PlayerEvent)event).getPlayer().getName());
+            context.put("PLAYER_UUID", ((PlayerEvent)event).getPlayer().getUniqueId().toString());
+        }
+        if(event instanceof AsyncPlayerChatEvent){
+            context.put("CHAT_MESSAGE",((AsyncPlayerChatEvent)event).getMessage());
+            context.put("CHAT_FORMAT",((AsyncPlayerChatEvent)event).getFormat());
+        }
+        if(event instanceof PlayerQuitEvent){
+            context.put("PLAYER_QUIT_MESSAGE",((PlayerQuitEvent)event).getQuitMessage());
+        }
+        if(event instanceof CommandSender) {
+            context.put("PLAYER_NAME",((CommandSender)event).getName());
+        }
+        if(event instanceof Player) {
+            context.put("PLAYER_NAME",((Player)event).getName());
+            context.put("PLAYER_UUID",((Player)event).getUniqueId().toString());
+        }
+        if(event instanceof Command) {
+            context.put("COMMAND_NAME",((Command)event).getName());
+        }
+        if(event instanceof ConsoleCommandSender) {
+            context.put("PLAYER_NAME","*CONSOLE*");
+        }
+        return context;
     }
 }

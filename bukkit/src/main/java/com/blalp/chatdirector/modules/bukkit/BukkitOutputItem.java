@@ -1,23 +1,27 @@
 package com.blalp.chatdirector.modules.bukkit;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 
 import org.bukkit.Bukkit;
 
-public class BukkitOutputItem extends Item {
+public class BukkitOutputItem implements IItem {
     public String permission=null;
 
     @Override
-    public String process(String string, Map<String,String> context) {
+    public Context process(Context context) {
         if (permission==null) {
-            Bukkit.broadcastMessage(ChatDirector.format(string, context));
+            Bukkit.broadcastMessage(ChatDirector.format(context));
         } else {
-            Bukkit.broadcast(ChatDirector.format(string, context), permission);
+            Bukkit.broadcast(ChatDirector.format(context), permission);
         }
-        return string;
+        return new Context();
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
 
 }

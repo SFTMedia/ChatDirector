@@ -1,10 +1,11 @@
 package com.blalp.chatdirector.modules.bungee;
 
-import java.util.Map;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirectorBukkit;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.utils.ValidationUtils;
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -12,13 +13,13 @@ import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class ToBungeeItem extends Item {
+public class ToBungeeItem implements IItem {
     public String channel;
     public ToBungeeItem(String channel){
         this.channel=channel;
     }
     @Override
-    public String process(String string, Map<String,String> context) {
+    public Context process(Context context) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Forward");
         out.writeUTF("ALL"); // Should this be all or online https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#forward?
@@ -29,9 +30,14 @@ public class ToBungeeItem extends Item {
             out.writeUTF(contextItem.getKey());
             out.writeUTF(contextItem.getValue());
         }
-        out.writeUTF(string);
+        out.writeUTF(context.getCurrent());
         Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
         player.sendPluginMessage(ChatDirectorBukkit.instance, "BungeeCord", out.toByteArray());
-        return string;
+        return new Context();
+    }
+
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.hasContent(channel);
     }
 }

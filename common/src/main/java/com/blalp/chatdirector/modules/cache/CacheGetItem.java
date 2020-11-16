@@ -1,8 +1,7 @@
 package com.blalp.chatdirector.modules.cache;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
 
 public class CacheGetItem extends CacheItem {
 
@@ -11,12 +10,11 @@ public class CacheGetItem extends CacheItem {
     }
 
     @Override
-    public String process(String string, Map<String, String> context) {
+    public Context process(Context context) {
         if(CacheStore.containsKey(ChatDirector.format(key, context))){
-            return CacheStore.getValue(ChatDirector.format(key, context));
+            return new Context(CacheStore.getValue(ChatDirector.format(key, context)));
         }
-        this.context.put("CACHE_MISS", "TRUE");
-        return "";
+        return new Context();
     }
     
 }

@@ -1,8 +1,11 @@
 package com.blalp.chatdirector.modules.javacord;
 
+import java.util.Optional;
+
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.ItemDaemon;
 
+import org.javacord.api.entity.channel.Channel;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.event.message.reaction.ReactionAddEvent;
@@ -36,13 +39,8 @@ public class DiscordInputDaemon extends ItemDaemon
             if(!item.message){
                 continue;
             }
-            if (event.getChannel().getIdAsString().equals(item.channelID)
-                || (event.getChannel().asCategorizable().isPresent()
-                        && event.getChannel().asCategorizable().get().getCategory().isPresent()
-                        && event.getChannel().asCategorizable().get().getCategory().get().getIdAsString().equals(item.categoryID))
-                ) {
-                item.startWork(ChatDirector.format(item.format, ChatDirector.formatter.getContext(event)), false,
-                        ChatDirector.formatter.getContext(event));
+            if (sharesChannelOrCategory(event.getChannel(), item.channelID, item.categoryID)) {
+                ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
             }
         }
     }
@@ -56,13 +54,8 @@ public class DiscordInputDaemon extends ItemDaemon
             if(!item.reactionRemove){
                 continue;
             }
-            if (event.getChannel().getIdAsString().equals(item.channelID)
-                || (event.getChannel().asCategorizable().isPresent()&& event.getChannel().asCategorizable().get().getCategory().isPresent()
-                    && event.getChannel().asCategorizable().get().getCategory().get().getIdAsString().equals(item.categoryID))
-                || (event.getMessage().isPresent()&&event.getMessage().get().getIdAsString().equals(item.messageID))
-                ) {
-                item.startWork(ChatDirector.format(item.format, ChatDirector.formatter.getContext(event)), false,
-                        ChatDirector.formatter.getContext(event));
+            if (sharesChannelOrCategory(event.getChannel(), item.channelID, item.categoryID)||sharesMessage(event.getMessage(), item.messageID)) {
+                ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
             }
         }
     }
@@ -76,14 +69,16 @@ public class DiscordInputDaemon extends ItemDaemon
             if(!item.reactionAdd){
                 continue;
             }
-            if (event.getChannel().getIdAsString().equals(item.channelID)
-                || (event.getChannel().asCategorizable().isPresent()&& event.getChannel().asCategorizable().get().getCategory().isPresent()
-                        && event.getChannel().asCategorizable().get().getCategory().get().getIdAsString().equals(item.categoryID))
-                || (event.getMessage().isPresent()&&event.getMessage().get().getIdAsString().equals(item.messageID))
-                ) {
-                item.startWork(ChatDirector.format(item.format, ChatDirector.formatter.getContext(event)), false,
-                        ChatDirector.formatter.getContext(event));
+            if (sharesChannelOrCategory(event.getChannel(), item.channelID, item.categoryID)||sharesMessage(event.getMessage(), item.messageID)) {
+                ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
             }
         }
+    }
+    private boolean sharesChannelOrCategory(Channel channel,String channelID,String categoryID) {
+        return channel.getIdAsString().equals(channelID)
+            ||(channel.asCategorizable().isPresent()&& channel.asCategorizable().get().getCategory().isPresent()&&channel.asCategorizable().get().getCategory().get().getIdAsString().equals(categoryID));
+    }
+    private boolean sharesMessage(Optional<Message> message,String messageID) {
+        return (message.isPresent()&&message.get().getIdAsString().equals(messageID));
     }
 }

@@ -1,24 +1,28 @@
 package com.blalp.chatdirector.modules.logic;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import com.blalp.chatdirector.modules.common.PassItem;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
 
 public class SplitItem extends PassItem {
-    ArrayList<IItem> items = new ArrayList<IItem>();
-    public SplitItem(ArrayList<IItem> items) {
-        this.items=items;
+    ArrayList<Chain> chains = new ArrayList<Chain>();
+    public SplitItem(ArrayList<Chain> chains) {
+        this.chains=chains;
     }
+
     @Override
-    public String work(String string, Map<String, String> context) {
-        if(string.isEmpty()){
-            return "";
+    public Context process(Context context) {
+        for(Chain chain:chains){
+            new Thread(chain).start();
         }
-        for (IItem item : items) {
-            item.startWork(string, true, context);
-        }
-        return string;
+        return new Context();
+    }
+
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.isNotNull(chains);
     }
 }

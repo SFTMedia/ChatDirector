@@ -1,36 +1,20 @@
 package com.blalp.chatdirector.modules.context;
 
-import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.List;
 
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.Module;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ContextModule extends Module {
-
-    @Override
-    public String[] getItemNames() {
-        return new String[]{"get-context","set-context","remove-context","resolve-context"};
-    }
+public class ContextModule implements IModule {
 
     @Override
-    public IItem createItem(String type, Object config) {
-        LinkedHashMap<String, String> configMap = (LinkedHashMap<String, String>)config;
-        switch (type){
-            case "get-context":
-                return new ContextGetItem(configMap.get("context"));
-            case "resolve-context":
-                return new ContextResolveItem();
-            case "set-context":
-                ContextSetItem item = new ContextSetItem(configMap.get("context"));
-                if(configMap.containsKey("value")){
-                    item.value=configMap.get("value");
-                }
-                return item;
-            case "remove-context":
-                return new ContextRemoveItem(configMap.get("context"));
-            default:
-                return null;
-        }
+    public List<String> getItemNames() {
+        return Arrays.asList("get-context", "set-context", "remove-context", "resolve-context");
     }
 
     @Override
@@ -39,6 +23,32 @@ public class ContextModule extends Module {
 
     @Override
     public void unload() {
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+        switch (type) {
+            case "get-context":
+                return om.convertValue(config, ContextGetItem.class);
+            case "resolve-context":
+                return om.convertValue(config, ContextResolveItem.class);
+            case "set-context":
+                return om.convertValue(config, ContextSetItem.class);
+            case "remove-context":
+                return om.convertValue(config, ContextRemoveItem.class);
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public Context getContext(Object object) {
+        return new Context();
     }
     
 }

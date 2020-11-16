@@ -1,14 +1,18 @@
 package com.blalp.chatdirector.modules.replacement;
 
-import java.util.Map;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 
-import com.blalp.chatdirector.model.Item;
-
-public class ResolveColorsItem extends Item {
+public class ResolveColorsItem implements IItem {
 
     @Override
-    public String process(String string, Map<String,String> context) {
-        return string.replaceAll("&([a-z]|[0-9])", "§$1");
+    public Context process(Context context) {
+        return new Context(context.getCurrent().replaceAll("&([a-z]|[0-9])", "§$1"));
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
 
 }

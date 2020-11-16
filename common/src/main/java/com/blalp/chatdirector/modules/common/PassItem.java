@@ -1,14 +1,12 @@
 package com.blalp.chatdirector.modules.common;
 
-import java.util.Map;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 
-import com.blalp.chatdirector.model.Item;
-
-public class PassItem extends Item {
+public abstract class PassItem implements IItem {
 
     @Override
-    public String process(String string, Map<String,String> context) {
-        return string;
+    public Context process(Context context) {
+        return new Context();
     }
-    
 }

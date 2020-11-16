@@ -1,32 +1,42 @@
 package com.blalp.chatdirector.modules.common;
 
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.Module;
+import java.util.Arrays;
+import java.util.List;
 
-public class CommonModule extends Module {
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class CommonModule implements IModule {
 
     @Override
-    public String[] getItemNames() {
-        return new String[]{"pass","stop","halt","break","echo","reload"};
+    public List<String> getItemNames() {
+        return Arrays.asList("pass", "stop", "halt", "break", "echo", "reload");
     }
 
     @Override
-    public IItem createItem(String type, Object config) {
-        switch (type){
-            case "pass":
-                return new PassItem();
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+        switch (type) {
             case "stop":
             case "halt":
-                return new HaltItem();
+                return om.convertValue(config, HaltItem.class);
             case "break":
-                return new BreakItem();
+                return om.convertValue(config, BreakItem.class);
             case "echo":
-                return new EchoItem((String)config);
+                return new EchoItem(config.asText());
             case "reload":
-                return new ReloadItem();
+                return om.convertValue(config, ReloadItem.class);
             default:
                 return null;
         }
+    }
+
+    @Override
+    public Context getContext(Object object) {
+        return new Context();
     }
 
     @Override
@@ -35,6 +45,11 @@ public class CommonModule extends Module {
 
     @Override
     public void unload() {
+    }
+    
+    @Override
+    public boolean isValid() {
+        return true;
     }
     
 }

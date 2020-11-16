@@ -1,8 +1,7 @@
 package com.blalp.chatdirector.modules.cache;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
 
 public class CacheSetItem extends CacheItem {
     String value;
@@ -12,9 +11,15 @@ public class CacheSetItem extends CacheItem {
 	}
 
 	@Override
-	public String process(String string, Map<String, String> context) {
-        context.put("CURRENT", string);
+	public Context process(Context context) {
 		CacheStore.setValue(ChatDirector.format(key, context), ChatDirector.format(value, context));
-		return string;
+		return new Context();
+	}
+	@Override
+	public boolean isValid() {
+		if(value==null){
+			return false;
+		}
+		return super.isValid();
 	}
 }
