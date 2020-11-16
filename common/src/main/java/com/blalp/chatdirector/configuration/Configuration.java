@@ -1,40 +1,40 @@
 package com.blalp.chatdirector.configuration;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.modules.common.BreakItem;
-import com.blalp.chatdirector.modules.common.CommonModule;
-import com.blalp.chatdirector.model.format.Formatters;
-import com.blalp.chatdirector.model.format.IFormatter;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.IteratorIterable;
 import com.blalp.chatdirector.model.Loadable;
-import com.blalp.chatdirector.model.Pipe;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.modules.IModule;
+import com.blalp.chatdirector.modules.cache.CacheModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
 import com.blalp.chatdirector.modules.context.ContextModule;
 import com.blalp.chatdirector.modules.file.FileModule;
+import com.blalp.chatdirector.modules.javacord.DiscordModule;
 import com.blalp.chatdirector.modules.logic.LogicModule;
 import com.blalp.chatdirector.modules.luckperms.LuckPermsModule;
 import com.blalp.chatdirector.modules.replacement.ReplacementModule;
 import com.blalp.chatdirector.modules.sql.SQLModule;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import org.yaml.snakeyaml.Yaml;
-
-public class Configuration extends Loadable {
+public class Configuration extends Loadable implements IConfiguration {
 
     String fileName;
     public static List<IModule> loadedModules = new ArrayList<>();
-	public static boolean debug;
-    public HashMap<String,Pipe> chains = new HashMap<String,Pipe>();
+    public static boolean debug;
+    public HashMap<String, Chain> chains = new HashMap<String, Chain>();
 
     public Configuration(String fileName) {
         this.fileName = fileName;
@@ -42,162 +42,86 @@ public class Configuration extends Loadable {
 
     @Override
     public void load() {
-//        Constructor constructor = new Constructor(BaseConfiguration.class);
-//        TypeDescription typeDescription = new TypeDescription(BaseConfiguration.class);
-//        typeDescription.putMapPropertyType("modules", String.class, Module.class);
-//        constructor.addTypeDescription(typeDescription);
-        Yaml yaml = new Yaml();
+        ObjectMapper om = new ObjectMapper(new YAMLFactory());
         try {
-            Map<String,Object> configuration = (Map<String,Object>)yaml.load(new FileReader(fileName));
-            if(configuration.containsKey("debug")){
-                debug= (boolean) configuration.get("debug");
+            JsonNode root = om.readTree(new File(fileName));
+            debug=root.at("debug").asBoolean();
+            for (Entry<String, JsonNode> module : new IteratorIterable<Entry<String, JsonNode>>(root.at("modules").fields())) {
+                loadModule(om, module);
             }
-            loadedModules.add(new CommonModule());
-            if (configuration.containsKey("modules")) {
-                for (Object key : (Iterable<Object>)configuration.get("modules")) {
-                    loadedModules.add(loadModule(key));
-                    if(loadedModules.contains(null)){
-                        loadedModules.remove(null);
-                        try {
-                            throw new NullPointerException(key+" is not a valid module for this platform");
-                        } catch(NullPointerException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
+            for (Entry<String, JsonNode> module : new IteratorIterable<Entry<String, JsonNode>>(root.at("chains").fields())) {
+                chains.put(module.getKey(),loadChain(om, module.getValue()));
             }
-            if (configuration.containsKey("chains")) {
-                for (LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>> outerKey : ((ArrayList<LinkedHashMap<String,ArrayList<LinkedHashMap<String,Object>>>>)configuration.get("chains"))) {
-                    for (String key : outerKey.keySet()) {
-                        chains.put(key,new Pipe(loadItems(outerKey.get(key))));
-                    }
-                }
-            }
-            if(debug){
-                System.out.println("Formatters");
-                for (IFormatter formatter : ((Formatters)ChatDirector.formatter).formatters) {
-                    System.out.println(formatter);
-                }
-                System.out.println("Modules");
-                for (IModule module : loadedModules) {
-                    System.out.println(module);
-                }
-                System.out.println("Pipes");
-                for (String pipeKey: chains.keySet()) {
-                    System.out.println("Pipe "+pipeKey);
-                    IItem item = chains.get(pipeKey).rootItem;
-                    while(item!=null) {
-                        System.out.println(item);
-                        if (item instanceof Item){
-                            item=((Item)item).next;
-                        } else {
-                            System.out.println("Not an Item, don't know how to go deeper");
-                            break;
-                        }
-                    }
-                    System.out.println("NULL");
-                }
-            }
-
-
-        } catch (FileNotFoundException e) {
-            System.err.println("CONFIG NOT FOUND!");
-            e.printStackTrace();
-        } catch (Exception e){
-            System.err.println("Invalid YAML");
-            e.printStackTrace();
-            System.out.println("Reloading every 10 seconds");
+        } catch (JsonProcessingException e1) {
+            e1.printStackTrace();
+            new Thread(new TimedLoad()).start();
+        } catch (IOException e1) {
+            e1.printStackTrace();
             new Thread(new TimedLoad()).start();
         }
-    }
-    public static IItem loadItems(ArrayList<LinkedHashMap<String,Object>> items) {
-        if(items==null){
-            return new BreakItem();
-        }
-        IItem output = null;
-        IItem lastItem = null;
-        IItem item=null;
-        LinkedHashMap<String,Object> pipeVal=null;
-        for(Object pipeValObj:items) {
-            try {
-                pipeVal = (LinkedHashMap<String, Object>) pipeValObj;
-            } catch (ClassCastException e){
-                System.err.println("Make sure to have a `: null` after any items that don't require configuration.");
-                e.printStackTrace();
-                continue;
+        if(debug){
+            System.out.println("Modules");
+            for (IModule module : loadedModules) {
+                System.out.println(module);
             }
-            item = loadItem((String)pipeVal.keySet().toArray()[0],pipeVal.values().toArray()[0]);
-            if(output==null){
-                output=item;
-            }
-            if(lastItem instanceof Item){
-                ((Item)lastItem).next=item;
-            }
-            lastItem=item;
-        }
-        if(item instanceof Item){
-            ((Item)item).next=null;
-        }
-        return output;
-    }
-    public static IItem loadItem(String key, Object item) {
-        Iterator<IModule> iterator = loadedModules.iterator();
-        while(iterator.hasNext()) {
-            IModule iModule = iterator.next();
-            for(String itemType: iModule.getItemNames()){
-                if(key.equalsIgnoreCase(itemType)){
-                    return iModule.createItem(key, item);
+            System.out.println("Chains");
+            for (String pipeKey: chains.keySet()) {
+                System.out.println("Chain "+pipeKey);
+                for(IItem item : chains.get(pipeKey).items) {
+                    System.out.println(item);
                 }
             }
         }
-        try {
-            throw new NullPointerException("Item of type "+key+" Not found.");
-        } catch (NullPointerException e){
-            e.printStackTrace();
-            System.err.println("Item of type "+key+" Not found.");
-        }
-        return null;
     }
-    protected IModule loadModule(Object module) {
-        String type="";
-        if (module instanceof String){
-            type=(String)module;
-        } else if (module instanceof List){
-            type=(String)((List)module).get(0);
-        } else if (module instanceof Map){
-            type=(String)((Map)module).keySet().toArray()[0];
+    
+    public Chain loadChain(ObjectMapper om, JsonNode module) {
+        Chain chain = new Chain();
+        for (Entry<String, JsonNode> item : new IteratorIterable<>(module.fields())) {
+            chain.items.add(loadItem(om, chain, item.getKey(), item.getValue()));
         }
-        switch (type) {
+        return chain;        
+    }
+
+    public IModule loadModule(ObjectMapper om, Entry<String, JsonNode> module) {
+        switch(module.getKey()) {
             case "logic":
-                return new LogicModule();
+                return om.convertValue(module.getValue(), LogicModule.class);
             case "console":
-                return new ConsoleModule();
+                return om.convertValue(module.getValue(), ConsoleModule.class);
             case "context":
-                return new ContextModule();
-            // JDA isn't working and functionally the same as javacord anyways
-            //case "discord-jda":
-            //   return new com.blalp.chatdirector.modules.jda.DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
+                return om.convertValue(module.getValue(), ContextModule.class);
             case "discord":
-            case "discord-javacord":
-                return new com.blalp.chatdirector.modules.javacord.DiscordModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
+                return om.convertValue(module.getValue(), DiscordModule.class);
             case "file":
-                return new FileModule();
+                return om.convertValue(module.getValue(), FileModule.class);
             case "luckperms":
-                return new LuckPermsModule();
+                return om.convertValue(module.getValue(), LuckPermsModule.class);
             case "replacement":
-                return new ReplacementModule();
+                return om.convertValue(module.getValue(), ReplacementModule.class);
             case "cache":
+                return om.convertValue(module.getValue(), CacheModule.class);
             case "sql":
-                return new SQLModule((LinkedHashMap<String,LinkedHashMap<String,String>>) ((Map)module).get(type));
+                return om.convertValue(module.getValue(), SQLModule.class);
             default:
+                ChatDirector.log(Level.WARNING, "Module of type "+module.getKey()+" not found.");
                 return null;
         }
+    }
+
+    public IItem loadItem(ObjectMapper om, Chain chain, String key, JsonNode item) {
+        for(IModule module : loadedModules) {
+            if (module.getItemNames().contains(key)) {
+                return module.createItem(om, chain, key, item);
+            }
+        }
+        System.err.println("Item of type "+key+" Not found.");
+        return null;
     }
 
     @Override
     public void unload() {
         loadedModules = new ArrayList<>();
-        chains = new HashMap<String,Pipe>();
+        chains = new HashMap<String,Chain>();
     }
     
 }

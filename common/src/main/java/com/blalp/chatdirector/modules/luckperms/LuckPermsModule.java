@@ -1,58 +1,57 @@
 package com.blalp.chatdirector.modules.luckperms;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.List;
 
-import com.blalp.chatdirector.configuration.Configuration;
+import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.Module;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class LuckPermsModule extends Module {
+public class LuckPermsModule implements IModule {
 
     @Override
     public void load() {
-        
+
     }
 
     @Override
     public void unload() {
-        
+
     }
 
     @Override
-    public void reload() {
-        
+    public boolean isValid() {
+        return true;
     }
 
     @Override
-    public IItem createItem(String type, Object config) {
-        LinkedHashMap<String, Object> configMap = (LinkedHashMap<String, Object>)config;
+    public List<String> getItemNames() {
+        return Arrays.asList("luckperms-context", "luckperms-set", "luckperms-unset", "luckperms-has");
+    }
+
+    @Override
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
         switch (type) {
             case "luckperms-context":
-                return new LuckPermsContextItem();
+                return om.convertValue(config, LuckPermsContextItem.class);
             case "luckperms-set":
-                LuckPermsSetItem luckPermsSetItem = new LuckPermsSetItem((String)configMap.get("permission"));
-                if(configMap.containsKey("value")) {
-                    luckPermsSetItem.value=(boolean)configMap.get("value");
-                }
-                return luckPermsSetItem;
+                return om.convertValue(config, LuckPermsSetItem.class);
             case "luckperms-unset":
-                LuckPermsUnsetItem unsetItem = new LuckPermsUnsetItem((String)configMap.get("permission"));
-                if(configMap.containsKey("value")) {
-                    unsetItem.value=(boolean)configMap.get("value");
-                }
-                return unsetItem;
+                return om.convertValue(config, LuckPermsUnsetItem.class);
             case "luckperms-has":
-                LuckPermsHasItem luckPermsHasItem = new LuckPermsHasItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),(String)configMap.get("permission"));
-                return luckPermsHasItem;
+                return new LuckPermsHasItem(ChatDirector.loadChain(om,config.get("yes-chain")),ChatDirector.loadChain(om,config.get("no-chain")),config.get("permission").asText());
             default:
                 return null;
         }
     }
 
     @Override
-    public String[] getItemNames() {
-        return new String[]{"luckperms-context","luckperms-set","luckperms-unset","luckperms-has"};
+    public Context getContext(Object object) {
+        return new Context();
     }
 
 }

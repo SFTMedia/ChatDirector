@@ -1,37 +1,34 @@
 package com.blalp.chatdirector.modules.bungee;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.utils.ValidationUtils;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-public class BungeePlayerlistItem extends Item {
+public class BungeePlayerlistItem implements IItem {
     public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
     public String formatNoPlayers = "**No online players**";
     public String formatPlayer = "%PLAYER_NAME%";
     public String formatServer = "%SERVER_NAME%";
     public boolean splitByServer = false;
     @Override
-    public String process(String string, Map<String,String> context) {
-        context.putAll(ChatDirector.formatter.getContext(ProxyServer.getInstance()));
-        context.put("CURRENT", string);
-
-        // Put it into pipe no matter what.
-
+    public boolean isValid() {
+        return ValidationUtils.hasContent(format,formatNoPlayers,formatPlayer,formatServer);
+    }
+    @Override
+    public Context process(Context context) {
         String output = ChatDirector.format(format,context);
         String temp_output="";
         boolean first = true;
-        Map<String,String> tempContext = new HashMap<>();
-        Map<String,String> tempContext2 = new HashMap<>();
-        tempContext.putAll(context);
+        Context tempContext = new Context(context);
+        Context tempContext2 = new Context(context);
         if(splitByServer){
             for(ServerInfo server : ProxyServer.getInstance().getServers().values()){
-                tempContext.putAll(ChatDirector.formatter.getContext(server));
+                tempContext.merge(BungeeModule.instance.getContext(server));
                 output += ChatDirector.format(formatServer, tempContext);
                 first=true;
                 for (ProxiedPlayer player : server.getPlayers()) {
@@ -40,21 +37,19 @@ public class BungeePlayerlistItem extends Item {
                     } else {
                         first = false;
                     }
-                    tempContext2.putAll(tempContext);
-                    tempContext2.putAll(ChatDirector.formatter.getContext(player));
+                    tempContext2.merge(tempContext);
+                    tempContext2.merge(BungeeModule.instance.getContext(player));
                     temp_output += ChatDirector.format(formatPlayer, tempContext2);
-                    tempContext2= new HashMap<>();
-                    tempContext2.putAll(tempContext);
+                    tempContext2= new Context(tempContext);
                 }
-                if(temp_output.isEmpty()){
+                if(temp_output.isBlank()){
                     temp_output=ChatDirector.format(formatNoPlayers,context);
                 }
                 context.put("SERVER_"+server.getName()+"_PLAYERS",temp_output);
                 context.put("SERVER_"+server.getName()+"_NUM_PLAYERS",Integer.toString(server.getPlayers().size()));
                 output+=temp_output;
                 temp_output="";
-                tempContext= new HashMap<>();
-                tempContext.putAll(context);
+                tempContext= new Context(context);
             }
         } else {
             for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
@@ -63,16 +58,16 @@ public class BungeePlayerlistItem extends Item {
                 } else {
                     first = false;
                 }
-                tempContext.putAll(ChatDirector.formatter.getContext(player));
+                tempContext.merge(BungeeModule.instance.getContext(player));
                 output += ChatDirector.format(formatPlayer, tempContext);
-                tempContext= new HashMap<>();
-                tempContext.putAll(context);
+                tempContext= new Context(context);
             }
         }
         output += "\n```";
         if (output.equals(ChatDirector.format(format.replace("%NUM_PLAYERS%", "0"),context))) {
             output = ChatDirector.format(formatNoPlayers,context);
         }
-        return output;
+        return new Context(output);
     }
+
 }

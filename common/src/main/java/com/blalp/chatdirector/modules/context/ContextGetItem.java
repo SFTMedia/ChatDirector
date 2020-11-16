@@ -1,18 +1,17 @@
 package com.blalp.chatdirector.modules.context;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
 
 public class ContextGetItem extends ContextItem {
 
     public ContextGetItem(String context) {
         super(context);
     }
+
     @Override
-    public String process(String string, Map<String, String> context) {
-        context.put("CURRENT", string);
-        return context.get(ChatDirector.format(this.contextName, context));
+    public Context process(Context context) {
+        return new Context(context.get(ChatDirector.format(this.contextName, context)));
     }
     
 }

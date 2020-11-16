@@ -1,16 +1,20 @@
 package com.blalp.chatdirector.modules.common;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.configuration.TimedLoad;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 
-public class ReloadItem extends Item {
+public class ReloadItem implements IItem {
 
     @Override
-    public String process(String string, Map<String, String> context) {
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
+    public Context process(Context context) {
         new Thread(new TimedLoad()).start();
-        return string;
+        return new Context();
     }
     
 }

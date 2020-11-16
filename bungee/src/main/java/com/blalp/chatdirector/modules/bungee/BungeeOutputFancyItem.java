@@ -1,14 +1,11 @@
 package com.blalp.chatdirector.modules.bungee;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Configuration;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.fancychat.FancyMessage;
 import com.blalp.chatdirector.model.fancychat.FancyMessageEnum;
+import com.blalp.chatdirector.utils.ValidationUtils;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
@@ -19,7 +16,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-public class BungeeOutputFancyItem extends Item {
+public class BungeeOutputFancyItem implements IItem {
     /*
             - bungee-output-fancy:
                 permission: null
@@ -63,16 +60,13 @@ public class BungeeOutputFancyItem extends Item {
         this.fancyMessage=fancyMessage;
         this.permission=permission;
     }
+    @SuppressWarnings("deprecation")
     public static BaseComponent fromFancyMessage(FancyMessage fancyMessage){
         BaseComponent output = new TextComponent();
         for (BaseComponent component : TextComponent.fromLegacyText(fancyMessage.text)){
-            if(Configuration.debug) {
-                System.out.println("appending >"+component.toLegacyText()+"< to >"+output.toLegacyText()+"<");
-            }
+            ChatDirector.logDebug("appending >"+component.toLegacyText()+"< to >"+output.toLegacyText()+"<");
             output.addExtra(component);
-            if(Configuration.debug) {
-                System.out.println("output is now >"+output.toLegacyText()+"<");
-            }
+            ChatDirector.logDebug("output is now >"+output.toLegacyText()+"<");
         }
         if(fancyMessage.bold){
             output.setBold(true);
@@ -102,8 +96,8 @@ public class BungeeOutputFancyItem extends Item {
     }
     
     @Override
-    public String process(String string, Map<String, String> context) {
-        Map<String,String> playerContext = (HashMap<String,String>)((HashMap<String,String>)context).clone();
+    public Context process(Context context) {
+        Context playerContext = new Context(context);
         FancyMessage fancyBase = fancyMessage.duplicate().withContext(context); // Resolve all of the contexts that you can before resolving player related ones
         for(ProxiedPlayer player : ProxyServer.getInstance().getPlayers()){
             if(playerTarget==null||(ChatDirector.format(playerTarget, context).length()>16&&player.getUniqueId().toString().equals(ChatDirector.format(playerTarget, context)))||(ChatDirector.format(playerTarget, context).length()<16&&player.getName().equals(ChatDirector.format(playerTarget, context)))) {
@@ -112,21 +106,22 @@ public class BungeeOutputFancyItem extends Item {
                 }
                 if(!sendToCurrentServer&&context.containsKey("SERVER_NAME")){
                     if(player.getServer()!=null&&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(context.get("SERVER_NAME"))){
-                        if(Configuration.debug){
-                            System.out.println("Server name matches player ("+player.getName()+") server >"+player.getServer().getInfo().getName()+"< to context server >"+context.get("SERVER_NAME")+"< not sending... ");
-                        }
+                        ChatDirector.logDebug("Server name matches player ("+player.getName()+") server >"+player.getServer().getInfo().getName()+"< to context server >"+context.get("SERVER_NAME")+"< not sending... ");
                         continue;
                     }
                 }
-                playerContext.putAll(ChatDirector.getContext(player));
+                playerContext.merge(BungeeModule.instance.getContext(player));
                 BaseComponent message = fromFancyMessage(fancyBase.duplicate().withContext(playerContext));
                 player.sendMessage(message); // Since we want to do context resolution per player we need to duplicate
-                if(Configuration.debug){
-                    System.out.println("Sent >"+message.toLegacyText()+"< to "+player.getName());
-                }
-                playerContext=(HashMap<String,String>)((HashMap<String,String>)context).clone();;
+                ChatDirector.logDebug("Sent >"+message.toLegacyText()+"< to "+player.getName());
+                playerContext=new Context(context);
             }
         }
-        return string;
+        return new Context();
+    }
+
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.isNotNull(fancyMessage);
     }
 }

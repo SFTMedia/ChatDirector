@@ -3,12 +3,10 @@ package com.blalp.chatdirector;
 import java.io.File;
 
 import com.blalp.chatdirector.configuration.ConfigurationBukkit;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.configuration.TimedLoad;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommand;
-import com.blalp.chatdirector.modules.bukkit.BukkitCommandItem;
 import com.blalp.chatdirector.modules.bukkit.BukkitInputDaemon;
 import com.blalp.chatdirector.modules.bungee.FromBungeeDaemon;
-import com.blalp.chatdirector.modules.common.ReloadItem;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,9 +21,6 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
     @Override
     public void onEnable() {
         instance = this;
-        // In case anything goes wrong, register the reload command
-        Item item = new BukkitCommandItem("chatdirectorlocal","chatdirector.reload");
-        item.next=new ReloadItem();
         try {
             chatDirector = new ChatDirector(new ConfigurationBukkit(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
             BukkitInputDaemon.instance=new BukkitInputDaemon();
@@ -60,6 +55,9 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(command.getName().equals("chatdirectorlocal")&&sender.hasPermission("chatdirector.reload")){
+            new Thread(new TimedLoad()).start();
+        }
         for(BukkitCommand bukkitCommand : BukkitCommand.commands) {
             bukkitCommand.execute(sender, command, label, args);
         }

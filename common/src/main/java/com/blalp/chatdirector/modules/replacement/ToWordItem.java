@@ -1,21 +1,25 @@
 package com.blalp.chatdirector.modules.replacement;
 
-import java.util.Map;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 
-import com.blalp.chatdirector.model.Item;
-
-public class ToWordItem extends Item {
+public class ToWordItem implements IItem {
 
     @Override
-    public String process(String string, Map<String, String> context) {
+    public Context process(Context context) {
         String output = "";
-        for(String word: string.split(" ")){
-            if(!output.isEmpty()){
+        for(String word: context.getCurrent().split(" ")){
+            if(!output.isBlank()){
                 output+=" ";
             }
             output+=word.substring(0,1).toUpperCase()+word.substring(1).toLowerCase();
         }
-        return output;
+        return new Context(output);
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
     
 }

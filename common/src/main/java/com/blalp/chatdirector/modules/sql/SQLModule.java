@@ -2,15 +2,21 @@ package com.blalp.chatdirector.modules.sql;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
-import com.blalp.chatdirector.configuration.Configuration;
+import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.Module;
+import com.blalp.chatdirector.modules.IModule;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class SQLModule extends Module {
+public class SQLModule implements IModule {
     public static HashMap<String, SQLConnection> connections = new HashMap<>();
     public static HashMap<String, ArrayList<String>> tables = new HashMap<>();
 
@@ -23,44 +29,20 @@ public class SQLModule extends Module {
     }
 
     @Override
-    public String[] getItemNames() {
-        return new String[] { "send-data", "retrieve-data","sql-cache-if","sql-cache-remove" };
-    }
-
-    @Override
-    public IItem createItem(String type, Object config) {
-        LinkedHashMap<String, Object> configMap = (LinkedHashMap<String, Object>) config;
-        switch (type) {
-            case "send-data":
-                tables.get((String)configMap.get("connection")).add((String)configMap.get("table"));
-                return new SQLSendDataItem((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
-                    (String)configMap.get("connection"), (String)configMap.get("value"), (boolean)configMap.get("cache"));
-            case "retrieve-data":
-                tables.get((String)configMap.get("connection")).add((String)configMap.get("table"));
-                return new SQLRetrieveDataItem((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
-                    (String)configMap.get("connection"), (boolean)configMap.get("cache"));
-            case "sql-cache-if":
-                return new SQLCacheIfItem(Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("yes-chain")),Configuration.loadItems((ArrayList<LinkedHashMap<String, Object>>) configMap.get("no-chain")),
-                    (String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
-                    (String)configMap.get("connection"), (boolean)configMap.get("cache"));
-            case "sql-cache-remove":
-                return new SQLCacheRemove((String)configMap.get("table"), (String)configMap.get("name"), (String)configMap.get("key"),
-                    (String)configMap.get("connection"), (boolean)configMap.get("cache"));
-            default:
-                return null;
-        }
+    public List<String> getItemNames() {
+        return Arrays.asList("send-data", "retrieve-data", "sql-cache-if", "sql-cache-remove");
     }
 
     @Override
     public void load() {
-        if(Configuration.debug){
-            System.out.println("Loading "+this);
-        }
+        ChatDirector.logDebug("Loading " + this);
         for (Entry<String, SQLConnection> connection : connections.entrySet()) {
             connection.getValue().load();
             for (String table : tables.get(connection.getKey())) {
                 try {
-                    connection.getValue().connection.prepareStatement("CREATE TABLE IF NOT EXISTS "+table+" (`name` varchar(255) NOT NULL,`key` varchar(255) NOT NULL, `value` varchar(255) NOT NULL, PRIMARY KEY (`key`, `name`));").execute();
+                    connection.getValue().connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + table
+                            + " (`name` varchar(255) NOT NULL,`key` varchar(255) NOT NULL, `value` varchar(255) NOT NULL, PRIMARY KEY (`key`, `name`));")
+                            .execute();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -70,14 +52,50 @@ public class SQLModule extends Module {
 
     @Override
     public void unload() {
-        if(Configuration.debug){
-            System.out.println("Unloading "+this);
-        }
-        for(SQLConnection connection:connections.values()){
+        ChatDirector.logDebug("Unloading " + this);
+        for (SQLConnection connection : connections.values()) {
             connection.unload();
         }
         connections = new HashMap<>();
         tables = new HashMap<>();
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
+    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+        switch (type) {
+            case "send-data":
+                tables.get(config.get("connection").asText()).add(config.get("table").asText());
+                return new SQLSendDataItem(config.get("table").asText(), config.get("name").asText(),
+                        config.get("key").asText(), config.get("connection").asText(),
+                        config.get("value").asText(), config.get("cache").asBoolean());
+            case "retrieve-data":
+                tables.get(config.get("connection").asText()).add(config.get("table").asText());
+                return new SQLRetrieveDataItem(config.get("table").asText(), config.get("name").asText(),
+                        config.get("key").asText(), config.get("connection").asText(),
+                        config.get("cache").asBoolean());
+            case "sql-cache-if":
+                return new SQLCacheIfItem(
+                        ChatDirector.loadChain(om,config.get("yes-chain")),
+                        ChatDirector.loadChain(om,config.get("no-chain")),
+                        config.get("table").asText(), config.get("name").asText(), config.get("key").asText(),
+                        config.get("connection").asText(), config.get("cache").asBoolean());
+            case "sql-cache-remove":
+                return new SQLCacheRemove(config.get("table").asText(), config.get("name").asText(),
+                        config.get("key").asText(), config.get("connection").asText(),
+                        config.get("cache").asBoolean());
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public Context getContext(Object object) {
+        return new Context();
     }
     
 }

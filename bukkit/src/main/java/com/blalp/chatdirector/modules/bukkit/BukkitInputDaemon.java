@@ -1,12 +1,9 @@
 package com.blalp.chatdirector.modules.bukkit;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.ChatDirectorBukkit;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.ItemDaemon;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -17,9 +14,6 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public static BukkitInputDaemon instance;
-    public String format = "**%PLAYER_NAME% joined the server**";
-    public String newPlayerFormat = "Welcome %PLAYER_NAME%!";
-
     public BukkitInputDaemon(){
         instance=this;
     }
@@ -31,13 +25,13 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
                 continue;
             }
             if (item.chat) {
-                Map<String,String> context = ChatDirector.formatter.getContext(event);
+                Context context = BukkitModule.instance.getContext(event);
                 if (item.overrideChat) {
-                    //event.setFormat("%2s");
-                    //event.semsagee();
-                    event.setFormat(item.work(ChatDirector.format(item.format,context),context));
+                    context.put("CURRENT", ChatDirector.format(item.formatChat,context));
+                    event.setFormat(ChatDirector.run(item, context, false).getCurrent());
                 } else {
-                    item.startWork(ChatDirector.format(item.format,context),false,context);
+                    context.put("CURRENT", ChatDirector.format(item.formatChat,context));
+                    ChatDirector.run(item, context, true);
                 }
             }
             if(item.cancelChat){
@@ -48,17 +42,18 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerLoginEvent event) {
-        Map<String,String> context = ChatDirector.formatter.getContext(event);
-        String message = ChatDirector.format(format,context);
+        Context context = BukkitModule.instance.getContext(event);
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (event.getResult().equals(Result.ALLOWED) && item.checkCanceled) {
                 continue;
             }
             if (item.join) {
                 if(!event.getPlayer().hasPlayedBefore()&&item.newJoin){
-                    item.startWork(ChatDirector.format(newPlayerFormat,context),true,ChatDirector.formatter.getContext(event));
+                    context.put("CURRENT", ChatDirector.format(item.formatLogin,context));
+                    ChatDirector.run(item, context, true);
                 } else {
-                    item.startWork(message,true,ChatDirector.formatter.getContext(event));
+                    context.put("CURRENT", ChatDirector.format(item.formatLogin,context));
+                    ChatDirector.run(item, context, true);
                 }
             }
         }
@@ -66,28 +61,33 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
 
     @EventHandler
     public void onLogout(PlayerQuitEvent event) {
-        String message = "**" + event.getPlayer().getDisplayName() + " left the server**";
+        Context context = BukkitModule.instance.getContext(event);
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (item.leave) {
-                item.startWork(message,true,ChatDirector.formatter.getContext(event));
+                context.put("CURRENT", ChatDirector.format(item.formatLogout,context));
+                ChatDirector.run(item, context, true);
             }
         }
     }
 
     public void onServerStart() {
+        Context context = BukkitModule.instance.getContext(null);
         // Loaded the main world. Server started!
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (item.serverStarted) {
-                item.startWork("**Server Started**",true,ChatDirector.formatter.getContext(null));
+                context.put("CURRENT", ChatDirector.format(item.formatStarted,context));
+                ChatDirector.run(item, context, true);
             }
         }
     }
 
     public void onServerStop() {
+        Context context = BukkitModule.instance.getContext(null);
         // Loaded the main world. Server started!
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[]{})) {
             if (item.serverStopped) {
-                item.startWork("**Server Stopped**",true,ChatDirector.formatter.getContext(null));
+                context.put("CURRENT", ChatDirector.format(item.formatStopped,context));
+                ChatDirector.run(item, context, true);
             }
         }
     }

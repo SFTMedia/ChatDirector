@@ -1,8 +1,7 @@
 package com.blalp.chatdirector.modules.context;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
 
 public class ContextRemoveItem extends ContextItem {
 
@@ -10,9 +9,10 @@ public class ContextRemoveItem extends ContextItem {
         super(context);
     }
     @Override
-    public String process(String string, Map<String, String> context) {
-        this.context.remove(ChatDirector.format(this.contextName, context));
-        return string;
+    public Context process(Context context) {
+        Context output = new Context();
+        output.remove(ChatDirector.format(this.contextName, context));
+        return output;
     }
     
 }

@@ -1,13 +1,16 @@
 package com.blalp.chatdirector.modules.javacord;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.utils.ValidationUtils;
 
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
 
 public class DiscordResolveItem extends DiscordItem {
+	String channelID,serverID;
 	public DiscordResolveItem(String botName, String serverID,boolean toDiscord,boolean toPlain) {
 		super(botName);
 		this.serverID=serverID;
@@ -18,8 +21,8 @@ public class DiscordResolveItem extends DiscordItem {
 	public boolean toDiscord, toPlain;
 
 	@Override
-	public String process(String string, Map<String,String> context) {
-		String s = string;
+	public Context process(Context context) {
+		String s = context.getCurrent();
 		Server server = DiscordModule.discordBots.get(botName).getDiscordApi().getServerById(serverID).get();
 		String output = "";
 		boolean found = false;
@@ -115,7 +118,12 @@ public class DiscordResolveItem extends DiscordItem {
 				output += s.charAt(i);
 			}
 		}
-		return output;
+		return new Context(output);
+	}
+
+	@Override
+	public boolean isValid() {
+		return ValidationUtils.anyOf(toDiscord,toPlain)&&ValidationUtils.hasContent(channelID,serverID)&&super.isValid();
 	}
 
 }

@@ -2,10 +2,10 @@ package com.blalp.chatdirector.modules.sql;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Map;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Configuration;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.utils.ValidationUtils;
 public class SQLSendDataItem extends SQLItem {
     String value;
     public SQLSendDataItem(String table, String name, String key, String connectionName,String value,boolean cache) {
@@ -14,8 +14,7 @@ public class SQLSendDataItem extends SQLItem {
     }
 
     @Override
-    public String process(String string, Map<String, String> context) {
-        context.put("CURRENT", string);
+    public Context process(Context context) {
         if(cache) {
             SQLCacheStore.setValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context), ChatDirector.format(value,context));
         }
@@ -27,13 +26,15 @@ public class SQLSendDataItem extends SQLItem {
             statement.setString(4, ChatDirector.format(value, context));
             statement.execute();
         } catch (SQLException e){
-            System.err.println(this+" failed on "+string);
-            if(Configuration.debug){
-                System.out.println("Failed SQL "+e.getSQLState());
-            }
+            System.err.println(this+" failed on "+context.getCurrent());
+            ChatDirector.logDebug("Failed SQL "+e.getSQLState());
             e.printStackTrace();
         }
-        return string;
+        return new Context();
+    }
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.hasContent(value)&&super.isValid();
     }
     
 }

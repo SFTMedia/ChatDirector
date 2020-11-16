@@ -7,5 +7,10 @@ public class ContextItem extends PassItem {
     public ContextItem(String context){
         this.contextName=context;
     }
+
+    @Override
+    public boolean isValid() {
+        return contextName!=null;
+    }
     
 }

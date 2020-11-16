@@ -2,21 +2,28 @@ package com.blalp.chatdirector.modules.javacord;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.utils.ValidationUtils;
+
 import java.awt.Color;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 
 public class DiscordEmbedItem extends DiscordItem {
+    private String channelID;
+
     public DiscordEmbedItem(String botName, String channelID) {
-        super(botName, channelID);
+        super(botName);
+        this.channelID=channelID;
     }
     public String title,description,authorName,authorLink,authorAvatar,color,footerName,footerAvatar,image,thumbnail;
     public Map<String,String> fields,inlineFields;
 
     @Override
-    public String process(String string, Map<String, String> context) {
+    public Context process(Context context) {
         EmbedBuilder embed = new EmbedBuilder();
         String temp;
         if(title!=null) {
@@ -36,7 +43,7 @@ public class DiscordEmbedItem extends DiscordItem {
             if(Color.decode(color)!=null){
                 embed.setColor(Color.decode(color));
             } else {
-                System.err.println("color "+color+" not a valid color.");
+                ChatDirector.log(Level.WARNING,"color "+color+" not a valid color.");
             }
         }
         if(footerName!=null){
@@ -55,7 +62,7 @@ public class DiscordEmbedItem extends DiscordItem {
         if(fields!=null) {
             for (Entry<String,String> field : fields.entrySet()){
                 temp=ChatDirector.format(field.getValue(),context);
-                if(!temp.isEmpty()) {
+                if(!temp.isBlank()) {
                     embed.addField(ChatDirector.format(field.getKey(),context), temp);
                 }
             }
@@ -63,13 +70,17 @@ public class DiscordEmbedItem extends DiscordItem {
         if(inlineFields!=null) {
             for (Entry<String,String> field : inlineFields.entrySet()){
                 temp=ChatDirector.format(field.getValue(),context);
-                if(!temp.isEmpty()) {
+                if(!temp.isBlank()) {
                     embed.addInlineField(ChatDirector.format(field.getKey(),context), temp);
                 }
             }
         }
         DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(ChatDirector.format(channelID, context)).get().asServerTextChannel().get().sendMessage(embed);
-        return string;
+        return new Context();
+    }
+    @Override
+    public boolean isValid() {
+        return super.isValid()&&ValidationUtils.hasContent(channelID);
     }
     
 }

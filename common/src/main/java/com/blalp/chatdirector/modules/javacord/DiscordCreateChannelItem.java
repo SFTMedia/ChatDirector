@@ -1,9 +1,10 @@
 package com.blalp.chatdirector.modules.javacord;
 
-import java.util.Map;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.utils.ValidationUtils;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.ChannelCategory;
@@ -16,13 +17,15 @@ public class DiscordCreateChannelItem extends DiscordItem {
     String userID;
     String name="channel";
     String topic;
+    String serverID;
+    String categoryID;
     public DiscordCreateChannelItem(String botName, String serverID) {
         super(botName);
         this.serverID=serverID;
     }
 
     @Override
-    public String process(String string, Map<String, String> context) {
+    public Context process(Context context) {
         DiscordApi api = DiscordModule.discordBots.get(botName).getDiscordApi();
         ServerTextChannelBuilder builder = api.getServerById(ChatDirector.format(serverID, context)).get().createTextChannelBuilder();
         if(categoryID!=null){
@@ -44,6 +47,11 @@ public class DiscordCreateChannelItem extends DiscordItem {
             builder.setTopic(ChatDirector.format(topic, context));
         }
         context.put("DISCORD_CHANNEL_ID",builder.create().join().getIdAsString());
-        return super.process(string, context);
+        return new Context();
+    }
+
+    @Override
+    public boolean isValid() {
+        return ValidationUtils.hasContent(categoryID,userID,topic,name,serverID)&&super.isValid();
     }
 }

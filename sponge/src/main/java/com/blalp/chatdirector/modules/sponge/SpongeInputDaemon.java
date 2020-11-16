@@ -1,8 +1,7 @@
 package com.blalp.chatdirector.modules.sponge;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.ItemDaemon;
 
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
@@ -14,37 +13,41 @@ import org.spongepowered.api.text.Text;
 
 public class SpongeInputDaemon extends ItemDaemon {
     public static SpongeInputDaemon instance;
-    public String format = "**%PLAYER_NAME% joined the server**";
     public SpongeInputDaemon(){
         instance=this;
     }
-	public void onServerStop(GameStoppedServerEvent e) {
+	public void onServerStop(GameStoppedServerEvent event) {
         // Loaded the main world. Server started!
+        Context context = SpongeModule.instance.getContext(event);
         for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (item.serverStopped) {
-                item.startWork("**Server Stopped**",true,ChatDirector.formatter.getContext(e));
+                context.put("CURRENT", ChatDirector.format(item.formatStopped, context));
+                ChatDirector.run(item, context, true);
             }
         }
 	}
 	public void onServerStart(GameStartedServerEvent event) {
         // Loaded the main world. Server started!
+        Context context = SpongeModule.instance.getContext(event);
         for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (item.serverStarted) {
-                item.startWork("**Server Started**",true,ChatDirector.formatter.getContext(event));
+                context.put("CURRENT", ChatDirector.format(item.formatStarted, context));
+                ChatDirector.run(item, context, true);
             }
         }
 	}
 	public void onChat(Chat event) {
+        Context context = SpongeModule.instance.getContext(event);
         for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
             if (item.chat) {
-                Map<String,String> context = ChatDirector.formatter.getContext(event);
+                context.put("CURRENT", ChatDirector.format(item.formatChat,context));
                 if (item.overrideChat){
-                    event.setMessage(Text.of(item.work(ChatDirector.format(item.format,context), context)));
+                    event.setMessage(Text.of(ChatDirector.run(item,context,false)));
                 } else {
-                    item.startWork(ChatDirector.format(item.format,context),false,context);
+                    event.setMessage(Text.of(ChatDirector.run(item,context,true)));
                 }
                 if(item.cancelChat){
                     event.setCancelled(true);
@@ -53,22 +56,23 @@ public class SpongeInputDaemon extends ItemDaemon {
         }
     }
 	public void onLogin(Login event) {
-        Map<String,String> context = ChatDirector.formatter.getContext(event);
-        String message = ChatDirector.format(format,context);
+        Context context = SpongeModule.instance.getContext(event);
         for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
             if (item.join) {
-                item.startWork(message,true,ChatDirector.formatter.getContext(event));
+                context.put("CURRENT",ChatDirector.format(item.formatLogin,context));
+                ChatDirector.run(item, context, true);
             }
         }
 	}
 	public void onLogout(Disconnect event) {
-        String message = "**" + event.getTargetEntity().getName() + " left the server**";
+        Context context = SpongeModule.instance.getContext(event);
         for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
             if (item.leave) {
-                item.startWork(message,true,ChatDirector.formatter.getContext(event));
+                context.put("CURRENT",ChatDirector.format(item.formatLogout,context));
+                ChatDirector.run(item, context, true);
             }
         }
 	}

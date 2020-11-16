@@ -1,16 +1,19 @@
 package com.blalp.chatdirector.modules.context;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Item;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 
-public class ContextResolveItem extends Item {
+public class ContextResolveItem implements IItem {
 
     @Override
-    public String process(String string, Map<String, String> context) {
-        context.put("CURRENT", string);
-        return ChatDirector.format(string, context);
+    public Context process(Context context) {
+        return new Context(ChatDirector.format(context.getCurrent(), context));
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
     
 }

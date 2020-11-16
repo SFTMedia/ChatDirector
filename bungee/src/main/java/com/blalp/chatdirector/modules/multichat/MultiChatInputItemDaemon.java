@@ -1,8 +1,7 @@
 package com.blalp.chatdirector.modules.multichat;
 
-import java.util.Map;
-
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.ItemDaemon;
 
 import net.md_5.bungee.api.plugin.Listener;
@@ -19,20 +18,21 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
     
 	@EventHandler
 	public void onEvent(PostBroadcastEvent e) {
-        Map<String,String> context = ChatDirector.formatter.getContext(e);
+        Context context = MultiChatModule.instance.getContext(e);
         for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
             if(item.broadcast){
-                item.startWork(ChatDirector.format(e.getMessage(), context), true, context);
+                context.put("CURRENT", e.getMessage());
+                ChatDirector.run(item, context, true);
             }
         }
 	}
 	@EventHandler
 	public void onEvent(PostGlobalChatEvent e) {
-        System.out.println("GLOBAL CHAT "+e.getMessage());
-        Map<String,String> context = ChatDirector.formatter.getContext(e);
+        Context context = MultiChatModule.instance.getContext(e);
         for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
             if(item.global){
-                item.startWork(ChatDirector.format(e.getMessage(), context), true, context);
+                context.put("CURRENT", e.getMessage());
+                ChatDirector.run(item, context, true);
             } else {
                 System.out.println(" no global for "+item);
             }
@@ -40,10 +40,11 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
 	}
     @EventHandler
     public void onChat(PostStaffChatEvent e){
-        Map<String,String> context = ChatDirector.formatter.getContext(e);
+        Context context = MultiChatModule.instance.getContext(e);
         for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
             if(item.staff){
-                item.startWork(ChatDirector.format(e.getMessage(), context), true, context);
+                context.put("CURRENT", e.getMessage());
+                ChatDirector.run(item, context, true);
             }
         }
     }
