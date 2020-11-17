@@ -2,12 +2,16 @@ package com.blalp.chatdirector.modules.cache;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@NoArgsConstructor
 public class CacheGetItem extends CacheItem {
-
-    public CacheGetItem(String key) {
-        super(key);
-    }
 
     @Override
     public Context process(Context context) {

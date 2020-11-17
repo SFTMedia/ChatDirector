@@ -2,14 +2,25 @@ package com.blalp.chatdirector.modules.logic;
 
 import com.blalp.chatdirector.modules.common.PassItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Chain;
-import com.blalp.chatdirector.model.Context;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.configuration.Chain;
+import com.blalp.chatdirector.model.Context;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public abstract class ConditionalItem extends PassItem {
     
-    Chain trueChain;
-    Chain falseChain;
+    Chain yesChain;
+    Chain noChain;
     boolean invert=false;
     String source="%CURRENT%";
 
@@ -20,22 +31,22 @@ public abstract class ConditionalItem extends PassItem {
             result=!result;
         }
         ChatDirector.logDebug("Conditional "+this.getClass().getCanonicalName()+" test returned "+result);
-        ChatDirector.logDebug("True is "+trueChain+" false is "+falseChain);
+        ChatDirector.logDebug("True is "+yesChain+" false is "+noChain);
         if(result){
-            return trueChain.run(context);
+            return yesChain.run(context);
         } else {
-            return falseChain.run(context);
+            return noChain.run(context);
         }
     }
     
     public abstract boolean test(Context context);
     public ConditionalItem(Chain trueChain,Chain falseChain){
-        this.trueChain=trueChain;
-        this.falseChain=falseChain;
+        this.yesChain=trueChain;
+        this.noChain=falseChain;
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(trueChain,falseChain)&&ValidationUtils.hasContent(source);
+        return ValidationUtils.hasContent(yesChain,noChain)&&ValidationUtils.hasContent(source);
     }
 }

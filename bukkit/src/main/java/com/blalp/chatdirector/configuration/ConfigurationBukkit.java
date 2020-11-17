@@ -1,7 +1,5 @@
 package com.blalp.chatdirector.configuration;
-
-import java.util.Map.Entry;
-
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
 import com.blalp.chatdirector.modules.bukkit.BukkitModule;
 import com.blalp.chatdirector.modules.vault.VaultModule;
@@ -15,8 +13,8 @@ public class ConfigurationBukkit extends Configuration {
     }
 
     @Override
-    public IModule loadModule(ObjectMapper om, Entry<String, JsonNode> module) {
-        switch (module.getKey()) {
+    public IModule loadModule(ObjectMapper om, String moduleKey, JsonNode moduleValue) {
+        switch (moduleKey) {
             case "bukkit":
                 return new BukkitModule();
             case "vault":
@@ -24,7 +22,7 @@ public class ConfigurationBukkit extends Configuration {
             case "bungee":
                 return new BungeeModule();
             default:
-                return super.loadModule(om, module);
+                return super.loadModule(om, moduleKey, moduleValue);
         }
     }
     

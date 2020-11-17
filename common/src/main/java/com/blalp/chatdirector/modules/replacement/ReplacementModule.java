@@ -3,12 +3,8 @@ package com.blalp.chatdirector.modules.replacement;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ReplacementModule implements IModule {
 
@@ -32,22 +28,23 @@ public class ReplacementModule implements IModule {
     }
 
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+    public Class<?> getItemClass(String type) {
         switch (type) {
             case "regex":
-                return new RegexItem(config);
+                return RegexItem.class;
+                //return new RegexItem(config);
             case "remove-colors":
-                return om.convertValue(config, RemoveColorsItem.class);
+                return RemoveColorsItem.class;
             case "resolve-colors":
-                return om.convertValue(config, ResolveColorsItem.class);
+                return ResolveColorsItem.class;
             case "sub-string":
-                return om.convertValue(config, SubStringItem.class);
+                return SubStringItem.class;
             case "to-lower":
-                return om.convertValue(config, ToLowerItem.class);
+                return ToLowerItem.class;
             case "to-upper":
-                return om.convertValue(config, ToUpperItem.class);
+                return ToUpperItem.class;
             case "to-word":
-                return om.convertValue(config, ToWordItem.class);
+                return ToWordItem.class;
             default:
                 return null;
         }

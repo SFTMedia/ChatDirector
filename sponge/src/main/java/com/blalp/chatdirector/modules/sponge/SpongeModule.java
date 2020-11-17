@@ -2,10 +2,10 @@ package com.blalp.chatdirector.modules.sponge;
 
 import java.util.Arrays;
 import java.util.List;
-import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.IModule;
+import com.blalp.chatdirector.model.IItem;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,7 +15,7 @@ import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.message.MessageChannelEvent.Chat;
 import org.spongepowered.api.event.user.TargetUserEvent;
 
-public class SpongeModule implements IModule {
+public class SpongeModule implements IItem {
     public static SpongeModule instance;
     public SpongeModule(){
         instance=this;

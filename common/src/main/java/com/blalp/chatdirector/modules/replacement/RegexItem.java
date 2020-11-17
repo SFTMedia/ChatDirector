@@ -9,15 +9,20 @@ import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IteratorIterable;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
+@JsonDeserialize(using = RegexDeserializer.class)
 public class RegexItem implements IItem {
     Map<String, String> pairs = new LinkedHashMap<String,String>();
-
-    public RegexItem(JsonNode config){
-        for(Entry<String,JsonNode> pair : new IteratorIterable<>(config.fields())) {
-            pairs.put(pair.getKey(),pair.getValue().asText());
-        }
-    }
 
     @Override
     public Context process(Context context) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 
@@ -12,8 +13,8 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IteratorIterable;
 import com.blalp.chatdirector.model.Loadable;
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.IConfiguration;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
 import com.blalp.chatdirector.modules.cache.CacheModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
@@ -27,38 +28,25 @@ import com.blalp.chatdirector.modules.sql.SQLModule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import lombok.Data;
+import lombok.Getter;
+
+@Data
+@JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration extends Loadable implements IConfiguration {
 
-    String fileName;
-    public static List<IModule> loadedModules = new ArrayList<>();
-    public static boolean debug;
-    public HashMap<String, Chain> chains = new HashMap<String, Chain>();
+    boolean debug;
+    public List<IModule> loadedModules = new ArrayList<>();
+    public Map<String, Chain> chains = new HashMap<String, Chain>();
 
-    public Configuration(String fileName) {
-        this.fileName = fileName;
-    }
-
+	// https://stackoverflow.com/questions/58102069/how-to-do-a-partial-deserialization-with-jackson#58102226
     @Override
     public void load() {
-        ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        try {
-            JsonNode root = om.readTree(new File(fileName));
-            debug=root.at("debug").asBoolean();
-            for (Entry<String, JsonNode> module : new IteratorIterable<Entry<String, JsonNode>>(root.at("modules").fields())) {
-                loadModule(om, module);
-            }
-            for (Entry<String, JsonNode> module : new IteratorIterable<Entry<String, JsonNode>>(root.at("chains").fields())) {
-                chains.put(module.getKey(),loadChain(om, module.getValue()));
-            }
-        } catch (JsonProcessingException e1) {
-            e1.printStackTrace();
-            new Thread(new TimedLoad()).start();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-            new Thread(new TimedLoad()).start();
-        }
+        // The actual loading is done in ChatDirector
         if(debug){
             System.out.println("Modules");
             for (IModule module : loadedModules) {
@@ -73,55 +61,46 @@ public class Configuration extends Loadable implements IConfiguration {
             }
         }
     }
-    
-    public Chain loadChain(ObjectMapper om, JsonNode module) {
-        Chain chain = new Chain();
-        for (Entry<String, JsonNode> item : new IteratorIterable<>(module.fields())) {
-            chain.items.add(loadItem(om, chain, item.getKey(), item.getValue()));
-        }
-        return chain;        
-    }
 
-    public IModule loadModule(ObjectMapper om, Entry<String, JsonNode> module) {
-        switch(module.getKey()) {
+    public Class<?> getModuleClass(String moduleType) {
+        switch(moduleType) {
             case "logic":
-                return om.convertValue(module.getValue(), LogicModule.class);
+                return LogicModule.class;
             case "console":
-                return om.convertValue(module.getValue(), ConsoleModule.class);
+                return ConsoleModule.class;
             case "context":
-                return om.convertValue(module.getValue(), ContextModule.class);
+                return ContextModule.class;
             case "discord":
-                return om.convertValue(module.getValue(), DiscordModule.class);
+                return DiscordModule.class;
             case "file":
-                return om.convertValue(module.getValue(), FileModule.class);
+                return FileModule.class;
             case "luckperms":
-                return om.convertValue(module.getValue(), LuckPermsModule.class);
+                return LuckPermsModule.class;
             case "replacement":
-                return om.convertValue(module.getValue(), ReplacementModule.class);
+                return ReplacementModule.class;
             case "cache":
-                return om.convertValue(module.getValue(), CacheModule.class);
+                return CacheModule.class;
             case "sql":
-                return om.convertValue(module.getValue(), SQLModule.class);
+                return SQLModule.class;
             default:
-                ChatDirector.log(Level.WARNING, "Module of type "+module.getKey()+" not found.");
+                ChatDirector.log(Level.WARNING, "Module of type "+moduleType+" not found.");
                 return null;
         }
     }
 
-    public IItem loadItem(ObjectMapper om, Chain chain, String key, JsonNode item) {
-        for(IModule module : loadedModules) {
-            if (module.getItemNames().contains(key)) {
-                return module.createItem(om, chain, key, item);
+
+    @Override
+    public Class<?> getItemClass(String itemType) {
+        for(IModule module: loadedModules){
+            if(module.getItemNames().contains(itemType)){
+                return module.getItemClass(itemType);
             }
         }
-        System.err.println("Item of type "+key+" Not found.");
         return null;
     }
 
     @Override
     public void unload() {
-        loadedModules = new ArrayList<>();
-        chains = new HashMap<String,Chain>();
     }
     
 }

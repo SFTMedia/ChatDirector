@@ -3,22 +3,26 @@ package com.blalp.chatdirector.modules.javacord;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ValidationUtils;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
-/**
- * DiscordOutput
- */
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class DiscordOutputItem extends DiscordItem {
-    String channelID;
-    public DiscordOutputItem(String botName,String channelID) {
-        super(botName);
-    }
+    String channel;
+    String format="%CURRENT%";
     @Override
     public Context process(Context context) {
-        DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(ChatDirector.format(channelID,context)).get().asTextChannel().get().sendMessage(context.getCurrent());
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi().getChannelById(ChatDirector.format(channel,context)).get().asTextChannel().get().sendMessage(ChatDirector.format(format,context));
         return new Context();
     }
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(channelID)&&super.isValid();
+        return ValidationUtils.hasContent(channel)&&super.isValid();
     }
 }

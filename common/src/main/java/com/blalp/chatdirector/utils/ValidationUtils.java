@@ -1,11 +1,11 @@
 package com.blalp.chatdirector.utils;
 
-import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.configuration.Chain;
 
 public class ValidationUtils {
     public static boolean hasContent(String ... strings) {
         for(String s:strings) {
-            if(s==null||s.isBlank()){
+            if(s==null||s.trim().isEmpty()){
                 return false;
             }
         }

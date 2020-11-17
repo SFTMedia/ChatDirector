@@ -3,12 +3,8 @@ package com.blalp.chatdirector.modules.console;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ConsoleModule implements IModule {
 
@@ -33,19 +29,19 @@ public class ConsoleModule implements IModule {
     }
 
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
-        switch (type) {
-            case "console-output-error":
-                return new ConsoleOutputErrorItem();
-            case "console-output":
-                return new ConsoleOutputItem();
-            default:
-                return null;
-        }
+    public Context getContext(Object object) {
+        return new Context();
     }
 
     @Override
-    public Context getContext(Object object) {
-        return new Context();
+    public Class<?> getItemClass(String type) {
+        switch (type) {
+            case "console-output-error":
+                return ConsoleOutputErrorItem.class;
+            case "console-output":
+                return ConsoleOutputItem.class;
+            default:
+                return null;
+        }
     }
 }

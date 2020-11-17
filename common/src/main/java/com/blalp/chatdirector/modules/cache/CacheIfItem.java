@@ -1,17 +1,22 @@
 package com.blalp.chatdirector.modules.cache;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.modules.logic.ConditionalItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class CacheIfItem extends ConditionalItem {
     String key;
-    public CacheIfItem(Chain trueChain, Chain falseChain,String key){
-        super(trueChain, falseChain);
-        this.key=key;
-    }
     @Override
     public boolean test(Context context) {
         return CacheStore.containsKey(ChatDirector.format(key, context));

@@ -1,5 +1,7 @@
 package com.blalp.chatdirector;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,37 +12,55 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.blalp.chatdirector.configuration.Configuration;
+import com.blalp.chatdirector.configuration.TimedLoad;
 import com.blalp.chatdirector.model.Loadable;
-import com.blalp.chatdirector.model.Chain;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.blalp.chatdirector.configuration.Chain;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IConfiguration;
+import com.blalp.chatdirector.model.IItem;
 
 // Should implement both bungee, sponge and bukkit if possible
-public class ChatDirector extends Loadable {
-    static Configuration config;
+public class ChatDirector extends Loadable implements IConfiguration {
+    public static Configuration config;
     static Logger logger;
     static Handler handler;
-    static Map<IItem, Chain> listenerItems = new HashMap<>();
+    /**
+     * Maintain this list as some things run in separate threads, so with an item you need to be able to get the chain object to start execution. Look for a better solution.
+     */
+    static Map<IItem, Chain> items = new HashMap<>();
     public static ChatDirector instance;
     List<IModule> modules = new ArrayList<>();
-    HashMap<String, Chain> chains = new HashMap<String, Chain>();
+    Map<String, Chain> chains = new HashMap<String, Chain>();
+    String fileName;
 
-    public ChatDirector(Configuration configuration) {
+    public ChatDirector(Configuration configuration,String fileName) {
         config = configuration;
         instance = this;
         logger = Logger.getLogger("ChatDirector");
-        handler = new ConsoleHandler();
-        handler.setLevel(Level.WARNING);
-        logger.addHandler(handler);
+        //handler = new ConsoleHandler();
+        //handler.setLevel(Level.WARNING);
+        //logger.addHandler(handler);
+        this.fileName=fileName;
     }
 
     public void load() {
         // Load config
-        config.load();
-        modules = Configuration.loadedModules;
+        ObjectMapper om = new ObjectMapper(new YAMLFactory()).setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+        try {
+            config=(om.readValue(new File(fileName),Configuration.class));
+        } catch (JsonProcessingException e1) {
+            e1.printStackTrace();
+            new Thread(new TimedLoad()).start();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            new Thread(new TimedLoad()).start();
+        }
+        modules = config.loadedModules;
         chains = config.chains;
         // Load modules
         for (IModule module : modules) {
@@ -81,11 +101,11 @@ public class ChatDirector extends Loadable {
     }
 
     public static Context run(IItem item, Context context, boolean async) {
-        if (listenerItems.containsKey(item)) {
+        if (items.containsKey(item)) {
             if (async) {
-                listenerItems.get(item).runAsync(item, context);
+                items.get(item).runAsync(item, context);
             } else {
-                return listenerItems.get(item).runAt(item, context);
+                return items.get(item).runAt(item, context);
             }
         } else {
             log(Level.SEVERE, "Could not find chain to go with " + item);
@@ -94,23 +114,19 @@ public class ChatDirector extends Loadable {
         return new Context();
     }
 
-    public static Chain loadChain(ObjectMapper om, JsonNode module) {
-        return config.loadChain(om, module);
+    public static void addItem(IItem item, Chain chain) {
+        items.put(item, chain);
     }
 
-    public static IModule loadModule(ObjectMapper om, Entry<String, JsonNode> module) {
-        return config.loadModule(om, module);
-    }
-
-    public static IItem loadItem(ObjectMapper om, Chain chain, String key, JsonNode item) {
-        return config.loadItem(om, chain, key, item);
-    }
-
-	public static void addListenerItem(IItem item, Chain chain) {
-        listenerItems.put(item, chain);
+    public static boolean hasChains() {
+        return config.chains.size() != 0;
 	}
 
-	public static boolean hasChains() {
-		return config.chains.size()!=0;
+	public Class<?> getModuleClass(String moduleType) {
+        return config.getModuleClass(moduleType);
+	}
+
+	public Class<?> getItemClass(String itemType) {
+		return config.getItemClass(itemType);
 	}
 }

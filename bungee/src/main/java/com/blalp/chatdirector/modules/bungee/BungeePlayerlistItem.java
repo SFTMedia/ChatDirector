@@ -42,7 +42,7 @@ public class BungeePlayerlistItem implements IItem {
                     temp_output += ChatDirector.format(formatPlayer, tempContext2);
                     tempContext2= new Context(tempContext);
                 }
-                if(temp_output.isBlank()){
+                if(temp_output.isEmpty()){
                     temp_output=ChatDirector.format(formatNoPlayers,context);
                 }
                 context.put("SERVER_"+server.getName()+"_PLAYERS",temp_output);

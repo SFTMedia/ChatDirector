@@ -3,12 +3,8 @@ package com.blalp.chatdirector.modules.common;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CommonModule implements IModule {
 
@@ -18,17 +14,17 @@ public class CommonModule implements IModule {
     }
 
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+    public Class<?> getItemClass(String type) {
         switch (type) {
             case "stop":
             case "halt":
-                return om.convertValue(config, HaltItem.class);
+                return HaltItem.class;
             case "break":
-                return om.convertValue(config, BreakItem.class);
+                return BreakItem.class;
             case "echo":
-                return new EchoItem(config.asText());
+                return EchoItem.class;
             case "reload":
-                return om.convertValue(config, ReloadItem.class);
+                return ReloadItem.class;
             default:
                 return null;
         }

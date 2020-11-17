@@ -1,12 +1,18 @@
-package com.blalp.chatdirector.model;
+package com.blalp.chatdirector.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.model.IValid;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@JsonDeserialize(using = ChainDeserializer.class)
 public class Chain implements IValid, Runnable {
-    public List<IItem> items;
+    public List<IItem> items = new ArrayList<>();
     int index;
     Context context;
     /**
@@ -101,4 +107,8 @@ public class Chain implements IValid, Runnable {
     public void run() {
         runAt(index, context);
     }
+	public void addItem(IItem item) {
+        items.add(item);
+        ChatDirector.addItem(item, this);
+	}
 }
