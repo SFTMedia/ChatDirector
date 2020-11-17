@@ -17,22 +17,22 @@ public class SQLConnection implements ILoadable {
 
     @Override
     public void load() {
-        ChatDirector.logDebug("Loading "+this);
+        ChatDirector.logDebug("Loading " + this);
         try {
             connection = DriverManager.getConnection(connectionString);
         } catch (SQLException e) {
-            System.err.println("connection "+connectionString+" failed.");
+            System.err.println("connection " + connectionString + " failed.");
             e.printStackTrace();
         }
     }
 
     @Override
     public void unload() {
-        ChatDirector.logDebug("Unloading "+this);
+        ChatDirector.logDebug("Unloading " + this);
         try {
             connection.close();
         } catch (SQLException e) {
-            System.err.println("Failed to unload "+connectionString);
+            System.err.println("Failed to unload " + connectionString);
             e.printStackTrace();
         }
     }

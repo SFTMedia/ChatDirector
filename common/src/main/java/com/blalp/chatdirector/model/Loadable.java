@@ -8,10 +8,10 @@ public abstract class Loadable implements ILoadable {
     public abstract void unload();
 
     public void reload() {
-        ChatDirector.logDebug("Reloading "+getClass().getCanonicalName()+" "+this);
+        ChatDirector.logDebug("Reloading " + getClass().getCanonicalName() + " " + this);
         unload();
-        ChatDirector.logDebug("Unloaded "+getClass().getCanonicalName()+" "+this);
+        ChatDirector.logDebug("Unloaded " + getClass().getCanonicalName() + " " + this);
         load();
-        ChatDirector.logDebug("Reloaded "+getClass().getCanonicalName()+" "+this);
+        ChatDirector.logDebug("Reloaded " + getClass().getCanonicalName() + " " + this);
     }
 }

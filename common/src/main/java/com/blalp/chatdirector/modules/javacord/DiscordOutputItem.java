@@ -12,17 +12,21 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class DiscordOutputItem extends DiscordItem {
     String channel;
-    String format="%CURRENT%";
+    String format = "%CURRENT%";
+
     @Override
     public Context process(Context context) {
-        DiscordModule.instance.discordBots.get(bot).getDiscordApi().getChannelById(ChatDirector.format(channel,context)).get().asTextChannel().get().sendMessage(ChatDirector.format(format,context));
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi()
+                .getChannelById(ChatDirector.format(channel, context)).get().asTextChannel().get()
+                .sendMessage(ChatDirector.format(format, context));
         return new Context();
     }
+
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(channel)&&super.isValid();
+        return ValidationUtils.hasContent(channel) && super.isValid();
     }
 }

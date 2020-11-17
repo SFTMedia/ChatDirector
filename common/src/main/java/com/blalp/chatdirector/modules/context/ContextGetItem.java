@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class ContextGetItem extends ContextItem {
 
     @Override
     public Context process(Context context) {
         return new Context(context.get(ChatDirector.format(this.context, context)));
     }
-    
+
 }

@@ -22,23 +22,23 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
         ObjectCodec oc = p.getCodec();
         JsonNode chain = oc.readTree(p);
         Chain chainObj = new Chain();
-        String itemKey=null;
-        JsonNode itemValue=null;
+        String itemKey = null;
+        JsonNode itemValue = null;
         for (JsonNode item : new IteratorIterable<>(chain.elements())) {
             // Traversing items
-            if(item.isTextual()){
-                itemKey=item.asText();
-                itemValue=null;
+            if (item.isTextual()) {
+                itemKey = item.asText();
+                itemValue = null;
             } else {
-                for(Entry<String,JsonNode> innerItem : new IteratorIterable<>(item.fields())) {
-                    itemKey=innerItem.getKey();
-                    itemValue=innerItem.getValue();
+                for (Entry<String, JsonNode> innerItem : new IteratorIterable<>(item.fields())) {
+                    itemKey = innerItem.getKey();
+                    itemValue = innerItem.getValue();
                 }
             }
             Class<?> moduleClass = ChatDirector.instance.getItemClass(itemKey);
             if (moduleClass != null && IItem.class.isAssignableFrom(moduleClass)) {
                 IItem itemObj = null;
-                if (itemValue == null||itemValue.isNull()) {
+                if (itemValue == null || itemValue.isNull()) {
                     try {
                         itemObj = (IItem) moduleClass.getConstructors()[0].newInstance();
                     } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
@@ -50,17 +50,17 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
                 }
                 chainObj.addItem(itemObj);
             } else {
-                ChatDirector.logDebug("Not adding module "+itemValue+" it failed to load.");
+                ChatDirector.logDebug("Not adding module " + itemValue + " it failed to load.");
             }
         }
-        while(chainObj.items.contains(null)){
+        while (chainObj.items.contains(null)) {
             chainObj.items.remove(null);
         }
-        if(chainObj.items.size()==0){
-            ChatDirector.log(Level.WARNING, "No items parsed in chain "+chain);
+        if (chainObj.items.size() == 0) {
+            ChatDirector.log(Level.WARNING, "No items parsed in chain " + chain);
             return null;
         }
         return chainObj;
     }
-    
+
 }

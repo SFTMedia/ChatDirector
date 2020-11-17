@@ -18,22 +18,22 @@ public class IfStartsWithDeserializer extends JsonDeserializer<IfStartsWithItem>
         ObjectCodec oc = p.getCodec();
         JsonNode config = oc.readTree(p);
         IfStartsWithItem output = new IfStartsWithItem();
-        if (config.has("yes-chain")){
-            output.yesChain=config.get("yes-chain").traverse(oc).readValueAs(Chain.class);
+        if (config.has("yes-chain")) {
+            output.yesChain = config.get("yes-chain").traverse(oc).readValueAs(Chain.class);
         }
-        if (config.has("no-chain")){
-            output.noChain=config.get("no-chain").traverse(oc).readValueAs(Chain.class);
+        if (config.has("no-chain")) {
+            output.noChain = config.get("no-chain").traverse(oc).readValueAs(Chain.class);
         }
-        if(config.has("starts")&&config.get("starts").isTextual()){
-            output.startsWith=config.get("starts").asText();
+        if (config.has("starts") && config.get("starts").isTextual()) {
+            output.startsWith = config.get("starts").asText();
         }
-        if (config.has("source")&&config.get("source").isTextual()) {
+        if (config.has("source") && config.get("source").isTextual()) {
             output.source = config.get("source").asText();
         }
-        if (config.has("invert")&&config.get("invert").isTextual()) {
+        if (config.has("invert") && config.get("invert").isTextual()) {
             output.invert = config.get("invert").asBoolean();
         }
         return output;
     }
-    
+
 }

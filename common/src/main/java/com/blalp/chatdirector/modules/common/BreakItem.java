@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)public class BreakItem implements IItem {
+@EqualsAndHashCode(callSuper = false)
+public class BreakItem implements IItem {
 
     @Override
     public boolean isValid() {
@@ -22,5 +23,5 @@ import lombok.NoArgsConstructor;
     public Context process(Context context) {
         return null;
     }
-    
+
 }

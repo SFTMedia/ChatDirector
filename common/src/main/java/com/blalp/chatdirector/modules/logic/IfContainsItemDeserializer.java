@@ -18,22 +18,22 @@ public class IfContainsItemDeserializer extends JsonDeserializer<IfContainsItem>
         ObjectCodec oc = p.getCodec();
         JsonNode config = oc.readTree(p);
         IfContainsItem output = new IfContainsItem();
-        if (config.has("yes-chain")){
-            output.yesChain=config.get("yes-chain").traverse(oc).readValueAs(Chain.class);
+        if (config.has("yes-chain")) {
+            output.yesChain = config.get("yes-chain").traverse(oc).readValueAs(Chain.class);
         }
-        if (config.has("no-chain")){
-            output.noChain=config.get("no-chain").traverse(oc).readValueAs(Chain.class);
+        if (config.has("no-chain")) {
+            output.noChain = config.get("no-chain").traverse(oc).readValueAs(Chain.class);
         }
-        if(config.has("contains")&&config.get("contains").isTextual()){
-            output.contains=config.get("contains").asText();
+        if (config.has("contains") && config.get("contains").isTextual()) {
+            output.contains = config.get("contains").asText();
         }
-        if (config.has("source")&&config.get("source").isTextual()) {
+        if (config.has("source") && config.get("source").isTextual()) {
             output.source = config.get("source").asText();
         }
-        if (config.has("invert")&&config.get("invert").isTextual()) {
+        if (config.has("invert") && config.get("invert").isTextual()) {
             output.invert = config.get("invert").asBoolean();
         }
         return output;
     }
-    
+
 }

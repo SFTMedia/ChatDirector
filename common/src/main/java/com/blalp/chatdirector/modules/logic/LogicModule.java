@@ -22,6 +22,7 @@ public class LogicModule implements IModule {
     public List<String> getItemNames() {
         return Arrays.asList("if-contains", "if-equals", "if-regex-match", "split", "if-starts-with", "if-ends-with");
     }
+
     @Override
     public boolean isValid() {
         return true;
@@ -51,5 +52,5 @@ public class LogicModule implements IModule {
                 return null;
         }
     }
-    
+
 }

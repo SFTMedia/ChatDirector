@@ -17,18 +17,22 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class DiscordOutputFileItem extends DiscordItem {
-    String name="message",channel;
+    String name = "message", channel;
+
     @Override
     public Context process(Context context) {
         ByteArrayInputStream stream = new ByteArrayInputStream(context.getCurrent().getBytes(StandardCharsets.UTF_16));
-        new MessageBuilder().append(ChatDirector.format(name,context)).addAttachment(stream,ChatDirector.format(name,context)).send(DiscordModule.instance.discordBots.get(bot).getDiscordApi().getChannelById(ChatDirector.format(channel,context)).get().asTextChannel().get());
+        new MessageBuilder().append(ChatDirector.format(name, context))
+                .addAttachment(stream, ChatDirector.format(name, context))
+                .send(DiscordModule.instance.discordBots.get(bot).getDiscordApi()
+                        .getChannelById(ChatDirector.format(channel, context)).get().asTextChannel().get());
         return new Context();
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(name,channel)&&super.isValid();
+        return ValidationUtils.hasContent(name, channel) && super.isValid();
     }
 }

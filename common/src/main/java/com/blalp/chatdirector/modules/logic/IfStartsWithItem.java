@@ -14,24 +14,27 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = IfStartsWithDeserializer.class)
 public class IfStartsWithItem extends ConditionalItem {
     String startsWith;
-    public IfStartsWithItem (Chain nestedTrue,Chain nestedFalse, String startsWith,String source) {
+
+    public IfStartsWithItem(Chain nestedTrue, Chain nestedFalse, String startsWith, String source) {
         super(nestedTrue, nestedFalse);
-        this.startsWith=startsWith;
-        if(source==null){
-            source="%CURRENT%";
+        this.startsWith = startsWith;
+        if (source == null) {
+            source = "%CURRENT%";
         }
-        this.source=source;
+        this.source = source;
     }
+
     @Override
     public boolean test(Context context) {
         return ChatDirector.format(source, context).startsWith(startsWith);
     }
+
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(startsWith)&&super.isValid();
+        return ValidationUtils.hasContent(startsWith) && super.isValid();
     }
 }

@@ -12,17 +12,20 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class DiscordChannelRename extends DiscordItem {
-    String name,channel;
+    String name, channel;
+
     @Override
     public Context process(Context context) {
-        DiscordModule.instance.discordBots.get(bot).getDiscordApi().getServerChannelById(ChatDirector.format(channel, context)).get().createUpdater().setName(ChatDirector.format(name, context)).update();
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi()
+                .getServerChannelById(ChatDirector.format(channel, context)).get().createUpdater()
+                .setName(ChatDirector.format(name, context)).update();
         return new Context();
     }
 
     @Override
     public boolean isValid() {
-        return super.isValid()&&ValidationUtils.hasContent(channel,name);
+        return super.isValid() && ValidationUtils.hasContent(channel, name);
     }
 }

@@ -10,8 +10,10 @@ public class ReplacementModule implements IModule {
 
     @Override
     public List<String> getItemNames() {
-        return Arrays.asList("regex", "remove-colors", "resolve-colors", "sub-string", "to-lower", "to-upper", "to-word");
+        return Arrays.asList("regex", "remove-colors", "resolve-colors", "sub-string", "to-lower", "to-upper",
+                "to-word");
     }
+
     @Override
     public void load() {
 
@@ -32,7 +34,7 @@ public class ReplacementModule implements IModule {
         switch (type) {
             case "regex":
                 return RegexItem.class;
-                //return new RegexItem(config);
+            // return new RegexItem(config);
             case "remove-colors":
                 return RemoveColorsItem.class;
             case "resolve-colors":
@@ -54,5 +56,5 @@ public class ReplacementModule implements IModule {
     public Context getContext(Object object) {
         return new Context();
     }
-    
+
 }

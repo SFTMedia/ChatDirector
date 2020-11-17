@@ -26,11 +26,12 @@ public class FileModule implements IModule {
     public List<String> getItemNames() {
         return Arrays.asList("file-input", "file-output");
     }
-    
+
     @Override
     public boolean isValid() {
         return true;
     }
+
     @Override
     public Context getContext(Object object) {
         return new Context();

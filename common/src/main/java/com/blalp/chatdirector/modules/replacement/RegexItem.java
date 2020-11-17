@@ -17,10 +17,10 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = RegexDeserializer.class)
 public class RegexItem implements IItem {
-    Map<String, String> pairs = new LinkedHashMap<String,String>();
+    Map<String, String> pairs = new LinkedHashMap<String, String>();
 
     @Override
     public Context process(Context context) {

@@ -25,5 +25,5 @@ public class DiscordModuleDeserializer extends JsonDeserializer<DiscordModule> {
         }
         return module;
     }
-    
+
 }

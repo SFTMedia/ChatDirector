@@ -22,10 +22,10 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class DiscordCreateChannelItem extends DiscordItem {
     String user;
-    String name="channel";
+    String name = "channel";
     String topic;
     String server;
     String category;
@@ -33,31 +33,34 @@ public class DiscordCreateChannelItem extends DiscordItem {
     @Override
     public Context process(Context context) {
         DiscordApi api = DiscordModule.instance.discordBots.get(bot).getDiscordApi();
-        ServerTextChannelBuilder builder = api.getServerById(ChatDirector.format(server, context)).get().createTextChannelBuilder();
-        if(category!=null){
+        ServerTextChannelBuilder builder = api.getServerById(ChatDirector.format(server, context)).get()
+                .createTextChannelBuilder();
+        if (category != null) {
             ChannelCategory categoryObj = api.getChannelCategoryById(ChatDirector.format(category, context)).get();
             builder.setCategory(categoryObj);
-            for(Entry<Long,Permissions> permission : categoryObj.getOverwrittenRolePermissions().entrySet()){
+            for (Entry<Long, Permissions> permission : categoryObj.getOverwrittenRolePermissions().entrySet()) {
                 builder.addPermissionOverwrite(api.getRoleById(permission.getKey()).get(), permission.getValue());
             }
-            for(Entry<Long,Permissions> permission : categoryObj.getOverwrittenUserPermissions().entrySet()){
+            for (Entry<Long, Permissions> permission : categoryObj.getOverwrittenUserPermissions().entrySet()) {
                 builder.addPermissionOverwrite(api.getUserById(permission.getKey()).join(), permission.getValue());
             }
         }
-        if(user!=null) {
-            builder.addPermissionOverwrite(api.getUserById(ChatDirector.format(user, context)).join(), new PermissionsBuilder().setAllowed(PermissionType.SEND_MESSAGES,PermissionType.READ_MESSAGES).build());
+        if (user != null) {
+            builder.addPermissionOverwrite(api.getUserById(ChatDirector.format(user, context)).join(),
+                    new PermissionsBuilder().setAllowed(PermissionType.SEND_MESSAGES, PermissionType.READ_MESSAGES)
+                            .build());
         }
         builder.setName(ChatDirector.format(name, context));
         builder.setAuditLogReason("Made By ChatDirector");
-        if(topic!=null){
+        if (topic != null) {
             builder.setTopic(ChatDirector.format(topic, context));
         }
-        context.put("DISCORD_CHANNEL_ID",builder.create().join().getIdAsString());
+        context.put("DISCORD_CHANNEL_ID", builder.create().join().getIdAsString());
         return new Context();
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(category,user,topic,name,server)&&super.isValid();
+        return ValidationUtils.hasContent(category, user, topic, name, server) && super.isValid();
     }
 }

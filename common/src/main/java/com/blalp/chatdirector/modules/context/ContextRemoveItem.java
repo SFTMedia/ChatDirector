@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class ContextRemoveItem extends ContextItem {
     @Override
     public Context process(Context context) {
@@ -19,5 +19,5 @@ public class ContextRemoveItem extends ContextItem {
         output.remove(ChatDirector.format(this.context, context));
         return output;
     }
-    
+
 }

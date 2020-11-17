@@ -4,12 +4,13 @@ import com.blalp.chatdirector.ChatDirector;
 
 public class TimedLoad implements Runnable {
     private static TimedLoad instance;
-    boolean loop=true;
-    public TimedLoad(){
-        if(instance!=null){
-            loop=false;
+    boolean loop = true;
+
+    public TimedLoad() {
+        if (instance != null) {
+            loop = false;
         } else {
-            instance=this;
+            instance = this;
         }
     }
 
@@ -20,19 +21,19 @@ public class TimedLoad implements Runnable {
             System.out.println("Timed load attempting to unload");
             try {
                 ChatDirector.instance.unload();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             System.out.println("Timed load attempting to load");
             try {
                 ChatDirector.instance.load();
-                if(!ChatDirector.hasChains()){
+                if (!ChatDirector.hasChains()) {
                     throw new Exception("No CHAINS!");
                 }
                 System.out.println("Timed load completed.");
-                loop=false;
-                instance=null;
-            } catch (Exception e){
+                loop = false;
+                instance = null;
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             System.out.println("YIKES REMOVE ME BEFORE PRODUCTION");
@@ -46,5 +47,5 @@ public class TimedLoad implements Runnable {
             }
         }
     }
-    
+
 }

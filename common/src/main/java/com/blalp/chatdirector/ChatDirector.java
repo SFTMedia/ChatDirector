@@ -29,7 +29,9 @@ public class ChatDirector extends Loadable implements IConfiguration {
     static Logger logger;
     static Handler handler;
     /**
-     * Maintain this list as some things run in separate threads, so with an item you need to be able to get the chain object to start execution. Look for a better solution.
+     * Maintain this list as some things run in separate threads, so with an item
+     * you need to be able to get the chain object to start execution. Look for a
+     * better solution.
      */
     static Map<IItem, Chain> items = new HashMap<>();
     public static ChatDirector instance;
@@ -37,21 +39,22 @@ public class ChatDirector extends Loadable implements IConfiguration {
     Map<String, Chain> chains = new HashMap<String, Chain>();
     String fileName;
 
-    public ChatDirector(Configuration configuration,String fileName) {
+    public ChatDirector(Configuration configuration, String fileName) {
         config = configuration;
         instance = this;
         logger = Logger.getLogger("ChatDirector");
-        //handler = new ConsoleHandler();
-        //handler.setLevel(Level.WARNING);
-        //logger.addHandler(handler);
-        this.fileName=fileName;
+        // handler = new ConsoleHandler();
+        // handler.setLevel(Level.WARNING);
+        // logger.addHandler(handler);
+        this.fileName = fileName;
     }
 
     public void load() {
         // Load config
-        ObjectMapper om = new ObjectMapper(new YAMLFactory()).setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+        ObjectMapper om = new ObjectMapper(new YAMLFactory())
+                .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         try {
-            config=(om.readValue(new File(fileName),Configuration.class));
+            config = (om.readValue(new File(fileName), Configuration.class));
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
             new Thread(new TimedLoad()).start();
@@ -119,13 +122,13 @@ public class ChatDirector extends Loadable implements IConfiguration {
 
     public static boolean hasChains() {
         return config.chains.size() != 0;
-	}
+    }
 
-	public Class<?> getModuleClass(String moduleType) {
+    public Class<?> getModuleClass(String moduleType) {
         return config.getModuleClass(moduleType);
-	}
+    }
 
-	public Class<?> getItemClass(String itemType) {
-		return config.getItemClass(itemType);
-	}
+    public Class<?> getItemClass(String itemType) {
+        return config.getItemClass(itemType);
+    }
 }

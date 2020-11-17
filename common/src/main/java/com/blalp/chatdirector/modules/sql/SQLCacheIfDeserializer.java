@@ -18,27 +18,27 @@ public class SQLCacheIfDeserializer extends JsonDeserializer<SQLCacheIfItem> {
         ObjectCodec oc = p.getCodec();
         JsonNode config = oc.readTree(p);
         SQLCacheIfItem output = new SQLCacheIfItem();
-        if (config.has("yes-chain")){
+        if (config.has("yes-chain")) {
             output.setNoChain(config.get("yes-chain").traverse(oc).readValueAs(Chain.class));
         }
-        if (config.has("no-chain")){
+        if (config.has("no-chain")) {
             output.setYesChain(config.get("no-chain").traverse(oc).readValueAs(Chain.class));
         }
-        if (config.has("invert")&&config.get("invert").isBoolean()) {
+        if (config.has("invert") && config.get("invert").isBoolean()) {
             output.setInvert(config.get("invert").asBoolean());
         }
-        if (config.has("source")&&config.get("source").isTextual()) {
+        if (config.has("source") && config.get("source").isTextual()) {
             output.setSource(config.get("source").asText());
         }
-        if(config.has("cache")){
-            output.cache=config.get("cache").asBoolean();
+        if (config.has("cache")) {
+            output.cache = config.get("cache").asBoolean();
         }
-        output.connection=config.get("connection").asText();
-        output.key=config.get("key").asText();
-        output.name=config.get("name").asText();
-        output.table=config.get("table").asText();
+        output.connection = config.get("connection").asText();
+        output.key = config.get("key").asText();
+        output.name = config.get("name").asText();
+        output.table = config.get("table").asText();
         SQLModule.tables.get(output.connection).add(output.table);
         return output;
     }
-    
+
 }

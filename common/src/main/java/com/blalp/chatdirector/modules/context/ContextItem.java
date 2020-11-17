@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class ContextItem extends PassItem {
     String context;
 
     @Override
     public boolean isValid() {
-        return context!=null;
+        return context != null;
     }
-    
+
 }

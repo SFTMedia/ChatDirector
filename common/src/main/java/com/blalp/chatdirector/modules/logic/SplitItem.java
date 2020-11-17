@@ -16,17 +16,18 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = SplitDeserializer.class)
 public class SplitItem extends PassItem {
     ArrayList<Chain> chains = new ArrayList<Chain>();
+
     public SplitItem(ArrayList<Chain> chains) {
-        this.chains=chains;
+        this.chains = chains;
     }
 
     @Override
     public Context process(Context context) {
-        for(Chain chain:chains){
+        for (Chain chain : chains) {
             new Thread(chain).start();
         }
         return new Context();

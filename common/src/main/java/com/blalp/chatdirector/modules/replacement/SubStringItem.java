@@ -11,16 +11,17 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class SubStringItem implements IItem {
-    public int start=0;
-    public int end=-1;
+    public int start = 0;
+    public int end = -1;
+
     @Override
     public Context process(Context context) {
-        if(end==-1){
+        if (end == -1) {
             return new Context(context.getCurrent().substring(start));
         } else {
-            return new Context(context.getCurrent().substring(start,end));
+            return new Context(context.getCurrent().substring(start, end));
         }
     }
 
@@ -28,5 +29,5 @@ public class SubStringItem implements IItem {
     public boolean isValid() {
         return true;
     }
-    
+
 }

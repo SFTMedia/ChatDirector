@@ -17,15 +17,15 @@ public class SQLRetrieveDataDeserializer extends JsonDeserializer<SQLRetrieveDat
         ObjectCodec oc = p.getCodec();
         JsonNode config = oc.readTree(p);
         SQLRetrieveDataItem output = new SQLRetrieveDataItem();
-        if(config.has("cache")){
-            output.cache=config.get("cache").asBoolean();
+        if (config.has("cache")) {
+            output.cache = config.get("cache").asBoolean();
         }
-        output.connection=config.get("connection").asText();
-        output.key=config.get("key").asText();
-        output.name=config.get("name").asText();
-        output.table=config.get("table").asText();
+        output.connection = config.get("connection").asText();
+        output.key = config.get("key").asText();
+        output.name = config.get("name").asText();
+        output.table = config.get("table").asText();
         SQLModule.tables.get(output.connection).add(output.table);
         return output;
     }
-    
+
 }

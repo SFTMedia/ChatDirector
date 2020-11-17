@@ -17,15 +17,18 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
     private ArrayList<FileInputDaemon> runners = new ArrayList<>();
     private BufferedReader reader;
     FileInputItem item;
-    public FileInputDaemon(){
-        instance=this;
+
+    public FileInputDaemon() {
+        instance = this;
     }
-    public FileInputDaemon(FileInputItem item){
-        this.item=item;
+
+    public FileInputDaemon(FileInputItem item) {
+        this.item = item;
     }
+
     @Override
     public void load() {
-        for (FileInputItem item : items.toArray(new FileInputItem[]{})) {
+        for (FileInputItem item : items.toArray(new FileInputItem[] {})) {
             FileInputDaemon worker = new FileInputDaemon(item);
             Thread thread = new Thread(worker);
             thread.start();
@@ -44,6 +47,7 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
         }
         runners = new ArrayList<>();
     }
+
     public void run() {
         Context context;
         try {
@@ -54,10 +58,10 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
         try {
             String line;
             while ((line = reader.readLine()) != null) {
-                ChatDirector.logDebug(line+" read");
+                ChatDirector.logDebug(line + " read");
                 context = new Context(line);
                 context.put("FILE_PATH", item.path);
-                ChatDirector.run(item,context,true);
+                ChatDirector.run(item, context, true);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,6 +72,7 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
             e.printStackTrace();
         }
     }
+
     @SuppressWarnings("deprecation")
     public void stop() {
         Thread.currentThread().stop();

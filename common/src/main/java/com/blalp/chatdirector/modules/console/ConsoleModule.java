@@ -25,7 +25,7 @@ public class ConsoleModule implements IModule {
 
     @Override
     public List<String> getItemNames() {
-        return Arrays.asList( "console-output-error", "console-output");
+        return Arrays.asList("console-output-error", "console-output");
     }
 
     @Override

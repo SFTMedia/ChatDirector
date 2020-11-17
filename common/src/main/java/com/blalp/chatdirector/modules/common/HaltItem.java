@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class HaltItem implements IItem {
 
     @Override
@@ -23,5 +23,5 @@ public class HaltItem implements IItem {
     public Context process(Context context) {
         return new Context().halt();
     }
-    
+
 }

@@ -14,9 +14,10 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class CacheIfItem extends ConditionalItem {
     String key;
+
     @Override
     public boolean test(Context context) {
         return CacheStore.containsKey(ChatDirector.format(key, context));
@@ -24,7 +25,7 @@ public class CacheIfItem extends ConditionalItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(key)&&super.isValid();
+        return ValidationUtils.hasContent(key) && super.isValid();
     }
-    
+
 }

@@ -18,13 +18,14 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = LuckPermsHasDeserializer.class)
 public class LuckPermsHasItem extends ConditionalItem {
     String permission;
 
     @Override
     public boolean test(Context context) {
-        return LuckPermsProvider.get().getUserManager().getUser(UUID.fromString(context.get("PLAYER_UUID"))).data().contains(Node.builder(permission).build(),NodeEqualityPredicate.ONLY_KEY).asBoolean();
+        return LuckPermsProvider.get().getUserManager().getUser(UUID.fromString(context.get("PLAYER_UUID"))).data()
+                .contains(Node.builder(permission).build(), NodeEqualityPredicate.ONLY_KEY).asBoolean();
     }
 }

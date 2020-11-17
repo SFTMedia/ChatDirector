@@ -23,5 +23,5 @@ public class CacheIfItemDeserializer extends JsonDeserializer<CacheIfItem> {
         item.setKey(config.get("key").asText());
         return item;
     }
-    
+
 }

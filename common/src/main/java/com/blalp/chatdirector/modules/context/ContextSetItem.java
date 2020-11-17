@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class ContextSetItem extends ContextItem {
-    String value="%CURRENT%";
+    String value = "%CURRENT%";
+
     @Override
     public Context process(Context context) {
         Context output = new Context();
@@ -23,7 +24,7 @@ public class ContextSetItem extends ContextItem {
 
     @Override
     public boolean isValid() {
-        if(value==null){
+        if (value == null) {
             return false;
         }
         return super.isValid();

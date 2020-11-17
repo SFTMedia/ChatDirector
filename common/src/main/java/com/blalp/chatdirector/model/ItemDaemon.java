@@ -5,11 +5,15 @@ import java.util.List;
 
 public abstract class ItemDaemon extends Loadable {
     public List<IItem> items = new ArrayList<>();
-    public void addItem(IItem item){
+
+    public void addItem(IItem item) {
         items.add(item);
     }
-    public void load(){}
-    public void unload(){
-        items=new ArrayList<>();
+
+    public void load() {
+    }
+
+    public void unload() {
+        items = new ArrayList<>();
     }
 }

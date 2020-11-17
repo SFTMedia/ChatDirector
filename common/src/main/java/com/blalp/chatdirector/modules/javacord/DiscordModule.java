@@ -23,8 +23,9 @@ import org.javacord.api.event.user.OptionalUserEvent;
 @JsonDeserialize(using = DiscordModuleDeserializer.class)
 public class DiscordModule implements IModule {
     static DiscordModule instance;
+
     public DiscordModule() {
-        instance=this;
+        instance = this;
     }
 
     public Map<String, DiscordBot> discordBots = new HashMap<>();
