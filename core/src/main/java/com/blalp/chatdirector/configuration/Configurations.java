@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.model.IModule;
 
@@ -50,6 +52,9 @@ public class Configurations implements IConfiguration {
             if (output != null) {
                 break;
             }
+        }
+        if (output==null) {
+            ChatDirector.logger.log(Level.WARNING, "Module of type " + moduleType + " not found.");
         }
         return output;
     }

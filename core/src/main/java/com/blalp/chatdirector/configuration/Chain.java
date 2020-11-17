@@ -10,6 +10,9 @@ import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IValid;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 @JsonDeserialize(using = ChainDeserializer.class)
 public class Chain implements IValid, Runnable {
     public List<IItem> items = new ArrayList<>();
@@ -25,7 +28,7 @@ public class Chain implements IValid, Runnable {
     public void runAsync(IItem item, Context context) {
         this.index = items.indexOf(item);
         if (index == -1) {
-            ChatDirector.log(Level.SEVERE, item + " not found in this " + this + " chain.");
+            ChatDirector.logger.log(Level.SEVERE, item + " not found in this " + this + " chain.");
             return;
         }
         this.context = context;
@@ -42,7 +45,7 @@ public class Chain implements IValid, Runnable {
     public Context runAt(IItem item, Context context) {
         index = items.indexOf(item);
         if (index == -1) {
-            ChatDirector.log(Level.SEVERE, item + " not found in this " + this + " chain.");
+            ChatDirector.logger.log(Level.SEVERE, item + " not found in this " + this + " chain.");
             return new Context().halt();
         }
         return runAt(items.indexOf(item), context);
@@ -68,8 +71,11 @@ public class Chain implements IValid, Runnable {
             ChatDirector.logDebug(output);
             ChatDirector.logDebug("");
             // Setup LAST and CURRENT contexts
-            context.put("LAST", context.get("CURRENT"));
             if (output != null) {
+                // Only if CURRENT was changed and not null set LAST
+                if(context.get("CURRENT")!=null&&!output.getCurrent().equals(context.getCurrent())){
+                    output.put("LAST", context.get("CURRENT"));
+                }
                 workingContext.merge(output);
                 context.merge(output);
                 if (context.isHalt()) {

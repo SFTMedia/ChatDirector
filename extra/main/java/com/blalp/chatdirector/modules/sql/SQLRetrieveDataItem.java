@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = SQLRetrieveDataDeserializer.class)
 public class SQLRetrieveDataItem extends SQLItem {
 

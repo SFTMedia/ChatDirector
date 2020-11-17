@@ -54,7 +54,6 @@ public class Configuration implements IConfiguration {
             case "common":
                 return CommonModule.class;
             default:
-                ChatDirector.log(Level.WARNING, "Module of type " + moduleType + " not found.");
                 return null;
         }
     }

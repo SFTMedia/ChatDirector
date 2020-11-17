@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = RegexDeserializer.class)
 public class RegexItem implements IItem {
     Map<String, String> pairs = new LinkedHashMap<String, String>();

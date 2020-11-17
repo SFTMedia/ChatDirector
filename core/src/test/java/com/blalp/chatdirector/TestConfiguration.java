@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 public class TestConfiguration {
     String rawData = ""+
 "# Example of just common items\n"+
-"    modules:\n"+
+"    modules: null\n"+
 "    debug: false\n"+
 "    chains:\n"+
 "      - loading-test: # all of these should load\n"+

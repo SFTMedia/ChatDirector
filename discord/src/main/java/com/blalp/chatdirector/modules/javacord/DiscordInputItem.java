@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = DiscordInputItemDeserializer.class)
 public class DiscordInputItem extends DiscordItem {
     public boolean reactionAddEvent = false;

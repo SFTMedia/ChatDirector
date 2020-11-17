@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class MultiChatInputItem extends PassItem {
     public boolean global, staff, broadcast;
 

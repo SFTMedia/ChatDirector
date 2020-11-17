@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class SpongeInputItem extends PassItem {
     public boolean chat = false, checkCanceled = false, join = false, leave = false, serverStarted = false,
             serverStopped = false, cancelChat = false;

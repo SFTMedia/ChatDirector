@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class DiscordOutputReactionItem extends DiscordItem {
     private String emoji, channel, message;
     private boolean add;
