@@ -19,12 +19,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class SpongeOutputItem implements IItem {
-    public String permission,sender;
+    public String permission, sender;
+
     @Override
     public Context process(Context context) {
-        if(ValidationUtils.hasContent(permission)) {
+        if (ValidationUtils.hasContent(permission)) {
             for (Player player : Sponge.getServer().getOnlinePlayers()) {
-                if(player.hasPermission(permission)) {
+                if (player.hasPermission(permission)) {
                     player.sendMessage(Text.of(ChatDirector.format(context)));
                 }
             }
@@ -36,7 +37,7 @@ public class SpongeOutputItem implements IItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(permission,sender);
+        return ValidationUtils.hasContent(permission, sender);
     }
-    
+
 }

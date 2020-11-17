@@ -24,18 +24,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ToBungeeItem implements IItem {
     public String channel;
-    public ToBungeeItem(String channel){
-        this.channel=channel;
+
+    public ToBungeeItem(String channel) {
+        this.channel = channel;
     }
+
     @Override
     public Context process(Context context) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Forward");
-        out.writeUTF("ALL"); // Should this be all or online https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#forward?
+        out.writeUTF("ALL"); // Should this be all or online
+                             // https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#forward?
         out.writeUTF("ChatDirector");
         out.writeUTF(channel);
         out.writeInt(context.size());
-        for (Entry<String,String> contextItem : context.entrySet()) {
+        for (Entry<String, String> contextItem : context.entrySet()) {
             out.writeUTF(contextItem.getKey());
             out.writeUTF(contextItem.getValue());
         }

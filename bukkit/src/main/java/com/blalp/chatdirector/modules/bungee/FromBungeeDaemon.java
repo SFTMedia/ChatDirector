@@ -38,7 +38,7 @@ public class FromBungeeDaemon extends ItemDaemon {
                     context = new Context();
                     int contextLength = in.readInt();
                     for (int i = 0; i < contextLength; i++) {
-                        context.put(in.readUTF(),in.readUTF());
+                        context.put(in.readUTF(), in.readUTF());
                     }
                     context.merge(BukkitModule.instance.getContext(player));
                     context.put("CURRENT", msgin.readUTF());

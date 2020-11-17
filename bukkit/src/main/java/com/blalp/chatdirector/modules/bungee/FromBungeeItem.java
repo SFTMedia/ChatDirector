@@ -11,9 +11,10 @@ import lombok.EqualsAndHashCode;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class FromBungeeItem extends PassItem {
     public String channel;
+
     public FromBungeeItem() {
         if (FromBungeeDaemon.instance == null) {
             FromBungeeDaemon.instance = new FromBungeeDaemon();

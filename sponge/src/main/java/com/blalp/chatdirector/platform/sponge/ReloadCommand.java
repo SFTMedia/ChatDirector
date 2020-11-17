@@ -15,13 +15,15 @@ import org.spongepowered.api.command.spec.CommandSpec;
 public class ReloadCommand implements CommandExecutor, ILoadable {
     @Override
     public void load() {
-        ChatDirector.logDebug("Starting load of "+this);
-        Sponge.getCommandManager().register(ChatDirectorSponge.instance, CommandSpec.builder().permission("chatdirectorlocal.commands.reload").executor(this).build(), "chatdirectorlocal");
+        ChatDirector.logDebug("Starting load of " + this);
+        Sponge.getCommandManager().register(ChatDirectorSponge.instance,
+                CommandSpec.builder().permission("chatdirectorlocal.commands.reload").executor(this).build(),
+                "chatdirectorlocal");
     }
 
     @Override
     public void unload() {
-        ChatDirector.logDebug("Starting unload of "+this);
+        ChatDirector.logDebug("Starting unload of " + this);
         Sponge.getCommandManager().removeMapping(Sponge.getCommandManager().get("chatdirectorlocal").get());
     }
 

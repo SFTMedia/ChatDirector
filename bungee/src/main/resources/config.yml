@@ -1,7 +1,7 @@
 modules:
   - bungee
 chains:
-    - bungee-command:
-        command: "chatdirector"
-        permission: "chatdirector.reload"
-    - reload: null
+  - bungee-command:
+      command: "chatdirector"
+      permission: "chatdirector.reload"
+  - reload: null

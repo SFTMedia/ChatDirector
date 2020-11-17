@@ -13,68 +13,74 @@ import org.spongepowered.api.text.Text;
 
 public class SpongeInputDaemon extends ItemDaemon {
     public static SpongeInputDaemon instance;
-    public SpongeInputDaemon(){
-        instance=this;
+
+    public SpongeInputDaemon() {
+        instance = this;
     }
-	public void onServerStop(GameStoppedServerEvent event) {
+
+    public void onServerStop(GameStoppedServerEvent event) {
         // Loaded the main world. Server started!
         Context context = SpongeModule.instance.getContext(event);
-        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[] {})) {
             if (item.serverStopped) {
                 context.put("CURRENT", ChatDirector.format(item.formatStopped, context));
                 ChatDirector.run(item, context, true);
             }
         }
-	}
-	public void onServerStart(GameStartedServerEvent event) {
+    }
+
+    public void onServerStart(GameStartedServerEvent event) {
         // Loaded the main world. Server started!
         Context context = SpongeModule.instance.getContext(event);
-        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[] {})) {
             if (item.serverStarted) {
                 context.put("CURRENT", ChatDirector.format(item.formatStarted, context));
                 ChatDirector.run(item, context, true);
             }
         }
-	}
-	public void onChat(Chat event) {
+    }
+
+    public void onChat(Chat event) {
         Context context = SpongeModule.instance.getContext(event);
-        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[] {})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
             if (item.chat) {
-                context.put("CURRENT", ChatDirector.format(item.formatChat,context));
-                if (item.overrideChat){
-                    event.setMessage(Text.of(ChatDirector.run(item,context,false)));
+                context.put("CURRENT", ChatDirector.format(item.formatChat, context));
+                if (item.overrideChat) {
+                    event.setMessage(Text.of(ChatDirector.run(item, context, false)));
                 } else {
-                    event.setMessage(Text.of(ChatDirector.run(item,context,true)));
+                    event.setMessage(Text.of(ChatDirector.run(item, context, true)));
                 }
-                if(item.cancelChat){
+                if (item.cancelChat) {
                     event.setCancelled(true);
                 }
             }
         }
     }
-	public void onLogin(Login event) {
+
+    public void onLogin(Login event) {
         Context context = SpongeModule.instance.getContext(event);
-        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[] {})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
             if (item.join) {
-                context.put("CURRENT",ChatDirector.format(item.formatLogin,context));
+                context.put("CURRENT", ChatDirector.format(item.formatLogin, context));
                 ChatDirector.run(item, context, true);
             }
         }
-	}
-	public void onLogout(Disconnect event) {
+    }
+
+    public void onLogout(Disconnect event) {
         Context context = SpongeModule.instance.getContext(event);
-        for (SpongeInputItem item : items.toArray(new SpongeInputItem[]{})) {
+        for (SpongeInputItem item : items.toArray(new SpongeInputItem[] {})) {
             if (item.leave) {
-                context.put("CURRENT",ChatDirector.format(item.formatLogout,context));
+                context.put("CURRENT", ChatDirector.format(item.formatLogout, context));
                 ChatDirector.run(item, context, true);
             }
         }
-	}
-    
+    }
+
 }
