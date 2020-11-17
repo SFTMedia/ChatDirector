@@ -13,18 +13,19 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class BungeeCommandItem extends PassItem {
     String command;
     String permission;
-    public BungeeCommandItem(String name,String permission){
-        this.command=name;
-        this.permission=permission;
+
+    public BungeeCommandItem(String name, String permission) {
+        this.command = name;
+        this.permission = permission;
         new BungeeCommand(name, this);
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(command,permission);
+        return ValidationUtils.hasContent(command, permission);
     }
 }

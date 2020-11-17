@@ -12,50 +12,52 @@ import xyz.olivermartin.multichat.bungee.events.PostStaffChatEvent;
 
 public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
     public static MultiChatInputItemDaemon instance;
-    public MultiChatInputItemDaemon(){
-        instance=this;
+
+    public MultiChatInputItemDaemon() {
+        instance = this;
     }
-    
-	@EventHandler
-	public void onEvent(PostBroadcastEvent e) {
+
+    @EventHandler
+    public void onEvent(PostBroadcastEvent e) {
         Context context = MultiChatModule.instance.getContext(e);
-        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
-            if(item.broadcast){
+        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[] {})) {
+            if (item.broadcast) {
                 context.put("CURRENT", e.getMessage());
                 ChatDirector.run(item, context, true);
             }
         }
-	}
-	@EventHandler
-	public void onEvent(PostGlobalChatEvent e) {
+    }
+
+    @EventHandler
+    public void onEvent(PostGlobalChatEvent e) {
         Context context = MultiChatModule.instance.getContext(e);
-        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
-            if(item.global){
+        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[] {})) {
+            if (item.global) {
                 context.put("CURRENT", e.getMessage());
                 ChatDirector.run(item, context, true);
             } else {
-                System.out.println(" no global for "+item);
+                System.out.println(" no global for " + item);
             }
         }
-	}
+    }
+
     @EventHandler
-    public void onChat(PostStaffChatEvent e){
+    public void onChat(PostStaffChatEvent e) {
         Context context = MultiChatModule.instance.getContext(e);
-        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[]{})) {
-            if(item.staff){
+        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[] {})) {
+            if (item.staff) {
                 context.put("CURRENT", e.getMessage());
                 ChatDirector.run(item, context, true);
             }
         }
     }
     /*
-    @Override
-    public void load() {
-        ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(ChatDirectorBungee.instance, this);
-    }
-    @Override
-    public void unload() {
-        ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(this);
-    }
-    */
+     * @Override public void load() {
+     * ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(
+     * ChatDirectorBungee.instance, this); }
+     * 
+     * @Override public void unload() {
+     * ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(
+     * this); }
+     */
 }

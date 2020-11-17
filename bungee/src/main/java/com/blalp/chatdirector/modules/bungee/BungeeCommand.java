@@ -14,9 +14,10 @@ import net.md_5.bungee.api.plugin.Command;
 public class BungeeCommand extends Command implements ILoadable {
     public static ArrayList<BungeeCommand> commands = new ArrayList<>();
     public BungeeCommandItem item;
-    public BungeeCommand(String name,BungeeCommandItem item) {
+
+    public BungeeCommand(String name, BungeeCommandItem item) {
         super(name);
-        this.item=item;
+        this.item = item;
         commands.add(this);
     }
 
@@ -25,8 +26,8 @@ public class BungeeCommand extends Command implements ILoadable {
         Context context = BungeeModule.instance.getContext(sender);
         String string = item.command;
         for (int i = 0; i < args.length; i++) {
-            string += " "+args[i];
-            context.put("COMMAND_ARG_"+i, args[i]);
+            string += " " + args[i];
+            context.put("COMMAND_ARG_" + i, args[i]);
         }
         context.put("COMMAND_NAME", item.command);
         context.put("COMMAND_PERMISSION", item.permission);
@@ -43,5 +44,5 @@ public class BungeeCommand extends Command implements ILoadable {
     public void unload() {
         ProxyServer.getInstance().getPluginManager().unregisterCommand(this);
     }
-    
+
 }

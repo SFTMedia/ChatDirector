@@ -10,6 +10,7 @@ import com.blalp.chatdirector.modules.multichat.MultiChatInputItemDaemon;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
+
 public class ChatDirectorBungee extends Plugin {
     public static ChatDirectorBungee instance;
     private ChatDirector chatDirector;
@@ -18,19 +19,21 @@ public class ChatDirectorBungee extends Plugin {
     public void onEnable() {
         instance = this;
         // First thing's first, register the reload command
-        ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance, new ReloadCommand("chatdirectorlocal"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance,
+                new ReloadCommand("chatdirectorlocal"));
         try {
-            chatDirector = new ChatDirector(new ConfigurationBungee(),this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml");
-            BungeeInputItemDaemon.instance=new BungeeInputItemDaemon();
+            chatDirector = new ChatDirector(new ConfigurationBungee(),
+                    this.getDataFolder().getAbsolutePath() + File.separatorChar + "config.yml");
+            BungeeInputItemDaemon.instance = new BungeeInputItemDaemon();
             getProxy().getPluginManager().registerListener(this, BungeeInputItemDaemon.instance);
-            MultiChatInputItemDaemon.instance=new MultiChatInputItemDaemon();
+            MultiChatInputItemDaemon.instance = new MultiChatInputItemDaemon();
             getProxy().getPluginManager().registerListener(this, MultiChatInputItemDaemon.instance);
             this.getDataFolder().mkdirs();
             chatDirector.load();
-            if(!ChatDirector.hasChains()){
+            if (!ChatDirector.hasChains()) {
                 throw new Exception("NO CHAINS!");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
