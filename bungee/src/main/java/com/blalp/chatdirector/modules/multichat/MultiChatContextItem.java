@@ -23,9 +23,10 @@ public class MultiChatContextItem implements IItem {
     @Override
     public Context process(Context context) {
         Context output = new Context();
-        if(context.containsKey("PLAYER_UUID")){
-            Optional<PlayerMeta> playerMeta = PlayerMetaManager.getInstance().getPlayer(UUID.fromString(context.get("PLAYER_UUID")));
-            if(playerMeta.isPresent()){
+        if (context.containsKey("PLAYER_UUID")) {
+            Optional<PlayerMeta> playerMeta = PlayerMetaManager.getInstance()
+                    .getPlayer(UUID.fromString(context.get("PLAYER_UUID")));
+            if (playerMeta.isPresent()) {
                 output.put("PLAYER_PREFIX", playerMeta.get().prefix);
                 output.put("PLAYER_SUFFIX", playerMeta.get().suffix);
                 output.put("PLAYER_NICK", playerMeta.get().nick);
@@ -40,5 +41,5 @@ public class MultiChatContextItem implements IItem {
     public boolean isValid() {
         return true;
     }
-    
+
 }

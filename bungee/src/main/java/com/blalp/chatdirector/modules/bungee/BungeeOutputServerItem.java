@@ -1,4 +1,5 @@
 package com.blalp.chatdirector.modules.bungee;
+
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
@@ -19,15 +20,19 @@ import lombok.NoArgsConstructor;
 public class BungeeOutputServerItem implements IItem {
     public String server;
     public String permission;
-    public BungeeOutputServerItem(String server){
-        this.server=server;
+
+    public BungeeOutputServerItem(String server) {
+        this.server = server;
     }
+
     @SuppressWarnings("deprecation")
     @Override
     public Context process(Context context) {
-        for(ProxiedPlayer player:ProxyServer.getInstance().getPlayers()) {
-            if(player.getServer()!=null&&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(ChatDirector.format(server, context))){
-                if(permission==null||(permission!=null&player.hasPermission(ChatDirector.format(permission, context)))){
+        for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+            if (player.getServer() != null && player.getServer().getInfo() != null
+                    && player.getServer().getInfo().getName().equals(ChatDirector.format(server, context))) {
+                if (permission == null
+                        || (permission != null & player.hasPermission(ChatDirector.format(permission, context)))) {
                     player.sendMessage(ChatDirector.format(context));
                 }
             }
@@ -39,5 +44,5 @@ public class BungeeOutputServerItem implements IItem {
     public boolean isValid() {
         return ValidationUtils.hasContent(server);
     }
-    
+
 }

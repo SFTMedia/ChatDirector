@@ -12,7 +12,7 @@ public class ConfigurationBungee extends Configuration {
             case "multichat":
                 return MultiChatModule.class;
             default:
-            return super.getModuleClass(moduleType);
+                return super.getModuleClass(moduleType);
         }
     }
 }

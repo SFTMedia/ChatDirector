@@ -25,8 +25,8 @@ public class BungeeOutputItem implements IItem {
     }
 
     @Override
-	public boolean isValid() {
-		return true;
-	}
-    
+    public boolean isValid() {
+        return true;
+    }
+
 }

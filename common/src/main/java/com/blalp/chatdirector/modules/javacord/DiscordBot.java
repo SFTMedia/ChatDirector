@@ -28,7 +28,7 @@ public class DiscordBot extends Loadable {
 
     @Override
     public void unload() {
-        if(discordApi!=null){
+        if (discordApi != null) {
             discordApi.disconnect();
         }
     }
