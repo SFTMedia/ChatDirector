@@ -60,8 +60,8 @@ public class Configuration extends Loadable implements IConfiguration {
     }
 
     @Override
-    public Class<?> getItemClass(String itemType) {
-        for (IModule module : modules) {
+    public Class<?> getItemClass(String itemType, List<IModule> inputModules) {
+        for (IModule module : inputModules) {
             if (module.getItemNames().contains(itemType)) {
                 return module.getItemClass(itemType);
             }
@@ -71,6 +71,11 @@ public class Configuration extends Loadable implements IConfiguration {
 
     @Override
     public void unload() {
+    }
+
+    @Override
+    public Class<?> getItemClass(String itemType) {
+        return getItemClass(itemType, modules);
     }
 
 }

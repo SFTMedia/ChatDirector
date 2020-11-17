@@ -6,6 +6,7 @@ public class DiscordConfiguration extends Configuration {
     static {
         Configurations.addConfiguration(new DiscordConfiguration());
     }
+
     @Override
     public Class<?> getModuleClass(String moduleType) {
         switch (moduleType) {

@@ -7,7 +7,7 @@ public class ConfigurationBungee extends Configuration {
     static {
         Configurations.addConfiguration(new ConfigurationBungee());
     }
-    
+
     @Override
     public Class<?> getModuleClass(String moduleType) {
         switch (moduleType) {

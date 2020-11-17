@@ -6,6 +6,7 @@ public class ConfigurationSponge extends Configuration {
     static {
         Configurations.addConfiguration(new ConfigurationSponge());
     }
+
     @Override
     public Class<?> getModuleClass(String moduleType) {
         switch (moduleType) {

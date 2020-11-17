@@ -29,7 +29,7 @@ public class ChatDirectorSponge {
         instance = this;
         new ReloadCommand().load();
         try {
-            chatDirector = new ChatDirector(configDir.getAbsolutePath() + File.separatorChar + "config.yml");
+            chatDirector = new ChatDirector(new File(configDir.getAbsolutePath() ,"config.yml"));
             configDir.mkdirs();
             chatDirector.load();
             if (SpongeInputDaemon.instance != null) {

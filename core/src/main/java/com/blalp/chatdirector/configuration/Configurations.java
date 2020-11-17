@@ -17,6 +17,8 @@ public class Configurations implements IConfiguration {
      * Maintain a list of all configurations
      */
     static List<IConfiguration> configurations = new ArrayList<>();
+    List<IModule> modules = new ArrayList<>();
+    Map<String, Chain> chains = new HashMap<String, Chain>();
 
     public static void addConfiguration(IConfiguration configuration) {
         configurations.add(configuration);
@@ -49,10 +51,10 @@ public class Configurations implements IConfiguration {
     }
 
     @Override
-    public Class<?> getItemClass(String itemType) {
+    public Class<?> getItemClass(String itemType,List<IModule> inputModules) {
         Class<?> output = null;
         for (IConfiguration configuration : configurations) {
-            output = configuration.getItemClass(itemType);
+            output = configuration.getItemClass(itemType,inputModules);
             if (output != null) {
                 break;
             }
@@ -62,21 +64,17 @@ public class Configurations implements IConfiguration {
 
     @Override
     public List<IModule> getModules() {
-        List<IModule> modules = new ArrayList<>();
-        for (IConfiguration configuration : configurations) {
-            modules.addAll(configuration.getModules());
-        }
         return modules;
     }
 
     @Override
     public Map<String, Chain> getChains() {
-        Map<String, Chain> chains = new HashMap<String, Chain>();
-        for (IConfiguration configuration : configurations) {
-            chains.putAll(configuration.getChains());
-        }
         return chains;
     }
 
+    @Override
+    public Class<?> getItemClass(String itemType) {
+        return getItemClass(itemType,getModules());
+    }
 
 }

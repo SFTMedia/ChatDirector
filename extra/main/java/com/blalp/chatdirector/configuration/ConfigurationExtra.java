@@ -6,6 +6,7 @@ public class ConfigurationExtra extends Configuration {
     static {
         Configurations.addConfiguration(new ConfigurationExtra());
     }
+
     @Override
     public Class<?> getModuleClass(String moduleType) {
         switch (moduleType) {
@@ -17,6 +18,6 @@ public class ConfigurationExtra extends Configuration {
                 return super.getModuleClass(moduleType);
                 break;
         }
-        
+
     }
 }
