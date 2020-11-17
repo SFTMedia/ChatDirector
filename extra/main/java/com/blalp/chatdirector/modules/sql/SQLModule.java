@@ -23,7 +23,7 @@ public class SQLModule implements IModule {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         ChatDirector.logDebug("Loading " + this);
         for (Entry<String, SQLConnection> connection : connections.entrySet()) {
             connection.getValue().load();
@@ -40,7 +40,7 @@ public class SQLModule implements IModule {
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         ChatDirector.logDebug("Unloading " + this);
         for (SQLConnection connection : connections.values()) {
             connection.unload();

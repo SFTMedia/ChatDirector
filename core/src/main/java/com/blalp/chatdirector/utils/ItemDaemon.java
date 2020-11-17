@@ -13,10 +13,12 @@ public abstract class ItemDaemon implements ILoadable {
         items.add(item);
     }
 
-    public void load() {
+    public boolean load() {
+        return true;
     }
 
-    public void unload() {
+    public boolean unload() {
         items = new ArrayList<>();
+        return true;
     }
 }

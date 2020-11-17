@@ -9,13 +9,13 @@ import com.blalp.chatdirector.model.IModule;
 public class ConsoleModule implements IModule {
 
     @Override
-    public void load() {
-        // Nothing needed
+    public boolean load() {
+        return true;
     }
 
     @Override
-    public void unload() {
-        // Nothing needed
+    public boolean unload() {
+        return true;
     }
 
     @Override

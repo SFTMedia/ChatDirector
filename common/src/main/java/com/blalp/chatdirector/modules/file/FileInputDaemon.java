@@ -27,17 +27,18 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         for (FileInputItem item : items.toArray(new FileInputItem[] {})) {
             FileInputDaemon worker = new FileInputDaemon(item);
             Thread thread = new Thread(worker);
             thread.start();
             runners.add(worker);
         }
+        return true;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         for (FileInputDaemon runner : runners) {
             try {
                 runner.stop();
@@ -46,6 +47,7 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
             }
         }
         runners = new ArrayList<>();
+        return true;
     }
 
     public void run() {

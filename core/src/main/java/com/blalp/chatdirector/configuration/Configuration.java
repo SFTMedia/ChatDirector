@@ -31,7 +31,7 @@ public class Configuration implements IConfiguration {
 
     // https://stackoverflow.com/questions/58102069/how-to-do-a-partial-deserialization-with-jackson#58102226
     @Override
-    public void load() {
+    public boolean load() {
         // The actual loading is done in ChatDirector
         if (debug) {
             System.out.println("Modules");
@@ -46,6 +46,7 @@ public class Configuration implements IConfiguration {
                 }
             }
         }
+        return true;
     }
 
     public Class<?> getModuleClass(String moduleType) {
@@ -69,7 +70,8 @@ public class Configuration implements IConfiguration {
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
+        return true;
     }
 
     @Override

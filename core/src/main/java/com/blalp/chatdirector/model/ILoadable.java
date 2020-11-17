@@ -1,7 +1,7 @@
 package com.blalp.chatdirector.model;
 
 public interface ILoadable {
-    public void load();
+    public boolean load();
 
-    public void unload();
+    public boolean unload();
 }

@@ -22,14 +22,16 @@ public class DiscordBot implements ILoadable {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         discordApi = new DiscordApiBuilder().setToken(token).login().join();
+        return true;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         if (discordApi != null) {
             discordApi.disconnect();
         }
+        return true;
     }
 }

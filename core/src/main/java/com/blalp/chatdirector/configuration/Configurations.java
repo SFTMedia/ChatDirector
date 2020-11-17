@@ -25,17 +25,21 @@ public class Configurations implements IConfiguration {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
+        boolean result = true;
         for (IConfiguration configuration : configurations) {
-            configuration.load();
+            result=result&&configuration.load();
         }
+        return result;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
+        boolean result = true;
         for (IConfiguration configuration : configurations) {
-            configuration.unload();
+            result=result&&configuration.unload();
         }
+        return result;
     }
 
     @Override

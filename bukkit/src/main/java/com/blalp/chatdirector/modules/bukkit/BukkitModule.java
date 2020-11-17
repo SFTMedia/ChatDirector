@@ -25,18 +25,20 @@ public class BukkitModule implements IModule {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         if (BukkitInputDaemon.instance != null) {
-            BukkitInputDaemon.instance.load();
+            return BukkitInputDaemon.instance.load();
         }
+        return true;
     }
 
     @Override
-    public void unload() {
-        if (BukkitInputDaemon.instance != null) {
-            BukkitInputDaemon.instance.unload();
-        }
+    public boolean unload() {
         BukkitCommand.commands = new ArrayList<>();
+        if (BukkitInputDaemon.instance != null) {
+            return BukkitInputDaemon.instance.unload();
+        }
+        return true;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class SQLConnection implements ILoadable {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         ChatDirector.logDebug("Loading " + this);
         try {
             connection = DriverManager.getConnection(connectionString);
@@ -27,7 +27,7 @@ public class SQLConnection implements ILoadable {
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         ChatDirector.logDebug("Unloading " + this);
         try {
             connection.close();
