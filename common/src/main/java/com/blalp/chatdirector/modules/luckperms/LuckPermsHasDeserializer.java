@@ -18,22 +18,22 @@ public class LuckPermsHasDeserializer extends JsonDeserializer<LuckPermsHasItem>
         ObjectCodec oc = p.getCodec();
         JsonNode config = oc.readTree(p);
         LuckPermsHasItem output = new LuckPermsHasItem();
-        if (config.has("yes-chain")){
+        if (config.has("yes-chain")) {
             output.setNoChain(config.get("yes-chain").traverse(oc).readValueAs(Chain.class));
         }
-        if (config.has("no-chain")){
+        if (config.has("no-chain")) {
             output.setYesChain(config.get("no-chain").traverse(oc).readValueAs(Chain.class));
         }
-        if(config.has("permission")&&config.get("permission").isTextual()){
+        if (config.has("permission") && config.get("permission").isTextual()) {
             output.setPermission(config.get("permission").asText());
         }
-        if (config.has("invert")&&config.get("invert").isBoolean()) {
+        if (config.has("invert") && config.get("invert").isBoolean()) {
             output.setInvert(config.get("invert").asBoolean());
         }
-        if (config.has("source")&&config.get("source").isTextual()) {
+        if (config.has("source") && config.get("source").isTextual()) {
             output.setSource(config.get("source").asText());
         }
         return output;
     }
-    
+
 }

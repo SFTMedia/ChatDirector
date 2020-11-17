@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class LuckPermsContextItem extends PermissionItem {
-    
+
     @Override
     public String getPrefix(String playerName) {
         return LuckPermsProvider.get().getUserManager().getUser(playerName).getCachedData().getMetaData().getPrefix();
@@ -28,14 +28,15 @@ public class LuckPermsContextItem extends PermissionItem {
 
     @Override
     public String getGroup(String playerName) {
-        return LuckPermsProvider.get().getUserManager().getUser(playerName).getCachedData().getMetaData().getPrimaryGroup();
+        return LuckPermsProvider.get().getUserManager().getUser(playerName).getCachedData().getMetaData()
+                .getPrimaryGroup();
     }
 
     @Override
     public Context process(Context context) {
         Context output = super.process(context);
         output.put("SERVER_LUCKPERMS_NAME", LuckPermsProvider.get().getServerName());
-        if(!context.containsKey("SERVER_NAME")) {
+        if (!context.containsKey("SERVER_NAME")) {
             output.put("SERVER_NAME", LuckPermsProvider.get().getServerName());
         }
         return output;

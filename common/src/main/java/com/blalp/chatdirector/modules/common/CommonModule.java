@@ -42,10 +42,10 @@ public class CommonModule implements IModule {
     @Override
     public void unload() {
     }
-    
+
     @Override
     public boolean isValid() {
         return true;
     }
-    
+
 }

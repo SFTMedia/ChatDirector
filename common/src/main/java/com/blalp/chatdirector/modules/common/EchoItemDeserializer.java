@@ -18,5 +18,5 @@ public class EchoItemDeserializer extends JsonDeserializer<EchoItem> {
         EchoItem item = new EchoItem(config.asText());
         return item;
     }
-    
+
 }

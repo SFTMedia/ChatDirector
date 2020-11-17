@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = EchoItemDeserializer.class)
 public class EchoItem implements IItem {
     public String format;
@@ -24,12 +24,12 @@ public class EchoItem implements IItem {
 
     @Override
     public boolean isValid() {
-        return format!=null;
+        return format != null;
     }
 
     @Override
     public Context process(Context context) {
         return new Context(ChatDirector.format(format, context));
     }
-    
+
 }

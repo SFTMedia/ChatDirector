@@ -14,25 +14,27 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = IfEndsWithDeserializer.class)
 public class IfEndsWithItem extends ConditionalItem {
     String endsWith;
 
-    public IfEndsWithItem(Chain nestedTrue, Chain nestedFalse, String endsWith,String source) {
+    public IfEndsWithItem(Chain nestedTrue, Chain nestedFalse, String endsWith, String source) {
         super(nestedTrue, nestedFalse);
-        this.endsWith=endsWith;
-        if(source==null){
-            source="%CURRENT%";
+        this.endsWith = endsWith;
+        if (source == null) {
+            source = "%CURRENT%";
         }
-        this.source=source;
+        this.source = source;
     }
+
     @Override
     public boolean test(Context context) {
         return ChatDirector.format(source, context).endsWith(endsWith);
     }
+
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(endsWith)&&super.isValid();
+        return ValidationUtils.hasContent(endsWith) && super.isValid();
     }
 }

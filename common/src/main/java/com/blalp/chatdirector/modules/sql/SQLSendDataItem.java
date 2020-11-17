@@ -16,32 +16,37 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = SQLSendDataDeserializer.class)
 public class SQLSendDataItem extends SQLItem {
     String value;
+
     @Override
     public Context process(Context context) {
-        if(cache) {
-            SQLCacheStore.setValue(connection, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context), ChatDirector.format(value,context));
+        if (cache) {
+            SQLCacheStore.setValue(connection, ChatDirector.format(table, context), ChatDirector.format(name, context),
+                    ChatDirector.format(key, context), ChatDirector.format(value, context));
         }
         try {
-            PreparedStatement statement = SQLModule.connections.get(connection).connection.prepareStatement("INSERT INTO "+ChatDirector.format(table, context)+" (`name`,`key`,`value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value`=?");
+            PreparedStatement statement = SQLModule.connections.get(connection).connection
+                    .prepareStatement("INSERT INTO " + ChatDirector.format(table, context)
+                            + " (`name`,`key`,`value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value`=?");
             statement.setString(1, ChatDirector.format(name, context));
             statement.setString(2, ChatDirector.format(key, context));
             statement.setString(3, ChatDirector.format(value, context));
             statement.setString(4, ChatDirector.format(value, context));
             statement.execute();
-        } catch (SQLException e){
-            System.err.println(this+" failed on "+context.getCurrent());
-            ChatDirector.logDebug("Failed SQL "+e.getSQLState());
+        } catch (SQLException e) {
+            System.err.println(this + " failed on " + context.getCurrent());
+            ChatDirector.logDebug("Failed SQL " + e.getSQLState());
             e.printStackTrace();
         }
         return new Context();
     }
+
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(value)&&super.isValid();
+        return ValidationUtils.hasContent(value) && super.isValid();
     }
-    
+
 }

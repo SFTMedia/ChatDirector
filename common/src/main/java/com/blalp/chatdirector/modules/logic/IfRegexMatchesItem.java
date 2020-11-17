@@ -14,21 +14,23 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = IfRegexMatchDeserializer.class)
 public class IfRegexMatchesItem extends ConditionalItem {
     String regex;
-    public IfRegexMatchesItem(Chain nestedTrue, Chain nestedFalse,String regex) {
+
+    public IfRegexMatchesItem(Chain nestedTrue, Chain nestedFalse, String regex) {
         super(nestedTrue, nestedFalse);
-        this.regex=regex;
+        this.regex = regex;
     }
 
     @Override
     public boolean test(Context context) {
         return (ChatDirector.format(source, context)).matches((ChatDirector.format(regex, context)));
     }
+
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(regex)&&super.isValid();
+        return ValidationUtils.hasContent(regex) && super.isValid();
     }
 }

@@ -12,17 +12,18 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class CacheSetItem extends CacheItem {
-    String value;
+	String value;
 
 	@Override
 	public Context process(Context context) {
 		CacheStore.setValue(ChatDirector.format(key, context), ChatDirector.format(value, context));
 		return new Context();
 	}
+
 	@Override
 	public boolean isValid() {
-		return ValidationUtils.hasContent(value)&&super.isValid();
+		return ValidationUtils.hasContent(value) && super.isValid();
 	}
 }

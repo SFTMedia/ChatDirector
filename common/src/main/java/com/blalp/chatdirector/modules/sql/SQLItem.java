@@ -19,6 +19,7 @@ import lombok.NoArgsConstructor;
 public class SQLItem implements IItem {
     public String table, name, key, connection;
     public boolean cache;
+
     @Override
     public boolean isValid() {
         return ValidationUtils.hasContent(table, name, key, connection);

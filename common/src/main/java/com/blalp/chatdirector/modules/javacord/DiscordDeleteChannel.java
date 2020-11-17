@@ -12,19 +12,21 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class DiscordDeleteChannel extends DiscordItem {
 
     private String channel;
 
     @Override
     public Context process(Context context) {
-        DiscordModule.instance.discordBots.get(bot).getDiscordApi().getServerChannelById(ChatDirector.format(channel, context)).get().delete("Deleted by Chatdirector");
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi()
+                .getServerChannelById(ChatDirector.format(channel, context)).get().delete("Deleted by Chatdirector");
         return new Context();
     }
+
     @Override
     public boolean isValid() {
-        return super.isValid()&&ValidationUtils.hasContent(channel);
+        return super.isValid() && ValidationUtils.hasContent(channel);
     }
-    
+
 }

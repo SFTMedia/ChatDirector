@@ -14,23 +14,25 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class DiscordGetDMChannelItem extends DiscordItem {
 
     String user;
+
     @Override
     public Context process(Context context) {
-        User userObj = DiscordModule.instance.discordBots.get(bot).getDiscordApi().getUserById(ChatDirector.format(user, context)).join();
-        if(!userObj.getPrivateChannel().isPresent()){
+        User userObj = DiscordModule.instance.discordBots.get(bot).getDiscordApi()
+                .getUserById(ChatDirector.format(user, context)).join();
+        if (!userObj.getPrivateChannel().isPresent()) {
             userObj.openPrivateChannel().join();
         }
         Context output = new Context();
         output.put("DISCORD_DM_CHANNEL_ID", userObj.getPrivateChannel().get().getIdAsString());
-		return output;
+        return output;
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(user)&&super.isValid();
+        return ValidationUtils.hasContent(user) && super.isValid();
     }
 }

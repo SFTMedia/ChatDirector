@@ -17,21 +17,21 @@ public class SQLSendDataDeserializer extends JsonDeserializer<SQLSendDataItem> {
         ObjectCodec oc = p.getCodec();
         JsonNode config = oc.readTree(p);
         SQLSendDataItem output = new SQLSendDataItem();
-        if(config.has("cache")){
-            output.cache=config.get("cache").asBoolean();
+        if (config.has("cache")) {
+            output.cache = config.get("cache").asBoolean();
         }
-        output.connection=config.get("connection").asText();
-        output.key=config.get("key").asText();
-        output.name=config.get("name").asText();
-        output.table=config.get("table").asText();
-        output.value=config.get("value").asText();
+        output.connection = config.get("connection").asText();
+        output.key = config.get("key").asText();
+        output.name = config.get("name").asText();
+        output.table = config.get("table").asText();
+        output.value = config.get("value").asText();
         try {
             SQLModule.tables.get(output.connection).add(output.table);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
-            System.err.println("Not a registered connection "+output.connection);
+            System.err.println("Not a registered connection " + output.connection);
         }
         return output;
     }
-    
+
 }

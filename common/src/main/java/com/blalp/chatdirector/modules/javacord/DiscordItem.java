@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)public class DiscordItem extends PassItem {
+@EqualsAndHashCode(callSuper = false)
+public class DiscordItem extends PassItem {
 	public String bot;
 
 	@Override

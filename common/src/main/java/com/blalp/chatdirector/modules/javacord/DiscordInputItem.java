@@ -12,27 +12,28 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = DiscordInputItemDeserializer.class)
 public class DiscordInputItem extends DiscordItem {
-	public boolean reactionAddEvent=false;
-	public boolean reactionRemoveEvent=false;
-    public boolean messageEvent=false;
-    String channel,category,message,format;
+    public boolean reactionAddEvent = false;
+    public boolean reactionRemoveEvent = false;
+    public boolean messageEvent = false;
+    String channel, category, message, format;
 
     @Override
     public boolean isValid() {
-        if(!super.isValid()||format==null||format.isEmpty()){
+        if (!super.isValid() || format == null || format.isEmpty()) {
             return false;
         }
-        if(!DiscordModule.instance.discordBots.containsKey(bot)){
-            ChatDirector.logDebug("Bot "+bot+" not registered for item ."+this);
+        if (!DiscordModule.instance.discordBots.containsKey(bot)) {
+            ChatDirector.logDebug("Bot " + bot + " not registered for item ." + this);
             return false;
         }
-        if(messageEvent){
-            return ValidationUtils.anyOf(ValidationUtils.hasContent(channel),ValidationUtils.hasContent(category));
-        } else if (reactionAddEvent||reactionRemoveEvent) {
-            return ValidationUtils.anyOf(ValidationUtils.hasContent(channel),ValidationUtils.hasContent(category),ValidationUtils.hasContent(message));
+        if (messageEvent) {
+            return ValidationUtils.anyOf(ValidationUtils.hasContent(channel), ValidationUtils.hasContent(category));
+        } else if (reactionAddEvent || reactionRemoveEvent) {
+            return ValidationUtils.anyOf(ValidationUtils.hasContent(channel), ValidationUtils.hasContent(category),
+                    ValidationUtils.hasContent(message));
         } else {
             return false;
         }

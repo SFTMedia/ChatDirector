@@ -18,17 +18,19 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class LuckPermsSetItem extends PassItem {
     String permission;
-    boolean value=true;
+    boolean value = true;
+
     public LuckPermsSetItem(String permission) {
-        this.permission=permission;
+        this.permission = permission;
     }
+
     @Override
     public Context process(Context context) {
         // DO NOT RESOLVE CONTEXTS ON THE PERMISSION NODE
-        if(context.containsKey("PLAYER_UUID")) {
+        if (context.containsKey("PLAYER_UUID")) {
             User user = LuckPermsProvider.get().getUserManager().getUser(UUID.fromString(context.get("PLAYER_UUID")));
             user.data().add(Node.builder(permission).value(value).build());
             LuckPermsProvider.get().getUserManager().saveUser(user);

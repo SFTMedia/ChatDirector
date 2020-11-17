@@ -16,37 +16,38 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public abstract class ConditionalItem extends PassItem {
-    
+
     Chain yesChain;
     Chain noChain;
-    boolean invert=false;
-    String source="%CURRENT%";
+    boolean invert = false;
+    String source = "%CURRENT%";
 
     @Override
     public Context process(Context context) {
-        boolean result= test(context);
-        if(invert){
-            result=!result;
+        boolean result = test(context);
+        if (invert) {
+            result = !result;
         }
-        ChatDirector.logDebug("Conditional "+this.getClass().getCanonicalName()+" test returned "+result);
-        ChatDirector.logDebug("True is "+yesChain+" false is "+noChain);
-        if(result){
+        ChatDirector.logDebug("Conditional " + this.getClass().getCanonicalName() + " test returned " + result);
+        ChatDirector.logDebug("True is " + yesChain + " false is " + noChain);
+        if (result) {
             return yesChain.run(context);
         } else {
             return noChain.run(context);
         }
     }
-    
+
     public abstract boolean test(Context context);
-    public ConditionalItem(Chain trueChain,Chain falseChain){
-        this.yesChain=trueChain;
-        this.noChain=falseChain;
+
+    public ConditionalItem(Chain trueChain, Chain falseChain) {
+        this.yesChain = trueChain;
+        this.noChain = falseChain;
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(yesChain,noChain)&&ValidationUtils.hasContent(source);
+        return ValidationUtils.hasContent(yesChain, noChain) && ValidationUtils.hasContent(source);
     }
 }

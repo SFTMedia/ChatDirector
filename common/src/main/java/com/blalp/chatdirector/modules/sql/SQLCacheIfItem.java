@@ -14,19 +14,21 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = SQLCacheIfDeserializer.class)
 public class SQLCacheIfItem extends ConditionalItem {
-    public String table,name,key,connection;
+    public String table, name, key, connection;
     public boolean cache;
+
     @Override
     public boolean test(Context context) {
-        return SQLCacheStore.containsKey(connection, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context));
+        return SQLCacheStore.containsKey(connection, ChatDirector.format(table, context),
+                ChatDirector.format(name, context), ChatDirector.format(key, context));
     }
 
     @Override
     public boolean isValid() {
-        return  ValidationUtils.hasContent(table,name,key,connection)&&super.isValid();
+        return ValidationUtils.hasContent(table, name, key, connection) && super.isValid();
     }
-    
+
 }

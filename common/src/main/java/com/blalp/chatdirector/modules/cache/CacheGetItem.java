@@ -15,10 +15,10 @@ public class CacheGetItem extends CacheItem {
 
     @Override
     public Context process(Context context) {
-        if(CacheStore.containsKey(ChatDirector.format(key, context))){
+        if (CacheStore.containsKey(ChatDirector.format(key, context))) {
             return new Context(CacheStore.getValue(ChatDirector.format(key, context)));
         }
         return new Context();
     }
-    
+
 }

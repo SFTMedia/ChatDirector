@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class DiscordInputDaemon extends ItemDaemon
         implements MessageCreateListener, ReactionAddListener, ReactionRemoveListener {
     private String bot;
@@ -45,7 +45,7 @@ public class DiscordInputDaemon extends ItemDaemon
             return;
         }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
-            if(!item.messageEvent){
+            if (!item.messageEvent) {
                 continue;
             }
             if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)) {
@@ -56,14 +56,15 @@ public class DiscordInputDaemon extends ItemDaemon
 
     @Override
     public void onReactionRemove(ReactionRemoveEvent event) {
-        if (event.getUser().isPresent()&&event.getUser().get().isYourself()) {
+        if (event.getUser().isPresent() && event.getUser().get().isYourself()) {
             return;
         }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
-            if(!item.reactionRemoveEvent){
+            if (!item.reactionRemoveEvent) {
                 continue;
             }
-            if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)||sharesMessage(event.getMessage(), item.message)) {
+            if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)
+                    || sharesMessage(event.getMessage(), item.message)) {
                 ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
             }
         }
@@ -71,23 +72,27 @@ public class DiscordInputDaemon extends ItemDaemon
 
     @Override
     public void onReactionAdd(ReactionAddEvent event) {
-        if (event.getUser().isPresent()&&event.getUser().get().isYourself()) {
+        if (event.getUser().isPresent() && event.getUser().get().isYourself()) {
             return;
         }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
-            if(!item.reactionAddEvent){
+            if (!item.reactionAddEvent) {
                 continue;
             }
-            if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)||sharesMessage(event.getMessage(), item.message)) {
+            if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)
+                    || sharesMessage(event.getMessage(), item.message)) {
                 ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
             }
         }
     }
-    private boolean sharesChannelOrCategory(Channel channel,String channelID,String categoryID) {
+
+    private boolean sharesChannelOrCategory(Channel channel, String channelID, String categoryID) {
         return channel.getIdAsString().equals(channelID)
-            ||(channel.asCategorizable().isPresent()&& channel.asCategorizable().get().getCategory().isPresent()&&channel.asCategorizable().get().getCategory().get().getIdAsString().equals(categoryID));
+                || (channel.asCategorizable().isPresent() && channel.asCategorizable().get().getCategory().isPresent()
+                        && channel.asCategorizable().get().getCategory().get().getIdAsString().equals(categoryID));
     }
-    private boolean sharesMessage(Optional<Message> message,String messageID) {
-        return (message.isPresent()&&message.get().getIdAsString().equals(messageID));
+
+    private boolean sharesMessage(Optional<Message> message, String messageID) {
+        return (message.isPresent() && message.get().getIdAsString().equals(messageID));
     }
 }

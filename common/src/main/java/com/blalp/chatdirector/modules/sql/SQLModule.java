@@ -74,5 +74,5 @@ public class SQLModule implements IModule {
     public Context getContext(Object object) {
         return new Context();
     }
-    
+
 }

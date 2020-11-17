@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class FileOutputItem implements IItem {
     String path;
     int delay = 500;
@@ -25,7 +25,7 @@ public class FileOutputItem implements IItem {
 
     @Override
     public boolean isValid() {
-        return path!=null&&new File(path).exists();
+        return path != null && new File(path).exists();
     }
 
     @Override
