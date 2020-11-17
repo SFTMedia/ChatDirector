@@ -23,23 +23,27 @@ public class BungeeModule implements IModule {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
+        boolean result = true;
         if (BungeeInputItemDaemon.instance != null) {
-            BungeeInputItemDaemon.instance.load();
+            result=result&&BungeeInputItemDaemon.instance.load();
         }
         for (BungeeCommand command : BungeeCommand.commands) {
-            command.load();
+            result=result&&command.load();
         }
+        return result;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
+        boolean result = true;
         if (BungeeInputItemDaemon.instance != null) {
-            BungeeInputItemDaemon.instance.unload();
+            result=result&&BungeeInputItemDaemon.instance.unload();
         }
         for (BungeeCommand command : BungeeCommand.commands) {
-            command.unload();
+            result=result&&command.unload();
         }
+        return result;
     }
 
     @SuppressWarnings("deprecation")

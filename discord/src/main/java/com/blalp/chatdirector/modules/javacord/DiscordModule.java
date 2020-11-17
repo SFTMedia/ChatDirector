@@ -31,24 +31,28 @@ public class DiscordModule implements IModule {
     public Map<String, DiscordBot> discordBots = new HashMap<>();
 
     @Override
-    public void load() {
+    public boolean load() {
+        boolean result = true;
         for (DiscordBot bot : discordBots.values()) {
-            bot.load();
+            result=result&&bot.load();
             if (bot.daemon != null) {
-                bot.daemon.load();
+                result=result&&bot.daemon.load();
             }
         }
+        return result;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
+        boolean result = true;
         for (DiscordBot bot : discordBots.values()) {
-            bot.unload();
+            result=result&&bot.unload();
             if (bot.daemon != null) {
-                bot.daemon.unload();
+                result=result&&bot.daemon.unload();
             }
         }
         discordBots = new HashMap<>();
+        return result;
     }
 
     @Override

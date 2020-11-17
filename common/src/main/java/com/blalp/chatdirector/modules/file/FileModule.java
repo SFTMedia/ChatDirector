@@ -9,17 +9,19 @@ import com.blalp.chatdirector.model.IModule;
 public class FileModule implements IModule {
 
     @Override
-    public void load() {
+    public boolean load() {
         if (FileInputDaemon.instance != null) {
-            FileInputDaemon.instance.load();
+            return FileInputDaemon.instance.load();
         }
+        return true;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         if (FileInputDaemon.instance != null) {
-            FileInputDaemon.instance.unload();
+            return FileInputDaemon.instance.unload();
         }
+        return true;
     }
 
     @Override

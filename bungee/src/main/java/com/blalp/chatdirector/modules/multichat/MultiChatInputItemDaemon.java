@@ -52,11 +52,11 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
         }
     }
     /*
-     * @Override public void load() {
+     * @Override public boolean load() {
      * ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(
      * ChatDirectorBungee.instance, this); }
      * 
-     * @Override public void unload() {
+     * @Override public boolean unload() {
      * ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(
      * this); }
      */

@@ -9,17 +9,19 @@ import com.blalp.chatdirector.model.IModule;
 public class BungeeMessageModule implements IModule {
 
     @Override
-    public void load() {
+    public boolean load() {
         if (FromBungeeDaemon.instance != null) {
-            FromBungeeDaemon.instance.load();
+            return FromBungeeDaemon.instance.load();
         }
+        return true;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         if (FromBungeeDaemon.instance != null) {
-            FromBungeeDaemon.instance.unload();
+            return FromBungeeDaemon.instance.unload();
         }
+        return true;
     }
 
     @Override

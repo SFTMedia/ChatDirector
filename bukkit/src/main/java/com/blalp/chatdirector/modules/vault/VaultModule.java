@@ -48,17 +48,19 @@ public class VaultModule implements IModule {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         setupChat();
         setupEconomy();
         setupPermissions();
+        return true;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         chat = null;
         permission = null;
         economy = null;
+        return true;
     }
 
     @Override

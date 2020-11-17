@@ -9,12 +9,12 @@ import com.blalp.chatdirector.model.IModule;
 public class LuckPermsModule implements IModule {
 
     @Override
-    public void load() {
+    public boolean load() {
 
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
 
     }
 

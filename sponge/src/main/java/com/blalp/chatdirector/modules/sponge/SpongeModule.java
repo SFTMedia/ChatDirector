@@ -24,23 +24,27 @@ public class SpongeModule implements IModule {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
+        boolean result = true;
         if (SpongeInputDaemon.instance != null) {
-            SpongeInputDaemon.instance.load();
+            result=result&&SpongeInputDaemon.instance.load();
         }
         for (SpongeCommandItem command : SpongeCommandItem.commands) {
-            command.load();
+            result=result&&command.load();
         }
+        return result;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
+        boolean result = true;
         if (SpongeInputDaemon.instance != null) {
-            SpongeInputDaemon.instance.unload();
+            result=result&&SpongeInputDaemon.instance.unload();
         }
         for (SpongeCommandItem command : SpongeCommandItem.commands) {
-            command.unload();
+            result=result&&command.unload();
         }
+        return result;
     }
 
     @Override

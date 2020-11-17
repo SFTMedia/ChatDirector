@@ -9,13 +9,13 @@ import com.blalp.chatdirector.model.IModule;
 public class LogicModule implements IModule {
 
     @Override
-    public void load() {
-
+    public boolean load() {
+        return true;
     }
 
     @Override
-    public void unload() {
-
+    public boolean unload() {
+        return true;
     }
 
     @Override

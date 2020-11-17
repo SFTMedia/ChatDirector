@@ -66,7 +66,8 @@ public class ChatDirector implements IConfiguration {
         this.file = new File("config.yml");
     }
 
-    public void load() {
+    public boolean load() {
+        boolean result = true;
         // Load config
         ObjectMapper om = new ObjectMapper(new YAMLFactory())
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
@@ -81,36 +82,43 @@ public class ChatDirector implements IConfiguration {
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
             new Thread(new TimedLoad()).start();
+            result=false;
         } catch (IOException e1) {
             e1.printStackTrace();
             new Thread(new TimedLoad()).start();
+            result=false;
         }
         modules = config.getModules();
         chains = config.getChains();
         // Load modules
         for (IModule module : modules) {
-            module.load();
+            result=result&&module.load();
         }
         // Now validate chains
         for (Entry<String, Chain> chain : chains.entrySet()) {
             if (chain.getValue()!=null&&!chain.getValue().isValid()) {
                 log(Level.SEVERE, "chain " + chain + " is not valid.");
+                result=false;
             }
         }
         for (IModule module : modules) {
             if (!module.isValid()) {
                 log(Level.SEVERE, "module " + module + " is not valid.");
+                result=false;
             }
         }
+        return result;
     }
 
-    public void unload() {
+    public boolean unload() {
+        boolean result = true;
         for (IModule module : modules) {
-            module.unload();
+            result=result&&module.unload();
         }
         config.unload();
         modules = new ArrayList<>();
         chains = new HashMap<String, Chain>();
+        return result;
     }
 
     public static String format(Context context) {

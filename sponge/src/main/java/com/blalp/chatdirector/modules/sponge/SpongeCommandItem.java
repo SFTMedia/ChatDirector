@@ -44,7 +44,7 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         ChatDirector.logDebug("Starting load of " + this);
         Builder myCommandSpec = CommandSpec.builder().permission(permission).executor(this);
         if (args) {
@@ -55,10 +55,11 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
         } else {
             System.err.println("Alias " + command + " in use");
         }
+        return true;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         ChatDirector.logDebug("Starting unload of " + this);
         if (Sponge.getCommandManager().get(command).isPresent()) {
             Sponge.getCommandManager().removeMapping(Sponge.getCommandManager().get(command).get());
@@ -66,6 +67,7 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
             System.err.println("Mapping was not found");
         }
         commands = new ArrayList<>();
+        return true;
     }
 
     @Override

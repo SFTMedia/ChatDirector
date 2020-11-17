@@ -36,13 +36,15 @@ public class BungeeCommand extends Command implements ILoadable {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance, this);
+        return true;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         ProxyServer.getInstance().getPluginManager().unregisterCommand(this);
+        return true;
     }
 
 }

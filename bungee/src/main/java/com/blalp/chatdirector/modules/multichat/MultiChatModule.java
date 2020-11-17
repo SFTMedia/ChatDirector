@@ -19,17 +19,19 @@ public class MultiChatModule implements IModule {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         if (MultiChatInputItemDaemon.instance != null) {
-            MultiChatInputItemDaemon.instance.load();
+            return MultiChatInputItemDaemon.instance.load();
         }
+        return true;
     }
 
     @Override
-    public void unload() {
+    public boolean unload() {
         if (MultiChatInputItemDaemon.instance != null) {
-            MultiChatInputItemDaemon.instance.unload();
+            return MultiChatInputItemDaemon.instance.unload();
         }
+        return true;
     }
 
     @Override

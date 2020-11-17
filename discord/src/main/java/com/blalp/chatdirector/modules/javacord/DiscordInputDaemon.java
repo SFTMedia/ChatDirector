@@ -32,10 +32,11 @@ public class DiscordInputDaemon extends ItemDaemon
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         DiscordModule.instance.discordBots.get(bot).getDiscordApi().addMessageCreateListener(this);
         DiscordModule.instance.discordBots.get(bot).getDiscordApi().addReactionAddListener(this);
         DiscordModule.instance.discordBots.get(bot).getDiscordApi().addReactionRemoveListener(this);
+        return true;
     }
 
     @Override
