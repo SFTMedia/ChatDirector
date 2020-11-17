@@ -263,7 +263,7 @@ chains:
   - multichat-demo:
       - multichat-context: null # Adds more contexts
       - multichat-input:
-        global: true
+        global: true 
         staff: true
         broadcast: true
   - replacement-demo:
