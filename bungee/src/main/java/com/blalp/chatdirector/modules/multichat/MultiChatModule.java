@@ -3,13 +3,8 @@ package com.blalp.chatdirector.modules.multichat;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.blalp.chatdirector.model.IItem;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import xyz.olivermartin.multichat.bungee.events.PostBroadcastEvent;
 import xyz.olivermartin.multichat.bungee.events.PostGlobalChatEvent;
@@ -46,25 +41,6 @@ public class MultiChatModule implements IModule {
 	public List<String> getItemNames() {
 		return Arrays.asList("multichat-input","multichat-context");
 	}
-
-	@Override
-	public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
-        switch (type) {
-            case "multichat-input":
-                MultiChatInputItem itemInput = om.convertValue(config, MultiChatInputItem.class);
-                if(MultiChatInputItemDaemon.instance==null){
-                    MultiChatInputItemDaemon.instance=new MultiChatInputItemDaemon();
-                }
-                MultiChatInputItemDaemon.instance.addItem(itemInput,chain);
-                return itemInput;
-            case "multichat-context":
-                return  om.convertValue(config, MultiChatContextItem.class);
-            default:
-                return null;
-                
-        }
-	}
-
 	@Override
 	public Context getContext(Object event) {
         Context context = new Context();
@@ -92,4 +68,16 @@ public class MultiChatModule implements IModule {
         }
         return context;
 	}
+
+    @Override
+    public Class<?> getItemClass(String type) {
+        switch (type) {
+            case "multichat-input":
+                return MultiChatInputItem.class;
+            case "multichat-context":
+                return  MultiChatContextItem.class;
+            default:
+                return null;
+        }
+    }
 }

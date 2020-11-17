@@ -56,7 +56,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
 		// this is needed as ServerConnectEvent is also called for the first time.
         for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[]{})) {
             if (!existing_players.contains(e.getPlayer().getUniqueId())) {
-                if(item.joinServer){
+                if(item.join){
                     context.put("CURRENT", ChatDirector.format(item.formatJoin, context));
                     ChatDirector.run(item, context, true);
                 }

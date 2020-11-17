@@ -3,13 +3,8 @@ package com.blalp.chatdirector.modules.bungee;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.blalp.chatdirector.model.IItem;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class BungeeModule implements IModule {
 
@@ -38,26 +33,20 @@ public class BungeeModule implements IModule {
     }
 
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
-        switch (type) {
-            case "bungee-to":
-                return om.convertValue(config,ToBungeeItem.class);
-            case "bungee-from":
-                if (FromBungeeDaemon.instance == null) {
-                    FromBungeeDaemon.instance = new FromBungeeDaemon();
-                    FromBungeeDaemon.instance.load();
-                }
-                FromBungeeItem item = om.convertValue(config,FromBungeeItem.class);
-                FromBungeeDaemon.instance.addItem(item,chain);
-                return item;
-            default:
-                return null;
-        }
+    public Context getContext(Object object) {
+        return new Context();
     }
 
     @Override
-    public Context getContext(Object object) {
-        return new Context();
+    public Class<?> getItemClass(String type) {
+        switch (type) {
+            case "bungee-to":
+                return ToBungeeItem.class;
+            case "bungee-from":
+                return FromBungeeItem.class;
+            default:
+                return null;
+        }
     }
     
 }

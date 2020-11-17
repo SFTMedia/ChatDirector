@@ -7,6 +7,17 @@ import com.blalp.chatdirector.utils.PermissionItem;
 
 import org.bukkit.Bukkit;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@EqualsAndHashCode(callSuper=false)
+@NoArgsConstructor
 public class VaultContextItem extends PermissionItem {
 
     @SuppressWarnings("deprecation")

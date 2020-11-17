@@ -16,6 +16,15 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@NoArgsConstructor
 public class BungeeOutputFancyItem implements IItem {
     /*
             - bungee-output-fancy:
@@ -52,12 +61,12 @@ public class BungeeOutputFancyItem implements IItem {
         https://ci.md-5.net/job/BungeeCord/ws/chat/target/apidocs/index-all.html
         http://ci.md-5.net/job/BungeeCord/ws/chat/target/apidocs/overview-summary.html
 */
-    FancyMessage fancyMessage;
+    FancyMessage fancyFormat;
     String permission;
     boolean sendToCurrentServer = true;
-	public String playerTarget=null;
+	public String player=null;
     public BungeeOutputFancyItem(FancyMessage fancyMessage,String permission){
-        this.fancyMessage=fancyMessage;
+        this.fancyFormat=fancyMessage;
         this.permission=permission;
     }
     @SuppressWarnings("deprecation")
@@ -98,22 +107,22 @@ public class BungeeOutputFancyItem implements IItem {
     @Override
     public Context process(Context context) {
         Context playerContext = new Context(context);
-        FancyMessage fancyBase = fancyMessage.duplicate().withContext(context); // Resolve all of the contexts that you can before resolving player related ones
-        for(ProxiedPlayer player : ProxyServer.getInstance().getPlayers()){
-            if(playerTarget==null||(ChatDirector.format(playerTarget, context).length()>16&&player.getUniqueId().toString().equals(ChatDirector.format(playerTarget, context)))||(ChatDirector.format(playerTarget, context).length()<16&&player.getName().equals(ChatDirector.format(playerTarget, context)))) {
-                if(permission!=null&&!player.hasPermission(permission)) {
+        FancyMessage fancyBase = fancyFormat.duplicate().withContext(context); // Resolve all of the contexts that you can before resolving player related ones
+        for(ProxiedPlayer proxiedPlayer : ProxyServer.getInstance().getPlayers()){
+            if(proxiedPlayer==null||(ChatDirector.format(player, context).length()>16&&proxiedPlayer.getUniqueId().toString().equals(ChatDirector.format(player, context)))||(ChatDirector.format(player, context).length()<16&&proxiedPlayer.getName().equals(ChatDirector.format(player, context)))) {
+                if(permission!=null&&!proxiedPlayer.hasPermission(permission)) {
                     continue;
                 }
                 if(!sendToCurrentServer&&context.containsKey("SERVER_NAME")){
-                    if(player.getServer()!=null&&player.getServer().getInfo()!=null&&player.getServer().getInfo().getName().equals(context.get("SERVER_NAME"))){
-                        ChatDirector.logDebug("Server name matches player ("+player.getName()+") server >"+player.getServer().getInfo().getName()+"< to context server >"+context.get("SERVER_NAME")+"< not sending... ");
+                    if(proxiedPlayer.getServer()!=null&&proxiedPlayer.getServer().getInfo()!=null&&proxiedPlayer.getServer().getInfo().getName().equals(context.get("SERVER_NAME"))){
+                        ChatDirector.logDebug("Server name matches player ("+proxiedPlayer.getName()+") server >"+proxiedPlayer.getServer().getInfo().getName()+"< to context server >"+context.get("SERVER_NAME")+"< not sending... ");
                         continue;
                     }
                 }
-                playerContext.merge(BungeeModule.instance.getContext(player));
+                playerContext.merge(BungeeModule.instance.getContext(proxiedPlayer));
                 BaseComponent message = fromFancyMessage(fancyBase.duplicate().withContext(playerContext));
-                player.sendMessage(message); // Since we want to do context resolution per player we need to duplicate
-                ChatDirector.logDebug("Sent >"+message.toLegacyText()+"< to "+player.getName());
+                proxiedPlayer.sendMessage(message); // Since we want to do context resolution per player we need to duplicate
+                ChatDirector.logDebug("Sent >"+message.toLegacyText()+"< to "+proxiedPlayer.getName());
                 playerContext=new Context(context);
             }
         }
@@ -122,6 +131,6 @@ public class BungeeOutputFancyItem implements IItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.isNotNull(fancyMessage);
+        return ValidationUtils.isNotNull(fancyFormat);
     }
 }
