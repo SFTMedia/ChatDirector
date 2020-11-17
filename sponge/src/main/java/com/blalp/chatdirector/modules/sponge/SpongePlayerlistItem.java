@@ -22,9 +22,10 @@ public class SpongePlayerlistItem implements IItem {
     public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
     public String formatNoPlayers = "**No online players**";
     public String formatPlayer = "%PLAYER_NAME%";
+
     @Override
     public Context process(Context context) {
-        String output = ChatDirector.format(format,context);
+        String output = ChatDirector.format(format, context);
         boolean first = true;
         Context workingContext = new Context(context);
         for (Player player : Sponge.getServer().getOnlinePlayers()) {
@@ -35,17 +36,17 @@ public class SpongePlayerlistItem implements IItem {
             }
             workingContext.merge(SpongeModule.instance.getContext(player));
             output += ChatDirector.format(formatPlayer, workingContext);
-            workingContext= new Context(context);
+            workingContext = new Context(context);
         }
         output += "\n```";
-        if (output.equals(ChatDirector.format(format.replace("%NUM_PLAYERS%", "0"),context))) {
-            output = ChatDirector.format(formatNoPlayers,context);
+        if (output.equals(ChatDirector.format(format.replace("%NUM_PLAYERS%", "0"), context))) {
+            output = ChatDirector.format(formatNoPlayers, context);
         }
         return new Context(output);
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(format,formatNoPlayers,formatPlayer);
+        return ValidationUtils.hasContent(format, formatNoPlayers, formatPlayer);
     }
 }

@@ -13,8 +13,9 @@ import org.spongepowered.api.event.user.TargetUserEvent;
 
 public class SpongeModule implements IModule {
     public static SpongeModule instance;
-    public SpongeModule(){
-        instance=this;
+
+    public SpongeModule() {
+        instance = this;
     }
 
     @Override
@@ -46,29 +47,30 @@ public class SpongeModule implements IModule {
     public boolean isValid() {
         return true;
     }
+
     @Override
     public Context getContext(Object event) {
         Context context = new Context();
-        context.put("SERVER_NUM_PLAYERS",String.valueOf(Sponge.getServer().getOnlinePlayers().size()));
-        context.put("SERVER_MAX_PLAYERS",String.valueOf(Sponge.getServer().getMaxPlayers()));
-        context.put("SERVER_MOTD",String.valueOf(Sponge.getServer().getMotd().toPlain()));
-        if(event instanceof Event) {
-            if(((Event)event).getCause().first(Player.class).isPresent()){
-                context.merge(getContext(((Event)event).getCause().first(Player.class).get()));
+        context.put("SERVER_NUM_PLAYERS", String.valueOf(Sponge.getServer().getOnlinePlayers().size()));
+        context.put("SERVER_MAX_PLAYERS", String.valueOf(Sponge.getServer().getMaxPlayers()));
+        context.put("SERVER_MOTD", String.valueOf(Sponge.getServer().getMotd().toPlain()));
+        if (event instanceof Event) {
+            if (((Event) event).getCause().first(Player.class).isPresent()) {
+                context.merge(getContext(((Event) event).getCause().first(Player.class).get()));
             }
         }
-        if(event instanceof Player) {
-            context.put("PLAYER_NAME",((Player)event).getName());
-            context.put("PLAYER_UUID",((Player)event).getUniqueId().toString());
+        if (event instanceof Player) {
+            context.put("PLAYER_NAME", ((Player) event).getName());
+            context.put("PLAYER_UUID", ((Player) event).getUniqueId().toString());
         }
-        if(event instanceof Chat) {
-            context.put("CHAT_MESSAGE",((Chat)event).getRawMessage().toPlain());
-            context.put("CHAT_MESSAGE_FORMATTED",((Chat)event).getMessage().toPlain());
-            context.put("CHAT_MESSAGE_ORIGINAL",((Chat)event).getOriginalMessage().toPlain());
-            context.put("CHAT_FORMAT",((Chat)event).getMessage().getFormat().toString());
+        if (event instanceof Chat) {
+            context.put("CHAT_MESSAGE", ((Chat) event).getRawMessage().toPlain());
+            context.put("CHAT_MESSAGE_FORMATTED", ((Chat) event).getMessage().toPlain());
+            context.put("CHAT_MESSAGE_ORIGINAL", ((Chat) event).getOriginalMessage().toPlain());
+            context.put("CHAT_FORMAT", ((Chat) event).getMessage().getFormat().toString());
         }
-        if(event instanceof TargetUserEvent){
-            context.merge(getContext(((TargetUserEvent)event).getTargetUser()));
+        if (event instanceof TargetUserEvent) {
+            context.merge(getContext(((TargetUserEvent) event).getTargetUser()));
         }
         return context;
     }
@@ -88,5 +90,5 @@ public class SpongeModule implements IModule {
                 return null;
         }
     }
-    
+
 }

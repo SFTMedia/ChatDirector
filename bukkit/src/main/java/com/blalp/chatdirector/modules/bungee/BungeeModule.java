@@ -48,5 +48,5 @@ public class BungeeModule implements IModule {
                 return null;
         }
     }
-    
+
 }

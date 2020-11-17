@@ -13,18 +13,19 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class BukkitCommandItem extends PassItem {
     String command;
     String permission;
-    public BukkitCommandItem(String name,String permission){
-        this.command=name;
-        this.permission=permission;
+
+    public BukkitCommandItem(String name, String permission) {
+        this.command = name;
+        this.permission = permission;
         new BukkitCommand(name, this);
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(command,permission);
+        return ValidationUtils.hasContent(command, permission);
     }
 }

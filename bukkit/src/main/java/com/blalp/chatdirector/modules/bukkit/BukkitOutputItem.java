@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BukkitOutputItem implements IItem {
-    public String permission=null;
+    public String permission = null;
 
     @Override
     public Context process(Context context) {
-        if (permission==null) {
+        if (permission == null) {
             Bukkit.broadcastMessage(ChatDirector.format(context));
         } else {
             Bukkit.broadcast(ChatDirector.format(context), permission);

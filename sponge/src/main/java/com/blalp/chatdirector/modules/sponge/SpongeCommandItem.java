@@ -30,41 +30,42 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoadable {
     String command;
     String permission;
-	public boolean args=false;
+    public boolean args = false;
     public static ArrayList<SpongeCommandItem> commands = new ArrayList<>();
-    public SpongeCommandItem(String name,String permission){
-        this.command=name;
-        this.permission=permission;
+
+    public SpongeCommandItem(String name, String permission) {
+        this.command = name;
+        this.permission = permission;
         commands.add(this);
     }
-    
+
     @Override
     public void load() {
-        ChatDirector.logDebug("Starting load of "+this);
+        ChatDirector.logDebug("Starting load of " + this);
         Builder myCommandSpec = CommandSpec.builder().permission(permission).executor(this);
         if (args) {
             myCommandSpec.arguments(GenericArguments.remainingRawJoinedStrings(Text.of("args")));
         }
-        if(!Sponge.getCommandManager().containsAlias(command)){
+        if (!Sponge.getCommandManager().containsAlias(command)) {
             Sponge.getCommandManager().register(ChatDirectorSponge.instance, myCommandSpec.build(), command);
-        }else {
-            System.err.println("Alias "+command+" in use");
+        } else {
+            System.err.println("Alias " + command + " in use");
         }
     }
 
     @Override
     public void unload() {
-        ChatDirector.logDebug("Starting unload of "+this);
-        if(Sponge.getCommandManager().get(command).isPresent()){
+        ChatDirector.logDebug("Starting unload of " + this);
+        if (Sponge.getCommandManager().get(command).isPresent()) {
             Sponge.getCommandManager().removeMapping(Sponge.getCommandManager().get(command).get());
         } else {
             System.err.println("Mapping was not found");
         }
-        commands=new ArrayList<>();
+        commands = new ArrayList<>();
     }
 
     @Override
@@ -72,8 +73,8 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
         Context context = SpongeModule.instance.getContext(src);
         context.merge(SpongeModule.instance.getContext(args));
         String output = command;
-        if(args.<String>getOne(Text.of("args")).isPresent()){
-            output=args.<String>getOne(Text.of("args")).get();
+        if (args.<String>getOne(Text.of("args")).isPresent()) {
+            output = args.<String>getOne(Text.of("args")).get();
             context.put("COMMAND_ARGS", args.<String>getOne(Text.of("args")).get());
         }
         context.put("COMMAND_NAME", command);
@@ -82,8 +83,9 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
         ChatDirector.run(this, context, true);
         return CommandResult.success();
     }
+
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(command,permission);
+        return ValidationUtils.hasContent(command, permission);
     }
 }

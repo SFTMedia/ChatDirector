@@ -19,320 +19,320 @@ modules:
         all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
 chains:
   - common-demo: # This module is always loaded
-    - break # This stops the chain, but returns the value
-    - halt # Exits at that current point, do not continue afterwards (this used to be called stop)
-    - echo: "echo'd %CURRENT%" # This sets the string to the specifiedFormat. The Previous value is set to the CURRENT context
-    - reload # Reloads ChatDirector
+      - break # This stops the chain, but returns the value
+      - halt # Exits at that current point, do not continue afterwards (this used to be called stop)
+      - echo: "echo'd %CURRENT%" # This sets the string to the specifiedFormat. The Previous value is set to the CURRENT context
+      - reload # Reloads ChatDirector
   - bukkit-demo:
-    - bukkit-input: # All of these are optional
-        chat: true
-        leave: true
-        join: true
-        server-started: true
-        server-stopped: true
-        check-canceled: true
-        override-chat: true # This will set the message to the result of the chain
-        new-join: true
-        cancel-chat: true
-        format: "%PLAYER_NAME%: %CHAT_MESSAGE%"
-    - bukkit-playerlist:
-        format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
-        format-player: "%PLAYER_NAME%" # Optional
-        format-no-players: "**No online players**" # Optional
-    - bukkit-output:
-        permission: null # Optional
-    - bukkit-command:
-        command: "example-command"
-        permission: "example-permission"
+      - bukkit-input: # All of these are optional
+          chat: true
+          leave: true
+          join: true
+          server-started: true
+          server-stopped: true
+          check-canceled: true
+          override-chat: true # This will set the message to the result of the chain
+          new-join: true
+          cancel-chat: true
+          format: "%PLAYER_NAME%: %CHAT_MESSAGE%"
+      - bukkit-playerlist:
+          format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
+          format-player: "%PLAYER_NAME%" # Optional
+          format-no-players: "**No online players**" # Optional
+      - bukkit-output:
+          permission: null # Optional
+      - bukkit-command:
+          command: "example-command"
+          permission: "example-permission"
   - bungee-demo:
-    - bungee-command:
-        command: "command"
-        permission: "*"
-    - bungee-to:
-        channel: "custom-channel"
-    - bungee-from:
-        channel: "custom-channel"
-    - bungee-playerlist:
-        format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
-        format-player: "%PLAYER_NAME%" # Optional
-        format-server: "%SERVER_NAME%" # Optional
-        format-no-players: "**No online players**" # Optional
-        split-by-server: false # Optional
-    - bungee-command:
-        args: # optional
-          - subcommand-1
-        command: "example-command"
-        permission: "example-permission"
-        format: "/%COMMAND% %ARGS%"
-    - bungee-output: null
-    - bukkit-output-fancy:
-        permission: null
-        player: "player name or player UUID" # This takes prescience over permission, and does NOT check permission when sending to a player
-        send-to-current-server: true # This checks against SERVER_NAME with a player's connected server.
-        fancy-format: # Can have any number of fancy formats
-          - click:
-              click-run-command: "/test"
-              click-suggest-command: "/suggestion"
-              click-url: "https://sftmc.org"
-              text: "text to show" # This can also be a list of fancy formats
-          - color:
-              color: "RED"
-              bold: false
-              italics: true
-              strikethrough: true
-              obfuscated: false
-              text: "TEST" # This can also be a list of fancy formats
-          - hover:
-              show-text: "text"
-              text: "TEST" # This can also be a list of fancy formats
-          - raw:
-              text: "TEST"
-    - bungee-output-server:
-        server: "SERVER NAME"
-        permission: null # optional
-    - bungee-output-player:
-        player: "%PLAYER_NAME%" # can be a UUID too
-        permission: null # optional
-    - bungee-output: null
-    - bungee-input: # All Optional
-        chat: true
-        disconnect: true
-        switch-servers: true
-        join: true
-        override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
-        command: false
-        format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
-        format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
-        format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
-        format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
+      - bungee-command:
+          command: "command"
+          permission: "*"
+      - bungee-to:
+          channel: "custom-channel"
+      - bungee-from:
+          channel: "custom-channel"
+      - bungee-playerlist:
+          format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
+          format-player: "%PLAYER_NAME%" # Optional
+          format-server: "%SERVER_NAME%" # Optional
+          format-no-players: "**No online players**" # Optional
+          split-by-server: false # Optional
+      - bungee-command:
+          args: # optional
+            - subcommand-1
+          command: "example-command"
+          permission: "example-permission"
+          format: "/%COMMAND% %ARGS%"
+      - bungee-output: null
+      - bukkit-output-fancy:
+          permission: null
+          player: "player name or player UUID" # This takes prescience over permission, and does NOT check permission when sending to a player
+          send-to-current-server: true # This checks against SERVER_NAME with a player's connected server.
+          fancy-format: # Can have any number of fancy formats
+            - click:
+                click-run-command: "/test"
+                click-suggest-command: "/suggestion"
+                click-url: "https://sftmc.org"
+                text: "text to show" # This can also be a list of fancy formats
+            - color:
+                color: "RED"
+                bold: false
+                italics: true
+                strikethrough: true
+                obfuscated: false
+                text: "TEST" # This can also be a list of fancy formats
+            - hover:
+                show-text: "text"
+                text: "TEST" # This can also be a list of fancy formats
+            - raw:
+                text: "TEST"
+      - bungee-output-server:
+          server: "SERVER NAME"
+          permission: null # optional
+      - bungee-output-player:
+          player: "%PLAYER_NAME%" # can be a UUID too
+          permission: null # optional
+      - bungee-output: null
+      - bungee-input: # All Optional
+          chat: true
+          disconnect: true
+          switch-servers: true
+          join: true
+          override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
+          command: false
+          format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
+          format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
+          format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
+          format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
   - cache-demo:
-    - cache-get:
-        key: "SomeUnqiueKey" # Where get the value from
-    - cache-set:
-        key: ""
-        value: ""
-    - cache-if:
-        yes-chain: # List of items to run if there is a cached value
-          - stop: null
-        no-chain: null # List of items to run if there is no cached value
-        key: "KEY" # The key to check for
+      - cache-get:
+          key: "SomeUnqiueKey" # Where get the value from
+      - cache-set:
+          key: ""
+          value: ""
+      - cache-if:
+          yes-chain: # List of items to run if there is a cached value
+            - stop: null
+          no-chain: null # List of items to run if there is no cached value
+          key: "KEY" # The key to check for
   - context-demo:
-    - get-context:
-        context: "SERVER_%SERVER_NAME%_Players" # Normally such a nested contexts would not be possible
-    - set-context:
-        context: "TARGET_CONTEXT"
-        value: "Hello %PLAYER_NAME% you have %BALANCE% money!" # Optional. defaults to CURRENT
-    - remove-context:
-        context: "SERVER_NAME"
-    - resolve-context: null # This resolves the input string as a formattable message. Normally this shouldn't be needed and could allow for formatting injection.
+      - get-context:
+          context: "SERVER_%SERVER_NAME%_Players" # Normally such a nested contexts would not be possible
+      - set-context:
+          context: "TARGET_CONTEXT"
+          value: "Hello %PLAYER_NAME% you have %BALANCE% money!" # Optional. defaults to CURRENT
+      - remove-context:
+          context: "SERVER_NAME"
+      - resolve-context: null # This resolves the input string as a formattable message. Normally this shouldn't be needed and could allow for formatting injection.
   - console-demo:
-    - console-output: null
-    - console-output-error: null
+      - console-output: null
+      - console-output-error: null
   - discord-demo:
-    - discord-input:
-        channel: "0" # CHANNEL_ID
-        bot: bot-name
-        category: "CATEGORY_ID"  # optional
-        message: "MESSAGE_ID" # optional
-        reaction-add-event: true # optional
-        reaction-remove-event: false # optional
-        message-event: true # optional
-    - discord-resolve:
-        server: "0" # SERVER_ID
-        bot: bot-name
-        to-discord: false
-        to-plain: true
-    - discord-output: # Sends string with NO CONTEXT RESOLVING.
-        channel: "0" # CHANNEL_ID
-        format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
-        bot: bot-name
-    - discord-output-reaction:
-        channel: "0" # CHANNEL_ID
-        bot: bot-name
-        message: "MESSAGE ID"
-        emoji: "either a custom emoji id or unicode"
-        add: true # true to add an emoji, false to remove one
-    - discord-get-dm-channel: # Puts the ID into DISCORD_DM_CHANNEL_ID
-        bot: "bot-name"
-        user: "USER ID"
-    - discord-output-file:
-        channel: "0" # CHANNEL_ID
-        name: "hello world" # Optional
-        bot: bot-name
-    - discord-create-channel:
-        server: "0" # SERVER_ID
-        bot: bot-name
-        name: "channel" # Optional
-        category: "%CATEGORY_ID%" # Optional
-        user: "%DISCORD_AUTHOR ID%" # Optional
-        topic: "hello world" # Optional
-    - discord-message-history:
-        bot: "bot name"
-        channel: "channel id"
-        length: 50 # Optional how many messages of history ot get
-        format: "%DISCORD_MESSAGE%" # Optional
-    - discord-embed: # https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
-        bot: "bot name"
-        channel: "channel name"
-        author-avatar: "Author Avatar" # Optional
-        author-link: "Author Link" # Optional
-        author-name: "Author Name" # Optional
-        color: "BLUE" # Optional
-        description: "Description" # Optional
-        footer-avatar: "Footer Avatar" # Optional
-        footer-name: "Footer Name" # Optional
-        fields: # Optional
-          "field 1 header": "field 1 body"
-          "field 2 header": "field 2 body"
-        inline-fields: # Optional
-          "inline field 1 header": "inline field 1 body"
-          "inline field 2 header": "inline field 2 body"
-        image: "Image" # Optional
-        thumbnail: "Thumbnail" # Optional
-        title: "Title" # Optional
-    - discord-delete-channel:
-        bot: "bot name"
-        channel: "channel id"
-    - discord-rename-channel:
-        bot: "bot name"
-        channel: "channel id"
-        name: "channel name"
-    - discord-participants:
-        bot: "bot name"
-        length: 50 # Optional how many messages of history ot get
-        channel: "channel id"
-        each: null # List of Items
+      - discord-input:
+          channel: "0" # CHANNEL_ID
+          bot: bot-name
+          category: "CATEGORY_ID" # optional
+          message: "MESSAGE_ID" # optional
+          reaction-add-event: true # optional
+          reaction-remove-event: false # optional
+          message-event: true # optional
+      - discord-resolve:
+          server: "0" # SERVER_ID
+          bot: bot-name
+          to-discord: false
+          to-plain: true
+      - discord-output: # Sends string with NO CONTEXT RESOLVING.
+          channel: "0" # CHANNEL_ID
+          format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
+          bot: bot-name
+      - discord-output-reaction:
+          channel: "0" # CHANNEL_ID
+          bot: bot-name
+          message: "MESSAGE ID"
+          emoji: "either a custom emoji id or unicode"
+          add: true # true to add an emoji, false to remove one
+      - discord-get-dm-channel: # Puts the ID into DISCORD_DM_CHANNEL_ID
+          bot: "bot-name"
+          user: "USER ID"
+      - discord-output-file:
+          channel: "0" # CHANNEL_ID
+          name: "hello world" # Optional
+          bot: bot-name
+      - discord-create-channel:
+          server: "0" # SERVER_ID
+          bot: bot-name
+          name: "channel" # Optional
+          category: "%CATEGORY_ID%" # Optional
+          user: "%DISCORD_AUTHOR ID%" # Optional
+          topic: "hello world" # Optional
+      - discord-message-history:
+          bot: "bot name"
+          channel: "channel id"
+          length: 50 # Optional how many messages of history ot get
+          format: "%DISCORD_MESSAGE%" # Optional
+      - discord-embed: # https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
+          bot: "bot name"
+          channel: "channel name"
+          author-avatar: "Author Avatar" # Optional
+          author-link: "Author Link" # Optional
+          author-name: "Author Name" # Optional
+          color: "BLUE" # Optional
+          description: "Description" # Optional
+          footer-avatar: "Footer Avatar" # Optional
+          footer-name: "Footer Name" # Optional
+          fields: # Optional
+            "field 1 header": "field 1 body"
+            "field 2 header": "field 2 body"
+          inline-fields: # Optional
+            "inline field 1 header": "inline field 1 body"
+            "inline field 2 header": "inline field 2 body"
+          image: "Image" # Optional
+          thumbnail: "Thumbnail" # Optional
+          title: "Title" # Optional
+      - discord-delete-channel:
+          bot: "bot name"
+          channel: "channel id"
+      - discord-rename-channel:
+          bot: "bot name"
+          channel: "channel id"
+          name: "channel name"
+      - discord-participants:
+          bot: "bot name"
+          length: 50 # Optional how many messages of history ot get
+          channel: "channel id"
+          each: null # List of Items
   - file-demo:
-    - file-input:
-        path: PATH_TO_FIFO
-        delay: 500 # optional, defaults to 500
-    - file-output:
-        path: PATH_TO_FIFO
-        delay: 500 # optional, defaults to 500
+      - file-input:
+          path: PATH_TO_FIFO
+          delay: 500 # optional, defaults to 500
+      - file-output:
+          path: PATH_TO_FIFO
+          delay: 500 # optional, defaults to 500
   - logic-demo:
-    - if-contains:
-        yes-chain: # this can be any list of items or optional
-          - pass: null
-          - stop: null
-        no-chain: null # Or this can be nothing or optional
-        contains: "String"
-        source: "%CURRENT%" # Optional. source.contains(contains)
-        invert: false # Optional inverts the decision
-    - if-equals:
-        yes-chain: null # Optional
-        no-chain: null # Optional
-        equals: "String"
-        source: "%CURRENT%" # Optional. source.equals(contains)
-        invert: false # Optional inverts the decision
-        ignore-case: false # optional
-    - if-regex-match:
-        yes-chain: null # Optional
-        no-chain: null # Optional
-        match: "[sS]tring"
-        source: "%CURRENT%" # Optional. source.match(contains)
-        invert: false # Optional inverts the decision
-    - split:
-      - stream-1:
-        - pass-item: null
-        - pass-item: null
-      - stream-2:
-        - null-item: null
-    - if-starts-with:
-        yes-chain: null # Optional
-        no-chain: null # Optional
-        starts: "String"
-        source: "%CURRENT%" # Optional. source.startsWith(contains)
-    - if-ends-with:
-        yes-chain: null # Optional
-        no-chain: null # Optional
-        ends: "String"
-        source: "%CURRENT%" # Optional. source.endsWith(contains)
+      - if-contains:
+          yes-chain: # this can be any list of items or optional
+            - pass: null
+            - stop: null
+          no-chain: null # Or this can be nothing or optional
+          contains: "String"
+          source: "%CURRENT%" # Optional. source.contains(contains)
+          invert: false # Optional inverts the decision
+      - if-equals:
+          yes-chain: null # Optional
+          no-chain: null # Optional
+          equals: "String"
+          source: "%CURRENT%" # Optional. source.equals(contains)
+          invert: false # Optional inverts the decision
+          ignore-case: false # optional
+      - if-regex-match:
+          yes-chain: null # Optional
+          no-chain: null # Optional
+          match: "[sS]tring"
+          source: "%CURRENT%" # Optional. source.match(contains)
+          invert: false # Optional inverts the decision
+      - split:
+          - stream-1:
+              - pass-item: null
+              - pass-item: null
+          - stream-2:
+              - null-item: null
+      - if-starts-with:
+          yes-chain: null # Optional
+          no-chain: null # Optional
+          starts: "String"
+          source: "%CURRENT%" # Optional. source.startsWith(contains)
+      - if-ends-with:
+          yes-chain: null # Optional
+          no-chain: null # Optional
+          ends: "String"
+          source: "%CURRENT%" # Optional. source.endsWith(contains)
   - luckperms-demo:
-    - luckperms-context: null  # This loads the PREFIX, SUFFIX and GROUP of the player in the PLAYER_NAME context.
-    - luckperms-has: # This is checked against the player in PLAYER_UUID
-        yes-chain: null # Chain of items
-        no-chain: null  # Chain of items
-        permission: "permission.node" # Just normal nodes, no regex, no contexts.
-    - luckperms-set: # This is applied to the player in PLAYER_UUID. No regex allowed here.
-        permission: "permission.node" # Just normal nodes, no regex, no contexts.
-        value: false # Set the node to true or false (non-functional?)
-    - luckperms-unset: # This is applied to the player in PLAYER_UUID
-        permission: "permission.node" # Just normal nodes, no regex, no contexts.
-        value: false # Set the node to true or false ( (non-functional?)
+      - luckperms-context: null # This loads the PREFIX, SUFFIX and GROUP of the player in the PLAYER_NAME context.
+      - luckperms-has: # This is checked against the player in PLAYER_UUID
+          yes-chain: null # Chain of items
+          no-chain: null # Chain of items
+          permission: "permission.node" # Just normal nodes, no regex, no contexts.
+      - luckperms-set: # This is applied to the player in PLAYER_UUID. No regex allowed here.
+          permission: "permission.node" # Just normal nodes, no regex, no contexts.
+          value: false # Set the node to true or false (non-functional?)
+      - luckperms-unset: # This is applied to the player in PLAYER_UUID
+          permission: "permission.node" # Just normal nodes, no regex, no contexts.
+          value: false # Set the node to true or false ( (non-functional?)
   - multichat-demo:
-    - multichat-context: null # Adds more contexts
-    - multichat-input:
-      global: true
-      staff: true
-      broadcast: true
+      - multichat-context: null # Adds more contexts
+      - multichat-input:
+        global: true
+        staff: true
+        broadcast: true
   - replacement-demo:
-    - regex:
-      - "Regex to find": "regex to replace"
-      - "Regex to find": "regex to replace"
-    - remove-colors: null
-    - resolve-colors: null # converts & into §
-    - to-upper: null # to upper case
-    - to-lower: null # to lower case
-    - to-word: null # Capitalize each word
-    - sub-string:
-      start: 2 # number of characters to end at (optional)
-      end: 4 # number of characters to end at (optional)
+      - regex:
+          - "Regex to find": "regex to replace"
+          - "Regex to find": "regex to replace"
+      - remove-colors: null
+      - resolve-colors: null # converts & into §
+      - to-upper: null # to upper case
+      - to-lower: null # to lower case
+      - to-word: null # Capitalize each word
+      - sub-string:
+        start: 2 # number of characters to end at (optional)
+        end: 4 # number of characters to end at (optional)
   - sponge-demo:
-    - sponge-command:
-        command: "command"
-        permission: "*"
-        args: true # Optional
-    - sponge-input: # All of these are optional
-        chat: true
-        leave: true
-        join: true
-        server-started: true
-        server-stopped: true
-        override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
-        check-canceled: true
-        cancel-chat: true
-        format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
-        format-started: "**Server Started**"
-        format-stopped: "**Server Stopped**"
-        format-login: "**%PLAYER_NAME% joined the server**"
-        format-logout: "**%PLAYER_NAME% left the server**"
-    - sponge-playerlist:
-        format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
-        format-player: "%PLAYER_NAME%" # Optional
-        format-no-players: "**No online players**" # Optional
-        ignore-case: true # Optional
-    - sponge-output:
-        permission: null # Optional
-        sender: "FakeME" # Optional
+      - sponge-command:
+          command: "command"
+          permission: "*"
+          args: true # Optional
+      - sponge-input: # All of these are optional
+          chat: true
+          leave: true
+          join: true
+          server-started: true
+          server-stopped: true
+          override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
+          check-canceled: true
+          cancel-chat: true
+          format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
+          format-started: "**Server Started**"
+          format-stopped: "**Server Stopped**"
+          format-login: "**%PLAYER_NAME% joined the server**"
+          format-logout: "**%PLAYER_NAME% left the server**"
+      - sponge-playerlist:
+          format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
+          format-player: "%PLAYER_NAME%" # Optional
+          format-no-players: "**No online players**" # Optional
+          ignore-case: true # Optional
+      - sponge-output:
+          permission: null # Optional
+          sender: "FakeME" # Optional
   - sql-demo:
-    # The Table looks like this
-    # name  key   value
-    - send-data:
-        connection: "all" # Connection name
-        table: "" # Table name
-        name: "" # First key
-        key: "" # Second key
-        value: "" # This is set
-        cache: true
-    - retrieve-data:
-        connection: "all" # Connection name
-        table: ""
-        name: ""
-        key: ""
-        cache: true
-    - sql-cache-remove:
-        connection: "all" # Connection name
-        table: ""
-        name: ""
-        key: ""
-    - sql-cache-if:
-        connection: "all" # Connection name
-        table: "" # Table name
-        name: "" # First key
-        key: "" # Second key
-        value: "" # This is set
-        yes-chain: # List of items to run if there is a cached value
-          - stop: null
-        no-chain: null # List of items to run if there is no cached value
+      # The Table looks like this
+      # name  key   value
+      - send-data:
+          connection: "all" # Connection name
+          table: "" # Table name
+          name: "" # First key
+          key: "" # Second key
+          value: "" # This is set
+          cache: true
+      - retrieve-data:
+          connection: "all" # Connection name
+          table: ""
+          name: ""
+          key: ""
+          cache: true
+      - sql-cache-remove:
+          connection: "all" # Connection name
+          table: ""
+          name: ""
+          key: ""
+      - sql-cache-if:
+          connection: "all" # Connection name
+          table: "" # Table name
+          name: "" # First key
+          key: "" # Second key
+          value: "" # This is set
+          yes-chain: # List of items to run if there is a cached value
+            - stop: null
+          no-chain: null # List of items to run if there is no cached value
   - vault-demo:
-    - vault-context: null  # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.
+      - vault-context: null # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.
