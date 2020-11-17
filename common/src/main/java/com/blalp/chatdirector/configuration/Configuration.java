@@ -1,20 +1,15 @@
 package com.blalp.chatdirector.configuration;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.IteratorIterable;
 import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.IConfiguration;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
 import com.blalp.chatdirector.modules.cache.CacheModule;
 import com.blalp.chatdirector.modules.console.ConsoleModule;
@@ -25,16 +20,9 @@ import com.blalp.chatdirector.modules.logic.LogicModule;
 import com.blalp.chatdirector.modules.luckperms.LuckPermsModule;
 import com.blalp.chatdirector.modules.replacement.ReplacementModule;
 import com.blalp.chatdirector.modules.sql.SQLModule;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import lombok.Data;
-import lombok.Getter;
-
 @Data
 @JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration extends Loadable implements IConfiguration {
