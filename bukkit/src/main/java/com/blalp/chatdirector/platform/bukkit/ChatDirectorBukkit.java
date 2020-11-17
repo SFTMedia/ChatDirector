@@ -1,7 +1,8 @@
-package com.blalp.chatdirector;
+package com.blalp.chatdirector.platform.bukkit;
 
 import java.io.File;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.ConfigurationBukkit;
 import com.blalp.chatdirector.configuration.TimedLoad;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommand;
@@ -22,7 +23,7 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
     public void onEnable() {
         instance = this;
         try {
-            chatDirector = new ChatDirector(new ConfigurationBukkit(this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml"));
+            chatDirector = new ChatDirector(new ConfigurationBukkit(),this.getDataFolder().getAbsolutePath()+File.separatorChar+"config.yml");
             BukkitInputDaemon.instance=new BukkitInputDaemon();
             getServer().getPluginManager().registerEvents(BukkitInputDaemon.instance,this);
             this.getDataFolder().mkdirs();
@@ -30,7 +31,7 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
             if(BukkitInputDaemon.instance!=null){
                 BukkitInputDaemon.instance.onServerStart();
             }
-            if(chatDirector.chains.size()==0){
+            if(!ChatDirector.hasChains()){
                 throw new Exception("NO CHAINS!");
             }
         } catch (Exception e){

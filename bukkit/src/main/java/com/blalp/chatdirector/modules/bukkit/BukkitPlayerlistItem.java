@@ -8,6 +8,15 @@ import com.blalp.chatdirector.utils.ValidationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@NoArgsConstructor
 public class BukkitPlayerlistItem implements IItem {
     public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
     public String formatNoPlayers = "**No online players**";

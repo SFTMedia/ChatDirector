@@ -4,13 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.blalp.chatdirector.model.IItem;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -55,28 +50,6 @@ public class BukkitModule implements IModule {
     }
 
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
-        switch (type) {
-            case "bukkit-input":
-                if (BukkitInputDaemon.instance == null) {
-                    new BukkitInputDaemon();
-                    BukkitInputDaemon.instance.load();
-                }
-                BukkitInputItem item = om.convertValue(config, BukkitInputItem.class);
-                BukkitInputDaemon.instance.addItem(item,chain);
-                return item;
-            case "bukkit-output":
-                return om.convertValue(config, BukkitOutputItem.class);
-            case "bukkit-playerlist":
-                return om.convertValue(config, BukkitPlayerlistItem.class);
-            case "bukkit-command":
-                return om.convertValue(config, BukkitCommandItem.class);
-            default:
-                return null;
-        }
-    }
-
-    @Override
     public Context getContext(Object event) {
         Context context = new Context();
         context.put("SERVER_NUM_PLAYERS",String.valueOf(Bukkit.getOnlinePlayers().size()));
@@ -108,5 +81,21 @@ public class BukkitModule implements IModule {
             context.put("PLAYER_NAME","*CONSOLE*");
         }
         return context;
+    }
+
+    @Override
+    public Class<?> getItemClass(String type) {
+        switch (type) {
+            case "bukkit-input":
+                return BukkitInputItem.class;
+            case "bukkit-output":
+                return BukkitOutputItem.class;
+            case "bukkit-playerlist":
+                return BukkitPlayerlistItem.class;
+            case "bukkit-command":
+                return BukkitCommandItem.class;
+            default:
+                return null;
+        }
     }
 }

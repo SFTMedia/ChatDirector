@@ -2,9 +2,9 @@ package com.blalp.chatdirector.modules.bungee;
 
 import java.util.Map.Entry;
 
-import com.blalp.chatdirector.ChatDirectorBukkit;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.platform.bukkit.ChatDirectorBukkit;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;
@@ -13,6 +13,15 @@ import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@NoArgsConstructor
 public class ToBungeeItem implements IItem {
     public String channel;
     public ToBungeeItem(String channel){

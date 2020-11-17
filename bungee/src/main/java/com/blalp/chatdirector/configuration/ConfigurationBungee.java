@@ -1,25 +1,18 @@
 package com.blalp.chatdirector.configuration;
 
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.bungee.BungeeModule;
 import com.blalp.chatdirector.modules.multichat.MultiChatModule;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ConfigurationBungee extends Configuration {
-
-    public ConfigurationBungee(String fileName) {
-        super(fileName);
-    }
     @Override
-    public IItem loadModule(ObjectMapper om, String moduleKey,JsonNode moduleValue) {
-        switch (moduleKey) {
+    public Class<?> getModuleClass(String moduleType) {
+        switch (moduleType) {
             case "bungee":
-                return new BungeeModule();
+                return BungeeModule.class;
             case "multichat":
-                return new MultiChatModule();
+                return MultiChatModule.class;
             default:
-                return super.loadModule(om, moduleKey,moduleValue);
+            return super.getModuleClass(moduleType);
         }
     }
 }

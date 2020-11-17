@@ -3,13 +3,8 @@ package com.blalp.chatdirector.modules.bungee;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.fancychat.FancyMessage;
 import com.blalp.chatdirector.modules.IModule;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -108,36 +103,22 @@ public class BungeeModule implements IModule {
     }
     
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+    public Class<?> getItemClass(String type) {
         switch (type) {
             case "bungee-playerlist":
-                return om.convertValue(config, BungeePlayerlistItem.class);
+                return BungeePlayerlistItem.class;
             case "bungee-command":
-                return om.convertValue(config, BungeeCommandItem.class);
+                return BungeeCommandItem.class;
             case "bungee-output":
-                return om.convertValue(config, BungeeOutputItem.class);
+                return BungeeOutputItem.class;
             case "bungee-output-fancy":
-                BungeeOutputFancyItem bungeeOutputFancyItem = new BungeeOutputFancyItem(
-                        FancyMessage.parse(config.get("fancy-format")),
-                        config.get("permission").asText());
-                if (config.has("send-to-current-server")) {
-                    bungeeOutputFancyItem.sendToCurrentServer =config.get("send-to-current-server").asBoolean();
-                }
-                if (config.has("player")) {
-                    bungeeOutputFancyItem.playerTarget = config.get("player").asText();
-                }
-                return bungeeOutputFancyItem;
+                return BungeeOutputFancyItem.class;
             case "bungee-output-player":
-                return om.convertValue(config, BungeePlayerItem.class);
+                return BungeePlayerItem.class;
             case "bungee-output-server":
-                return om.convertValue(config, BungeeOutputServerItem.class);
+                return BungeeOutputServerItem.class;
             case "bungee-input":
-                BungeeInputItem itemInput = om.convertValue(config, BungeeInputItem.class);
-                if (BungeeInputItemDaemon.instance == null) {
-                    BungeeInputItemDaemon.instance = new BungeeInputItemDaemon();
-                }
-                BungeeInputItemDaemon.instance.addItem(itemInput,chain);
-                return itemInput;
+                return BungeeInputItem.class;
             default:
                 return null;
         }

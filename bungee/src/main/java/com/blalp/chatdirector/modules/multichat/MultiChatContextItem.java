@@ -9,6 +9,15 @@ import com.blalp.chatdirector.model.IItem;
 import xyz.olivermartin.multichat.bungee.PlayerMeta;
 import xyz.olivermartin.multichat.bungee.PlayerMetaManager;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@NoArgsConstructor
 public class MultiChatContextItem implements IItem {
 
     @Override

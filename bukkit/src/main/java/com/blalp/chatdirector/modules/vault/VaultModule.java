@@ -3,13 +3,8 @@ package com.blalp.chatdirector.modules.vault;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.blalp.chatdirector.model.IItem;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -77,17 +72,17 @@ public class VaultModule implements IModule {
     }
 
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
-        switch (type) {
-            case "vault-context":
-                return om.convertValue(config, VaultContextItem.class);
-            default:
-                return null;
-        }
+    public Context getContext(Object object) {
+        return new Context();
     }
 
     @Override
-    public Context getContext(Object object) {
-        return new Context();
+    public Class<?> getItemClass(String type) {
+        switch (type) {
+            case "vault-context":
+                return VaultContextItem.class;
+            default:
+                return null;
+        }
     }
 }

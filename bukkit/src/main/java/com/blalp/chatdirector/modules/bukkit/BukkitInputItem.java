@@ -4,6 +4,13 @@ import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
 public class BukkitInputItem implements IItem {
     public boolean chat=false,checkCanceled=false,join=false,leave=false,serverStarted=false,serverStopped=false,newJoin=false,cancelChat=false;
     public String formatChat="%PLAYER_NAME%: %CHAT_MESSAGE%";
@@ -13,6 +20,13 @@ public class BukkitInputItem implements IItem {
     public String formatStopped = "**Server Stopped**";
     public String formatStarted = "**Server Started**";
 	public boolean overrideChat=false;
+
+    public BukkitInputItem(){
+        if (BukkitInputDaemon.instance == null) {
+            BukkitInputDaemon.instance = new BukkitInputDaemon();;
+        }
+        BukkitInputDaemon.instance.addItem(this);
+    }
 
     @Override
     public Context process(Context context) {
