@@ -20,6 +20,17 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.command.spec.CommandSpec.Builder;
 import org.spongepowered.api.text.Text;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoadable {
     String command;
     String permission;

@@ -8,6 +8,15 @@ import com.blalp.chatdirector.utils.ValidationUtils;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@NoArgsConstructor
 public class SpongePlayerlistItem implements IItem {
     public boolean ignoreCase = true;
     public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";

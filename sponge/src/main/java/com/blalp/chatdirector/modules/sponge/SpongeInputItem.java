@@ -4,6 +4,15 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class SpongeInputItem extends PassItem {
     public boolean chat=false,checkCanceled=false,join=false,leave=false,serverStarted=false,serverStopped=false,cancelChat=false;
     public String formatChat="%PLAYER_NAME%: %CHAT_MESSAGE%";
@@ -12,6 +21,13 @@ public class SpongeInputItem extends PassItem {
     public String formatStopped = "**Server Stopped**";
     public String formatStarted = "**Server Started**";
 	public boolean overrideChat=false;
+
+    public SpongeInputItem(){
+        if (SpongeInputDaemon.instance == null) {
+            SpongeInputDaemon.instance= new SpongeInputDaemon();
+        }
+        SpongeInputDaemon.instance.addItem(this);
+    }
 
     @Override
     public boolean isValid() {
