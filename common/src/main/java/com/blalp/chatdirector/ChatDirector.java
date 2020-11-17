@@ -68,6 +68,17 @@ public class ChatDirector extends Loadable implements IConfiguration {
         for (IModule module : modules) {
             module.load();
         }
+        // Now validate chains
+        for (Entry<String,Chain> chain:chains.entrySet()){
+            if(!chain.getValue().isValid()){
+                log(Level.SEVERE,"chain "+chain+" is not valid.");
+            }
+        }
+        for (IModule module:modules){
+            if(!module.isValid()){
+                log(Level.SEVERE,"module "+module+" is not valid.");
+            }
+        }
     }
 
     public void unload() {
