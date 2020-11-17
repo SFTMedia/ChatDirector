@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * Allows us to be more creative about contexts in the future
  */
+@EqualsAndHashCode(callSuper = true)
 public class Context extends HashMap<String, String> {
     private boolean halt = false;
     private List<Object> removeKeys = new ArrayList<>();

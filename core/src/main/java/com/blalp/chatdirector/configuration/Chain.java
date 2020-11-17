@@ -56,12 +56,13 @@ public class Chain implements IValid, Runnable {
      */
     private Context runAt(int indexOf, Context context) {
         Context workingContext = new Context();
+        Context output;
         for (int i = indexOf; i < items.size(); i++) {
             ChatDirector.logDebug("");
             ChatDirector.logDebug("Starting process of " + items.get(i));
             ChatDirector.logDebug(context);
             ChatDirector.logDebug("");
-            Context output = items.get(i).process(context);
+            output = items.get(i).process(context);
             ChatDirector.logDebug("");
             ChatDirector.logDebug("Ended process of " + items.get(i));
             ChatDirector.logDebug(output);

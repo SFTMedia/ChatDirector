@@ -11,6 +11,7 @@ public class ConfigurationCommon extends Configuration {
     static {
         Configurations.addConfiguration(new ConfigurationCommon());
     }
+
     @Override
     public Class<?> getModuleClass(String moduleType) {
         switch (moduleType) {

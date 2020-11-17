@@ -1,15 +1,15 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.blalp</groupId>
-	<artifactId>chatdirector</artifactId>
-	<version>0.1.8</version>
-	<packaging>pom</packaging>
+    <groupId>com.blalp</groupId>
+    <artifactId>chatdirector</artifactId>
+    <version>0.1.8</version>
+    <packaging>pom</packaging>
 
-	<name>ChatDirector</name>
+    <name>ChatDirector</name>
 
-	<!-- sub modules -->
-	<modules>
+    <!-- sub modules -->
+    <modules>
         <module>core</module> <!-- This is needed by all -->
         <module>common</module> <!-- ChatDirector Specific or String manipulation Modules -->
         <module>extra</module> <!-- Other Platform independ Modules -->

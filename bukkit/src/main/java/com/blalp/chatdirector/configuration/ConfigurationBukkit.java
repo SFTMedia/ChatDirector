@@ -8,6 +8,7 @@ public class ConfigurationBukkit extends Configuration {
     static {
         Configurations.addConfiguration(new ConfigurationBukkit());
     }
+
     @Override
     public Class<?> getModuleClass(String moduleType) {
         switch (moduleType) {

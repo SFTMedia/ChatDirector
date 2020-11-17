@@ -7,7 +7,7 @@ import com.blalp.chatdirector.configuration.TimedLoad;
 
 public class ChatDirectorConsole {
     public static void main(String[] args) {
-        ChatDirector chatDirector = new ChatDirector("config.yml");
+        ChatDirector chatDirector = new ChatDirector();
         try {
             chatDirector.load();
         } catch (Exception e) {

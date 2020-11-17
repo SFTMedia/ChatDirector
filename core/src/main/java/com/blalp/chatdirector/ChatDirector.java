@@ -2,6 +2,7 @@ package com.blalp.chatdirector;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,16 +39,27 @@ public class ChatDirector extends Loadable implements IConfiguration {
     public static ChatDirector instance;
     List<IModule> modules = new ArrayList<>();
     Map<String, Chain> chains = new HashMap<String, Chain>();
-    String fileName;
+    File file;
+    InputStream stream;
+    String rawData;
 
-    public ChatDirector(String fileName) {
+    public ChatDirector(InputStream stream) {
+        this();
+        this.stream = stream;
+    }
+    public ChatDirector(File file) {
+        this();
+        this.file = file;
+    }
+    public ChatDirector(String rawData) {
+        this();
+        this.rawData = rawData;
+    }
+    public ChatDirector() {
         config = new Configurations();
         instance = this;
         logger = Logger.getLogger("ChatDirector");
-        // handler = new ConsoleHandler();
-        // handler.setLevel(Level.WARNING);
-        // logger.addHandler(handler);
-        this.fileName = fileName;
+        this.file = new File("config.yml");
     }
 
     public void load() {
@@ -55,7 +67,13 @@ public class ChatDirector extends Loadable implements IConfiguration {
         ObjectMapper om = new ObjectMapper(new YAMLFactory())
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         try {
-            config = (om.readValue(new File(fileName), Configuration.class));
+            if(rawData!=null){
+                config = (om.readValue(rawData, Configuration.class));
+            } else if (file!=null){
+                config = (om.readValue(file, Configuration.class));
+            } else if (stream!=null){
+                config = (om.readValue(stream, Configuration.class));
+            }
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
             new Thread(new TimedLoad()).start();
@@ -70,14 +88,14 @@ public class ChatDirector extends Loadable implements IConfiguration {
             module.load();
         }
         // Now validate chains
-        for (Entry<String,Chain> chain:chains.entrySet()){
-            if(!chain.getValue().isValid()){
-                log(Level.SEVERE,"chain "+chain+" is not valid.");
+        for (Entry<String, Chain> chain : chains.entrySet()) {
+            if (chain.getValue()!=null&&!chain.getValue().isValid()) {
+                log(Level.SEVERE, "chain " + chain + " is not valid.");
             }
         }
-        for (IModule module:modules){
-            if(!module.isValid()){
-                log(Level.SEVERE,"module "+module+" is not valid.");
+        for (IModule module : modules) {
+            if (!module.isValid()) {
+                log(Level.SEVERE, "module " + module + " is not valid.");
             }
         }
     }
@@ -107,7 +125,11 @@ public class ChatDirector extends Loadable implements IConfiguration {
     }
 
     public static void logDebug(Object obj) {
-        logger.log(Level.FINE, obj.toString());
+        if(obj!=null){
+            logger.log(Level.FINE, obj.toString());
+        } else {
+            logger.log(Level.FINE, "REQUESTED TO LOG NULL!");
+        }
     }
 
     public static void log(Level level, String string) {
@@ -152,5 +174,10 @@ public class ChatDirector extends Loadable implements IConfiguration {
     @Override
     public Map<String, Chain> getChains() {
         return config.getChains();
+    }
+
+    @Override
+    public Class<?> getItemClass(String itemType, List<IModule> modules) {
+        return config.getItemClass(itemType, modules);
     }
 }
