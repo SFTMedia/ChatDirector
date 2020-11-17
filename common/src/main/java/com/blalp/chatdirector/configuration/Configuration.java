@@ -23,8 +23,10 @@ import com.blalp.chatdirector.modules.sql.SQLModule;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration extends Loadable implements IConfiguration {
 
