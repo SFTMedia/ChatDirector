@@ -13,20 +13,29 @@ import org.javacord.api.event.message.reaction.ReactionRemoveEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 import org.javacord.api.listener.message.reaction.ReactionAddListener;
 import org.javacord.api.listener.message.reaction.ReactionRemoveListener;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class DiscordInputDaemon extends ItemDaemon
         implements MessageCreateListener, ReactionAddListener, ReactionRemoveListener {
-    private String botName;
+    private String bot;
 
     public DiscordInputDaemon(String botName) {
-        this.botName = botName;
+        this.bot = botName;
     }
 
     @Override
     public void load() {
-        DiscordModule.discordBots.get(botName).getDiscordApi().addMessageCreateListener(this);
-        DiscordModule.discordBots.get(botName).getDiscordApi().addReactionAddListener(this);
-        DiscordModule.discordBots.get(botName).getDiscordApi().addReactionRemoveListener(this);
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi().addMessageCreateListener(this);
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi().addReactionAddListener(this);
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi().addReactionRemoveListener(this);
     }
 
     @Override
@@ -36,10 +45,10 @@ public class DiscordInputDaemon extends ItemDaemon
             return;
         }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
-            if(!item.message){
+            if(!item.messageEvent){
                 continue;
             }
-            if (sharesChannelOrCategory(event.getChannel(), item.channelID, item.categoryID)) {
+            if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)) {
                 ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
             }
         }
@@ -51,10 +60,10 @@ public class DiscordInputDaemon extends ItemDaemon
             return;
         }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
-            if(!item.reactionRemove){
+            if(!item.reactionRemoveEvent){
                 continue;
             }
-            if (sharesChannelOrCategory(event.getChannel(), item.channelID, item.categoryID)||sharesMessage(event.getMessage(), item.messageID)) {
+            if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)||sharesMessage(event.getMessage(), item.message)) {
                 ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
             }
         }
@@ -66,10 +75,10 @@ public class DiscordInputDaemon extends ItemDaemon
             return;
         }
         for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
-            if(!item.reactionAdd){
+            if(!item.reactionAddEvent){
                 continue;
             }
-            if (sharesChannelOrCategory(event.getChannel(), item.channelID, item.categoryID)||sharesMessage(event.getMessage(), item.messageID)) {
+            if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)||sharesMessage(event.getMessage(), item.message)) {
                 ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
             }
         }

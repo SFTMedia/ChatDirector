@@ -2,13 +2,19 @@ package com.blalp.chatdirector.modules.cache;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.utils.ValidationUtils;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class CacheSetItem extends CacheItem {
     String value;
-	public CacheSetItem(String key, String value) {
-		super(key);
-        this.value=value;
-	}
 
 	@Override
 	public Context process(Context context) {
@@ -17,9 +23,6 @@ public class CacheSetItem extends CacheItem {
 	}
 	@Override
 	public boolean isValid() {
-		if(value==null){
-			return false;
-		}
-		return super.isValid();
+		return ValidationUtils.hasContent(value)&&super.isValid();
 	}
 }

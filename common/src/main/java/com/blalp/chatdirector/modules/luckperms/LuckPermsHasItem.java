@@ -2,20 +2,25 @@ package com.blalp.chatdirector.modules.luckperms;
 
 import java.util.UUID;
 
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.modules.logic.ConditionalItem;
 
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.node.Node;
 import net.luckperms.api.node.NodeEqualityPredicate;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
+@JsonDeserialize(using = LuckPermsHasDeserializer.class)
 public class LuckPermsHasItem extends ConditionalItem {
-    public LuckPermsHasItem(Chain nestedTrue, Chain nestedFalse,String permission) {
-        super(nestedTrue, nestedFalse);
-        this.permission=permission;
-    }
-
     String permission;
 
     @Override

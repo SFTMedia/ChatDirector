@@ -5,10 +5,7 @@ modules:
   - logic
   - cache
   - console
-  - discord-javacord:
-      bots:
-        bot-name: "TOKEN"
-  - discord-jda:
+  - discord:
       bots:
         bot-name: "TOKEN"
   - file
@@ -22,11 +19,10 @@ modules:
         all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
 chains:
   - common-demo: # This module is always loaded
-    - pass: null # This just passes the string on
-    - break: null # This stops the chain, but returns the value
-    - halt: null # Exits at that current point, do not continue afterwards (this used to be called stop)
+    - break # This stops the chain, but returns the value
+    - halt # Exits at that current point, do not continue afterwards (this used to be called stop)
     - echo: "echo'd %CURRENT%" # This sets the string to the specifiedFormat. The Previous value is set to the CURRENT context
-    - reload: null # Reloads ChatDirector
+    - reload # Reloads ChatDirector
   - bukkit-demo:
     - bukkit-input: # All of these are optional
         chat: true
@@ -132,15 +128,15 @@ chains:
   - console-demo:
     - console-output: null
     - console-output-error: null
-  - discord-demo: # This applies to both javacord and jda. Load only one of the new modules. WANRING: THE JDA ONE DOESN'T HAVE THIS MANY FEATURES.
+  - discord-demo:
     - discord-input:
         channel: "0" # CHANNEL_ID
         bot: bot-name
         category: "CATEGORY_ID"  # optional
         message: "MESSAGE_ID" # optional
-	      reaction-add-event: true # optional
+        reaction-add-event: true # optional
         reaction-remove-event: false # optional
-	      message-event: true # optional
+        message-event: true # optional
     - discord-resolve:
         server: "0" # SERVER_ID
         bot: bot-name
@@ -161,12 +157,12 @@ chains:
         user: "USER ID"
     - discord-output-file:
         channel: "0" # CHANNEL_ID
-        file-name: "hello world" # Optional
+        name: "hello world" # Optional
         bot: bot-name
     - discord-create-channel:
         server: "0" # SERVER_ID
         bot: bot-name
-        channel-name: "channel" # Optional
+        name: "channel" # Optional
         category: "%CATEGORY_ID%" # Optional
         user: "%DISCORD_AUTHOR ID%" # Optional
         topic: "hello world" # Optional
@@ -312,21 +308,25 @@ chains:
     # The Table looks like this
     # name  key   value
     - send-data:
+        connection: "all" # Connection name
         table: "" # Table name
         name: "" # First key
         key: "" # Second key
         value: "" # This is set
         cache: true
     - retrieve-data:
+        connection: "all" # Connection name
         table: ""
         name: ""
         key: ""
         cache: true
     - sql-cache-remove:
+        connection: "all" # Connection name
         table: ""
         name: ""
         key: ""
     - sql-cache-if:
+        connection: "all" # Connection name
         table: "" # Table name
         name: "" # First key
         key: "" # Second key

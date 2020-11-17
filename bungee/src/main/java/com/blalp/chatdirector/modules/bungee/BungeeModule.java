@@ -3,7 +3,7 @@ package com.blalp.chatdirector.modules.bungee;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.fancychat.FancyMessage;
@@ -106,7 +106,7 @@ public class BungeeModule implements IModule {
         return Arrays.asList("bungee-command", "bungee-playerlist", "bungee-output", "bungee-input",
                 "bungee-output-player", "bungee-output-server", "bungee-output-fancy" );
     }
-
+    
     @Override
     public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
         switch (type) {

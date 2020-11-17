@@ -2,8 +2,16 @@ package com.blalp.chatdirector.modules.common;
 
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
-public class BreakItem implements IItem {
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)public class BreakItem implements IItem {
 
     @Override
     public boolean isValid() {

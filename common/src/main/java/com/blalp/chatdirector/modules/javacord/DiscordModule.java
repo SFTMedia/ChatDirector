@@ -2,20 +2,13 @@ package com.blalp.chatdirector.modules.javacord;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Map.Entry;
-import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.permission.Role;
@@ -27,17 +20,14 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.event.message.reaction.SingleReactionEvent;
 import org.javacord.api.event.user.OptionalUserEvent;
 
+@JsonDeserialize(using = DiscordModuleDeserializer.class)
 public class DiscordModule implements IModule {
     static DiscordModule instance;
-    public DiscordModule(LinkedHashMap<String, LinkedHashMap<String, String>> map) {
+    public DiscordModule() {
         instance=this;
-        for (Entry<String, String> botMap : map.get("bots").entrySet()) {
-            DiscordBot bot = new DiscordBot(botMap.getValue());
-            discordBots.put(botMap.getKey(), bot);
-        }
     }
 
-    public static Map<String, DiscordBot> discordBots = new HashMap<>();
+    public Map<String, DiscordBot> discordBots = new HashMap<>();
 
     @Override
     public void load() {
@@ -70,53 +60,6 @@ public class DiscordModule implements IModule {
     @Override
     public boolean isValid() {
         return true;
-    }
-
-    @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
-        switch (type) {
-            case "discord-input":
-                if (!discordBots.containsKey(config.get("bot").asText())) {
-                    ChatDirector.log(Level.WARNING, "Please use an existing bot as specified in the module section, not "+ config.get("bot").asText());
-                    return null;
-                }
-                if (discordBots.get(config.get("bot").asText()).daemon == null) {
-                    discordBots.get(config.get("bot").asText()).daemon = new DiscordInputDaemon(config.get("bot").asText());
-                }
-                DiscordInputItem item = om.convertValue(config, DiscordInputItem.class);
-                discordBots.get(config.get("bot").asText()).daemon.addItem(item,chain);
-                return item;
-            case "discord-output":
-                return om.convertValue(config, DiscordOutputItem.class);
-            case "discord-output-file":
-                return om.convertValue(config, DiscordOutputFileItem.class);
-            case "discord-output-reaction":
-                return om.convertValue(config, DiscordOutputReactionItem.class);
-            case "discord-resolve":
-                return om.convertValue(config, DiscordResolveItem.class);
-            case "discord-embed":
-                return om.convertValue(config, DiscordEmbedItem.class);
-            case "discord-get-dm-channel":
-                return om.convertValue(config, DiscordGetDMChannelItem.class);
-            case "discord-message-history":
-                return om.convertValue(config, DiscordMessageHistoryItem.class);
-            case "discord-create-channel":
-                return om.convertValue(config, DiscordCreateChannelItem.class);
-            case "discord-delete-channel":
-                return om.convertValue(config, DiscordDeleteChannel.class);
-            case "discord-rename-channel":
-                return om.convertValue(config, DiscordChannelRename.class);
-            case "discord-participants":
-                DiscordParticipatesItem participatesItem = new DiscordParticipatesItem(config.get("bot").asText(),
-                        config.get("channel").asText(),
-                        ChatDirector.loadChain(om, config.get("each")));
-                if (config.has("length")) {
-                    participatesItem.length = config.get("length").asInt();
-                }
-                return participatesItem;
-            default:
-                return null;
-        }
     }
 
     @Override
@@ -218,5 +161,37 @@ public class DiscordModule implements IModule {
             context.put("DISCORD_AUTHOR_NICK_NAME", user.getName());
         }
         return context;
+    }
+
+    @Override
+    public Class<?> getItemClass(String type) {
+        switch (type) {
+            case "discord-input":
+                return DiscordInputItem.class;
+            case "discord-output":
+                return DiscordOutputItem.class;
+            case "discord-output-file":
+                return DiscordOutputFileItem.class;
+            case "discord-output-reaction":
+                return DiscordOutputReactionItem.class;
+            case "discord-resolve":
+                return DiscordResolveItem.class;
+            case "discord-embed":
+                return DiscordEmbedItem.class;
+            case "discord-get-dm-channel":
+                return DiscordGetDMChannelItem.class;
+            case "discord-message-history":
+                return DiscordMessageHistoryItem.class;
+            case "discord-create-channel":
+                return DiscordCreateChannelItem.class;
+            case "discord-delete-channel":
+                return DiscordDeleteChannel.class;
+            case "discord-rename-channel":
+                return DiscordChannelRename.class;
+            case "discord-participants":
+                return DiscordParticipatesItem.class;
+            default:
+                return null;
+        }
     }
 }

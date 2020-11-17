@@ -3,22 +3,26 @@ package com.blalp.chatdirector.modules.javacord;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ValidationUtils;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class DiscordChannelRename extends DiscordItem {
-    String name,channelID;
-    public DiscordChannelRename(String botName, String channelID,String name) {
-        super(botName);
-        this.channelID=channelID;
-        this.name=name;
-    }
+    String name,channel;
     @Override
     public Context process(Context context) {
-        DiscordModule.discordBots.get(botName).getDiscordApi().getServerChannelById(ChatDirector.format(channelID, context)).get().updateName(ChatDirector.format(name, context));
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi().getServerChannelById(ChatDirector.format(channel, context)).get().createUpdater().setName(ChatDirector.format(name, context)).update();
         return new Context();
     }
 
     @Override
     public boolean isValid() {
-        return super.isValid()&&ValidationUtils.hasContent(channelID,name);
+        return super.isValid()&&ValidationUtils.hasContent(channel,name);
     }
 }

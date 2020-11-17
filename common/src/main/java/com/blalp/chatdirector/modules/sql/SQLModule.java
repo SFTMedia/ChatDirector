@@ -4,29 +4,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@JsonDeserialize(using = SQLModuleDeserializer.class)
 public class SQLModule implements IModule {
     public static HashMap<String, SQLConnection> connections = new HashMap<>();
     public static HashMap<String, ArrayList<String>> tables = new HashMap<>();
-
-    public SQLModule(LinkedHashMap<String, LinkedHashMap<String, String>> map) {
-        for (Entry<String, String> connectionEntry : map.get("connections").entrySet()) {
-            SQLConnection connection = new SQLConnection(connectionEntry.getValue());
-            connections.put(connectionEntry.getKey(), connection);
-            tables.put(connectionEntry.getKey(), new ArrayList<>());
-        }
-    }
 
     @Override
     public List<String> getItemNames() {
@@ -66,28 +55,16 @@ public class SQLModule implements IModule {
     }
 
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
+    public Class<?> getItemClass(String type) {
         switch (type) {
             case "send-data":
-                tables.get(config.get("connection").asText()).add(config.get("table").asText());
-                return new SQLSendDataItem(config.get("table").asText(), config.get("name").asText(),
-                        config.get("key").asText(), config.get("connection").asText(),
-                        config.get("value").asText(), config.get("cache").asBoolean());
+                return SQLSendDataItem.class;
             case "retrieve-data":
-                tables.get(config.get("connection").asText()).add(config.get("table").asText());
-                return new SQLRetrieveDataItem(config.get("table").asText(), config.get("name").asText(),
-                        config.get("key").asText(), config.get("connection").asText(),
-                        config.get("cache").asBoolean());
+                return SQLRetrieveDataItem.class;
             case "sql-cache-if":
-                return new SQLCacheIfItem(
-                        ChatDirector.loadChain(om,config.get("yes-chain")),
-                        ChatDirector.loadChain(om,config.get("no-chain")),
-                        config.get("table").asText(), config.get("name").asText(), config.get("key").asText(),
-                        config.get("connection").asText(), config.get("cache").asBoolean());
+                return SQLCacheIfItem.class;
             case "sql-cache-remove":
-                return new SQLCacheRemove(config.get("table").asText(), config.get("name").asText(),
-                        config.get("key").asText(), config.get("connection").asText(),
-                        config.get("cache").asBoolean());
+                return SQLCacheRemoveItem.class;
             default:
                 return null;
         }

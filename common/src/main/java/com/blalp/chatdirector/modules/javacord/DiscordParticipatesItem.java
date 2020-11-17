@@ -3,27 +3,31 @@ package com.blalp.chatdirector.modules.javacord;
 import java.util.HashMap;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.MessageSet;
 import org.javacord.api.entity.user.User;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class DiscordParticipatesItem extends DiscordItem {
     public int length = 50;
     Chain each;
-    String channelID;
+    String channel;
 
-    public DiscordParticipatesItem(String botName, String channel,Chain each) {
-        super(botName);
-        this.channelID=channel;
-        this.each=each;
-    }
     @Override
     public Context process(Context context) {
-        MessageSet messages = DiscordModule.discordBots.get(botName).getDiscordApi().getTextChannelById(ChatDirector.format(channelID, context)).get().getMessages(length).join();
+        MessageSet messages = DiscordModule.instance.discordBots.get(bot).getDiscordApi().getTextChannelById(ChatDirector.format(channel, context)).get().getMessages(length).join();
         HashMap<String,User> users = new HashMap<>();
         for(Message message : messages) {
             if(message.getUserAuthor().isPresent()&&!message.getAuthor().isYourself()){
@@ -42,6 +46,6 @@ public class DiscordParticipatesItem extends DiscordItem {
 
     @Override
     public boolean isValid() {
-        return each!=null&&ValidationUtils.hasContent(channelID)&&super.isValid();
+        return each!=null&&ValidationUtils.hasContent(channel)&&super.isValid();
     }
 }

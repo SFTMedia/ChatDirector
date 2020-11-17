@@ -6,28 +6,36 @@ import java.sql.SQLException;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
-public class SQLRetrieveDataItem extends SQLItem {
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
-    public SQLRetrieveDataItem(String table, String name, String key, String connectionName,boolean cache) {
-        super(table, name, key, connectionName,cache);
-    }
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
+@JsonDeserialize(using = SQLRetrieveDataDeserializer.class)
+public class SQLRetrieveDataItem extends SQLItem {
 
     @Override
     public Context process(Context context) {
         Context output = new Context();
-        if (cache&&SQLCacheStore.containsKey(connectionName,ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context))){
-            output.put("SQL_RESULT", SQLCacheStore.getValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context)));
-            output.put("CACHE_RESULT", SQLCacheStore.getValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context)));
+        if (cache&&SQLCacheStore.containsKey(connection,ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context))){
+            output.put("SQL_RESULT", SQLCacheStore.getValue(connection, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context)));
+            output.put("CACHE_RESULT", SQLCacheStore.getValue(connection, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context)));
         } else {
             try {
-                PreparedStatement statement = SQLModule.connections.get(connectionName).connection.prepareStatement("SELECT `value` from "+ChatDirector.format(table, context)+" WHERE `name`=? AND `key`=? LIMIT 1");
+                PreparedStatement statement = SQLModule.connections.get(connection).connection.prepareStatement("SELECT `value` from "+ChatDirector.format(table, context)+" WHERE `name`=? AND `key`=? LIMIT 1");
                 statement.setString(1, ChatDirector.format(name, context));
                 statement.setString(2, ChatDirector.format(key, context));
                 ResultSet results = statement.executeQuery();
                 if(results.next()) {
                     output.put("SQL_RESULT", results.getString("value"));
                     if(cache){
-                        SQLCacheStore.setValue(connectionName, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context), results.getString("value"));
+                        SQLCacheStore.setValue(connection, ChatDirector.format(table,context), ChatDirector.format(name,context), ChatDirector.format(key,context), results.getString("value"));
                     }
                 } else {
                     ChatDirector.logDebug("No result was found ");

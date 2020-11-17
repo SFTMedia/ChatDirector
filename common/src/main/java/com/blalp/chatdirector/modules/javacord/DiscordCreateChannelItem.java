@@ -13,33 +13,39 @@ import org.javacord.api.entity.permission.PermissionType;
 import org.javacord.api.entity.permission.Permissions;
 import org.javacord.api.entity.permission.PermissionsBuilder;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
+
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class DiscordCreateChannelItem extends DiscordItem {
-    String userID;
+    String user;
     String name="channel";
     String topic;
-    String serverID;
-    String categoryID;
-    public DiscordCreateChannelItem(String botName, String serverID) {
-        super(botName);
-        this.serverID=serverID;
-    }
+    String server;
+    String category;
 
     @Override
     public Context process(Context context) {
-        DiscordApi api = DiscordModule.discordBots.get(botName).getDiscordApi();
-        ServerTextChannelBuilder builder = api.getServerById(ChatDirector.format(serverID, context)).get().createTextChannelBuilder();
-        if(categoryID!=null){
-            ChannelCategory category = api.getChannelCategoryById(ChatDirector.format(categoryID, context)).get();
-            builder.setCategory(category);
-            for(Entry<Long,Permissions> permission : category.getOverwrittenRolePermissions().entrySet()){
+        DiscordApi api = DiscordModule.instance.discordBots.get(bot).getDiscordApi();
+        ServerTextChannelBuilder builder = api.getServerById(ChatDirector.format(server, context)).get().createTextChannelBuilder();
+        if(category!=null){
+            ChannelCategory categoryObj = api.getChannelCategoryById(ChatDirector.format(category, context)).get();
+            builder.setCategory(categoryObj);
+            for(Entry<Long,Permissions> permission : categoryObj.getOverwrittenRolePermissions().entrySet()){
                 builder.addPermissionOverwrite(api.getRoleById(permission.getKey()).get(), permission.getValue());
             }
-            for(Entry<Long,Permissions> permission : category.getOverwrittenUserPermissions().entrySet()){
+            for(Entry<Long,Permissions> permission : categoryObj.getOverwrittenUserPermissions().entrySet()){
                 builder.addPermissionOverwrite(api.getUserById(permission.getKey()).join(), permission.getValue());
             }
         }
-        if(userID!=null) {
-            builder.addPermissionOverwrite(api.getUserById(ChatDirector.format(userID, context)).join(), new PermissionsBuilder().setAllowed(PermissionType.SEND_MESSAGES,PermissionType.READ_MESSAGES).build());
+        if(user!=null) {
+            builder.addPermissionOverwrite(api.getUserById(ChatDirector.format(user, context)).join(), new PermissionsBuilder().setAllowed(PermissionType.SEND_MESSAGES,PermissionType.READ_MESSAGES).build());
         }
         builder.setName(ChatDirector.format(name, context));
         builder.setAuditLogReason("Made By ChatDirector");
@@ -52,6 +58,6 @@ public class DiscordCreateChannelItem extends DiscordItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(categoryID,userID,topic,name,serverID)&&super.isValid();
+        return ValidationUtils.hasContent(category,user,topic,name,server)&&super.isValid();
     }
 }

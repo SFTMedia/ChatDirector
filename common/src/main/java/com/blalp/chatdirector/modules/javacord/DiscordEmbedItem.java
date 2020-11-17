@@ -11,14 +11,19 @@ import com.blalp.chatdirector.utils.ValidationUtils;
 import java.awt.Color;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class DiscordEmbedItem extends DiscordItem {
-    private String channelID;
+    private String channel;
 
-    public DiscordEmbedItem(String botName, String channelID) {
-        super(botName);
-        this.channelID=channelID;
-    }
     public String title,description,authorName,authorLink,authorAvatar,color,footerName,footerAvatar,image,thumbnail;
     public Map<String,String> fields,inlineFields;
 
@@ -62,7 +67,7 @@ public class DiscordEmbedItem extends DiscordItem {
         if(fields!=null) {
             for (Entry<String,String> field : fields.entrySet()){
                 temp=ChatDirector.format(field.getValue(),context);
-                if(!temp.isBlank()) {
+                if(!temp.isEmpty()) {
                     embed.addField(ChatDirector.format(field.getKey(),context), temp);
                 }
             }
@@ -70,17 +75,17 @@ public class DiscordEmbedItem extends DiscordItem {
         if(inlineFields!=null) {
             for (Entry<String,String> field : inlineFields.entrySet()){
                 temp=ChatDirector.format(field.getValue(),context);
-                if(!temp.isBlank()) {
+                if(!temp.isEmpty()) {
                     embed.addInlineField(ChatDirector.format(field.getKey(),context), temp);
                 }
             }
         }
-        DiscordModule.discordBots.get(botName).getDiscordApi().getChannelById(ChatDirector.format(channelID, context)).get().asServerTextChannel().get().sendMessage(embed);
+        DiscordModule.instance.discordBots.get(bot).getDiscordApi().getChannelById(ChatDirector.format(channel, context)).get().asServerTextChannel().get().sendMessage(embed);
         return new Context();
     }
     @Override
     public boolean isValid() {
-        return super.isValid()&&ValidationUtils.hasContent(channelID);
+        return super.isValid()&&ValidationUtils.hasContent(channel);
     }
     
 }

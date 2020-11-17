@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
+import com.blalp.chatdirector.model.IItem;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,8 +46,7 @@ public class BukkitModule implements IModule {
 
     @Override
     public boolean isValid() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override

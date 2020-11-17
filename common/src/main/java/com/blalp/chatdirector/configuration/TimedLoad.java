@@ -35,6 +35,9 @@ public class TimedLoad implements Runnable {
             } catch (Exception e){
                 e.printStackTrace();
             }
+            System.out.println("YIKES REMOVE ME BEFORE PRODUCTION");
+            System.exit(-1);
+            // TODO: remove me
             try {
                 System.out.println("Timed load sleeping");
                 Thread.sleep(10000);

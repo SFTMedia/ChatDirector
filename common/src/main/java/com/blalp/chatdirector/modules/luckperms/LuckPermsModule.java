@@ -3,13 +3,8 @@ package com.blalp.chatdirector.modules.luckperms;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.IModule;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LuckPermsModule implements IModule {
 
@@ -34,24 +29,24 @@ public class LuckPermsModule implements IModule {
     }
 
     @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
-        switch (type) {
-            case "luckperms-context":
-                return om.convertValue(config, LuckPermsContextItem.class);
-            case "luckperms-set":
-                return om.convertValue(config, LuckPermsSetItem.class);
-            case "luckperms-unset":
-                return om.convertValue(config, LuckPermsUnsetItem.class);
-            case "luckperms-has":
-                return new LuckPermsHasItem(ChatDirector.loadChain(om,config.get("yes-chain")),ChatDirector.loadChain(om,config.get("no-chain")),config.get("permission").asText());
-            default:
-                return null;
-        }
+    public Context getContext(Object object) {
+        return new Context();
     }
 
     @Override
-    public Context getContext(Object object) {
-        return new Context();
+    public Class<?> getItemClass(String type) {
+        switch (type) {
+            case "luckperms-context":
+                return LuckPermsContextItem.class;
+            case "luckperms-set":
+                return LuckPermsSetItem.class;
+            case "luckperms-unset":
+                return LuckPermsUnsetItem.class;
+            case "luckperms-has":
+                return LuckPermsHasItem.class;
+            default:
+                return null;
+        }
     }
 
 }

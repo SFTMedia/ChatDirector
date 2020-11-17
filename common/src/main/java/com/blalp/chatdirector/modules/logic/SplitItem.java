@@ -4,9 +4,20 @@ import java.util.ArrayList;
 
 import com.blalp.chatdirector.modules.common.PassItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
-import com.blalp.chatdirector.model.Chain;
+import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.NoArgsConstructor;
 
+@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
+@JsonDeserialize(using = SplitDeserializer.class)
 public class SplitItem extends PassItem {
     ArrayList<Chain> chains = new ArrayList<Chain>();
     public SplitItem(ArrayList<Chain> chains) {
