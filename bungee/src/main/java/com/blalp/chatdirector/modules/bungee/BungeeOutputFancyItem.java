@@ -3,8 +3,8 @@ package com.blalp.chatdirector.modules.bungee;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.fancychat.FancyMessage;
-import com.blalp.chatdirector.model.fancychat.FancyMessageEnum;
+import com.blalp.chatdirector.utils.FancyMessage;
+import com.blalp.chatdirector.utils.FancyMessageEnum;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
 import net.md_5.bungee.api.ChatColor;

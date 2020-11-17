@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.modules.IModule;
+import com.blalp.chatdirector.model.IModule;
 
 import xyz.olivermartin.multichat.bungee.events.PostBroadcastEvent;
 import xyz.olivermartin.multichat.bungee.events.PostGlobalChatEvent;

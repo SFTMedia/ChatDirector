@@ -1,0 +1,47 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.blalp.chatdirector</groupId>
+	<artifactId>discord</artifactId>
+	<version>0.1.8</version>
+	<packaging>jar</packaging>
+
+	<name>ChatDirector-Discord</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<repositories>
+		<repository>
+			<id>jcenter</id>
+			<name>jcenter-bintray</name>
+			<url>https://jcenter.bintray.com</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.javacord</groupId>
+			<artifactId>javacord</artifactId>
+			<version>3.1.1</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>com.blalp.chatdirector</groupId>
+			<artifactId>core</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+	</dependencies>
+</project>

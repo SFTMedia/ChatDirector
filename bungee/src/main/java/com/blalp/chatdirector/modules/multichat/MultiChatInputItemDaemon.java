@@ -2,7 +2,7 @@ package com.blalp.chatdirector.modules.multichat;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.ItemDaemon;
+import com.blalp.chatdirector.utils.ItemDaemon;
 
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;

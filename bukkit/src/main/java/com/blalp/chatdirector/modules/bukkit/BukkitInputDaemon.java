@@ -2,7 +2,7 @@ package com.blalp.chatdirector.modules.bukkit;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.ItemDaemon;
+import com.blalp.chatdirector.utils.ItemDaemon;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

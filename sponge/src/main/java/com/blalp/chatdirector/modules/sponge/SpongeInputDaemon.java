@@ -2,7 +2,7 @@ package com.blalp.chatdirector.modules.sponge;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.ItemDaemon;
+import com.blalp.chatdirector.utils.ItemDaemon;
 
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppedServerEvent;

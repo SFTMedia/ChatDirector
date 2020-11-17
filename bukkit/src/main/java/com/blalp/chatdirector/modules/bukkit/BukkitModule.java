@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.modules.IModule;
+import com.blalp.chatdirector.model.IModule;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

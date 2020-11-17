@@ -3,7 +3,6 @@ package com.blalp.chatdirector.platform.sponge;
 import java.io.File;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.ConfigurationSponge;
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
 import com.google.inject.Inject;
 
@@ -30,8 +29,7 @@ public class ChatDirectorSponge {
         instance = this;
         new ReloadCommand().load();
         try {
-            chatDirector = new ChatDirector(new ConfigurationSponge(),
-                    configDir.getAbsolutePath() + File.separatorChar + "config.yml");
+            chatDirector = new ChatDirector(configDir.getAbsolutePath() + File.separatorChar + "config.yml");
             configDir.mkdirs();
             chatDirector.load();
             if (SpongeInputDaemon.instance != null) {
