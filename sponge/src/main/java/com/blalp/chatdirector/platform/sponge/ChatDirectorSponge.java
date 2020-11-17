@@ -3,6 +3,7 @@ package com.blalp.chatdirector.platform.sponge;
 import java.io.File;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.configuration.TimedLoad;
 import com.blalp.chatdirector.modules.sponge.SpongeInputDaemon;
 import com.google.inject.Inject;
 
@@ -54,9 +55,9 @@ public class ChatDirectorSponge {
 
     @Listener
     public void onReload(GameReloadEvent e) {
-        chatDirector.reload();
+        new Thread(new TimedLoad()).start();
     }
-
+    
     @Listener
     public void onChat(MessageChannelEvent.Chat e) {
         if (SpongeInputDaemon.instance != null) {

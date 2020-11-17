@@ -140,6 +140,9 @@ public class TestConfiguration {
         assertEquals(new Context("This is the first value").halt(), chatDirector.getChains().get("halt-test").run(new Context()));
         assertEquals(new Context(), chatDirector.getChains().get("reload-test").run(new Context()));
         // TODO: Preform a check for reload?
-        // TODO: Make sure code fails with an invalid config
+    }
+    @Test
+    public void testReload(){
+        
     }
 }

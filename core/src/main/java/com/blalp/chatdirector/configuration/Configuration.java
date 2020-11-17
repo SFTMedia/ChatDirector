@@ -8,7 +8,6 @@ import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.Loadable;
 import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.model.IModule;
 import com.blalp.chatdirector.modules.common.CommonModule;
@@ -20,7 +19,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = ConfigurationDeserializer.class)
-public class Configuration extends Loadable implements IConfiguration {
+public class Configuration implements IConfiguration {
 
     static {
         Configurations.addConfiguration(new Configuration());
