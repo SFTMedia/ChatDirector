@@ -2,35 +2,40 @@ package com.blalp.chatdirector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import com.blalp.chatdirector.model.Context;
 
 import org.junit.jupiter.api.Test;
 
-public class TestEquality {
+public class TestContext {
     @Test
-    public void testContext(){
+    public void testContextMerge() {
         Context one = new Context();
         Context two = new Context();
-        assertEquals(one.hashCode(), two.hashCode());
-        assertEquals(one, two);
-        one.put("CURRENT", "TEST");
+        one.put("ONE", "1");
+        two.put("TWO", "2");
         assertNotEquals(one, two);
-        two.put("CURRENT", "TEST");
-        assertEquals(one, two);
-        one.put("ANOTHER_KEY", "VALUE");
+        one.merge(two);
         assertNotEquals(one, two);
-        one.remove("ANOTHER_KEY");
-        assertNotEquals(one, two);
-        two.remove("ANOTHER_KEY");
-        assertEquals(one.getCurrent(), two.getCurrent());
-        assertEquals(one, two);
-        one.halt();
-        assertNotEquals(one, two);
-        two.halt();
+        two = new Context();
+        two.put("ONE", "1");
+        two.put("TWO", "2");
         assertEquals(one, two);
         one = new Context();
-        one.put("CURRENT", "TEST2");
-        two = new Context("TEST2");
+        two = new Context();
+        one.halt();
+        assertNotEquals(one, two);
+        two.merge(one);
+        assertEquals(one,two);
+        one.remove("REMOVE_ME");
+        assertNotEquals(one, two);
+        two.merge(one);
+        assertEquals(one, two);
+        one = new Context();
+        one.remove("REMOVE_ME");
+        two = new Context();
+        two.remove("REMOVE_ME");
         assertEquals(one, two);
     }
+    
 }
