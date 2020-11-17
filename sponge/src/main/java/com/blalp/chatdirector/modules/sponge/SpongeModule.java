@@ -2,12 +2,8 @@ package com.blalp.chatdirector.modules.sponge;
 
 import java.util.Arrays;
 import java.util.List;
-import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.IItem;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.blalp.chatdirector.modules.IModule;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
@@ -15,7 +11,7 @@ import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.message.MessageChannelEvent.Chat;
 import org.spongepowered.api.event.user.TargetUserEvent;
 
-public class SpongeModule implements IItem {
+public class SpongeModule implements IModule {
     public static SpongeModule instance;
     public SpongeModule(){
         instance=this;
@@ -50,29 +46,6 @@ public class SpongeModule implements IItem {
     public boolean isValid() {
         return true;
     }
-
-    @Override
-    public IItem createItem(ObjectMapper om, Chain chain, String type, JsonNode config) {
-        switch (type) {
-            case "sponge-command":
-                return om.convertValue(config, SpongeCommandItem.class);
-            case "sponge-output":
-                return om.convertValue(config, SpongeOutputItem.class);
-            case "sponge-input":
-                if (SpongeInputDaemon.instance == null) {
-                    new SpongeInputDaemon();
-                    SpongeInputDaemon.instance.load();
-                }
-                SpongeInputItem item2 = om.convertValue(config, SpongeInputItem.class);
-                SpongeInputDaemon.instance.addItem(item2,chain);
-                return item2;
-            case "sponge-playerlist":
-                return om.convertValue(config, SpongePlayerlistItem.class);
-            default:
-                return null;
-        }
-    }
-
     @Override
     public Context getContext(Object event) {
         Context context = new Context();
@@ -98,6 +71,22 @@ public class SpongeModule implements IItem {
             context.merge(getContext(((TargetUserEvent)event).getTargetUser()));
         }
         return context;
+    }
+
+    @Override
+    public Class<?> getItemClass(String type) {
+        switch (type) {
+            case "sponge-command":
+                return SpongeCommandItem.class;
+            case "sponge-output":
+                return SpongeOutputItem.class;
+            case "sponge-input":
+                return SpongeInputItem.class;
+            case "sponge-playerlist":
+                return SpongePlayerlistItem.class;
+            default:
+                return null;
+        }
     }
     
 }
