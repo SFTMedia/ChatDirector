@@ -1,6 +1,7 @@
 package com.blalp.chatdirector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -135,10 +136,10 @@ public class TestConfiguration {
         assertEquals(new Context(), chatDirector.getChains().get("loading-test").run(new Context()));
         assertEquals(new Context("This is the second value"), chatDirector.getChains().get("breaking-test").run(new Context()));
         assertEquals(new Context("This was >This was >hello!<<, but before that it was >hello!<"), chatDirector.getChains().get("echo-test").run(new Context()));
-        assertEquals(new Context("This is the first value"), chatDirector.getChains().get("halt-test").run(new Context()));
+        assertNotEquals(new Context("This is the first value"), chatDirector.getChains().get("halt-test").run(new Context()));
+        assertEquals(new Context("This is the first value").halt(), chatDirector.getChains().get("halt-test").run(new Context()));
         assertEquals(new Context(), chatDirector.getChains().get("reload-test").run(new Context()));
         // TODO: Preform a check for reload?
-        // TODO: confirm .equals on Context works as expected.
-        // TODO: make sure code fails with an invalid config
+        // TODO: Make sure code fails with an invalid config
     }
 }
