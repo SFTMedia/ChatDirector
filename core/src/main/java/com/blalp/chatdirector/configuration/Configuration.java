@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.model.IModule;

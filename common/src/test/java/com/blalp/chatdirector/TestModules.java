@@ -242,11 +242,29 @@ public class TestModules {
         context.put("LAST", "SomeUniqueKey was found!");
         assertEquals(context, chatDirector.getChains().get("cache-if-test").run(new Context()));
         assertEquals(context, chatDirector.getChains().get("cache-if-test").run(new Context("Even if there was something here.")));
-        
+    }
+    @Test
+    public void context(){
+        // TODO: implement me
+    }
+    @Test
+    public void file(){
+        // TODO: implement me
         
     }
     @Test
-    public void testReload(){
+    public void logic(){
+        // TODO: implement me
+        
+    }
+    @Test
+    public void replacement(){
+        // TODO: implement me
+        
+    }
+    @Test
+    public void console(){
+        // TODO: implement me
         
     }
 }
