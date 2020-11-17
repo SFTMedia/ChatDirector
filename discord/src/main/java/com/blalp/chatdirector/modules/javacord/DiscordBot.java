@@ -1,11 +1,11 @@
 package com.blalp.chatdirector.modules.javacord;
 
-import com.blalp.chatdirector.model.Loadable;
+import com.blalp.chatdirector.model.ILoadable;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 
-public class DiscordBot extends Loadable {
+public class DiscordBot implements ILoadable {
     private DiscordApi discordApi;
     private String token;
     public DiscordInputDaemon daemon;

@@ -14,19 +14,23 @@ import java.util.logging.Logger;
 import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.configuration.Configurations;
 import com.blalp.chatdirector.configuration.TimedLoad;
-import com.blalp.chatdirector.model.Loadable;
+import com.blalp.chatdirector.model.ILoadable;
 import com.blalp.chatdirector.model.IModule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+
+import lombok.Data;
+
 import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.model.IItem;
 
+@Data
 // Should implement both bungee, sponge and bukkit if possible
-public class ChatDirector extends Loadable implements IConfiguration {
+public class ChatDirector implements IConfiguration {
     public static IConfiguration config;
     static Logger logger;
     static Handler handler;
