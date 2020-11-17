@@ -5,6 +5,7 @@ modules:
   - logic
   - cache
   - console
+  - context
   - discord:
       bots:
         bot-name: "TOKEN"
@@ -233,10 +234,10 @@ chains:
           invert: false # Optional inverts the decision
       - split:
           - stream-1:
-              - pass-item: null
-              - pass-item: null
+              - echo: "hello!"
+              - break: null
           - stream-2:
-              - null-item: null
+              - halt: null
       - if-starts-with:
           yes-chain: null # Optional
           no-chain: null # Optional
