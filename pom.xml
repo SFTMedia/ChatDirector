@@ -10,10 +10,16 @@
 
 	<!-- sub modules -->
 	<modules>
-        <module>common</module>
-        <module>sponge</module>
-        <module>bukkit</module>
-        <module>bungee</module>
+        <module>core</module> <!-- This is needed by all -->
+        <module>common</module> <!-- ChatDirector Specific or String manipulation Modules -->
+        <module>extra</module> <!-- Other Platform independ Modules -->
+        <module>console</module> <!-- Lightest platform, just the terminal -->
+        <module>discord</module> <!-- Discord Module -->
+        <module>sponge</module> <!-- Sponge Module -->
+        <module>bukkit</module> <!-- Bukkit Module -->
+        <module>bungee</module> <!-- Bungee Module -->
+        <module>universal</module> <!-- Shaded build with everything -->
+        <module>minimal</module> <!-- Minimal build with just core, common and console/bungee/bukkit/sponge. -->
     </modules>
 
 </project>

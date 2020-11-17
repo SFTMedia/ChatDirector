@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.ItemDaemon;
+import com.blalp.chatdirector.utils.ItemDaemon;
 
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;

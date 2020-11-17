@@ -1,10 +1,13 @@
 package com.blalp.chatdirector.configuration;
 
 import com.blalp.chatdirector.modules.bukkit.BukkitModule;
+import com.blalp.chatdirector.modules.bungeeMessage.BungeeMessageModule;
 import com.blalp.chatdirector.modules.vault.VaultModule;
-import com.blalp.chatdirector.modules.bungee.BungeeModule;
 
 public class ConfigurationBukkit extends Configuration {
+    static {
+        Configurations.addConfiguration(new ConfigurationBukkit());
+    }
     @Override
     public Class<?> getModuleClass(String moduleType) {
         switch (moduleType) {
@@ -13,7 +16,7 @@ public class ConfigurationBukkit extends Configuration {
             case "vault":
                 return VaultModule.class;
             case "bungee":
-                return BungeeModule.class;
+                return BungeeMessageModule.class;
             default:
                 return super.getModuleClass(moduleType);
         }

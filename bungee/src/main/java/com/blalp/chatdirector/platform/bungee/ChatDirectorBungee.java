@@ -3,7 +3,6 @@ package com.blalp.chatdirector.platform.bungee;
 import java.io.File;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.ConfigurationBungee;
 
 import com.blalp.chatdirector.modules.bungee.BungeeInputItemDaemon;
 import com.blalp.chatdirector.modules.multichat.MultiChatInputItemDaemon;
@@ -22,8 +21,7 @@ public class ChatDirectorBungee extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance,
                 new ReloadCommand("chatdirectorlocal"));
         try {
-            chatDirector = new ChatDirector(new ConfigurationBungee(),
-                    this.getDataFolder().getAbsolutePath() + File.separatorChar + "config.yml");
+            chatDirector = new ChatDirector(this.getDataFolder().getAbsolutePath() + File.separatorChar + "config.yml");
             BungeeInputItemDaemon.instance = new BungeeInputItemDaemon();
             getProxy().getPluginManager().registerListener(this, BungeeInputItemDaemon.instance);
             MultiChatInputItemDaemon.instance = new MultiChatInputItemDaemon();

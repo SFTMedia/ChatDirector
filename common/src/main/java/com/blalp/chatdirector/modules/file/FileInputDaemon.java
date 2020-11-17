@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.ItemDaemon;
+import com.blalp.chatdirector.utils.ItemDaemon;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

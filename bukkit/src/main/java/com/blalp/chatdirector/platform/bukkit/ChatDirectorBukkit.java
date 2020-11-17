@@ -3,11 +3,10 @@ package com.blalp.chatdirector.platform.bukkit;
 import java.io.File;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.ConfigurationBukkit;
 import com.blalp.chatdirector.configuration.TimedLoad;
 import com.blalp.chatdirector.modules.bukkit.BukkitCommand;
 import com.blalp.chatdirector.modules.bukkit.BukkitInputDaemon;
-import com.blalp.chatdirector.modules.bungee.FromBungeeDaemon;
+import com.blalp.chatdirector.modules.bungeeMessage.FromBungeeDaemon;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,8 +22,7 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
     public void onEnable() {
         instance = this;
         try {
-            chatDirector = new ChatDirector(new ConfigurationBukkit(),
-                    this.getDataFolder().getAbsolutePath() + File.separatorChar + "config.yml");
+            chatDirector = new ChatDirector(this.getDataFolder().getAbsolutePath() + File.separatorChar + "config.yml");
             BukkitInputDaemon.instance = new BukkitInputDaemon();
             getServer().getPluginManager().registerEvents(BukkitInputDaemon.instance, this);
             this.getDataFolder().mkdirs();
