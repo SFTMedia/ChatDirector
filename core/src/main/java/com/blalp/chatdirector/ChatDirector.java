@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.configuration.Configurations;
 import com.blalp.chatdirector.configuration.TimedLoad;
-import com.blalp.chatdirector.model.ILoadable;
 import com.blalp.chatdirector.model.IModule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +31,7 @@ import com.blalp.chatdirector.model.IItem;
 // Should implement both bungee, sponge and bukkit if possible
 public class ChatDirector implements IConfiguration {
     public static IConfiguration config;
-    static Logger logger;
+    public static Logger logger;
     static Handler handler;
     /**
      * Maintain this list as some things run in separate threads, so with an item

@@ -57,7 +57,7 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
             chainObj.items.remove(null);
         }
         if (chainObj.items.size() == 0) {
-            ChatDirector.log(Level.WARNING, "No items parsed in chain " + chain);
+            ChatDirector.logger.log(Level.WARNING, "No items parsed in chain " + chain);
             return null;
         }
         return chainObj;

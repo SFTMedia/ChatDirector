@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class VaultContextItem extends PermissionItem {
 
@@ -53,7 +53,7 @@ public class VaultContextItem extends PermissionItem {
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            ChatDirector.log(Level.INFO, "The above error probably just means you dont have an econ plugin. dw.");
+            ChatDirector.logger.log(Level.INFO, "The above error probably just means you dont have an econ plugin. dw.");
         }
         return output;
     }

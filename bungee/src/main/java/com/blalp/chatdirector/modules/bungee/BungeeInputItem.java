@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class BungeeInputItem extends PassItem implements Listener {
 
     public String formatDisconnect = "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %SERVER_NAME%";

@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class DiscordEmbedItem extends DiscordItem {
     private String channel;
 
@@ -50,7 +50,7 @@ public class DiscordEmbedItem extends DiscordItem {
             if (Color.decode(color) != null) {
                 embed.setColor(Color.decode(color));
             } else {
-                ChatDirector.log(Level.WARNING, "color " + color + " not a valid color.");
+                ChatDirector.logger.log(Level.WARNING, "color " + color + " not a valid color.");
             }
         }
         if (footerName != null) {
