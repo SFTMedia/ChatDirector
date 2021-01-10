@@ -1,5 +1,5 @@
 main: com.blalp.chatdirector.ChatDirectorBungee
-version: 0.1.8
+version: 0.2.0-alpha-1
 name: ChatDirector
 softDepends: [MultiChat, LuckPerms]
 load: POSTWORLD
