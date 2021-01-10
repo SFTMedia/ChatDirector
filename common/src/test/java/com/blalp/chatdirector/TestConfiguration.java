@@ -1,29 +1,26 @@
 package com.blalp.chatdirector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.blalp.chatdirector.configuration.Chain;
-import com.blalp.chatdirector.configuration.Configuration;
-import com.blalp.chatdirector.configuration.ConfigurationCommon;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.modules.cache.CacheGetItem;
 import com.blalp.chatdirector.modules.cache.CacheIfItem;
 import com.blalp.chatdirector.modules.cache.CacheSetItem;
 import com.blalp.chatdirector.modules.common.BreakItem;
+import com.blalp.chatdirector.modules.common.EchoItem;
 import com.blalp.chatdirector.modules.common.HaltItem;
-import com.blalp.chatdirector.modules.context.ContextGetItem;
-import com.blalp.chatdirector.modules.context.ContextRemoveItem;
-import com.blalp.chatdirector.modules.context.ContextResolveItem;
-import com.blalp.chatdirector.modules.context.ContextSetItem;
+import com.blalp.chatdirector.modules.common.ReloadItem;
 
 import org.junit.jupiter.api.Test;
 
-public class TestModules {
-    static String rawData = ""+
-"# Example of just common items\n"+
+public class TestConfiguration {
+    String rawData = ""+
+"\n"+
 "    modules:\n"+
 "      - cache\n"+
 "      - console\n"+
@@ -35,74 +32,110 @@ public class TestModules {
 "    chains:\n"+
 "        - cache-parse-test:\n"+
 "            - cache-get:\n"+
-"                key: \"SomeUniqueKey\" # Where get the value from\n"+
+"                key: \"SomeUniqueKey\"\n"+
 "            - cache-set:\n"+
 "                key: \"EXAMPLE_KEY\"\n"+
 "                value: \"EXAMPLE_VALUE\"\n"+
 "            - cache-if:\n"+
-"                yes-chain: # List of items to run if there is a cached value\n"+
+"                yes-chain:\n"+
 "                   - stop: null\n"+
-"                no-chain: # List of items to run if there is no cached value\n"+
+"                no-chain:\n"+
 "                   - break: null\n"+
-"                key: \"KEY\" # The key to check for\n"+
+"                key: \"KEY\"\n"+
 "        - cache-get-set-test:\n"+
 "            - cache-set:\n"+
 "                key: \"SomeUniqueKey\"\n"+
 "                value: \"EXAMPLE_VALUE\"\n"+
 "            - cache-get:\n"+
-"                key: \"SomeUniqueKey\" # Where get the value from\n"+
+"                key: \"SomeUniqueKey\"\n"+
 "        - cache-get-set-test-2:\n"+
 "            - cache-set:\n"+
 "                key: \"SomeUniqueKey\"\n"+
 "                value: \"EXAMPLE_VALUE\"\n"+
 "            - cache-get:\n"+
-"                key: \"RandomKey\" # Where get the value from\n"+
+"                key: \"RandomKey\"\n"+
 "        - cache-if-test:\n"+
 "            - cache-set:\n"+
 "                key: \"SomeUniqueKey\"\n"+
 "                value: \"EXAMPLE_VALUE\"\n"+
 "            - cache-if:\n"+
-"                yes-chain: # List of items to run if there is a cached value\n"+
+"                yes-chain:\n"+
 "                   - echo: \"SomeUniqueKey was found!\"\n"+
-"                no-chain: # List of items to run if there is no cached value\n"+
+"                no-chain:\n"+
 "                   - echo: \"SomeUniqueKey was not found!\"\n"+
-"                key: \"SomeUniqueKey\" # The key to check for\n"+
+"                key: \"SomeUniqueKey\"\n"+
 "            - cache-if:\n"+
-"                yes-chain: # List of items to run if there is a cached value\n"+
+"                yes-chain:\n"+
 "                   - echo: \"Random was found!\"\n"+
-"                no-chain: # List of items to run if there is no cached value\n"+
+"                no-chain:\n"+
 "                   - echo: \"Random was not found!\"\n"+
-"                key: \"Random\" # The key to check for\n"+
-"        - context-test:\n"+
+"                key: \"Random\"\n"+
+"        - context-parse-test:\n"+
 "            - get-context:\n"+
-"                context: \"SERVER_%SERVER_NAME%_Players\" # Normally such a nested contexts would not be possible\n"+
+"                context: \"CONTEXT_NAME\"\n"+
 "            - set-context:\n"+
 "                context: \"TARGET_CONTEXT\"\n"+
-"                value: \"Hello %PLAYER_NAME% you have %BALANCE% money!\" # Optional. defaults to CURRENT\n"+
+"                value: \"CONTEXT_VALUE\"\n"+
+"            - set-context:\n"+
+"                context: \"TARGET_CONTEXT\"\n"+
 "            - remove-context:\n"+
 "                context: \"SERVER_NAME\"\n"+
-"            - resolve-context: null # This resolves the input string as a formattable message. Normally this shouldn't be needed and could allow for formatting injection.\n"+
-"        - file-test:\n"+
+"            - resolve-context: null\n"+
+"            - resolve-context\n"+
+"        - context-get-set-test:\n"+
+"            - set-context:\n"+
+"                context: \"TARGET_CONTEXT\"\n"+
+"                value: \"CONTEXT_VALUE\"\n"+
+"            - get-context:\n"+
+"                context: \"TARGET_CONTEXT\"\n"+
+"            - remove-context:\n"+
+"                context: \"SERVER_NAME\"\n"+
+"            - resolve-context: null\n"+
+"        - context-parse-test:\n"+
+"            - get-context:\n"+
+"                context: \"CONTEXT_NAME\"\n"+
+"            - set-context:\n"+
+"                context: \"TARGET_CONTEXT\"\n"+
+"                value: \"CONTEXT_VALUE\"\n"+
+"            - remove-context:\n"+
+"                context: \"SERVER_NAME\"\n"+
+"            - resolve-context: null\n"+
+"        - context-parse-test:\n"+
+"            - get-context:\n"+
+"                context: \"CONTEXT_NAME\"\n"+
+"            - set-context:\n"+
+"                context: \"TARGET_CONTEXT\"\n"+
+"                value: \"CONTEXT_VALUE\"\n"+
+"            - remove-context:\n"+
+"                context: \"SERVER_NAME\"\n"+
+"            - resolve-context: null\n"+
+"        - file-parse-test:\n"+
 "            - file-input:\n"+
 "                path: PATH_TO_FIFO\n"+
-"                delay: 500 # optional, defaults to 500\n"+
+"                delay: 500\n"+
+"            - file-input:\n"+
+"                path: PATH_TO_FIFO\n"+
 "            - file-output:\n"+
 "                path: PATH_TO_FIFO\n"+
-"                delay: 500 # optional, defaults to 500\n"+
+"                delay: 500\n"+
+"            - file-output:\n"+
+"                path: PATH_TO_FIFO\n"+
 "            - file-input:\n"+
 "                path: PATH_TO_FIFO_2\n"+
 "            - file-output:\n"+
 "                path: PATH_TO_FIFO_2\n"+
 "        - logic-test:\n"+
 "            - if-contains:\n"+
-"                yes-chain: # this can be any list of items or optional\n"+
+"                yes-chain:\n"+
 "                    - pass: null\n"+
 "                    - stop: null\n"+
-"                no-chain: # Or this can be nothing or optional\n"+
+"                no-chain:\n"+
 "                    - stop: null\n"+
 "                contains: \"String\"\n"+
-"                source: \"%CURRENT%\" # Optional. source.contains(contains)\n"+
-"                invert: false # Optional inverts the decision\n"+
+"                source: \"%CURRENT%\"\n"+
+"                invert: false\n"+
+"            - if-contains:\n"+
+"                contains: \"String\"\n"+
 "            - if-contains:\n"+
 "                contains: \"String\"\n"+
 "            - if-equals:\n"+
@@ -112,23 +145,23 @@ public class TestModules {
 "                no-chain:\n"+
 "                    - stop: null\n"+
 "                equals: \"String\"\n"+
-"                source: \"%CURRENT%\" # Optional. source.equals(contains)\n"+
-"                invert: false # Optional inverts the decision\n"+
-"                ignore-case: false # optional\n"+
+"                source: \"%CURRENT%\"\n"+
+"                invert: false\n"+
+"                ignore-case: false\n"+
 "            - if-equals:\n"+
 "                equals: \"String\"\n"+
 "            - if-regex-match:\n"+
-"                yes-chain: # Optional\n"+
+"                yes-chain:\n"+
 "                    - echo: \"hello!\"\n"+
 "                    - cache-get:\n"+
 "                       key: \"Key val\"\n"+
-"                no-chain: # Optional\n"+
+"                no-chain:\n"+
 "                    - cache-get:\n"+
 "                       key: \"Key val\"\n"+
 "                    - echo: \"hello!\"\n"+
 "                match: \"[sS]tring\"\n"+
-"                source: \"%CURRENT%\" # Optional. source.match(contains)\n"+
-"                invert: false # Optional inverts the decision\n"+
+"                source: \"%CURRENT%\"\n"+
+"                invert: false\n"+
 "            - if-regex-match:\n"+
 "                match: \"[sS]tring\"\n"+
 "            - split:\n"+
@@ -139,29 +172,29 @@ public class TestModules {
 "                    - halt: null\n"+
 "            - split\n"+
 "            - if-starts-with:\n"+
-"                yes-chain: # Optional\n"+
+"                yes-chain:\n"+
 "                    - cache-get:\n"+
 "                       key: \"Key val\"\n"+
 "                    - echo: \"hello!\"\n"+
-"                no-chain: # Optional\n"+
+"                no-chain:\n"+
 "                    - cache-get:\n"+
 "                       key: \"Key val\"\n"+
 "                    - echo: \"hello!\"\n"+
 "                starts: \"String\"\n"+
-"                source: \"%CURRENT%\" # Optional. source.startsWith(contains)\n"+
+"                source: \"%CURRENT%\"\n"+
 "            - if-starts-with:\n"+
 "                starts: \"String\"\n"+
 "            - if-ends-with:\n"+
-"                yes-chain: # Optional\n"+
+"                yes-chain:\n"+
 "                    - cache-get:\n"+
 "                       key: \"Key val\"\n"+
 "                    - echo: \"hello!\"\n"+
-"                no-chain: # Optional\n"+
+"                no-chain:\n"+
 "                    - cache-get:\n"+
 "                       key: \"Key val\"\n"+
 "                    - echo: \"hello!\"\n"+
 "                ends: \"String\"\n"+
-"                source: \"%CURRENT%\" # Optional. source.endsWith(contains)\n"+
+"                source: \"%CURRENT%\"\n"+
 "            - if-ends-with:\n"+
 "                ends: \"String\"\n"+
 "        - replacement-test:\n"+
@@ -170,39 +203,31 @@ public class TestModules {
 "                - \"Regex to find2\": \"regex to replace2\"\n"+
 "            - remove-colors: null\n"+
 "            - remove-colors\n"+
-"            - resolve-colors: null # converts & into §\n"+
-"            - resolve-colors # converts & into §\n"+
-"            - to-upper: null # to upper case\n"+
-"            - to-upper # to upper case\n"+
-"            - to-lower: null # to lower case\n"+
-"            - to-lower # to lower case\n"+
-"            - to-word: null # Capitalize each word\n"+
-"            - to-word # Capitalize each word\n"+
+"            - resolve-colors: null\n"+
+"            - resolve-colors\n"+
+"            - to-upper: null\n"+
+"            - to-upper\n"+
+"            - to-lower: null\n"+
+"            - to-lower\n"+
+"            - to-word: null\n"+
+"            - to-word\n"+
 "            - sub-string:\n"+
-"                start: 2 # number of characters to end at (optional)\n"+
-"                end: 4 # number of characters to end at (optional)\n"+
+"                start: 2\n"+
+"                end: 4\n"+
 "            - sub-string:\n"+
-"                end: 4 # number of characters to end at (optional)\n"+
-"            - sub-string # While this makes no sense, it should parse\n"+
+"                end: 4\n"+
+"            - sub-string\n"+
 "        - console-test:\n"+
 "            - console-output: null\n"+
 "            - console-output-error: null\n"+
 "            - console-output\n"+
 "            - console-output-error\n";
-    static ChatDirector chatDirector=null;
-    private static void init(){
-        if(chatDirector==null) {
-            new Configuration();
-            new ConfigurationCommon();
-            ChatDirector chatDirector = new ChatDirector(rawData);
-            chatDirector.load();
-        }
-    }
-
     @Test
     public void cache(){
-        init();
+        ChatDirector chatDirector = new ChatDirector(rawData);
+        chatDirector.load();
         // Checking Chain metric
+        assertTrue(chatDirector.getChains().size()==9);
         assertTrue(chatDirector.getChains().containsKey("cache-parse-test"));
         assertNotNull(chatDirector.getChains().get("cache-parse-test"));
         // Checking Per Chain metric
@@ -233,93 +258,29 @@ public class TestModules {
         chainItem=new BreakItem();
         chain.addItem(chainItem);
         ((CacheIfItem)compare).setNoChain(chain);
-        assertEquals(((CacheIfItem)compare).getYesChain(), ((CacheIfItem)item).getYesChain());
-        assertEquals(((CacheIfItem)compare).getNoChain(), ((CacheIfItem)item).getNoChain());
         assertEquals(compare, item);
-
         // Integration test
         assertEquals(new Context(), chatDirector.getChains().get("cache-parse-test").run(new Context()));
         Context context = new Context();
+        context.put("SomeUniqueKey", "EXAMPLE_VALUE");
         context.put("CURRENT", "EXAMPLE_VALUE");
         assertEquals(context, chatDirector.getChains().get("cache-get-set-test").run(new Context()));
-        context.put("LAST","Even if there is something here");
         assertEquals(context, chatDirector.getChains().get("cache-get-set-test").run(new Context("Even if there is something here")));
         context = new Context();
+        context.put("SomeUniqueKey", "EXAMPLE_VALUE");
         assertEquals(context, chatDirector.getChains().get("cache-get-set-test-2").run(new Context()));
-        context.put("LAST","Even if there is something here");
         assertEquals(context, chatDirector.getChains().get("cache-get-set-test-2").run(new Context("Even if there is something here")));
         context = new Context();
+        context.put("SomeUniqueKey", "EXAMPLE_VALUE");
         context.put("CURRENT", "Random was not found!");
         context.put("LAST", "SomeUniqueKey was found!");
         assertEquals(context, chatDirector.getChains().get("cache-if-test").run(new Context()));
         assertEquals(context, chatDirector.getChains().get("cache-if-test").run(new Context("Even if there was something here.")));
-    }
-    @Test
-    public void context(){
-        init();
-        // Checking Chain metric
-        assertTrue(chatDirector.getChains().containsKey("context-parse-test"));
-        assertNotNull(chatDirector.getChains().get("context-parse-test"));
-        // Checking Per Chain metric
-        assertNotNull(chatDirector.getChains().get("context-parse-test").items);
-        assertTrue(chatDirector.getChains().get("context-parse-test").items.size()==6);
-        assertTrue(chatDirector.getChains().get("context-parse-test").isValid());
-        // Checking Each item in chain
-        IItem item = chatDirector.getChains().get("context-parse-test").items.get(0);
-        assertTrue(item instanceof ContextGetItem);
-        IItem compare = new ContextGetItem();
-        ((ContextGetItem)compare).setContext("CONTEXT_NAME");
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").items.get(1);
-        assertTrue(item instanceof ContextSetItem);
-        compare = new ContextSetItem();
-        ((ContextSetItem)compare).setContext("TARGET_CONTEXT");
-        ((ContextSetItem)compare).setValue("CONTEXT_VALUE");
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").items.get(2);
-        assertTrue(item instanceof ContextSetItem);
-        compare = new ContextSetItem();
-        ((ContextSetItem)compare).setContext("TARGET_CONTEXT");
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").items.get(3);
-        assertTrue(item instanceof ContextRemoveItem);
-        compare = new ContextRemoveItem();
-        ((ContextRemoveItem)compare).setContext("SERVER_NAME");
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").items.get(4);
-        assertTrue(item instanceof ContextResolveItem);
-        compare = new ContextResolveItem();
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").items.get(5);
-        assertTrue(item instanceof ContextResolveItem);
-        assertEquals(compare, item);
         
-        // Behavior testing
-        
-
-    }
-    @Test
-    public void file(){
-        init();
-        // TODO: implement me
         
     }
     @Test
-    public void logic(){
-        init();
-        // TODO: implement me
-        
-    }
-    @Test
-    public void replacement(){
-        init();
-        // TODO: implement me
-        
-    }
-    @Test
-    public void console(){
-        init();
-        // TODO: implement me
+    public void testReload(){
         
     }
 }
