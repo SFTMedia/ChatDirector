@@ -16,7 +16,7 @@ import org.spongepowered.api.event.message.MessageChannelEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
 
-@Plugin(id = "chatdirector", name = "Chat Director", version = "0.1.8", description = "Manages as much Chat as needed.")
+@Plugin(id = "chatdirector", name = "Chat Director", version = "0.2.0-alpha-1", description = "Manages as much Chat as needed.")
 public class ChatDirectorSponge {
     private ChatDirector chatDirector;
     public static ChatDirectorSponge instance;
