@@ -1,7 +1,6 @@
 package com.blalp.chatdirector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,9 +11,7 @@ import com.blalp.chatdirector.modules.cache.CacheGetItem;
 import com.blalp.chatdirector.modules.cache.CacheIfItem;
 import com.blalp.chatdirector.modules.cache.CacheSetItem;
 import com.blalp.chatdirector.modules.common.BreakItem;
-import com.blalp.chatdirector.modules.common.EchoItem;
 import com.blalp.chatdirector.modules.common.HaltItem;
-import com.blalp.chatdirector.modules.common.ReloadItem;
 
 import org.junit.jupiter.api.Test;
 
