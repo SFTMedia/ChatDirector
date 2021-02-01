@@ -73,7 +73,7 @@ public class Chain implements IValid, Runnable {
             // Setup LAST and CURRENT contexts
             if (output != null) {
                 // Only if CURRENT was changed and not null set LAST
-                if(context.get("CURRENT")!=null&&!output.getCurrent().equals(context.getCurrent())){
+                if(context.get("CURRENT")!=null&&output.get("CURRENT")!=null&&!output.getCurrent().equals(context.getCurrent())){
                     output.put("LAST", context.get("CURRENT"));
                 }
                 workingContext.merge(output);

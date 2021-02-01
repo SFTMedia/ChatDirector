@@ -134,8 +134,8 @@ public class TestConfiguration {
         assertTrue(item instanceof ReloadItem);
 
         assertEquals(new Context(), chatDirector.getChains().get("loading-test").run(new Context()));
-        assertEquals(new Context("This is the second value"), chatDirector.getChains().get("breaking-test").run(new Context()));
-        assertEquals(new Context("This was >This was >hello!<<, but before that it was >hello!<"), chatDirector.getChains().get("echo-test").run(new Context()));
+        assertEquals(new Context("This is the second value","This is the first value"), chatDirector.getChains().get("breaking-test").run(new Context()));
+        assertEquals(new Context("This was >This was >hello!<<, but before that it was >hello!<","This was >hello!<"), chatDirector.getChains().get("echo-test").run(new Context()));
         assertNotEquals(new Context("This is the first value"), chatDirector.getChains().get("halt-test").run(new Context()));
         assertEquals(new Context("This is the first value").halt(), chatDirector.getChains().get("halt-test").run(new Context()));
         assertEquals(new Context(), chatDirector.getChains().get("reload-test").run(new Context()));

@@ -27,6 +27,11 @@ public class Context extends HashMap<String, String> {
         this.put("CURRENT", current);
     }
 
+    public Context(String current,String last) {
+        this(current);
+        this.put("LAST", last);
+    }
+
     public Context(Context context) {
         this.merge(context);
     }
