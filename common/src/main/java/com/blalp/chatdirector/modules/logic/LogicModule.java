@@ -41,7 +41,7 @@ public class LogicModule implements IModule {
             case "if-equals":
                 return IfEqualsItem.class;
             case "if-regex-match":
-                return IfEqualsItem.class;
+                return IfRegexMatchesItem.class;
             case "split":
                 return SplitItem.class;
             case "if-starts-with":

@@ -4,16 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.blalp.chatdirector.configuration.Chain;
-import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.configuration.ConfigurationCommon;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.cache.CacheGetItem;
-import com.blalp.chatdirector.modules.cache.CacheIfItem;
-import com.blalp.chatdirector.modules.cache.CacheSetItem;
-import com.blalp.chatdirector.modules.common.BreakItem;
-import com.blalp.chatdirector.modules.common.HaltItem;
 import com.blalp.chatdirector.modules.context.ContextGetItem;
 import com.blalp.chatdirector.modules.context.ContextRemoveItem;
 import com.blalp.chatdirector.modules.context.ContextResolveItem;
@@ -21,7 +14,7 @@ import com.blalp.chatdirector.modules.context.ContextSetItem;
 
 import org.junit.jupiter.api.Test;
 
-public class TestModules {
+public class TestIntegration {
     static String rawData = ""+
 "# Example of just common items\n"+
 "    modules:\n"+
@@ -84,15 +77,17 @@ public class TestModules {
 "            - resolve-context: null # This resolves the input string as a formattable message. Normally this shouldn't be needed and could allow for formatting injection.\n"+
 "        - file-test:\n"+
 "            - file-input:\n"+
-"                path: PATH_TO_FIFO\n"+
+"                path: target/PATH_TO_FIFO\n"+
 "                delay: 500 # optional, defaults to 500\n"+
+"                create: true\n"+
 "            - file-output:\n"+
-"                path: PATH_TO_FIFO\n"+
+"                path: target/PATH_TO_FIFO\n"+
 "                delay: 500 # optional, defaults to 500\n"+
 "            - file-input:\n"+
-"                path: PATH_TO_FIFO_2\n"+
+"                path: target/PATH_TO_FIFO_2\n"+
+"                create: true\n"+
 "            - file-output:\n"+
-"                path: PATH_TO_FIFO_2\n"+
+"                path: target/PATH_TO_FIFO_2\n"+
 "        - logic-test:\n"+
 "            - if-contains:\n"+
 "                yes-chain: # this can be any list of items or optional\n"+
@@ -105,6 +100,9 @@ public class TestModules {
 "                invert: false # Optional inverts the decision\n"+
 "            - if-contains:\n"+
 "                contains: \"String\"\n"+
+"                yes-chain: # this can be any list of items or optional\n"+
+"                    - pass: null\n"+
+"                    - stop: null\n"+
 "            - if-equals:\n"+
 "                yes-chain:\n"+
 "                    - cache-get:\n"+
@@ -117,6 +115,8 @@ public class TestModules {
 "                ignore-case: false # optional\n"+
 "            - if-equals:\n"+
 "                equals: \"String\"\n"+
+"                no-chain:\n"+
+"                    - stop: null\n"+
 "            - if-regex-match:\n"+
 "                yes-chain: # Optional\n"+
 "                    - echo: \"hello!\"\n"+
@@ -189,54 +189,16 @@ public class TestModules {
 "            - console-output-error: null\n"+
 "            - console-output\n"+
 "            - console-output-error\n";
-    static ChatDirector chatDirector=null;
-    private static void init(){
-        if(chatDirector==null) {
-            new Configuration();
-            new ConfigurationCommon();
-            ChatDirector chatDirector = new ChatDirector(rawData);
-            chatDirector.load();
-        }
+    static ChatDirector chatDirector;
+    private void init(){
+        chatDirector = new ChatDirector(rawData);
+        ChatDirector.config.addConfiguration(new ConfigurationCommon());
+        chatDirector.load();
     }
 
     @Test
-    public void cache(){
+    public void cacheIntegration(){
         init();
-        // Checking Chain metric
-        assertTrue(chatDirector.getChains().containsKey("cache-parse-test"));
-        assertNotNull(chatDirector.getChains().get("cache-parse-test"));
-        // Checking Per Chain metric
-        assertNotNull(chatDirector.getChains().get("cache-parse-test").items);
-        assertTrue(chatDirector.getChains().get("cache-parse-test").items.size()==3);
-        assertTrue(chatDirector.getChains().get("cache-parse-test").isValid());
-        // Checking Each item in chain
-        IItem item = chatDirector.getChains().get("cache-parse-test").items.get(0);
-        assertTrue(item instanceof CacheGetItem);
-        IItem compare = new CacheGetItem();
-        ((CacheGetItem)compare).setKey("SomeUniqueKey");
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("cache-parse-test").items.get(1);
-        assertTrue(item instanceof CacheSetItem);
-        compare = new CacheSetItem();
-        ((CacheSetItem)compare).setKey("EXAMPLE_KEY");
-        ((CacheSetItem)compare).setValue("EXAMPLE_VALUE");
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("cache-parse-test").items.get(2);
-        assertTrue(item instanceof CacheIfItem);
-        compare = new CacheIfItem();
-        ((CacheIfItem)compare).setKey("KEY");
-        Chain chain = new Chain();
-        IItem chainItem = new HaltItem();
-        chain.addItem(chainItem);
-        ((CacheIfItem)compare).setYesChain(chain);
-        chain = new Chain();
-        chainItem=new BreakItem();
-        chain.addItem(chainItem);
-        ((CacheIfItem)compare).setNoChain(chain);
-        assertEquals(((CacheIfItem)compare).getYesChain(), ((CacheIfItem)item).getYesChain());
-        assertEquals(((CacheIfItem)compare).getNoChain(), ((CacheIfItem)item).getNoChain());
-        assertEquals(compare, item);
-
         // Integration test
         assertEquals(new Context(), chatDirector.getChains().get("cache-parse-test").run(new Context()));
         Context context = new Context();
@@ -246,7 +208,7 @@ public class TestModules {
         assertEquals(context, chatDirector.getChains().get("cache-get-set-test").run(new Context("Even if there is something here")));
         context = new Context();
         assertEquals(context, chatDirector.getChains().get("cache-get-set-test-2").run(new Context()));
-        context.put("LAST","Even if there is something here");
+        context.put("CURRENT","Even if there is something here");
         assertEquals(context, chatDirector.getChains().get("cache-get-set-test-2").run(new Context("Even if there is something here")));
         context = new Context();
         context.put("CURRENT", "Random was not found!");

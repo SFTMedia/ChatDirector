@@ -20,7 +20,7 @@ public class ConsoleModule implements IModule {
 
     @Override
     public boolean isValid() {
-        return false;
+        return true;
     }
 
     @Override

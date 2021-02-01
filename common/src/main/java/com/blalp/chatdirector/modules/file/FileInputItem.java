@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @EqualsAndHashCode(callSuper = true)
 public class FileInputItem extends PassItem {
     public String path;
+    boolean create = false;
     public int delay = 500;
 
     public FileInputItem() {

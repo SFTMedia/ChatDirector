@@ -105,14 +105,16 @@ public class Chain implements IValid, Runnable {
      * @return Modified Contexts
      */
     public Context run(Context context) {
-        return runAt(0, context);
+        Context output = context;
+        output.merge(runAt(0, context));
+        return output;
     }
 
     @Override
     public boolean isValid() {
         for (IItem item : items) {
             if (!item.isValid()) {
-                ChatDirector.logDebug(item + " is not valid.");
+                ChatDirector.logError(item + " is not valid.");
                 return false;
             }
         }

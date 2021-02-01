@@ -207,9 +207,11 @@ chains:
       - file-input:
           path: PATH_TO_FIFO
           delay: 500 # optional, defaults to 500
+          create: false # optional defaults to false
       - file-output:
           path: PATH_TO_FIFO
           delay: 500 # optional, defaults to 500
+          create: false # optional defaults to false
   - logic-demo:
       - if-contains:
           yes-chain: # this can be any list of items or optional

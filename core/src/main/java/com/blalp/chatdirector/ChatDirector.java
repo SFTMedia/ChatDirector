@@ -30,7 +30,7 @@ import com.blalp.chatdirector.model.IItem;
 @Data
 // Should implement both bungee, sponge and bukkit if possible
 public class ChatDirector implements IConfiguration {
-    public static IConfiguration config;
+    public static Configurations config;
     public static Logger logger;
     static Handler handler;
     /**
@@ -72,11 +72,11 @@ public class ChatDirector implements IConfiguration {
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         try {
             if(rawData!=null){
-                config = (om.readValue(rawData, Configuration.class));
+                config.addConfiguration(om.readValue(rawData, Configuration.class));
             } else if (file!=null){
-                config = (om.readValue(file, Configuration.class));
+                config.addConfiguration(om.readValue(file, Configuration.class));
             } else if (stream!=null){
-                config = (om.readValue(stream, Configuration.class));
+                config.addConfiguration(om.readValue(stream, Configuration.class));
             }
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
@@ -96,13 +96,13 @@ public class ChatDirector implements IConfiguration {
         // Now validate chains
         for (Entry<String, Chain> chain : chains.entrySet()) {
             if (chain.getValue()!=null&&!chain.getValue().isValid()) {
-                log(Level.SEVERE, "chain " + chain + " is not valid.");
+                logError("chain " + chain.toString() + " is not valid.");
                 result=false;
             }
         }
         for (IModule module : modules) {
             if (!module.isValid()) {
-                log(Level.SEVERE, "module " + module + " is not valid.");
+                logError("module " + module.toString() + " is not valid.");
                 result=false;
             }
         }
@@ -191,4 +191,11 @@ public class ChatDirector implements IConfiguration {
     public Class<?> getItemClass(String itemType, List<IModule> modules) {
         return config.getItemClass(itemType, modules);
     }
+	public static void logError(Object obj) {
+        if(obj!=null){
+            logger.log(Level.SEVERE, obj.toString());
+        } else {
+            logger.log(Level.SEVERE, "REQUESTED TO LOG NULL!");
+        }
+	}
 }

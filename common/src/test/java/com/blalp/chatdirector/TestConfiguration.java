@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.blalp.chatdirector.configuration.Chain;
-import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.configuration.ConfigurationCommon;
 import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.model.IModule;
 import com.blalp.chatdirector.modules.cache.CacheGetItem;
 import com.blalp.chatdirector.modules.cache.CacheIfItem;
 import com.blalp.chatdirector.modules.cache.CacheSetItem;
@@ -97,30 +98,25 @@ public class TestConfiguration {
 "            - remove-context:\n"+
 "                context: \"SERVER_NAME\"\n"+
 "            - resolve-context: null\n"+
-"        - context-parse-test:\n"+
-"            - get-context:\n"+
-"                context: \"CONTEXT_NAME\"\n"+
-"            - set-context:\n"+
-"                context: \"TARGET_CONTEXT\"\n"+
-"                value: \"CONTEXT_VALUE\"\n"+
-"            - remove-context:\n"+
-"                context: \"SERVER_NAME\"\n"+
-"            - resolve-context: null\n"+
 "        - file-parse-test:\n"+
 "            - file-input:\n"+
-"                path: PATH_TO_FIFO\n"+
+"                path: target/PATH_TO_FIFO\n"+
 "                delay: 500\n"+
+"                create: true\n"+
 "            - file-input:\n"+
-"                path: PATH_TO_FIFO\n"+
+"                path: target/PATH_TO_FIFO\n"+
 "            - file-output:\n"+
-"                path: PATH_TO_FIFO\n"+
+"                path: target/PATH_TO_FIFO\n"+
 "                delay: 500\n"+
 "            - file-output:\n"+
-"                path: PATH_TO_FIFO\n"+
+"                path: target/PATH_TO_FIFO\n"+
+"                create: false\n"+
 "            - file-input:\n"+
-"                path: PATH_TO_FIFO_2\n"+
+"                path: target/PATH_TO_FIFO_2\n"+
+"                create: true\n"+
 "            - file-output:\n"+
-"                path: PATH_TO_FIFO_2\n"+
+"                path: target/PATH_TO_FIFO_2\n"+
+"                create: false\n"+
 "        - logic-test:\n"+
 "            - if-contains:\n"+
 "                yes-chain:\n"+
@@ -133,8 +129,13 @@ public class TestConfiguration {
 "                invert: false\n"+
 "            - if-contains:\n"+
 "                contains: \"String\"\n"+
+"                yes-chain:\n"+
+"                    - pass: null\n"+
+"                    - stop: null\n"+
 "            - if-contains:\n"+
 "                contains: \"String\"\n"+
+"                no-chain:\n"+
+"                    - stop: null\n"+
 "            - if-equals:\n"+
 "                yes-chain:\n"+
 "                    - cache-get:\n"+
@@ -147,6 +148,8 @@ public class TestConfiguration {
 "                ignore-case: false\n"+
 "            - if-equals:\n"+
 "                equals: \"String\"\n"+
+"                no-chain:\n"+
+"                    - stop: null\n"+
 "            - if-regex-match:\n"+
 "                yes-chain:\n"+
 "                    - echo: \"hello!\"\n"+
@@ -161,6 +164,8 @@ public class TestConfiguration {
 "                invert: false\n"+
 "            - if-regex-match:\n"+
 "                match: \"[sS]tring\"\n"+
+"                yes-chain:\n"+
+"                    - halt\n"+
 "            - split:\n"+
 "                - stream-1:\n"+
 "                    - echo: \"hello!\"\n"+
@@ -181,6 +186,8 @@ public class TestConfiguration {
 "                source: \"%CURRENT%\"\n"+
 "            - if-starts-with:\n"+
 "                starts: \"String\"\n"+
+"                yes-chain:\n"+
+"                    - halt\n"+
 "            - if-ends-with:\n"+
 "                yes-chain:\n"+
 "                    - cache-get:\n"+
@@ -194,6 +201,8 @@ public class TestConfiguration {
 "                source: \"%CURRENT%\"\n"+
 "            - if-ends-with:\n"+
 "                ends: \"String\"\n"+
+"                yes-chain:\n"+
+"                    - halt\n"+
 "        - replacement-test:\n"+
 "            - regex:\n"+
 "                - \"Regex to find\": \"regex to replace\"\n"+
@@ -219,12 +228,31 @@ public class TestConfiguration {
 "            - console-output-error: null\n"+
 "            - console-output\n"+
 "            - console-output-error\n";
+    static ChatDirector chatDirector;
+    private void init() {
+        if(chatDirector!=null){
+            return;
+        }
+        chatDirector = new ChatDirector(rawData);
+        ChatDirector.config.addConfiguration(new ConfigurationCommon());
+        chatDirector.load();
+
+    }
+    @Test
+    public void valid(){
+        init();
+        for(IModule module: chatDirector.modules) {
+            assertTrue(module.isValid());
+        }
+        for(Chain chain: chatDirector.chains.values()) {
+            assertTrue(chain.isValid());
+        }
+    }
     @Test
     public void cache(){
-        ChatDirector chatDirector = new ChatDirector(rawData);
-        chatDirector.load();
+        init();
         // Checking Chain metric
-        assertTrue(chatDirector.getChains().size()==9);
+        assertEquals(chatDirector.getChains().size(),10);
         assertTrue(chatDirector.getChains().containsKey("cache-parse-test"));
         assertNotNull(chatDirector.getChains().get("cache-parse-test"));
         // Checking Per Chain metric
@@ -255,26 +283,7 @@ public class TestConfiguration {
         chainItem=new BreakItem();
         chain.addItem(chainItem);
         ((CacheIfItem)compare).setNoChain(chain);
-        assertEquals(compare, item);
-        // Integration test
-        assertEquals(new Context(), chatDirector.getChains().get("cache-parse-test").run(new Context()));
-        Context context = new Context();
-        context.put("SomeUniqueKey", "EXAMPLE_VALUE");
-        context.put("CURRENT", "EXAMPLE_VALUE");
-        assertEquals(context, chatDirector.getChains().get("cache-get-set-test").run(new Context()));
-        assertEquals(context, chatDirector.getChains().get("cache-get-set-test").run(new Context("Even if there is something here")));
-        context = new Context();
-        context.put("SomeUniqueKey", "EXAMPLE_VALUE");
-        assertEquals(context, chatDirector.getChains().get("cache-get-set-test-2").run(new Context()));
-        assertEquals(context, chatDirector.getChains().get("cache-get-set-test-2").run(new Context("Even if there is something here")));
-        context = new Context();
-        context.put("SomeUniqueKey", "EXAMPLE_VALUE");
-        context.put("CURRENT", "Random was not found!");
-        context.put("LAST", "SomeUniqueKey was found!");
-        assertEquals(context, chatDirector.getChains().get("cache-if-test").run(new Context()));
-        assertEquals(context, chatDirector.getChains().get("cache-if-test").run(new Context("Even if there was something here.")));
-        
-        
+        assertEquals(compare, item);        
     }
     @Test
     public void testReload(){

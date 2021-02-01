@@ -132,14 +132,18 @@ public class TestConfiguration {
 
         item = chatDirector.getChains().get("reload-test").items.get(0);
         assertTrue(item instanceof ReloadItem);
-
+        // TODO: Preform a check for reload?
+    }
+    @Test
+    public void testIntegration() {
+        ChatDirector chatDirector = new ChatDirector(rawData);
+        chatDirector.load();
         assertEquals(new Context(), chatDirector.getChains().get("loading-test").run(new Context()));
         assertEquals(new Context("This is the second value","This is the first value"), chatDirector.getChains().get("breaking-test").run(new Context()));
         assertEquals(new Context("This was >This was >hello!<<, but before that it was >hello!<","This was >hello!<"), chatDirector.getChains().get("echo-test").run(new Context()));
         assertNotEquals(new Context("This is the first value"), chatDirector.getChains().get("halt-test").run(new Context()));
         assertEquals(new Context("This is the first value").halt(), chatDirector.getChains().get("halt-test").run(new Context()));
         assertEquals(new Context(), chatDirector.getChains().get("reload-test").run(new Context()));
-        // TODO: Preform a check for reload?
     }
     @Test
     public void testReload(){

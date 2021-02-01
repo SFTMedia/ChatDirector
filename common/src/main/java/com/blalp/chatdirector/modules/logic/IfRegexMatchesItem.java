@@ -17,20 +17,20 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = IfRegexMatchDeserializer.class)
 public class IfRegexMatchesItem extends ConditionalItem {
-    String regex;
+    String match;
 
-    public IfRegexMatchesItem(Chain nestedTrue, Chain nestedFalse, String regex) {
+    public IfRegexMatchesItem(Chain nestedTrue, Chain nestedFalse, String match) {
         super(nestedTrue, nestedFalse);
-        this.regex = regex;
+        this.match = match;
     }
 
     @Override
     public boolean test(Context context) {
-        return (ChatDirector.format(source, context)).matches((ChatDirector.format(regex, context)));
+        return (ChatDirector.format(source, context)).matches((ChatDirector.format(match, context)));
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(regex) && super.isValid();
+        return ValidationUtils.hasContent(match) && super.isValid();
     }
 }

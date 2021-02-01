@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import lombok.Data;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class FileOutputItem implements IItem {
     String path;
+    boolean create = false;
     int delay = 500;
     private BufferedWriter writer;
 
@@ -28,6 +30,17 @@ public class FileOutputItem implements IItem {
 
     @Override
     public Context process(Context context) {
+        if(create) {
+            try {
+                if(!new File(path).createNewFile()){
+                    ChatDirector.logDebug(path + " already exists");
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+                ChatDirector.logError("Could not create file "+path);
+                return new Context();
+            }
+        }
         try {
             if (writer == null) {
                 writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(path))));

@@ -48,6 +48,6 @@ public abstract class ConditionalItem extends PassItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(yesChain, noChain) && ValidationUtils.hasContent(source);
+        return (ValidationUtils.hasContent(yesChain)||ValidationUtils.hasContent(noChain)) && ValidationUtils.hasContent(source);
     }
 }

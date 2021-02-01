@@ -24,8 +24,8 @@ public class IfRegexMatchDeserializer extends JsonDeserializer<IfRegexMatchesIte
         if (config.has("no-chain")) {
             output.noChain = config.get("no-chain").traverse(oc).readValueAs(Chain.class);
         }
-        if (config.has("regex") && config.get("regex").isTextual()) {
-            output.regex = config.get("regex").asText();
+        if (config.has("match") && config.get("match").isTextual()) {
+            output.match = config.get("match").asText();
         }
         if (config.has("source") && config.get("source").isTextual()) {
             output.source = config.get("source").asText();
