@@ -18,11 +18,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration implements IConfiguration {
-
-    static {
-        Configurations.addConfiguration(new Configuration());
-    }
-
     boolean debug;
     public List<IModule> modules = new ArrayList<>();
     public Map<String, Chain> chains = new HashMap<String, Chain>();

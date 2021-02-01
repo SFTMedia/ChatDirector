@@ -8,9 +8,6 @@ import com.blalp.chatdirector.modules.logic.LogicModule;
 import com.blalp.chatdirector.modules.replacement.ReplacementModule;
 
 public class ConfigurationCommon extends Configuration {
-    static {
-        Configurations.addConfiguration(new ConfigurationCommon());
-    }
 
     @Override
     public Class<?> getModuleClass(String moduleType) {
