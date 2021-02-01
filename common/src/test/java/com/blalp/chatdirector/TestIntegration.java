@@ -197,7 +197,7 @@ public class TestIntegration {
     }
 
     @Test
-    public void cacheIntegration(){
+    public void cache(){
         init();
         // Integration test
         assertEquals(new Context(), chatDirector.getChains().get("cache-parse-test").run(new Context()));

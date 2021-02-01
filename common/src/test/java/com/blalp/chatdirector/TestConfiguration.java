@@ -12,7 +12,12 @@ import com.blalp.chatdirector.modules.cache.CacheGetItem;
 import com.blalp.chatdirector.modules.cache.CacheIfItem;
 import com.blalp.chatdirector.modules.cache.CacheSetItem;
 import com.blalp.chatdirector.modules.common.BreakItem;
+import com.blalp.chatdirector.modules.common.EchoItem;
 import com.blalp.chatdirector.modules.common.HaltItem;
+import com.blalp.chatdirector.modules.context.ContextGetItem;
+import com.blalp.chatdirector.modules.context.ContextRemoveItem;
+import com.blalp.chatdirector.modules.context.ContextResolveItem;
+import com.blalp.chatdirector.modules.context.ContextSetItem;
 
 import org.junit.jupiter.api.Test;
 
@@ -249,10 +254,15 @@ public class TestConfiguration {
         }
     }
     @Test
-    public void cache(){
+    public void generic(){
         init();
         // Checking Chain metric
         assertEquals(chatDirector.getChains().size(),10);
+    }
+    @Test
+    public void cacheParseTest(){
+        init();
+        // cache-parse-test
         assertTrue(chatDirector.getChains().containsKey("cache-parse-test"));
         assertNotNull(chatDirector.getChains().get("cache-parse-test"));
         // Checking Per Chain metric
@@ -283,10 +293,137 @@ public class TestConfiguration {
         chainItem=new BreakItem();
         chain.addItem(chainItem);
         ((CacheIfItem)compare).setNoChain(chain);
-        assertEquals(compare, item);        
+        assertEquals(compare, item);
     }
     @Test
-    public void testReload(){
-        
+    public void cacheGetSetTest(){
+        init();
+        // cache-get-set-test
+        assertTrue(chatDirector.getChains().containsKey("cache-get-set-test"));
+        assertNotNull(chatDirector.getChains().get("cache-get-set-test"));
+        // Checking Per Chain metric
+        assertNotNull(chatDirector.getChains().get("cache-get-set-test").items);
+        assertTrue(chatDirector.getChains().get("cache-get-set-test").items.size()==2);
+        assertTrue(chatDirector.getChains().get("cache-get-set-test").isValid());
+        // Checking Each item in chain
+        IItem item = chatDirector.getChains().get("cache-get-set-test").items.get(0);
+        assertTrue(item instanceof CacheSetItem);
+        IItem compare = new CacheSetItem();
+        ((CacheSetItem)compare).setKey("SomeUniqueKey");
+        ((CacheSetItem)compare).setValue("EXAMPLE_VALUE");
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("cache-get-set-test").items.get(1);
+        assertTrue(item instanceof CacheGetItem);
+        compare = new CacheGetItem();
+        ((CacheGetItem)compare).setKey("SomeUniqueKey");
+        assertEquals(compare, item);
+    }
+    @Test
+    public void cacheGetSetTest2(){
+        init();
+        // cache-get-set-test-2-2
+        assertTrue(chatDirector.getChains().containsKey("cache-get-set-test-2"));
+        assertNotNull(chatDirector.getChains().get("cache-get-set-test-2"));
+        // Checking Per Chain metric
+        assertNotNull(chatDirector.getChains().get("cache-get-set-test-2").items);
+        assertTrue(chatDirector.getChains().get("cache-get-set-test-2").items.size()==2);
+        assertTrue(chatDirector.getChains().get("cache-get-set-test-2").isValid());
+        // Checking Each item in chain
+        IItem item = chatDirector.getChains().get("cache-get-set-test-2").items.get(0);
+        assertTrue(item instanceof CacheSetItem);
+        IItem compare = new CacheSetItem();
+        ((CacheSetItem)compare).setKey("SomeUniqueKey");
+        ((CacheSetItem)compare).setValue("EXAMPLE_VALUE");
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("cache-get-set-test-2").items.get(1);
+        assertTrue(item instanceof CacheGetItem);
+        compare = new CacheGetItem();
+        ((CacheGetItem)compare).setKey("RandomKey");
+        assertEquals(compare, item);
+    }
+    @Test
+    public void cacheIfTest(){
+        init();
+        // cache-if-test
+        assertTrue(chatDirector.getChains().containsKey("cache-if-test"));
+        assertNotNull(chatDirector.getChains().get("cache-if-test"));
+        // Checking Per Chain metric
+        assertNotNull(chatDirector.getChains().get("cache-if-test").items);
+        assertTrue(chatDirector.getChains().get("cache-if-test").items.size()==3);
+        assertTrue(chatDirector.getChains().get("cache-if-test").isValid());
+        // Checking Each item in chain
+        IItem item = chatDirector.getChains().get("cache-if-test").items.get(0);
+        assertTrue(item instanceof CacheSetItem);
+        IItem compare = new CacheSetItem();
+        ((CacheSetItem)compare).setKey("SomeUniqueKey");
+        ((CacheSetItem)compare).setValue("EXAMPLE_VALUE");
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("cache-if-test").items.get(1);
+        assertTrue(item instanceof CacheIfItem);
+        compare = new CacheIfItem();
+        Chain chain = new Chain();
+        IItem chainItem = new EchoItem("SomeUniqueKey was found!");
+        chain.addItem(chainItem);
+        ((CacheIfItem)compare).setYesChain(chain);
+        chain = new Chain();
+        chainItem = new EchoItem("SomeUniqueKey was not found!");
+        chain.addItem(chainItem);
+        ((CacheIfItem)compare).setNoChain(chain);
+        ((CacheIfItem)compare).setKey("SomeUniqueKey");
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("cache-if-test").items.get(2);
+        assertTrue(item instanceof CacheIfItem);
+        compare = new CacheIfItem();
+        chain = new Chain();
+        chainItem = new EchoItem("Random was found!");
+        chain.addItem(chainItem);
+        ((CacheIfItem)compare).setYesChain(chain);
+        chain = new Chain();
+        chainItem = new EchoItem("Random was not found!");
+        chain.addItem(chainItem);
+        ((CacheIfItem)compare).setNoChain(chain);
+        ((CacheIfItem)compare).setKey("Random");
+        assertEquals(compare, item);
+    }
+    @Test
+    public void contextParseTest(){
+        init();
+        // context-parse-test-2
+        assertTrue(chatDirector.getChains().containsKey("context-parse-test"));
+        assertNotNull(chatDirector.getChains().get("context-parse-test"));
+        // Checking Per Chain metric
+        assertNotNull(chatDirector.getChains().get("context-parse-test").items);
+        assertTrue(chatDirector.getChains().get("context-parse-test").items.size()==6);
+        assertTrue(chatDirector.getChains().get("context-parse-test").isValid());
+        // Checking Each item in chain
+        IItem item = chatDirector.getChains().get("context-parse-test").items.get(0);
+        assertTrue(item instanceof ContextGetItem);
+        IItem compare = new CacheSetItem();
+        ((ContextGetItem)compare).setContext("CONTEXT_NAME");
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("context-parse-test").items.get(1);
+        assertTrue(item instanceof ContextSetItem);
+        compare = new ContextSetItem();
+        ((ContextSetItem)compare).setContext("TARGET_CONTEXT");
+        ((ContextSetItem)compare).setValue("CONTEXT_VALUE");
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("context-parse-test").items.get(2);
+        assertTrue(item instanceof ContextSetItem);
+        compare = new ContextSetItem();
+        ((ContextSetItem)compare).setContext("TARGET_CONTEXT");
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("context-parse-test").items.get(3);
+        assertTrue(item instanceof ContextRemoveItem);
+        compare = new ContextRemoveItem();
+        ((ContextSetItem)compare).setContext("SERVER_NAME");
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("context-parse-test").items.get(4);
+        assertTrue(item instanceof ContextResolveItem);
+        compare = new ContextResolveItem();
+        assertEquals(compare, item);
+        item = chatDirector.getChains().get("context-parse-test").items.get(5);
+        assertTrue(item instanceof ContextResolveItem);
+        compare = new ContextResolveItem();
+        assertEquals(compare, item);
     }
 }
