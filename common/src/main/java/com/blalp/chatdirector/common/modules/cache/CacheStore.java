@@ -3,7 +3,7 @@ package com.blalp.chatdirector.common.modules.cache;
 import java.util.LinkedHashMap;
 
 public class CacheStore {
-    private static LinkedHashMap<String, String> data = new LinkedHashMap<>();
+    private static LinkedHashMap<String, String> data = new LinkedHashMap<String,String>();
 
     public static String getValue(String key) {
         if (data.containsKey(key)) {
@@ -21,6 +21,6 @@ public class CacheStore {
     }
 
     public static void shred() {
-        data = new LinkedHashMap<>();
+        data = new LinkedHashMap<String,String>();
     }
 }

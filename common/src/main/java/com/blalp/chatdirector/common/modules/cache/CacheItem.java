@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class CacheItem extends PassItem {
     String key;
 
-    @Override
     public boolean isValid() {
         return ValidationUtils.hasContent(key);
     }
