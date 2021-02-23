@@ -61,29 +61,32 @@ public class Chain implements IValid, Runnable {
         Context workingContext = new Context();
         Context output;
         for (int i = indexOf; i < items.size(); i++) {
-            ChatDirector.logDebug("");
-            ChatDirector.logDebug("Starting process of " + items.get(i));
-            ChatDirector.logDebug(context);
-            ChatDirector.logDebug("");
+            if(ChatDirector.getConfig().debug) {
+                ChatDirector.logger.log(Level.WARNING, "Starting process of " + items.get(i)+" with context "+context.toString());
+            }
             output = items.get(i).process(context);
-            ChatDirector.logDebug("");
-            ChatDirector.logDebug("Ended process of " + items.get(i));
-            ChatDirector.logDebug(output);
-            ChatDirector.logDebug("");
+            if(ChatDirector.getConfig().debug) {
+                ChatDirector.logger.log(Level.WARNING, "Ended process of " + items.get(i) +" with context "+ output.toString());
+            }
             // Setup LAST and CURRENT contexts
             if (output != null) {
                 // Only if CURRENT was changed and not null set LAST
-                if(context.get("CURRENT")!=null&&output.get("CURRENT")!=null&&!output.getCurrent().equals(context.getCurrent())){
+                if (context.get("CURRENT") != null && output.get("CURRENT") != null
+                        && !output.getCurrent().equals(context.getCurrent())) {
                     output.put("LAST", context.get("CURRENT"));
                 }
                 workingContext.merge(output);
                 context.merge(output);
                 if (context.isHalt()) {
-                    ChatDirector.logDebug("Quitting chain, Halt received. " + this);
+                    if(ChatDirector.getConfig().debug) {
+                        ChatDirector.logger.log(Level.WARNING, "Quitting chain, Halt received. " + this);
+                    }
                     break;
                 }
             } else {
-                ChatDirector.logDebug("Quitting chain. " + this);
+                if(ChatDirector.getConfig().debug) {
+                    ChatDirector.logger.log(Level.WARNING, "Quitting chain. " + this);
+                }
                 break;
             }
         }
@@ -114,7 +117,7 @@ public class Chain implements IValid, Runnable {
     public boolean isValid() {
         for (IItem item : items) {
             if (!item.isValid()) {
-                ChatDirector.logError(item + " is not valid.");
+                ChatDirector.logger.log(Level.SEVERE, item + " is not valid.");
                 return false;
             }
         }

@@ -1,14 +1,12 @@
 package com.blalp.chatdirector.configuration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.model.IModule;
-import com.blalp.chatdirector.modules.common.CommonModule;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Data;
@@ -19,8 +17,15 @@ import lombok.EqualsAndHashCode;
 @JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration implements IConfiguration {
     boolean debug;
-    public List<IModule> modules = new ArrayList<>();
+    public ServiceLoader<IModule> modules;
     public Map<String, Chain> chains = new HashMap<String, Chain>();
+    // This is for storage of generic keys that modules may need.
+    // The first key is the module name
+    public Map<String, Map<String, String>> moduleData = new HashMap<>();
+
+    public Configuration() {
+        modules = ServiceLoader.load(IModule.class);
+    }
 
     // https://stackoverflow.com/questions/58102069/how-to-do-a-partial-deserialization-with-jackson#58102226
     @Override
@@ -42,17 +47,8 @@ public class Configuration implements IConfiguration {
         return true;
     }
 
-    public Class<?> getModuleClass(String moduleType) {
-        switch (moduleType) {
-            case "common":
-                return CommonModule.class;
-            default:
-                return null;
-        }
-    }
-
     @Override
-    public Class<?> getItemClass(String itemType, List<IModule> inputModules) {
+    public Class<?> getItemClass(String itemType, Iterable<IModule> inputModules) {
         for (IModule module : inputModules) {
             if (module.getItemNames().contains(itemType)) {
                 return module.getItemClass(itemType);

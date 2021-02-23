@@ -1,6 +1,7 @@
 package com.blalp.chatdirector.modules.javacord;
 
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.Chain;
@@ -37,9 +38,11 @@ public class DiscordParticipatesItem extends DiscordItem {
         }
         Context workingContext = new Context();
         for (User user : users.values()) {
-            ChatDirector.logDebug("Starting work for " + user.getName() + " (" + user.getIdAsString() + ")");
-            workingContext.merge(DiscordModule.instance.getContext(user)); // All keys should be the same for each user
-                                                                           // and get overridden.
+            if(ChatDirector.isDebug()) {
+                ChatDirector.logger.log(Level.WARNING, "Starting work for " + user.getName() + " (" + user.getIdAsString() + ")");
+            }
+            // All keys should be the same for each user and get overridden.
+            workingContext.merge(DiscordModule.instance.getContext(user)); 
             each.run(workingContext);
             workingContext = new Context();
         }

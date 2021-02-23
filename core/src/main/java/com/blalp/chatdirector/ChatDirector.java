@@ -3,17 +3,13 @@ package com.blalp.chatdirector;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.blalp.chatdirector.configuration.Configuration;
-import com.blalp.chatdirector.configuration.Configurations;
-import com.blalp.chatdirector.configuration.TimedLoad;
 import com.blalp.chatdirector.model.IModule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +26,9 @@ import com.blalp.chatdirector.model.IItem;
 @Data
 // Should implement both bungee, sponge and bukkit if possible
 public class ChatDirector implements IConfiguration {
-    public static Configurations config;
+    private Configuration config=null;
+    private Configuration configStaging=null;
+    private boolean useMain = false;
     public static Logger logger;
     static Handler handler;
     /**
@@ -40,8 +38,7 @@ public class ChatDirector implements IConfiguration {
      */
     static Map<IItem, Chain> items = new HashMap<>();
     public static ChatDirector instance;
-    List<IModule> modules = new ArrayList<>();
-    Map<String, Chain> chains = new HashMap<String, Chain>();
+    // One of these three is populated with data
     File file;
     InputStream stream;
     String rawData;
@@ -50,16 +47,19 @@ public class ChatDirector implements IConfiguration {
         this();
         this.stream = stream;
     }
+
     public ChatDirector(File file) {
         this();
         this.file = file;
     }
+
     public ChatDirector(String rawData) {
         this();
         this.rawData = rawData;
     }
+
     public ChatDirector() {
-        config = new Configurations();
+        config = new Configuration();
         instance = this;
         logger = Logger.getLogger("ChatDirector");
         this.file = new File("config.yml");
@@ -68,42 +68,49 @@ public class ChatDirector implements IConfiguration {
     public boolean load() {
         boolean result = true;
         // Load config
+        // NOTE: While config is being reloaded it will use the old config in parsing if the singleton is used.
         ObjectMapper om = new ObjectMapper(new YAMLFactory())
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         try {
-            if(rawData!=null){
-                config.addConfiguration(om.readValue(rawData, Configuration.class));
-            } else if (file!=null){
-                config.addConfiguration(om.readValue(file, Configuration.class));
-            } else if (stream!=null){
-                config.addConfiguration(om.readValue(stream, Configuration.class));
+            if (rawData != null) {
+                configStaging = om.readValue(rawData, Configuration.class);
+            } else if (stream != null) {
+                configStaging = om.readValue(stream, Configuration.class);
+            } else if (file != null) {
+                configStaging = om.readValue(file, Configuration.class);
             }
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
-            new Thread(new TimedLoad()).start();
-            result=false;
+            return false;
         } catch (IOException e1) {
             e1.printStackTrace();
-            new Thread(new TimedLoad()).start();
-            result=false;
+            logger.log(Level.SEVERE, "config failed to load.");
+            return false;
         }
-        modules = config.getModules();
-        chains = config.getChains();
-        // Load modules
-        for (IModule module : modules) {
-            result=result&&module.load();
+        // At this point config loaded
+        if(config!=null) {
+            // ignore if unload fails, as we always want to load.
+            unload();
         }
-        // Now validate chains
-        for (Entry<String, Chain> chain : chains.entrySet()) {
-            if (chain.getValue()!=null&&!chain.getValue().isValid()) {
-                logError("chain " + chain.toString() + " is not valid.");
-                result=false;
+        config=configStaging;
+
+        // Load modules only if we already have a loaded config
+        if(config!=null) {
+            for (IModule module : config.modules) {
+                result = result && module.load();
             }
         }
-        for (IModule module : modules) {
+        // Now validate chains
+        for (Entry<String, Chain> chain : config.chains.entrySet()) {
+            if (chain.getValue() != null && !chain.getValue().isValid()) {
+                logger.log(Level.SEVERE, "chain: " + chain.toString() + " is not valid.");
+                return false;
+            }
+        }
+        for (IModule module : config.modules) {
             if (!module.isValid()) {
-                logError("module " + module.toString() + " is not valid.");
-                result=false;
+                logger.log(Level.SEVERE, "module " + module.toString() + " is not valid.");
+                return false;
             }
         }
         return result;
@@ -111,12 +118,10 @@ public class ChatDirector implements IConfiguration {
 
     public boolean unload() {
         boolean result = true;
-        for (IModule module : modules) {
-            result=result&&module.unload();
+        for (IModule module : config.modules) {
+            result = result && module.unload();
         }
-        config.unload();
-        modules = new ArrayList<>();
-        chains = new HashMap<String, Chain>();
+        result = result && config.unload();
         return result;
     }
 
@@ -135,18 +140,6 @@ public class ChatDirector implements IConfiguration {
         return format;
     }
 
-    public static void logDebug(Object obj) {
-        if(obj!=null){
-            logger.log(Level.FINE, obj.toString());
-        } else {
-            logger.log(Level.FINE, "REQUESTED TO LOG NULL!");
-        }
-    }
-
-    public static void log(Level level, String string) {
-        logger.log(level, string);
-    }
-
     public static Context run(IItem item, Context context, boolean async) {
         if (items.containsKey(item)) {
             if (async) {
@@ -155,7 +148,7 @@ public class ChatDirector implements IConfiguration {
                 return items.get(item).runAt(item, context);
             }
         } else {
-            log(Level.SEVERE, "Could not find chain to go with " + item);
+            logger.log(Level.SEVERE, "Could not find chain to go with " + item);
             return new Context().halt();
         }
         return new Context();
@@ -166,20 +159,11 @@ public class ChatDirector implements IConfiguration {
     }
 
     public static boolean hasChains() {
-        return config.getChains().size() != 0;
-    }
-
-    public Class<?> getModuleClass(String moduleType) {
-        return config.getModuleClass(moduleType);
+        return getConfig().getChains().size() != 0;
     }
 
     public Class<?> getItemClass(String itemType) {
         return config.getItemClass(itemType);
-    }
-
-    @Override
-    public List<IModule> getModules() {
-        return config.getModules();
     }
 
     @Override
@@ -188,14 +172,18 @@ public class ChatDirector implements IConfiguration {
     }
 
     @Override
-    public Class<?> getItemClass(String itemType, List<IModule> modules) {
+    public Class<?> getItemClass(String itemType, Iterable<IModule> modules) {
         return config.getItemClass(itemType, modules);
     }
-	public static void logError(Object obj) {
-        if(obj!=null){
-            logger.log(Level.SEVERE, obj.toString());
+    public static Configuration getConfig() {
+        if(instance.config!=null) {
+            return instance.config;
         } else {
-            logger.log(Level.SEVERE, "REQUESTED TO LOG NULL!");
+            return instance.configStaging;
         }
+    }
+
+	public static boolean isDebug() {
+		return instance.config.isDebug();
 	}
 }

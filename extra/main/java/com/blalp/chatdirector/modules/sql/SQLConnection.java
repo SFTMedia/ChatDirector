@@ -17,7 +17,7 @@ public class SQLConnection implements ILoadable {
 
     @Override
     public boolean load() {
-        ChatDirector.logDebug("Loading " + this);
+        ChatDirector.logger.log(Level.WARNING, "Loading " + this);
         try {
             connection = DriverManager.getConnection(connectionString);
         } catch (SQLException e) {
@@ -28,7 +28,7 @@ public class SQLConnection implements ILoadable {
 
     @Override
     public boolean unload() {
-        ChatDirector.logDebug("Unloading " + this);
+        ChatDirector.logger.log(Level.WARNING, "Unloading " + this);
         try {
             connection.close();
         } catch (SQLException e) {

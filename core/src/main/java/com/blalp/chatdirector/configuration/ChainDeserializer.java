@@ -35,22 +35,23 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
                     itemValue = innerItem.getValue();
                 }
             }
-            Class<?> moduleClass = ChatDirector.instance.getItemClass(itemKey);
-            if (moduleClass != null && IItem.class.isAssignableFrom(moduleClass)) {
+            Class<?> itemClass = ChatDirector.instance.getItemClass(itemKey);
+            if (itemClass != null && IItem.class.isAssignableFrom(itemClass)) {
                 IItem itemObj = null;
                 if (itemValue == null || itemValue.isNull()) {
                     try {
-                        itemObj = (IItem) moduleClass.getConstructors()[0].newInstance();
+                        itemObj = (IItem) itemClass.getConstructors()[0].newInstance();
                     } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                             | InvocationTargetException | SecurityException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    itemObj = (IItem) itemValue.traverse(oc).readValueAs(moduleClass);
+                    itemObj = (IItem) itemValue.traverse(oc).readValueAs(itemClass);
                 }
                 chainObj.addItem(itemObj);
             } else {
-                ChatDirector.logDebug("Not adding module " + itemValue + " it failed to load.");
+                ChatDirector.logger.log(Level.WARNING,
+                        "Not adding item " + itemKey + ":" + itemValue + " it failed to load.");
             }
         }
         while (chainObj.items.contains(null)) {

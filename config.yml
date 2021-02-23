@@ -1,23 +1,9 @@
 # Example of everything at once.
-modules:
-  - bukkit
-  - bungee
-  - logic
-  - cache
-  - console
-  - context
+module_data:
   - discord:
-      bots:
-        bot-name: "TOKEN"
-  - file
-  - luckperms
-  - multichat
-  - replacement
-  - sponge
-  - vault
+      bot-name: "TOKEN"
   - sql:
-      connections:
-        all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
+      all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
 chains:
   - common-demo: # This module is always loaded
       - break # This stops the chain, but returns the value

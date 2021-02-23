@@ -45,11 +45,11 @@ public class SQLRetrieveDataItem extends SQLItem {
                                 results.getString("value"));
                     }
                 } else {
-                    ChatDirector.logDebug("No result was found ");
+                    ChatDirector.logger.log(Level.WARNING, "No result was found ");
                 }
             } catch (SQLException e) {
                 System.err.println(this + " failed on " + context.getCurrent());
-                ChatDirector.logDebug("Failed SQL " + e.getSQLState());
+                ChatDirector.logger.log(Level.WARNING, "Failed SQL " + e.getSQLState());
                 e.printStackTrace();
             }
         }

@@ -18,12 +18,6 @@ public class TimedLoad implements Runnable {
     public void run() {
         System.out.println("Starting Timed load");
         while (loop) {
-            System.out.println("Timed load attempting to unload");
-            try {
-                ChatDirector.instance.unload();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             System.out.println("Timed load attempting to load");
             try {
                 ChatDirector.instance.load();
@@ -33,6 +27,7 @@ public class TimedLoad implements Runnable {
                 System.out.println("Timed load completed.");
                 loop = false;
                 instance = null;
+                return;
             } catch (Exception e) {
                 e.printStackTrace();
             }

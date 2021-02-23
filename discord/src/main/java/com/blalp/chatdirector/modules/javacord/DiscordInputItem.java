@@ -1,5 +1,7 @@
 package com.blalp.chatdirector.modules.javacord;
 
+import java.util.logging.Level;
+
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -26,7 +28,7 @@ public class DiscordInputItem extends DiscordItem {
             return false;
         }
         if (!DiscordModule.instance.discordBots.containsKey(bot)) {
-            ChatDirector.logDebug("Bot " + bot + " not registered for item ." + this);
+            ChatDirector.logger.log(Level.WARNING, "Bot " + bot + " not registered for item ." + this);
             return false;
         }
         if (messageEvent) {

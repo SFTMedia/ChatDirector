@@ -45,7 +45,7 @@
         </dependency>
 		<dependency>
 			<groupId>com.blalp.chatdirector</groupId>
-			<artifactId>core</artifactId>
+			<artifactId>minecraft</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
