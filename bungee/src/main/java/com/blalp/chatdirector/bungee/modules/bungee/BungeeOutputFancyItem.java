@@ -65,11 +65,12 @@ public class BungeeOutputFancyItem implements IItem {
     public static BaseComponent fromFancyMessage(FancyMessage fancyMessage) {
         BaseComponent output = new TextComponent();
         for (BaseComponent component : TextComponent.fromLegacyText(fancyMessage.text)) {
-            if(ChatDirector.isDebug()) {
-                ChatDirector.logger.log(Level.WARNING, "appending >" + component.toLegacyText() + "< to >" + output.toLegacyText() + "<");
+            if (ChatDirector.isDebug()) {
+                ChatDirector.logger.log(Level.WARNING,
+                        "appending >" + component.toLegacyText() + "< to >" + output.toLegacyText() + "<");
             }
             output.addExtra(component);
-            if(ChatDirector.isDebug()){
+            if (ChatDirector.isDebug()) {
                 ChatDirector.logger.log(Level.WARNING, "output is now >" + output.toLegacyText() + "<");
             }
         }
@@ -120,10 +121,11 @@ public class BungeeOutputFancyItem implements IItem {
                 if (!sendToCurrentServer && context.containsKey("SERVER_NAME")) {
                     if (proxiedPlayer.getServer() != null && proxiedPlayer.getServer().getInfo() != null
                             && proxiedPlayer.getServer().getInfo().getName().equals(context.get("SERVER_NAME"))) {
-                        if(ChatDirector.isDebug()){
-                            ChatDirector.logger.log(Level.WARNING, "Server name matches player (" + proxiedPlayer.getName() + ") server >"
-                                + proxiedPlayer.getServer().getInfo().getName() + "< to context server >"
-                                + context.get("SERVER_NAME") + "< not sending... ");
+                        if (ChatDirector.isDebug()) {
+                            ChatDirector.logger.log(Level.WARNING,
+                                    "Server name matches player (" + proxiedPlayer.getName() + ") server >"
+                                            + proxiedPlayer.getServer().getInfo().getName() + "< to context server >"
+                                            + context.get("SERVER_NAME") + "< not sending... ");
                         }
                         continue;
                     }
@@ -133,7 +135,8 @@ public class BungeeOutputFancyItem implements IItem {
                 // Since we want to do context resolution per player we need to duplicate
                 proxiedPlayer.sendMessage(message);
                 if (ChatDirector.isDebug()) {
-                    ChatDirector.logger.log(Level.WARNING, "Sent >" + message.toLegacyText() + "< to " + proxiedPlayer.getName());
+                    ChatDirector.logger.log(Level.WARNING,
+                            "Sent >" + message.toLegacyText() + "< to " + proxiedPlayer.getName());
                 }
                 playerContext = new Context(context);
             }

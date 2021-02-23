@@ -31,16 +31,16 @@ public class FileOutputItem implements IItem {
 
     @Override
     public Context process(Context context) {
-        if(create) {
+        if (create) {
             try {
-                if(!new File(path).createNewFile()){
-                    if(ChatDirector.isDebug()) {
+                if (!new File(path).createNewFile()) {
+                    if (ChatDirector.isDebug()) {
                         ChatDirector.logger.log(Level.WARNING, path + " already exists");
                     }
                 }
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
-                ChatDirector.logger.log(Level.SEVERE, "Could not create file "+path);
+                ChatDirector.logger.log(Level.SEVERE, "Could not create file " + path);
                 return new Context();
             }
         }

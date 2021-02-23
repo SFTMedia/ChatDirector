@@ -61,12 +61,14 @@ public class Chain implements IValid, Runnable {
         Context workingContext = new Context();
         Context output;
         for (int i = indexOf; i < items.size(); i++) {
-            if(ChatDirector.getConfig().debug) {
-                ChatDirector.logger.log(Level.WARNING, "Starting process of " + items.get(i)+" with context "+context.toString());
+            if (ChatDirector.getConfig().debug) {
+                ChatDirector.logger.log(Level.WARNING,
+                        "Starting process of " + items.get(i) + " with context " + context.toString());
             }
             output = items.get(i).process(context);
-            if(ChatDirector.getConfig().debug) {
-                ChatDirector.logger.log(Level.WARNING, "Ended process of " + items.get(i) +" with context "+ output.toString());
+            if (ChatDirector.getConfig().debug) {
+                ChatDirector.logger.log(Level.WARNING,
+                        "Ended process of " + items.get(i) + " with context " + output.toString());
             }
             // Setup LAST and CURRENT contexts
             if (output != null) {
@@ -78,13 +80,13 @@ public class Chain implements IValid, Runnable {
                 workingContext.merge(output);
                 context.merge(output);
                 if (context.isHalt()) {
-                    if(ChatDirector.getConfig().debug) {
+                    if (ChatDirector.getConfig().debug) {
                         ChatDirector.logger.log(Level.WARNING, "Quitting chain, Halt received. " + this);
                     }
                     break;
                 }
             } else {
-                if(ChatDirector.getConfig().debug) {
+                if (ChatDirector.getConfig().debug) {
                     ChatDirector.logger.log(Level.WARNING, "Quitting chain. " + this);
                 }
                 break;

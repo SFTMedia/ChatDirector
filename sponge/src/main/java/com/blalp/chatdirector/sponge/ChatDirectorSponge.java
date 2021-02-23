@@ -58,7 +58,7 @@ public class ChatDirectorSponge {
     public void onReload(GameReloadEvent e) {
         new Thread(new TimedLoad()).start();
     }
-    
+
     @Listener
     public void onChat(MessageChannelEvent.Chat e) {
         if (SpongeInputDaemon.instance != null) {

@@ -1,22 +1,22 @@
 debug: false
 chains:
-    - replacement-test:
-          - regex:
-                - "Regex to find": "regex to replace"
-                - "Regex to find2": "regex to replace2"
-          - remove-colors: null
-          - remove-colors
-          - resolve-colors: null
-          - resolve-colors
-          - to-upper: null
-          - to-upper
-          - to-lower: null
-          - to-lower
-          - to-word: null
-          - to-word
-          - sub-string:
-                start: 2
-                end: 4
-          - sub-string:
-                end: 4
-          - sub-string
+      - replacement-test:
+              - regex:
+                      - "Regex to find": "regex to replace"
+                      - "Regex to find2": "regex to replace2"
+              - remove-colors: null
+              - remove-colors
+              - resolve-colors: null
+              - resolve-colors
+              - to-upper: null
+              - to-upper
+              - to-lower: null
+              - to-lower
+              - to-word: null
+              - to-word
+              - sub-string:
+                      start: 2
+                      end: 4
+              - sub-string:
+                      end: 4
+              - sub-string

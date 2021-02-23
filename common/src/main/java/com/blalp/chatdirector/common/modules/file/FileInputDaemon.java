@@ -53,16 +53,16 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
 
     public void run() {
         Context context;
-        if(item.create) {
+        if (item.create) {
             try {
-                if(!new File(item.path).createNewFile()){
-                    if(ChatDirector.isDebug()){
+                if (!new File(item.path).createNewFile()) {
+                    if (ChatDirector.isDebug()) {
                         ChatDirector.logger.log(Level.WARNING, item.path + " already exists");
                     }
                 }
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
-                ChatDirector.logger.log(Level.SEVERE, "Could not create file "+item.path);
+                ChatDirector.logger.log(Level.SEVERE, "Could not create file " + item.path);
                 return;
             }
         }

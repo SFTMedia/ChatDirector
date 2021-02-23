@@ -26,10 +26,10 @@ public class BungeeModule implements IModule {
     public boolean load() {
         boolean result = true;
         if (BungeeInputItemDaemon.instance != null) {
-            result=result&&BungeeInputItemDaemon.instance.load();
+            result = result && BungeeInputItemDaemon.instance.load();
         }
         for (BungeeCommand command : BungeeCommand.commands) {
-            result=result&&command.load();
+            result = result && command.load();
         }
         return result;
     }
@@ -38,10 +38,10 @@ public class BungeeModule implements IModule {
     public boolean unload() {
         boolean result = true;
         if (BungeeInputItemDaemon.instance != null) {
-            result=result&&BungeeInputItemDaemon.instance.unload();
+            result = result && BungeeInputItemDaemon.instance.unload();
         }
         for (BungeeCommand command : BungeeCommand.commands) {
-            result=result&&command.unload();
+            result = result && command.unload();
         }
         return result;
     }

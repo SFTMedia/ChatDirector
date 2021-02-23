@@ -34,9 +34,9 @@ public class DiscordModule implements IModule {
     public boolean load() {
         boolean result = true;
         for (DiscordBot bot : discordBots.values()) {
-            result=result&&bot.load();
+            result = result && bot.load();
             if (bot.daemon != null) {
-                result=result&&bot.daemon.load();
+                result = result && bot.daemon.load();
             }
         }
         return result;
@@ -46,9 +46,9 @@ public class DiscordModule implements IModule {
     public boolean unload() {
         boolean result = true;
         for (DiscordBot bot : discordBots.values()) {
-            result=result&&bot.unload();
+            result = result && bot.unload();
             if (bot.daemon != null) {
-                result=result&&bot.daemon.unload();
+                result = result && bot.daemon.unload();
             }
         }
         discordBots = new HashMap<>();

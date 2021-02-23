@@ -9,7 +9,7 @@ public class ChatDirectorConsole {
     public static void main(String[] args) {
         ChatDirector chatDirector = new ChatDirector();
         try {
-            if(!chatDirector.load()){
+            if (!chatDirector.load()) {
                 throw new Exception("Initial load failed.");
             }
         } catch (Exception e) {

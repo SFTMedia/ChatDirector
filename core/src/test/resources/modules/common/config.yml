@@ -2,27 +2,27 @@
 debug: false
 chains:
   - loading-test: # all of these should load
-    - break
-    - break: null
-    - halt
-    - halt: null
-    - echo: "%CURRENT%"
-    - echo: "raw string"
-    - echo: ""
-    - reload
-    - reload: null
+      - break
+      - break: null
+      - halt
+      - halt: null
+      - echo: "%CURRENT%"
+      - echo: "raw string"
+      - echo: ""
+      - reload
+      - reload: null
   - breaking-test: # This should return second value
-    - echo: "This is the first value"
-    - echo: "This is the second value"
-    - break
-    - echo: "This is the third value"
+      - echo: "This is the first value"
+      - echo: "This is the second value"
+      - break
+      - echo: "This is the third value"
   - echo-test: # This should echo "This was >This was >hello!<<, but before that it was >hello!<"
-    - echo: "hello!"
-    - echo: "This was >%CURRENT%<"
-    - echo: "This was >%CURRENT%<, but before that it was >%LAST%<"
+      - echo: "hello!"
+      - echo: "This was >%CURRENT%<"
+      - echo: "This was >%CURRENT%<, but before that it was >%LAST%<"
   - halt-test: # This should not get to the second value
-    - echo: "This is the first value"
-    - halt
-    - echo: "This is the second value"
+      - echo: "This is the first value"
+      - halt
+      - echo: "This is the second value"
   - reload-test: # This should trigger a reload
-    - reload
+      - reload

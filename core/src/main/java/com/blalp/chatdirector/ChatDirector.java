@@ -26,8 +26,8 @@ import com.blalp.chatdirector.model.IItem;
 @Data
 // Should implement both bungee, sponge and bukkit if possible
 public class ChatDirector implements IConfiguration {
-    private Configuration config=null;
-    private Configuration configStaging=null;
+    private Configuration config = null;
+    private Configuration configStaging = null;
     private boolean useMain = false;
     public static Logger logger;
     static Handler handler;
@@ -68,7 +68,8 @@ public class ChatDirector implements IConfiguration {
     public boolean load() {
         boolean result = true;
         // Load config
-        // NOTE: While config is being reloaded it will use the old config in parsing if the singleton is used.
+        // NOTE: While config is being reloaded it will use the old config in parsing if
+        // the singleton is used.
         ObjectMapper om = new ObjectMapper(new YAMLFactory())
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         try {
@@ -88,14 +89,14 @@ public class ChatDirector implements IConfiguration {
             return false;
         }
         // At this point config loaded
-        if(config!=null) {
+        if (config != null) {
             // ignore if unload fails, as we always want to load.
             unload();
         }
-        config=configStaging;
+        config = configStaging;
 
         // Load modules only if we already have a loaded config
-        if(config!=null) {
+        if (config != null) {
             for (IModule module : config.modules) {
                 result = result && module.load();
             }
@@ -175,15 +176,16 @@ public class ChatDirector implements IConfiguration {
     public Class<?> getItemClass(String itemType, Iterable<IModule> modules) {
         return config.getItemClass(itemType, modules);
     }
+
     public static Configuration getConfig() {
-        if(instance.config!=null) {
+        if (instance.config != null) {
             return instance.config;
         } else {
             return instance.configStaging;
         }
     }
 
-	public static boolean isDebug() {
-		return instance.config.isDebug();
-	}
+    public static boolean isDebug() {
+        return instance.config.isDebug();
+    }
 }

@@ -11,26 +11,30 @@ import com.blalp.chatdirector.model.IModule;
 import org.junit.jupiter.api.Test;
 
 public class TestFile {
-   
+
     static ChatDirector chatDirector;
+
     private void init() {
-        if(chatDirector!=null){
+        if (chatDirector != null) {
             return;
         }
-        chatDirector = new ChatDirector(new File(this.getClass().getClassLoader().getResource("modules/file/config.yml").getFile()));
+        chatDirector = new ChatDirector(
+                new File(this.getClass().getClassLoader().getResource("modules/file/config.yml").getFile()));
         chatDirector.load();
 
     }
+
     @Test
-    public void valid(){
+    public void valid() {
         init();
-        for(IModule module: ChatDirector.getConfig().modules) {
+        for (IModule module : ChatDirector.getConfig().modules) {
             assertTrue(module.isValid());
         }
-        for(Chain chain: ChatDirector.getConfig().chains.values()) {
+        for (Chain chain : ChatDirector.getConfig().chains.values()) {
             assertTrue(chain.isValid());
         }
     }
+
     @Test
     public void parse() {
         init();
@@ -38,8 +42,8 @@ public class TestFile {
     }
 
     @Test
-    public void integration(){
+    public void integration() {
         init();
-        
+
     }
 }

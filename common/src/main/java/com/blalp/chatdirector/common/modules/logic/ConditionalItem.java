@@ -32,8 +32,9 @@ public abstract class ConditionalItem extends PassItem {
         if (invert) {
             result = !result;
         }
-        if(ChatDirector.isDebug()) {
-            ChatDirector.logger.log(Level.WARNING, "Conditional " + this.getClass().getCanonicalName() + " test returned " + result);
+        if (ChatDirector.isDebug()) {
+            ChatDirector.logger.log(Level.WARNING,
+                    "Conditional " + this.getClass().getCanonicalName() + " test returned " + result);
             ChatDirector.logger.log(Level.WARNING, "True is " + yesChain + " false is " + noChain);
         }
         if (result) {
@@ -52,6 +53,7 @@ public abstract class ConditionalItem extends PassItem {
 
     @Override
     public boolean isValid() {
-        return (ValidationUtils.hasContent(yesChain)||ValidationUtils.hasContent(noChain)) && ValidationUtils.hasContent(source);
+        return (ValidationUtils.hasContent(yesChain) || ValidationUtils.hasContent(noChain))
+                && ValidationUtils.hasContent(source);
     }
 }

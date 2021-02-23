@@ -21,7 +21,7 @@ public class ChatDirectorBungee extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance,
                 new ReloadCommand("chatdirectorlocal"));
         try {
-            chatDirector = new ChatDirector(new File(this.getDataFolder(),"config.yml"));
+            chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
             BungeeInputItemDaemon.instance = new BungeeInputItemDaemon();
             getProxy().getPluginManager().registerListener(this, BungeeInputItemDaemon.instance);
             MultiChatInputItemDaemon.instance = new MultiChatInputItemDaemon();

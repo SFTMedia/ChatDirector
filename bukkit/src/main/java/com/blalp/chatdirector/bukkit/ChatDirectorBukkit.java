@@ -22,7 +22,7 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
     public void onEnable() {
         instance = this;
         try {
-            chatDirector = new ChatDirector(new File(this.getDataFolder(),"config.yml"));
+            chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
             BukkitInputDaemon.instance = new BukkitInputDaemon();
             getServer().getPluginManager().registerEvents(BukkitInputDaemon.instance, this);
             this.getDataFolder().mkdirs();

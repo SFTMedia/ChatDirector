@@ -27,10 +27,10 @@ public class SpongeModule implements IModule {
     public boolean load() {
         boolean result = true;
         if (SpongeInputDaemon.instance != null) {
-            result=result&&SpongeInputDaemon.instance.load();
+            result = result && SpongeInputDaemon.instance.load();
         }
         for (SpongeCommandItem command : SpongeCommandItem.commands) {
-            result=result&&command.load();
+            result = result && command.load();
         }
         return result;
     }
@@ -39,10 +39,10 @@ public class SpongeModule implements IModule {
     public boolean unload() {
         boolean result = true;
         if (SpongeInputDaemon.instance != null) {
-            result=result&&SpongeInputDaemon.instance.unload();
+            result = result && SpongeInputDaemon.instance.unload();
         }
         for (SpongeCommandItem command : SpongeCommandItem.commands) {
-            result=result&&command.unload();
+            result = result && command.unload();
         }
         return result;
     }

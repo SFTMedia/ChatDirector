@@ -24,7 +24,7 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
         if (node.has("debug") && node.get("debug").isBoolean()) {
             configuration.setDebug(node.get("debug").asBoolean());
         }
-        if(node.has("module_data")) {
+        if (node.has("module_data")) {
             for (JsonNode moduleData : new IteratorIterable<JsonNode>(node.get("module_data").elements())) {
                 for (Entry<String, JsonNode> singleModuleData : new IteratorIterable<>(moduleData.fields())) {
                     Map<String, String> readModuleData = new HashMap<>();
@@ -36,7 +36,7 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
                 }
             }
         }
-        //System.out.println(ChatDirector.getConfig().getModules());
+        // System.out.println(ChatDirector.getConfig().getModules());
         Chain chainObj;
         for (JsonNode chain : new IteratorIterable<JsonNode>(node.get("chains").elements())) {
             chainObj = null;

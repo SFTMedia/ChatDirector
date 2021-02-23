@@ -38,11 +38,12 @@ public class DiscordParticipatesItem extends DiscordItem {
         }
         Context workingContext = new Context();
         for (User user : users.values()) {
-            if(ChatDirector.isDebug()) {
-                ChatDirector.logger.log(Level.WARNING, "Starting work for " + user.getName() + " (" + user.getIdAsString() + ")");
+            if (ChatDirector.isDebug()) {
+                ChatDirector.logger.log(Level.WARNING,
+                        "Starting work for " + user.getName() + " (" + user.getIdAsString() + ")");
             }
             // All keys should be the same for each user and get overridden.
-            workingContext.merge(DiscordModule.instance.getContext(user)); 
+            workingContext.merge(DiscordModule.instance.getContext(user));
             each.run(workingContext);
             workingContext = new Context();
         }
