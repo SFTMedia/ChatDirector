@@ -6,6 +6,8 @@ import java.util.List;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IModule;
 
+import org.apache.commons.lang.NotImplementedException;
+
 public class BungeeMessageModule implements IModule {
 
     @Override
@@ -31,7 +33,8 @@ public class BungeeMessageModule implements IModule {
 
     @Override
     public List<String> getItemNames() {
-        return Arrays.asList("bungee-to", "bungee-from");
+        return Arrays.asList();
+        //return Arrays.asList("bungee-to", "bungee-from");
     }
 
     @Override
@@ -41,6 +44,8 @@ public class BungeeMessageModule implements IModule {
 
     @Override
     public Class<?> getItemClass(String type) {
+        return null;
+        /*
         switch (type) {
             case "bungee-to":
                 return ToBungeeItem.class;
@@ -49,6 +54,7 @@ public class BungeeMessageModule implements IModule {
             default:
                 return null;
         }
+        */
     }
 
 }

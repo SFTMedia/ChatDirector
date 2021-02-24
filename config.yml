@@ -21,7 +21,12 @@ chains:
                 override-chat: true # This will set the message to the result of the chain
                 new-join: true
                 cancel-chat: true
-                format: "%PLAYER_NAME%: %CHAT_MESSAGE%"
+                format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
+                format-login: "**%PLAYER_NAME% joined the server**"
+                format-new-player: "**Welcome %PLAYER_NAME%!**"
+                format-logout: "**%PLAYER_NAME% joined the server**"
+                format-stopped: "**Server Stopped**"
+                format-started: "**Server Started**"
           - bukkit-playerlist:
                 format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
                 format-player: "%PLAYER_NAME%" # Optional

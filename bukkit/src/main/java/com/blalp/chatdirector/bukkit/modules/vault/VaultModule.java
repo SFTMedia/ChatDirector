@@ -19,6 +19,9 @@ public class VaultModule implements IModule {
     public static Chat chat = null;
 
     private boolean setupPermissions() {
+        if (Bukkit.getServer()==null){
+            return false;
+        }
         RegisteredServiceProvider<Permission> permissionProvider = Bukkit.getServer().getServicesManager()
                 .getRegistration(net.milkbowl.vault.permission.Permission.class);
         if (permissionProvider != null) {
@@ -28,6 +31,9 @@ public class VaultModule implements IModule {
     }
 
     private boolean setupChat() {
+        if (Bukkit.getServer()==null){
+            return false;
+        }
         RegisteredServiceProvider<Chat> chatProvider = Bukkit.getServer().getServicesManager()
                 .getRegistration(net.milkbowl.vault.chat.Chat.class);
         if (chatProvider != null) {
@@ -38,6 +44,9 @@ public class VaultModule implements IModule {
     }
 
     private boolean setupEconomy() {
+        if (Bukkit.getServer()==null){
+            return false;
+        }
         RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServer().getServicesManager()
                 .getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {

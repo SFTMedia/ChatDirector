@@ -12,8 +12,8 @@ import lombok.Data;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
 public class BukkitInputItem implements IItem {
-    public boolean chat = false, checkCanceled = false, join = false, leave = false, serverStarted = false,
-            serverStopped = false, newJoin = false, cancelChat = false;
+    public boolean chat = false, checkCanceled = false, login = false, logout = false, serverStarted = false,
+            serverStopped = false, newPlayer = false, cancelChat = false;
     public String formatChat = "%PLAYER_NAME%: %CHAT_MESSAGE%";
     public String formatLogin = "**%PLAYER_NAME% joined the server**";
     public String formatNewPlayer = "**Welcome %PLAYER_NAME%!**";
@@ -25,7 +25,6 @@ public class BukkitInputItem implements IItem {
     public BukkitInputItem() {
         if (BukkitInputDaemon.instance == null) {
             BukkitInputDaemon.instance = new BukkitInputDaemon();
-            ;
         }
         BukkitInputDaemon.instance.addItem(this);
     }
@@ -37,7 +36,7 @@ public class BukkitInputItem implements IItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.anyOf(chat, join, leave, serverStarted, serverStopped) && ValidationUtils
+        return ValidationUtils.anyOf(chat, login, logout, serverStarted, serverStopped) && ValidationUtils
                 .hasContent(formatChat, formatLogin, formatLogout, formatNewPlayer, formatStarted, formatStopped);
     }
 

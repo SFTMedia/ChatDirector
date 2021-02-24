@@ -48,8 +48,8 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
             if (event.getResult().equals(Result.ALLOWED) && item.checkCanceled) {
                 continue;
             }
-            if (item.join) {
-                if (!event.getPlayer().hasPlayedBefore() && item.newJoin) {
+            if (item.login) {
+                if (!event.getPlayer().hasPlayedBefore() && item.newPlayer) {
                     context.put("CURRENT", ChatDirector.format(item.formatLogin, context));
                     ChatDirector.run(item, context, true);
                 } else {
@@ -64,7 +64,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public void onLogout(PlayerQuitEvent event) {
         Context context = BukkitModule.instance.getContext(event);
         for (BukkitInputItem item : items.toArray(new BukkitInputItem[] {})) {
-            if (item.leave) {
+            if (item.logout) {
                 context.put("CURRENT", ChatDirector.format(item.formatLogout, context));
                 ChatDirector.run(item, context, true);
             }

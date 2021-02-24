@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 public class VaultContextItem extends PermissionItem {
 
