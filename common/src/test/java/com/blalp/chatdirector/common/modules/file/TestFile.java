@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.common.modules.file;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -36,11 +37,35 @@ public class TestFile {
     }
 
     @Test
-    public void parse() {
+    public void parseInput() {
         init();
-        assertTrue(chatDirector.getChains().containsKey("console-test"));
-        assertEquals(4, chatDirector.getChains().get("console-test").items.size());
+        assertTrue(chatDirector.getChains().containsKey("file-input"));
+        assertEquals(2, chatDirector.getChains().get("file-input").items.size());
+        FileInputItem fileInputItem = new FileInputItem();
+        fileInputItem.path="target/PATH_TO_FIFO";
+        fileInputItem.delay=500;
+        fileInputItem.create=true;
+        assertEquals(fileInputItem, chatDirector.getChains().get("file-input").items.get(0));
+        fileInputItem = new FileInputItem();
+        fileInputItem.path="target/PATH_TO_FIFO_2";
+        fileInputItem.create=false;
+        assertEquals(fileInputItem, chatDirector.getChains().get("file-input").items.get(1));
+    }
 
+    @Test
+    public void parseOutput() {
+        init();
+        assertTrue(chatDirector.getChains().containsKey("file-output"));
+        assertEquals(2, chatDirector.getChains().get("file-output").items.size());
+        FileOutputItem fileOutputItem = new FileOutputItem();
+        fileOutputItem.path="target/PATH_TO_FIFO";
+        fileOutputItem.delay=500;
+        fileOutputItem.create=true;
+        assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").items.get(0));
+        fileOutputItem = new FileOutputItem();
+        fileOutputItem.path="target/PATH_TO_FIFO_2";
+        fileOutputItem.create=false;
+        assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").items.get(1));
     }
 
     @Test
