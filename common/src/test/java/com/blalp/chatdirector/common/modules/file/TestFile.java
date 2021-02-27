@@ -38,6 +38,8 @@ public class TestFile {
     @Test
     public void parse() {
         init();
+        assertTrue(chatDirector.getChains().containsKey("console-test"));
+        assertEquals(4, chatDirector.getChains().get("console-test").items.size());
 
     }
 

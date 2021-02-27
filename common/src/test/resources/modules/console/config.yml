@@ -2,6 +2,6 @@ debug: false
 chains:
   - console-test:
       - console-output: null
-      - console-output-error: null
       - console-output
+      - console-output-error: null
       - console-output-error
