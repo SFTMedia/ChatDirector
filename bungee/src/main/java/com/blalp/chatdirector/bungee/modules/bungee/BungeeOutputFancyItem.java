@@ -1,4 +1,5 @@
 package com.blalp.chatdirector.bungee.modules.bungee;
+
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;

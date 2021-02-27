@@ -135,8 +135,12 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - config versioning mechanism
 
 # Maven Info
+
 ## Tests
+
 Skip test with `mvn install -DskipTests`
+
 ## Submodules
+
 Skip submodule with the `-pl '!SUBMODULENAME'` flag. For example `mvn -pl '!universal,!minimal' package` would skip the building modules.
 You can also just run it on one module with `-pl 'SUMMODULE'`

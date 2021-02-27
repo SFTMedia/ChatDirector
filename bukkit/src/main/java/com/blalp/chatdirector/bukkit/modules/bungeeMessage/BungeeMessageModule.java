@@ -34,7 +34,7 @@ public class BungeeMessageModule implements IModule {
     @Override
     public List<String> getItemNames() {
         return Arrays.asList();
-        //return Arrays.asList("bungee-to", "bungee-from");
+        // return Arrays.asList("bungee-to", "bungee-from");
     }
 
     @Override
@@ -46,15 +46,9 @@ public class BungeeMessageModule implements IModule {
     public Class<?> getItemClass(String type) {
         return null;
         /*
-        switch (type) {
-            case "bungee-to":
-                return ToBungeeItem.class;
-            case "bungee-from":
-                return FromBungeeItem.class;
-            default:
-                return null;
-        }
-        */
+         * switch (type) { case "bungee-to": return ToBungeeItem.class; case
+         * "bungee-from": return FromBungeeItem.class; default: return null; }
+         */
     }
 
 }

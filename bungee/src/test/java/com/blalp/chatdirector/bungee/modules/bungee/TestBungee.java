@@ -125,7 +125,7 @@ public class TestBungee {
         bungeeOutputFancy.setPlayer("player");
         bungeeOutputFancy.sendToCurrentServer = true;
         FancyMessage fancyMessage = new FancyMessage();
-        for(FancyMessage message:fancyMessages){
+        for (FancyMessage message : fancyMessages) {
             fancyMessage.append(message);
         }
         bungeeOutputFancy.setFancyMessage(fancyMessage);
@@ -141,15 +141,15 @@ public class TestBungee {
         child.text = "I am blue";
         nested.add(child);
         fancyMessages = new FancyMessage[2];
-        fancyMessages[0]=new FancyMessage();
+        fancyMessages[0] = new FancyMessage();
         fancyMessages[0].setHoverEvent(FancyMessageEnum.SHOW_TEXT, "hover");
         fancyMessages[0].next = nested;
-        fancyMessages[1]=new FancyMessage();
+        fancyMessages[1] = new FancyMessage();
         fancyMessages[1].text = "RAW";
         bungeeOutputFancy.setPermission("test");
         bungeeOutputFancy.sendToCurrentServer = false;
         fancyMessage = new FancyMessage();
-        for(FancyMessage message:fancyMessages){
+        for (FancyMessage message : fancyMessages) {
             fancyMessage.append(message);
         }
         bungeeOutputFancy.setFancyMessage(fancyMessage);
@@ -177,7 +177,7 @@ public class TestBungee {
         assertEquals(2, chatDirector.getChains().get("bungee-output-player").items.size());
         BungeeOutputPlayerItem bungeeOutputPlayerItem = new BungeeOutputPlayerItem();
         bungeeOutputPlayerItem.player = "%PLAYER_NAME%";
-        bungeeOutputPlayerItem.permission=null;
+        bungeeOutputPlayerItem.permission = null;
         assertEquals(bungeeOutputPlayerItem, chatDirector.getChains().get("bungee-output-player").items.get(0));
         bungeeOutputPlayerItem = new BungeeOutputPlayerItem();
         bungeeOutputPlayerItem.player = "test";
@@ -191,39 +191,39 @@ public class TestBungee {
         assertTrue(chatDirector.getChains().containsKey("bungee-input"));
         assertEquals(5, chatDirector.getChains().get("bungee-input").items.size());
         BungeeInputItem bungeeInputItem = new BungeeInputItem();
-        bungeeInputItem.chat=true;
-        bungeeInputItem.disconnect=true;
-        bungeeInputItem.switchServers=true;
-        bungeeInputItem.switchServers=true;
-        bungeeInputItem.join=true;
-        bungeeInputItem.overrideChat=true;
-        bungeeInputItem.command=false;
-        bungeeInputItem.formatChat="[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%";
-        bungeeInputItem.formatDisconnect="&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!";
-        bungeeInputItem.formatJoin="&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!";
-        bungeeInputItem.formatSwitchServers="&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%";
+        bungeeInputItem.chat = true;
+        bungeeInputItem.disconnect = true;
+        bungeeInputItem.switchServers = true;
+        bungeeInputItem.switchServers = true;
+        bungeeInputItem.join = true;
+        bungeeInputItem.overrideChat = true;
+        bungeeInputItem.command = false;
+        bungeeInputItem.formatChat = "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%";
+        bungeeInputItem.formatDisconnect = "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!";
+        bungeeInputItem.formatJoin = "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!";
+        bungeeInputItem.formatSwitchServers = "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%";
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(0));
         bungeeInputItem = new BungeeInputItem();
-        bungeeInputItem.disconnect=true;
-        bungeeInputItem.switchServers=true;
-        bungeeInputItem.switchServers=true;
-        bungeeInputItem.join=true;
-        bungeeInputItem.overrideChat=true;
-        bungeeInputItem.command=false;
-        bungeeInputItem.formatChat="form 1";
-        bungeeInputItem.formatDisconnect="dc 1";
-        bungeeInputItem.formatJoin="join";
-        bungeeInputItem.formatSwitchServers="switch";
+        bungeeInputItem.disconnect = true;
+        bungeeInputItem.switchServers = true;
+        bungeeInputItem.switchServers = true;
+        bungeeInputItem.join = true;
+        bungeeInputItem.overrideChat = true;
+        bungeeInputItem.command = false;
+        bungeeInputItem.formatChat = "form 1";
+        bungeeInputItem.formatDisconnect = "dc 1";
+        bungeeInputItem.formatJoin = "join";
+        bungeeInputItem.formatSwitchServers = "switch";
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(1));
         bungeeInputItem = new BungeeInputItem();
-        bungeeInputItem.switchServers=true;
+        bungeeInputItem.switchServers = true;
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(2));
         bungeeInputItem = new BungeeInputItem();
-        bungeeInputItem.join=true;
+        bungeeInputItem.join = true;
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(3));
         bungeeInputItem = new BungeeInputItem();
-        bungeeInputItem.command=true;
+        bungeeInputItem.command = true;
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(4));
-        
+
     }
 }

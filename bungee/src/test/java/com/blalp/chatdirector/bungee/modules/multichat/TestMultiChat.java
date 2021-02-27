@@ -50,18 +50,18 @@ public class TestMultiChat {
         assertTrue(chatDirector.getChains().containsKey("multichat-input"));
         assertEquals(4, chatDirector.getChains().get("multichat-input").items.size());
         MultiChatInputItem multiChatInputItem = new MultiChatInputItem();
-        multiChatInputItem.broadcast=true;
-        multiChatInputItem.global=true;
-        multiChatInputItem.staff=true;
+        multiChatInputItem.broadcast = true;
+        multiChatInputItem.global = true;
+        multiChatInputItem.staff = true;
         assertEquals(multiChatInputItem, chatDirector.getChains().get("multichat-input").items.get(0));
         multiChatInputItem = new MultiChatInputItem();
-        multiChatInputItem.global=true;
+        multiChatInputItem.global = true;
         assertEquals(multiChatInputItem, chatDirector.getChains().get("multichat-input").items.get(1));
         multiChatInputItem = new MultiChatInputItem();
-        multiChatInputItem.staff=true;
+        multiChatInputItem.staff = true;
         assertEquals(multiChatInputItem, chatDirector.getChains().get("multichat-input").items.get(2));
         multiChatInputItem = new MultiChatInputItem();
-        multiChatInputItem.broadcast=true;
+        multiChatInputItem.broadcast = true;
         assertEquals(multiChatInputItem, chatDirector.getChains().get("multichat-input").items.get(3));
     }
 }

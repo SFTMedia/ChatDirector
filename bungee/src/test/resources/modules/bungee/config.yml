@@ -1,112 +1,112 @@
 debug: false
 chains:
-    - bungee-command:
-          - bungee-command:
-                command: "command"
-                permission: "*"
-          - bungee-command:
-                command: "command 2"
-                permission: "permission"
-    - bungee-playerlist:
-          - bungee-playerlist:
-                format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
-                format-player: "%PLAYER_NAME%" # Optional
-                format-server: "%SERVER_NAME%" # Optional
-                format-no-players: "**No online players**" # Optional
-                split-by-server: false # Optional
-          - bungee-playerlist: null
-          - bungee-playerlist:
-                format: "format" # Optional
-          - bungee-playerlist:
-                format-player: "player" # Optional
-          - bungee-playerlist:
-                format-server: "server" # Optional
-          - bungee-playerlist:
-                format-no-players: "no one" # Optional
-          - bungee-playerlist:
-                split-by-server: true # Optional
-    - bungee-output:
-          - bungee-output: null
-    - bungee-output-fancy:
-          - bungee-output-fancy:
-                player: "player" # This takes prescience over permission, and does NOT check permission when sending to a player
-                send-to-current-server: true # This checks against SERVER_NAME with a player's connected server.
-                fancy-message: # Can have any number of fancy formats
-                    - click-command:
-                          click-run-command: "/test"
-                          text: "click command" # This can also be a list of fancy formats
-                    - click-suggestion:
-                          click-suggest-command: "/suggestion"
-                          text: "click suggestion" # This can also be a list of fancy formats
-                    - click-url:
-                          click-url: "https://sftmc.org"
-                          text: "click url" # This can also be a list of fancy formats
-                    - color:
-                          color: "RED"
-                          bold: false
-                          italics: true
-                          strikethrough: true
-                          obfuscated: false
-                          text: "TEST" # This can also be a list of fancy formats
-                    - hover:
-                          show-text: "text"
-                          text: "TEST" # This can also be a list of fancy formats
-                    - raw:
-                          text: "TEST"
-          - bungee-output-fancy:
-                permission: "test"
-                send-to-current-server: false # This checks against SERVER_NAME with a player's connected server.
-                fancy-message: # Can have any number of fancy formats
-                    - hover:
-                          show-text: "hover"
-                          text:
-                            - color:
-                                color: "BLUE"
-                                bold: true
-                                italics: false
-                                strikethrough: false
-                                obfuscated: true
-                                text: "I am blue" # This can also be a list of fancy formats
-                    - raw:
-                          text: "RAW"
-    - bungee-output-server:
-          - bungee-output-server:
-                server: "SERVER NAME"
-          - bungee-output-server:
-                server: "Test"
-                permission: "permission" # optional
-    - bungee-output-player:
-          - bungee-output-player:
-                player: "%PLAYER_NAME%" # can be a UUID too
-                permission: null # optional
-          - bungee-output-player:
-                player: "test" # can be a UUID too
-                permission: "test" # optional
-    - bungee-input:
-          - bungee-input: # All Optional
-                chat: true
-                disconnect: true
-                switch-servers: true
-                join: true
-                override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
-                command: false
-                format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
-                format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
-                format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
-                format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
-          - bungee-input: # All Optional
-                disconnect: true
-                switch-servers: true
-                join: true
-                override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
-                command: false
-                format-chat: "form 1"
-                format-disconnect: "dc 1"
-                format-join: "join"
-                format-switch-servers: "switch"
-          - bungee-input: # All Optional
-                switch-servers: true
-          - bungee-input: # All Optional
-                join: true
-          - bungee-input: # All Optional
-                command: true
+  - bungee-command:
+      - bungee-command:
+          command: "command"
+          permission: "*"
+      - bungee-command:
+          command: "command 2"
+          permission: "permission"
+  - bungee-playerlist:
+      - bungee-playerlist:
+          format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
+          format-player: "%PLAYER_NAME%" # Optional
+          format-server: "%SERVER_NAME%" # Optional
+          format-no-players: "**No online players**" # Optional
+          split-by-server: false # Optional
+      - bungee-playerlist: null
+      - bungee-playerlist:
+          format: "format" # Optional
+      - bungee-playerlist:
+          format-player: "player" # Optional
+      - bungee-playerlist:
+          format-server: "server" # Optional
+      - bungee-playerlist:
+          format-no-players: "no one" # Optional
+      - bungee-playerlist:
+          split-by-server: true # Optional
+  - bungee-output:
+      - bungee-output: null
+  - bungee-output-fancy:
+      - bungee-output-fancy:
+          player: "player" # This takes prescience over permission, and does NOT check permission when sending to a player
+          send-to-current-server: true # This checks against SERVER_NAME with a player's connected server.
+          fancy-message: # Can have any number of fancy formats
+            - click-command:
+                click-run-command: "/test"
+                text: "click command" # This can also be a list of fancy formats
+            - click-suggestion:
+                click-suggest-command: "/suggestion"
+                text: "click suggestion" # This can also be a list of fancy formats
+            - click-url:
+                click-url: "https://sftmc.org"
+                text: "click url" # This can also be a list of fancy formats
+            - color:
+                color: "RED"
+                bold: false
+                italics: true
+                strikethrough: true
+                obfuscated: false
+                text: "TEST" # This can also be a list of fancy formats
+            - hover:
+                show-text: "text"
+                text: "TEST" # This can also be a list of fancy formats
+            - raw:
+                text: "TEST"
+      - bungee-output-fancy:
+          permission: "test"
+          send-to-current-server: false # This checks against SERVER_NAME with a player's connected server.
+          fancy-message: # Can have any number of fancy formats
+            - hover:
+                show-text: "hover"
+                text:
+                  - color:
+                      color: "BLUE"
+                      bold: true
+                      italics: false
+                      strikethrough: false
+                      obfuscated: true
+                      text: "I am blue" # This can also be a list of fancy formats
+            - raw:
+                text: "RAW"
+  - bungee-output-server:
+      - bungee-output-server:
+          server: "SERVER NAME"
+      - bungee-output-server:
+          server: "Test"
+          permission: "permission" # optional
+  - bungee-output-player:
+      - bungee-output-player:
+          player: "%PLAYER_NAME%" # can be a UUID too
+          permission: null # optional
+      - bungee-output-player:
+          player: "test" # can be a UUID too
+          permission: "test" # optional
+  - bungee-input:
+      - bungee-input: # All Optional
+          chat: true
+          disconnect: true
+          switch-servers: true
+          join: true
+          override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
+          command: false
+          format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
+          format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
+          format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
+          format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
+      - bungee-input: # All Optional
+          disconnect: true
+          switch-servers: true
+          join: true
+          override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
+          command: false
+          format-chat: "form 1"
+          format-disconnect: "dc 1"
+          format-join: "join"
+          format-switch-servers: "switch"
+      - bungee-input: # All Optional
+          switch-servers: true
+      - bungee-input: # All Optional
+          join: true
+      - bungee-input: # All Optional
+          command: true

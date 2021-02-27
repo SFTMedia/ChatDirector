@@ -19,7 +19,7 @@ public class VaultModule implements IModule {
     public static Chat chat = null;
 
     private boolean setupPermissions() {
-        if (Bukkit.getServer()==null){
+        if (Bukkit.getServer() == null) {
             return false;
         }
         RegisteredServiceProvider<Permission> permissionProvider = Bukkit.getServer().getServicesManager()
@@ -31,7 +31,7 @@ public class VaultModule implements IModule {
     }
 
     private boolean setupChat() {
-        if (Bukkit.getServer()==null){
+        if (Bukkit.getServer() == null) {
             return false;
         }
         RegisteredServiceProvider<Chat> chatProvider = Bukkit.getServer().getServicesManager()
@@ -44,7 +44,7 @@ public class VaultModule implements IModule {
     }
 
     private boolean setupEconomy() {
-        if (Bukkit.getServer()==null){
+        if (Bukkit.getServer() == null) {
             return false;
         }
         RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServer().getServicesManager()

@@ -35,11 +35,12 @@ public class TestVault {
             assertTrue(chain.isValid());
         }
     }
+
     @Test
     public void parseContext() {
         init();
         assertTrue(chatDirector.getChains().containsKey("vault-demo"));
         assertEquals(1, chatDirector.getChains().get("vault-demo").items.size());
-        assertEquals(chatDirector.getChains().get("vault-demo").items.get(0),new VaultContextItem());
+        assertEquals(chatDirector.getChains().get("vault-demo").items.get(0), new VaultContextItem());
     }
 }

@@ -27,7 +27,7 @@ public class FancyMessageDeserializer extends JsonDeserializer<FancyMessage> {
         } else if (data.isArray()) {
             // This should be formed in a map
             for (JsonNode node : new IteratorIterable<JsonNode>(data.elements())) {
-                if(node.isEmpty()) {
+                if (node.isEmpty()) {
                     System.err.println("Fancy text nesting invalid, check your YAML.");
                 }
                 for (JsonNode innerNode : new IteratorIterable<JsonNode>(node.elements())) {
@@ -40,7 +40,7 @@ public class FancyMessageDeserializer extends JsonDeserializer<FancyMessage> {
             }
         } else {
             // This is the actual map
-            if(!data.has("text")) {
+            if (!data.has("text")) {
                 System.err.println("text is null in a fancy message, this shouldn't happen, check your YAML.");
             }
             output = data.get("text").traverse(oc).readValueAs(FancyMessage.class);
