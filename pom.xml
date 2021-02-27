@@ -64,6 +64,7 @@
 		<module>core</module> <!-- This is needed by all -->
 		<module>common</module> <!-- ChatDirector Specific or String manipulation Modules -->
 		<module>extra</module> <!-- Other Platform independ Modules -->
+		<module>minecraft</module> <!-- Minecraft related utils -->
 		<module>console</module> <!-- Lightest platform, just the terminal -->
 		<module>discord</module> <!-- Discord Module -->
 		<module>sponge</module> <!-- Sponge Module -->

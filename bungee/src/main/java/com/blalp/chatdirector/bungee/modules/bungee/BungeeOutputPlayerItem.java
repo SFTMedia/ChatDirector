@@ -18,11 +18,11 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
 @NoArgsConstructor
-public class BungeePlayerItem implements IItem {
+public class BungeeOutputPlayerItem implements IItem {
     String player;
     String permission;
 
-    public BungeePlayerItem(String player) {
+    public BungeeOutputPlayerItem(String player) {
         this.player = player;
     }
 

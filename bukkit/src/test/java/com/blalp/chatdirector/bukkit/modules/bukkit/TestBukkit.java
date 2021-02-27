@@ -118,6 +118,8 @@ public class TestBukkit {
     @Test
     public void parsePlayerlist() {
         init();
+        assertTrue(chatDirector.getChains().containsKey("bukkit-playerlist"));
+        assertEquals(6, chatDirector.getChains().get("bukkit-playerlist").items.size());
         BukkitPlayerlistItem bukkitPlayerlistItem = new BukkitPlayerlistItem();
         bukkitPlayerlistItem.format="format 1";
         bukkitPlayerlistItem.formatPlayer="player 1";
@@ -142,6 +144,8 @@ public class TestBukkit {
     @Test
     public void parseOutput() {
         init();
+        assertTrue(chatDirector.getChains().containsKey("bukkit-output"));
+        assertEquals(2, chatDirector.getChains().get("bukkit-output").items.size());
         BukkitOutputItem bukkitOutputItem = new BukkitOutputItem();
         bukkitOutputItem.permission="permission test";
         assertEquals(bukkitOutputItem, chatDirector.getChains().get("bukkit-output").items.get(0));
@@ -151,6 +155,8 @@ public class TestBukkit {
     @Test
     public void parseCommand() {
         init();
+        assertTrue(chatDirector.getChains().containsKey("bukkit-command"));
+        assertEquals(1, chatDirector.getChains().get("bukkit-command").items.size());
         BukkitCommandItem bukkitCommandItem = new BukkitCommandItem();
         bukkitCommandItem.setCommand("example-command");
         bukkitCommandItem.setPermission("example-permission");

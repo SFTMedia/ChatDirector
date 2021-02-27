@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.abstractions.permission;
+package com.blalp.chatdirector.minecraft.model;
 
 public interface IPermission {
 

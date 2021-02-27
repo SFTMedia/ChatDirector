@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 public class BungeeInputItem extends PassItem implements Listener {
 
     public String formatDisconnect = "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %SERVER_NAME%";
-    public String formatSwitch = "&0[&e<->&0] &e%PLAYER_NAME% has switched to %SERVER_NAME%";
+    public String formatSwitchServers = "&0[&e<->&0] &e%PLAYER_NAME% has switched to %SERVER_NAME%";
     public String formatChat = "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%";
     public String formatJoin = "&0[&2->&0] &e%PLAYER_NAME% joined the network on %SERVER_NAME%!";
     public boolean disconnect, switchServers, chat, join;
@@ -35,6 +35,6 @@ public class BungeeInputItem extends PassItem implements Listener {
     @Override
     public boolean isValid() {
         return ValidationUtils.anyOf(disconnect, switchServers, chat, join, command)
-                && ValidationUtils.hasContent(formatDisconnect, formatSwitch, formatChat, formatJoin);
+                && ValidationUtils.hasContent(formatDisconnect, formatSwitchServers, formatChat, formatJoin);
     }
 }

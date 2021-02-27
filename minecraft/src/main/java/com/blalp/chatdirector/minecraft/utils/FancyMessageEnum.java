@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.abstractions.fancymessage;
+package com.blalp.chatdirector.minecraft.utils;
 
 public enum FancyMessageEnum {
     // Click enums

@@ -37,9 +37,6 @@ chains:
                 command: "example-command"
                 permission: "example-permission"
     - bungee-demo:
-          - bungee-command:
-                command: "command"
-                permission: "*"
           - bungee-to:
                 channel: "custom-channel"
           - bungee-from:
@@ -51,17 +48,14 @@ chains:
                 format-no-players: "**No online players**" # Optional
                 split-by-server: false # Optional
           - bungee-command:
-                args: # optional
-                    - subcommand-1
                 command: "example-command"
                 permission: "example-permission"
-                format: "/%COMMAND% %ARGS%"
           - bungee-output: null
           - bukkit-output-fancy:
                 permission: null
                 player: "player name or player UUID" # This takes prescience over permission, and does NOT check permission when sending to a player
                 send-to-current-server: true # This checks against SERVER_NAME with a player's connected server.
-                fancy-format: # Can have any number of fancy formats
+                fancy-message: # Can have any number of fancy formats
                     - click:
                           click-run-command: "/test"
                           click-suggest-command: "/suggestion"
@@ -85,7 +79,6 @@ chains:
           - bungee-output-player:
                 player: "%PLAYER_NAME%" # can be a UUID too
                 permission: null # optional
-          - bungee-output: null
           - bungee-input: # All Optional
                 chat: true
                 disconnect: true

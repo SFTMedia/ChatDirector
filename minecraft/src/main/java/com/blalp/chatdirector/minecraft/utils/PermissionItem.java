@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.abstractions.permission;
+package com.blalp.chatdirector.minecraft.utils;
 
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;

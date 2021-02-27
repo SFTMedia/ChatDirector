@@ -118,7 +118,7 @@ public class BungeeModule implements IModule {
             case "bungee-output-fancy":
                 return BungeeOutputFancyItem.class;
             case "bungee-output-player":
-                return BungeePlayerItem.class;
+                return BungeeOutputPlayerItem.class;
             case "bungee-output-server":
                 return BungeeOutputServerItem.class;
             case "bungee-input":

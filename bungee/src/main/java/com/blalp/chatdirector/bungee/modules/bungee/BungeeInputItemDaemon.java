@@ -44,7 +44,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
         for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[] {})) {
             if (existing_players.contains(e.getPlayer().getUniqueId())) {
                 if (item.switchServers) {
-                    context.put("CURRENT", ChatDirector.format(item.formatSwitch, context));
+                    context.put("CURRENT", ChatDirector.format(item.formatSwitchServers, context));
                     ChatDirector.run(item, context, true);
                 }
             } else {

@@ -1,15 +1,23 @@
-package com.blalp.chatdirector.abstractions.fancymessage;
+package com.blalp.chatdirector.minecraft.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.minecraft.utils.FancyMessageDeserializer;
+import com.blalp.chatdirector.minecraft.utils.FancyMessageEnum;
 import com.blalp.chatdirector.model.Context;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 @JsonDeserialize(using = FancyMessageDeserializer.class)
+@Data
+@EqualsAndHashCode
 public class FancyMessage {
     public String text, color = null;
-    public ArrayList<FancyMessage> next = new ArrayList<>();
+    public List<FancyMessage> next = new ArrayList<>();
     public boolean bold, italics, strikethrough, obfuscated;
     public FancyMessageEnum click = FancyMessageEnum.NONE, hover = FancyMessageEnum.NONE;
     public String clickData, hoverData;

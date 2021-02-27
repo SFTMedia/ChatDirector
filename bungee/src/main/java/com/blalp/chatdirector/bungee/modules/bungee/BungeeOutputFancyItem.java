@@ -1,10 +1,9 @@
 package com.blalp.chatdirector.bungee.modules.bungee;
-
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.abstractions.fancymessage.FancyMessage;
-import com.blalp.chatdirector.abstractions.fancymessage.FancyMessageEnum;
+import com.blalp.chatdirector.minecraft.model.FancyMessage;
+import com.blalp.chatdirector.minecraft.utils.FancyMessageEnum;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
@@ -29,18 +28,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BungeeOutputFancyItem implements IItem {
     /*
-     * - bungee-output-fancy: permission: null fancy-format: - click: click-file:
-     * "PATH" click-change-page: page_num click-run-command: "/test"
-     * click-suggest-command: "/suggestion" click-url: "https://sftmc.org" text:
-     * "text to show" # This can also be a list of fancy formats - color: color:
-     * "RED" bold: false italics: true strikethrough: true obfuscated: false text:
-     * "TEST" # This can also be a list of fancy formats - hover:
-     * //show-achievement: "name" NOPE Cant do easily //show-entity: "name" NOPE
-     * Cant do easily //show-item: "name" NOPE Cant do easily show-text: "text"
-     * text: "TEST" # This can also be a list of fancy formats
-     * 
-     */
-    /*
      * https://www.spigotmc.org/threads/need-help-with-clickable-chat-message.
      * 180366/ https://www.spigotmc.org/wiki/the-chat-component-api/
      * https://hub.spigotmc.org/javadocs/spigot/index.html
@@ -51,15 +38,10 @@ public class BungeeOutputFancyItem implements IItem {
      * http://ci.md-5.net/job/BungeeCord/ws/chat/target/apidocs/overview-summary.
      * html
      */
-    FancyMessage fancyFormat;
+    FancyMessage fancyMessage;
     String permission;
     boolean sendToCurrentServer = true;
-    public String player = null;
-
-    public BungeeOutputFancyItem(FancyMessage fancyMessage, String permission) {
-        this.fancyFormat = fancyMessage;
-        this.permission = permission;
-    }
+    String player = null;
 
     @SuppressWarnings("deprecation")
     public static BaseComponent fromFancyMessage(FancyMessage fancyMessage) {
@@ -106,9 +88,8 @@ public class BungeeOutputFancyItem implements IItem {
     @Override
     public Context process(Context context) {
         Context playerContext = new Context(context);
-        FancyMessage fancyBase = fancyFormat.duplicate().withContext(context); // Resolve all of the contexts that you
-                                                                               // can before resolving player related
-                                                                               // ones
+        // Resolve all of the contexts that you can before resolving player related ones
+        FancyMessage fancyBase = fancyMessage.duplicate().withContext(context);
         for (ProxiedPlayer proxiedPlayer : ProxyServer.getInstance().getPlayers()) {
             if (proxiedPlayer == null
                     || (ChatDirector.format(player, context).length() > 16
@@ -146,6 +127,6 @@ public class BungeeOutputFancyItem implements IItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.isNotNull(fancyFormat);
+        return ValidationUtils.isNotNull(fancyMessage);
     }
 }
