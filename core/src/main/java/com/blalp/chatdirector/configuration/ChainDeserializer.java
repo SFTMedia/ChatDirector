@@ -35,7 +35,7 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
                     itemValue = innerItem.getValue();
                 }
             }
-            Class<?> itemClass = ChatDirector.instance.getItemClass(itemKey);
+            Class<?> itemClass = ChatDirector.getInstance().getItemClass(itemKey);
             if (itemClass != null && IItem.class.isAssignableFrom(itemClass)) {
                 IItem itemObj = null;
                 if (itemValue == null || itemValue.isNull()) {
@@ -50,7 +50,7 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
                 }
                 chainObj.addItem(itemObj);
             } else {
-                ChatDirector.logger.log(Level.WARNING,
+                ChatDirector.getLogger().log(Level.WARNING,
                         "Not adding item " + itemKey + ":" + itemValue + " it failed to load.");
             }
         }
@@ -58,7 +58,7 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
             chainObj.items.remove(null);
         }
         if (chainObj.items.size() == 0) {
-            ChatDirector.logger.log(Level.WARNING, "No items parsed in chain " + chain);
+            ChatDirector.getLogger().log(Level.WARNING, "No items parsed in chain " + chain);
             return null;
         }
         return chainObj;

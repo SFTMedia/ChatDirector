@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class DiscordResolveItem extends DiscordItem {
 	String channel, server;
 
-	public boolean toDiscord, toPlain;
+	boolean toDiscord, toPlain;
 
 	@Override
 	public Context process(Context context) {

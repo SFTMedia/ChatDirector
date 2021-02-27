@@ -28,10 +28,10 @@ public class TestFile {
     @Test
     public void valid() {
         init();
-        for (IModule module : ChatDirector.getConfig().modules) {
+        for (IModule module : ChatDirector.getConfig().getModules()) {
             assertTrue(module.isValid());
         }
-        for (Chain chain : ChatDirector.getConfig().chains.values()) {
+        for (Chain chain : ChatDirector.getConfig().getChains().values()) {
             assertTrue(chain.isValid());
         }
     }
@@ -40,7 +40,7 @@ public class TestFile {
     public void parseInput() {
         init();
         assertTrue(chatDirector.getChains().containsKey("file-input"));
-        assertEquals(2, chatDirector.getChains().get("file-input").items.size());
+        assertEquals(3, chatDirector.getChains().get("file-input").items.size());
         FileInputItem fileInputItem = new FileInputItem();
         fileInputItem.path="target/PATH_TO_FIFO";
         fileInputItem.delay=500;
@@ -48,15 +48,19 @@ public class TestFile {
         assertEquals(fileInputItem, chatDirector.getChains().get("file-input").items.get(0));
         fileInputItem = new FileInputItem();
         fileInputItem.path="target/PATH_TO_FIFO_2";
-        fileInputItem.create=false;
+        fileInputItem.create=true;
         assertEquals(fileInputItem, chatDirector.getChains().get("file-input").items.get(1));
+        fileInputItem = new FileInputItem();
+        fileInputItem.path="target/PATH_TO_FIFO_2";
+        fileInputItem.create=false;
+        assertEquals(fileInputItem, chatDirector.getChains().get("file-input").items.get(2));
     }
 
     @Test
     public void parseOutput() {
         init();
         assertTrue(chatDirector.getChains().containsKey("file-output"));
-        assertEquals(2, chatDirector.getChains().get("file-output").items.size());
+        assertEquals(3, chatDirector.getChains().get("file-output").items.size());
         FileOutputItem fileOutputItem = new FileOutputItem();
         fileOutputItem.path="target/PATH_TO_FIFO";
         fileOutputItem.delay=500;
@@ -64,8 +68,12 @@ public class TestFile {
         assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").items.get(0));
         fileOutputItem = new FileOutputItem();
         fileOutputItem.path="target/PATH_TO_FIFO_2";
-        fileOutputItem.create=false;
+        fileOutputItem.create=true;
         assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").items.get(1));
+        fileOutputItem = new FileOutputItem();
+        fileOutputItem.path="target/PATH_TO_FIFO_2";
+        fileOutputItem.create=false;
+        assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").items.get(2));
     }
 
     @Test

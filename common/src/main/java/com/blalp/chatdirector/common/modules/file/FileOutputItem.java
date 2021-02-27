@@ -22,7 +22,7 @@ public class FileOutputItem implements IItem {
     String path;
     boolean create = false;
     int delay = 500;
-    private BufferedWriter writer;
+    BufferedWriter writer;
 
     @Override
     public boolean isValid() {
@@ -35,12 +35,12 @@ public class FileOutputItem implements IItem {
             try {
                 if (!new File(path).createNewFile()) {
                     if (ChatDirector.isDebug()) {
-                        ChatDirector.logger.log(Level.WARNING, path + " already exists");
+                        ChatDirector.getLogger().log(Level.WARNING, path + " already exists");
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                ChatDirector.logger.log(Level.SEVERE, "Could not create file " + path);
+                ChatDirector.getLogger().log(Level.SEVERE, "Could not create file " + path);
                 return new Context();
             }
         }

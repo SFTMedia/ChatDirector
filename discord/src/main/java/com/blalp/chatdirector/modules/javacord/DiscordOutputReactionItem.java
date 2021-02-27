@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DiscordOutputReactionItem extends DiscordItem {
-    private String emoji, channel, message;
-    private boolean add;
+    String emoji, channel, message;
+    boolean add;
 
     @Override
     public Context process(Context context) {

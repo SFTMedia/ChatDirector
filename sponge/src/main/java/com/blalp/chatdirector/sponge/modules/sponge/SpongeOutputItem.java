@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class SpongeOutputItem implements IItem {
-    public String permission, sender;
+    String permission, sender;
 
     @Override
     public Context process(Context context) {

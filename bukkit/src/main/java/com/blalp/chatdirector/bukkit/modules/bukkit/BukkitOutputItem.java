@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BukkitOutputItem implements IItem {
-    public String permission = null;
+    String permission = null;
 
     @Override
     public Context process(Context context) {

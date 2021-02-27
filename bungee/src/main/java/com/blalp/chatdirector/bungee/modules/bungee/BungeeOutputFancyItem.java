@@ -47,40 +47,40 @@ public class BungeeOutputFancyItem implements IItem {
     @SuppressWarnings("deprecation")
     public static BaseComponent fromFancyMessage(FancyMessage fancyMessage) {
         BaseComponent output = new TextComponent();
-        for (BaseComponent component : TextComponent.fromLegacyText(fancyMessage.text)) {
+        for (BaseComponent component : TextComponent.fromLegacyText(fancyMessage.getText())) {
             if (ChatDirector.isDebug()) {
-                ChatDirector.logger.log(Level.WARNING,
+                ChatDirector.getLogger().log(Level.WARNING,
                         "appending >" + component.toLegacyText() + "< to >" + output.toLegacyText() + "<");
             }
             output.addExtra(component);
             if (ChatDirector.isDebug()) {
-                ChatDirector.logger.log(Level.WARNING, "output is now >" + output.toLegacyText() + "<");
+                ChatDirector.getLogger().log(Level.WARNING, "output is now >" + output.toLegacyText() + "<");
             }
         }
-        if (fancyMessage.bold) {
+        if (fancyMessage.isBold()) {
             output.setBold(true);
         }
-        if (fancyMessage.color != null) {
-            output.setColor(ChatColor.valueOf(fancyMessage.color));
+        if (fancyMessage.getColor() != null) {
+            output.setColor(ChatColor.valueOf(fancyMessage.getColor()));
         }
-        if (fancyMessage.italics) {
+        if (fancyMessage.isItalics()) {
             output.setItalic(true);
         }
-        if (fancyMessage.obfuscated) {
+        if (fancyMessage.isObfuscated()) {
             output.setObfuscated(true);
         }
-        if (fancyMessage.strikethrough) {
+        if (fancyMessage.isStrikethrough()) {
             output.setStrikethrough(true);
         }
-        if (fancyMessage.click != FancyMessageEnum.NONE) {
+        if (fancyMessage.getClick() != FancyMessageEnum.NONE) {
             output.setClickEvent(
-                    new ClickEvent(ClickEvent.Action.valueOf(fancyMessage.click.toString()), fancyMessage.clickData));
+                    new ClickEvent(ClickEvent.Action.valueOf(fancyMessage.getClick().toString()), fancyMessage.getClickData()));
         }
-        if (fancyMessage.hover == FancyMessageEnum.SHOW_TEXT) {
-            output.setHoverEvent(new HoverEvent(HoverEvent.Action.valueOf(fancyMessage.hover.toString()),
-                    new Text(fancyMessage.hoverData)));
+        if (fancyMessage.getHover() == FancyMessageEnum.SHOW_TEXT) {
+            output.setHoverEvent(new HoverEvent(HoverEvent.Action.valueOf(fancyMessage.getHover().toString()),
+                    new Text(fancyMessage.getHoverData())));
         }
-        for (FancyMessage message : fancyMessage.next) {
+        for (FancyMessage message : fancyMessage.getNext()) {
             output.addExtra(fromFancyMessage(message));
         }
         return output;
@@ -104,7 +104,7 @@ public class BungeeOutputFancyItem implements IItem {
                     if (proxiedPlayer.getServer() != null && proxiedPlayer.getServer().getInfo() != null
                             && proxiedPlayer.getServer().getInfo().getName().equals(context.get("SERVER_NAME"))) {
                         if (ChatDirector.isDebug()) {
-                            ChatDirector.logger.log(Level.WARNING,
+                            ChatDirector.getLogger().log(Level.WARNING,
                                     "Server name matches player (" + proxiedPlayer.getName() + ") server >"
                                             + proxiedPlayer.getServer().getInfo().getName() + "< to context server >"
                                             + context.get("SERVER_NAME") + "< not sending... ");
@@ -117,7 +117,7 @@ public class BungeeOutputFancyItem implements IItem {
                 // Since we want to do context resolution per player we need to duplicate
                 proxiedPlayer.sendMessage(message);
                 if (ChatDirector.isDebug()) {
-                    ChatDirector.logger.log(Level.WARNING,
+                    ChatDirector.getLogger().log(Level.WARNING,
                             "Sent >" + message.toLegacyText() + "< to " + proxiedPlayer.getName());
                 }
                 playerContext = new Context(context);

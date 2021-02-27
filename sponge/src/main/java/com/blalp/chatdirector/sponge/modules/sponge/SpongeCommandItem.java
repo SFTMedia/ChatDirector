@@ -35,8 +35,8 @@ import lombok.NoArgsConstructor;
 public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoadable {
     String command;
     String permission;
-    public boolean args = false;
-    public static ArrayList<SpongeCommandItem> commands = new ArrayList<>();
+    boolean args = false;
+    static ArrayList<SpongeCommandItem> commands = new ArrayList<>();
 
     public SpongeCommandItem(String name, String permission) {
         this.command = name;
@@ -47,7 +47,7 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
     @Override
     public boolean load() {
         if (ChatDirector.isDebug()) {
-            ChatDirector.logger.log(Level.WARNING, "Starting load of " + this);
+            ChatDirector.getLogger().log(Level.WARNING, "Starting load of " + this);
         }
         Builder myCommandSpec = CommandSpec.builder().permission(permission).executor(this);
         if (args) {
@@ -63,7 +63,7 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
 
     @Override
     public boolean unload() {
-        ChatDirector.logger.log(Level.WARNING, "Starting unload of " + this);
+        ChatDirector.getLogger().log(Level.WARNING, "Starting unload of " + this);
         if (Sponge.getCommandManager().get(command).isPresent()) {
             Sponge.getCommandManager().removeMapping(Sponge.getCommandManager().get(command).get());
         } else {

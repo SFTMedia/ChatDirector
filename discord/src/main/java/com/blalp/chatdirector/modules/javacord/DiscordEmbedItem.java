@@ -22,11 +22,11 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DiscordEmbedItem extends DiscordItem {
-    private String channel;
+    String channel;
 
-    public String title, description, authorName, authorLink, authorAvatar, color, footerName, footerAvatar, image,
+    String title, description, authorName, authorLink, authorAvatar, color, footerName, footerAvatar, image,
             thumbnail;
-    public Map<String, String> fields, inlineFields;
+    Map<String, String> fields, inlineFields;
 
     @Override
     public Context process(Context context) {
@@ -50,7 +50,7 @@ public class DiscordEmbedItem extends DiscordItem {
             if (Color.decode(color) != null) {
                 embed.setColor(Color.decode(color));
             } else {
-                ChatDirector.logger.log(Level.WARNING, "color " + color + " not a valid color.");
+                ChatDirector.getLogger().log(Level.WARNING, "color " + color + " not a valid color.");
             }
         }
         if (footerName != null) {

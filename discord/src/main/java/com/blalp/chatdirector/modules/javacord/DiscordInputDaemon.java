@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class DiscordInputDaemon extends ItemDaemon
         implements MessageCreateListener, ReactionAddListener, ReactionRemoveListener {
-    private String bot;
+    String bot;
 
     public DiscordInputDaemon(String botName) {
         this.bot = botName;

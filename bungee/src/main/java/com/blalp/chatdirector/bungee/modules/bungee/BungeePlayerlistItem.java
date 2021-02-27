@@ -19,11 +19,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BungeePlayerlistItem implements IItem {
-    public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
-    public String formatNoPlayers = "**No online players**";
-    public String formatPlayer = "%PLAYER_NAME%";
-    public String formatServer = "%SERVER_NAME%";
-    public boolean splitByServer = false;
+    String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
+    String formatNoPlayers = "**No online players**";
+    String formatPlayer = "%PLAYER_NAME%";
+    String formatServer = "%SERVER_NAME%";
+    boolean splitByServer = false;
 
     @Override
     public boolean isValid() {

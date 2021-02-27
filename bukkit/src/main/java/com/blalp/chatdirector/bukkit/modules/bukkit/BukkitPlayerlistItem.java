@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BukkitPlayerlistItem implements IItem {
-    public String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
-    public String formatNoPlayers = "**No online players**";
-    public String formatPlayer = "%PLAYER_NAME%";
+    String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
+    String formatNoPlayers = "**No online players**";
+    String formatPlayer = "%PLAYER_NAME%";
 
     @Override
     public Context process(Context context) {

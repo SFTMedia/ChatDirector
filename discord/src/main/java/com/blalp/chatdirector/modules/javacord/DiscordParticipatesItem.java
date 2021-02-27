@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DiscordParticipatesItem extends DiscordItem {
-    public int length = 50;
+    int length = 50;
     Chain each;
     String channel;
 
@@ -39,7 +39,7 @@ public class DiscordParticipatesItem extends DiscordItem {
         Context workingContext = new Context();
         for (User user : users.values()) {
             if (ChatDirector.isDebug()) {
-                ChatDirector.logger.log(Level.WARNING,
+                ChatDirector.getLogger().log(Level.WARNING,
                         "Starting work for " + user.getName() + " (" + user.getIdAsString() + ")");
             }
             // All keys should be the same for each user and get overridden.

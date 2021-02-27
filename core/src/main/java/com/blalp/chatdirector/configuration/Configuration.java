@@ -17,11 +17,11 @@ import lombok.EqualsAndHashCode;
 @JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration implements IConfiguration {
     boolean debug;
-    public ServiceLoader<IModule> modules;
-    public Map<String, Chain> chains = new HashMap<String, Chain>();
+    ServiceLoader<IModule> modules;
+    Map<String, Chain> chains = new HashMap<String, Chain>();
     // This is for storage of generic keys that modules may need.
     // The first key is the module name
-    public Map<String, Map<String, String>> moduleData = new HashMap<>();
+    Map<String, Map<String, String>> moduleData = new HashMap<>();
 
     public Configuration() {
         modules = ServiceLoader.load(IModule.class);

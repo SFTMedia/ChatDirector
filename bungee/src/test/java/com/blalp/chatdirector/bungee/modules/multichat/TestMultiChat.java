@@ -28,10 +28,10 @@ public class TestMultiChat {
     @Test
     public void valid() {
         init();
-        for (IModule module : ChatDirector.getConfig().modules) {
+        for (IModule module : ChatDirector.getConfig().getModules()) {
             assertTrue(module.isValid());
         }
-        for (Chain chain : ChatDirector.getConfig().chains.values()) {
+        for (Chain chain : ChatDirector.getConfig().getChains().values()) {
             assertTrue(chain.isValid());
         }
     }

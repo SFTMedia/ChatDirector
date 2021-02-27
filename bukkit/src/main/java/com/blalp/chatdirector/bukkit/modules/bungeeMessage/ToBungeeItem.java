@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ToBungeeItem implements IItem {
-    public String channel;
+    String channel;
 
     public ToBungeeItem(String channel) {
         this.channel = channel;

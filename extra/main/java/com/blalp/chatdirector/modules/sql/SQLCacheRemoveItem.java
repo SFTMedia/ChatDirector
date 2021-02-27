@@ -17,12 +17,12 @@ public class SQLCacheRemoveItem extends SQLItem {
                                 ChatDirector.format(name, context), ChatDirector.format(key, context))) {
                         SQLCacheStore.removeValue(connection, ChatDirector.format(table, context),
                                         ChatDirector.format(name, context), ChatDirector.format(key, context));
-                        ChatDirector.logger.log(Level.WARNING,
+                        ChatDirector.getLogger().log(Level.WARNING,
                                         "Cache Hit " + connection + " " + ChatDirector.format(table, context) + " "
                                                         + ChatDirector.format(name, context) + " "
                                                         + ChatDirector.format(key, context) + ", removing...");
                 } else {
-                        ChatDirector.logger.log(Level.WARNING,
+                        ChatDirector.getLogger().log(Level.WARNING,
                                         "Cache Miss " + connection + " " + ChatDirector.format(table, context) + " "
                                                         + ChatDirector.format(name, context) + " "
                                                         + ChatDirector.format(key, context));

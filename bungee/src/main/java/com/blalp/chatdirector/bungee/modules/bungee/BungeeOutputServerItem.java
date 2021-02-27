@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BungeeOutputServerItem implements IItem {
-    public String server;
-    public String permission;
+    String server;
+    String permission;
 
     public BungeeOutputServerItem(String server) {
         this.server = server;

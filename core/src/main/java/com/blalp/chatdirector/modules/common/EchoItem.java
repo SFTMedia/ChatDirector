@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = EchoItemDeserializer.class)
 public class EchoItem implements IItem {
-    public String format;
+    String format;
 
     public EchoItem(String format) {
         this.format = format;

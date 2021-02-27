@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MultiChatInputItem extends PassItem {
-    public boolean global, staff, broadcast;
+    boolean global, staff, broadcast;
 
     public MultiChatInputItem() {
         if (MultiChatInputItemDaemon.instance == null) {

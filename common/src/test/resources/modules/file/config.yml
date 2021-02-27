@@ -7,11 +7,17 @@ chains:
           create: true
       - file-input:
           path: target/PATH_TO_FIFO_2
+          create: true
+      - file-input:
+          path: target/PATH_TO_FIFO_2
           create: false
   - file-output:
       - file-output:
           path: target/PATH_TO_FIFO
           delay: 500
+          create: true
+      - file-output:
+          path: target/PATH_TO_FIFO_2
           create: true
       - file-output:
           path: target/PATH_TO_FIFO_2

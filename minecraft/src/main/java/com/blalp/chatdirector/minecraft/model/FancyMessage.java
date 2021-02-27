@@ -16,11 +16,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode
 public class FancyMessage {
-    public String text, color = null;
-    public List<FancyMessage> next = new ArrayList<>();
-    public boolean bold, italics, strikethrough, obfuscated;
-    public FancyMessageEnum click = FancyMessageEnum.NONE, hover = FancyMessageEnum.NONE;
-    public String clickData, hoverData;
+    String text, color = null;
+    List<FancyMessage> next = new ArrayList<>();
+    boolean bold, italics, strikethrough, obfuscated;
+    FancyMessageEnum click = FancyMessageEnum.NONE, hover = FancyMessageEnum.NONE;
+    String clickData, hoverData;
 
     public FancyMessage(String data) {
         text = data;

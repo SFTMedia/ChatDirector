@@ -57,12 +57,12 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
             try {
                 if (!new File(item.path).createNewFile()) {
                     if (ChatDirector.isDebug()) {
-                        ChatDirector.logger.log(Level.WARNING, item.path + " already exists");
+                        ChatDirector.getLogger().log(Level.WARNING, item.path + " already exists");
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                ChatDirector.logger.log(Level.SEVERE, "Could not create file " + item.path);
+                ChatDirector.getLogger().log(Level.SEVERE, "Could not create file " + item.path);
                 return;
             }
         }
@@ -74,7 +74,7 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
         try {
             String line;
             while ((line = reader.readLine()) != null) {
-                ChatDirector.logger.log(Level.WARNING, line + " read");
+                ChatDirector.getLogger().log(Level.WARNING, line + " read");
                 context = new Context(line);
                 context.put("FILE_PATH", item.path);
                 ChatDirector.run(item, context, true);

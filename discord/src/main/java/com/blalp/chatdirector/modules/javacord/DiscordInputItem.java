@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = DiscordInputItemDeserializer.class)
 public class DiscordInputItem extends DiscordItem {
-    public boolean reactionAddEvent = false;
-    public boolean reactionRemoveEvent = false;
-    public boolean messageEvent = false;
+    boolean reactionAddEvent = false;
+    boolean reactionRemoveEvent = false;
+    boolean messageEvent = false;
     String channel, category, message, format;
 
     @Override
@@ -28,7 +28,7 @@ public class DiscordInputItem extends DiscordItem {
             return false;
         }
         if (!DiscordModule.instance.discordBots.containsKey(bot)) {
-            ChatDirector.logger.log(Level.WARNING, "Bot " + bot + " not registered for item ." + this);
+            ChatDirector.getLogger().log(Level.WARNING, "Bot " + bot + " not registered for item ." + this);
             return false;
         }
         if (messageEvent) {

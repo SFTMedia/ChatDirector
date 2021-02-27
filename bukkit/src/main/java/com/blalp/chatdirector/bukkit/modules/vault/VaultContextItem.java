@@ -53,7 +53,7 @@ public class VaultContextItem extends PermissionItem {
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            ChatDirector.logger.log(Level.INFO,
+            ChatDirector.getLogger().log(Level.INFO,
                     "The above error probably just means you dont have an econ plugin. dw.");
         }
         return output;

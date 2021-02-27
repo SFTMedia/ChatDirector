@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class FromBungeeItem extends PassItem {
-    public String channel;
+    String channel;
 
     public FromBungeeItem() {
         if (FromBungeeDaemon.instance == null) {

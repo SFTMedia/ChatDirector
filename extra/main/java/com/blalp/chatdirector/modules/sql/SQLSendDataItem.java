@@ -38,7 +38,7 @@ public class SQLSendDataItem extends SQLItem {
             statement.execute();
         } catch (SQLException e) {
             System.err.println(this + " failed on " + context.getCurrent());
-            ChatDirector.logger.log(Level.WARNING, "Failed SQL " + e.getSQLState());
+            ChatDirector.getLogger().log(Level.WARNING, "Failed SQL " + e.getSQLState());
             e.printStackTrace();
         }
         return new Context();

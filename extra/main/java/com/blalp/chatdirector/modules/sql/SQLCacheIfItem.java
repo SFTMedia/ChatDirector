@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = SQLCacheIfDeserializer.class)
 public class SQLCacheIfItem extends ConditionalItem {
-    public String table, name, key, connection;
-    public boolean cache;
+    String table, name, key, connection;
+    boolean cache;
 
     @Override
     public boolean test(Context context) {

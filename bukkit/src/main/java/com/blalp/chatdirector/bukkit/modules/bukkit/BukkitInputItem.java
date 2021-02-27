@@ -12,15 +12,15 @@ import lombok.Data;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
 public class BukkitInputItem implements IItem {
-    public boolean chat = false, checkCanceled = false, login = false, logout = false, serverStarted = false,
+    boolean chat = false, checkCanceled = false, login = false, logout = false, serverStarted = false,
             serverStopped = false, newPlayer = false, cancelChat = false;
-    public String formatChat = "%PLAYER_NAME%: %CHAT_MESSAGE%";
-    public String formatLogin = "**%PLAYER_NAME% joined the server**";
-    public String formatNewPlayer = "**Welcome %PLAYER_NAME%!**";
-    public String formatLogout = "**%PLAYER_NAME% joined the server**";
-    public String formatStopped = "**Server Stopped**";
-    public String formatStarted = "**Server Started**";
-    public boolean overrideChat = false;
+    String formatChat = "%PLAYER_NAME%: %CHAT_MESSAGE%";
+    String formatLogin = "**%PLAYER_NAME% joined the server**";
+    String formatNewPlayer = "**Welcome %PLAYER_NAME%!**";
+    String formatLogout = "**%PLAYER_NAME% joined the server**";
+    String formatStopped = "**Server Stopped**";
+    String formatStarted = "**Server Started**";
+    boolean overrideChat = false;
 
     public BukkitInputItem() {
         if (BukkitInputDaemon.instance == null) {

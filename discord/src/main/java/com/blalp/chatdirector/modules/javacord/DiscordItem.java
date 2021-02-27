@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DiscordItem extends PassItem {
-	public String bot;
+	String bot;
 
 	@Override
 	public boolean isValid() {

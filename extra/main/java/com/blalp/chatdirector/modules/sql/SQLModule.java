@@ -24,7 +24,7 @@ public class SQLModule implements IModule {
 
     @Override
     public boolean load() {
-        ChatDirector.logger.log(Level.WARNING, "Loading " + this);
+        ChatDirector.getLogger().log(Level.WARNING, "Loading " + this);
         for (Entry<String, SQLConnection> connection : connections.entrySet()) {
             connection.getValue().load();
             for (String table : tables.get(connection.getKey())) {
@@ -41,7 +41,7 @@ public class SQLModule implements IModule {
 
     @Override
     public boolean unload() {
-        ChatDirector.logger.log(Level.WARNING, "Unloading " + this);
+        ChatDirector.getLogger().log(Level.WARNING, "Unloading " + this);
         for (SQLConnection connection : connections.values()) {
             connection.unload();
         }

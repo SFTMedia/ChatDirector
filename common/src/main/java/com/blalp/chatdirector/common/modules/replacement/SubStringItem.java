@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SubStringItem implements IItem {
-    public int start = 0;
-    public int end = -1;
+    int start = 0;
+    int end = -1;
 
     @Override
     public Context process(Context context) {

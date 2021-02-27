@@ -31,10 +31,10 @@ public class TestBungee {
     @Test
     public void valid() {
         init();
-        for (IModule module : ChatDirector.getConfig().modules) {
+        for (IModule module : ChatDirector.getConfig().getModules()) {
             assertTrue(module.isValid());
         }
-        for (Chain chain : ChatDirector.getConfig().chains.values()) {
+        for (Chain chain : ChatDirector.getConfig().getChains().values()) {
             assertTrue(chain.isValid());
         }
     }
@@ -103,25 +103,25 @@ public class TestBungee {
         FancyMessage[] fancyMessages = new FancyMessage[6];
         fancyMessages[0] = new FancyMessage();
         fancyMessages[0].setClickEvent(FancyMessageEnum.RUN_COMMAND, "/test");
-        fancyMessages[0].text = "click command";
+        fancyMessages[0].setText("click command");
         fancyMessages[1] = new FancyMessage();
         fancyMessages[1].setClickEvent(FancyMessageEnum.SUGGEST_COMMAND, "/suggestion");
-        fancyMessages[1].text = "click suggestion";
+        fancyMessages[1].setText("click suggestion");
         fancyMessages[2] = new FancyMessage();
         fancyMessages[2].setClickEvent(FancyMessageEnum.OPEN_URL, "https://sftmc.org");
-        fancyMessages[2].text = "click url";
+        fancyMessages[2].setText("click url");
         fancyMessages[3] = new FancyMessage();
-        fancyMessages[3].color = "RED";
-        fancyMessages[3].bold = false;
-        fancyMessages[3].italics = true;
-        fancyMessages[3].strikethrough = true;
-        fancyMessages[3].obfuscated = false;
-        fancyMessages[3].text = "TEST";
+        fancyMessages[3].setColor("RED");
+        fancyMessages[3].setBold(false);
+        fancyMessages[3].setItalics(true);
+        fancyMessages[3].setStrikethrough(true);
+        fancyMessages[3].setObfuscated(false);
+        fancyMessages[3].setText("TEST");
         fancyMessages[4] = new FancyMessage();
         fancyMessages[4].setHoverEvent(FancyMessageEnum.SHOW_TEXT, "text");
-        fancyMessages[4].text = "TEST";
+        fancyMessages[4].setText("TEST");
         fancyMessages[5] = new FancyMessage();
-        fancyMessages[5].text = "TEST";
+        fancyMessages[5].setText("TEST");
         bungeeOutputFancy.setPlayer("player");
         bungeeOutputFancy.sendToCurrentServer = true;
         FancyMessage fancyMessage = new FancyMessage();
@@ -134,18 +134,18 @@ public class TestBungee {
         ArrayList<FancyMessage> nested = new ArrayList<>();
         FancyMessage child = new FancyMessage();
         child.setColor("BLUE");
-        child.bold = true;
-        child.italics = false;
-        child.strikethrough = false;
-        child.obfuscated = true;
-        child.text = "I am blue";
+        child.setBold(true);
+        child.setItalics(false);
+        child.setStrikethrough(false);
+        child.setObfuscated(true);
+        child.setText("I am blue");
         nested.add(child);
         fancyMessages = new FancyMessage[2];
         fancyMessages[0] = new FancyMessage();
         fancyMessages[0].setHoverEvent(FancyMessageEnum.SHOW_TEXT, "hover");
-        fancyMessages[0].next = nested;
+        fancyMessages[0].setNext(nested);
         fancyMessages[1] = new FancyMessage();
-        fancyMessages[1].text = "RAW";
+        fancyMessages[1].setText("RAW");
         bungeeOutputFancy.setPermission("test");
         bungeeOutputFancy.sendToCurrentServer = false;
         fancyMessage = new FancyMessage();

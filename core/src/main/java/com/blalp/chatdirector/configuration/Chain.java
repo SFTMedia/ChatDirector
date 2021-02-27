@@ -28,7 +28,7 @@ public class Chain implements IValid, Runnable {
     public void runAsync(IItem item, Context context) {
         this.index = items.indexOf(item);
         if (index == -1) {
-            ChatDirector.logger.log(Level.SEVERE, item + " not found in this " + this + " chain.");
+            ChatDirector.getLogger().log(Level.SEVERE, item + " not found in this " + this + " chain.");
             return;
         }
         this.context = context;
@@ -45,7 +45,7 @@ public class Chain implements IValid, Runnable {
     public Context runAt(IItem item, Context context) {
         index = items.indexOf(item);
         if (index == -1) {
-            ChatDirector.logger.log(Level.SEVERE, item + " not found in this " + this + " chain.");
+            ChatDirector.getLogger().log(Level.SEVERE, item + " not found in this " + this + " chain.");
             return new Context().halt();
         }
         return runAt(items.indexOf(item), context);
@@ -62,12 +62,12 @@ public class Chain implements IValid, Runnable {
         Context output;
         for (int i = indexOf; i < items.size(); i++) {
             if (ChatDirector.getConfig().debug) {
-                ChatDirector.logger.log(Level.WARNING,
+                ChatDirector.getLogger().log(Level.WARNING,
                         "Starting process of " + items.get(i) + " with context " + context.toString());
             }
             output = items.get(i).process(context);
             if (ChatDirector.getConfig().debug) {
-                ChatDirector.logger.log(Level.WARNING,
+                ChatDirector.getLogger().log(Level.WARNING,
                         "Ended process of " + items.get(i) + " with context " + output.toString());
             }
             // Setup LAST and CURRENT contexts
@@ -81,13 +81,13 @@ public class Chain implements IValid, Runnable {
                 context.merge(output);
                 if (context.isHalt()) {
                     if (ChatDirector.getConfig().debug) {
-                        ChatDirector.logger.log(Level.WARNING, "Quitting chain, Halt received. " + this);
+                        ChatDirector.getLogger().log(Level.WARNING, "Quitting chain, Halt received. " + this);
                     }
                     break;
                 }
             } else {
                 if (ChatDirector.getConfig().debug) {
-                    ChatDirector.logger.log(Level.WARNING, "Quitting chain. " + this);
+                    ChatDirector.getLogger().log(Level.WARNING, "Quitting chain. " + this);
                 }
                 break;
             }
@@ -119,7 +119,7 @@ public class Chain implements IValid, Runnable {
     public boolean isValid() {
         for (IItem item : items) {
             if (!item.isValid()) {
-                ChatDirector.logger.log(Level.SEVERE, item + " is not valid.");
+                ChatDirector.getLogger().log(Level.SEVERE, item + " is not valid.");
                 return false;
             }
         }

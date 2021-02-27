@@ -26,10 +26,10 @@ import com.blalp.chatdirector.model.IItem;
 @Data
 // Should implement both bungee, sponge and bukkit if possible
 public class ChatDirector implements IConfiguration {
-    private Configuration config = null;
-    private Configuration configStaging = null;
-    private boolean useMain = false;
-    public static Logger logger;
+    Configuration config = null;
+    Configuration configStaging = null;
+    boolean useMain = false;
+    static Logger logger;
     static Handler handler;
     /**
      * Maintain this list as some things run in separate threads, so with an item
@@ -37,7 +37,7 @@ public class ChatDirector implements IConfiguration {
      * better solution.
      */
     static Map<IItem, Chain> items = new HashMap<>();
-    public static ChatDirector instance;
+    static ChatDirector instance;
     // One of these three is populated with data
     File file;
     InputStream stream;
@@ -97,18 +97,18 @@ public class ChatDirector implements IConfiguration {
 
         // Load modules only if we already have a loaded config
         if (config != null) {
-            for (IModule module : config.modules) {
+            for (IModule module : config.getModules()) {
                 result = result && module.load();
             }
         }
         // Now validate chains
-        for (Entry<String, Chain> chain : config.chains.entrySet()) {
+        for (Entry<String, Chain> chain : config.getChains().entrySet()) {
             if (chain.getValue() != null && !chain.getValue().isValid()) {
                 logger.log(Level.SEVERE, "chain: " + chain.toString() + " is not valid.");
                 return false;
             }
         }
-        for (IModule module : config.modules) {
+        for (IModule module : config.getModules()) {
             if (!module.isValid()) {
                 logger.log(Level.SEVERE, "module " + module.toString() + " is not valid.");
                 return false;
@@ -119,7 +119,7 @@ public class ChatDirector implements IConfiguration {
 
     public boolean unload() {
         boolean result = true;
-        for (IModule module : config.modules) {
+        for (IModule module : config.getModules()) {
             result = result && module.unload();
         }
         result = result && config.unload();
@@ -187,5 +187,13 @@ public class ChatDirector implements IConfiguration {
 
     public static boolean isDebug() {
         return instance.config.isDebug();
+    }
+    
+    public static ChatDirector getInstance() {
+        return instance;
+    }
+
+	public static Logger getLogger() {
+        return logger;
     }
 }

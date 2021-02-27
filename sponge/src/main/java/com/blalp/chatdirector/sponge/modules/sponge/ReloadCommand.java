@@ -19,7 +19,7 @@ public class ReloadCommand implements CommandExecutor, ILoadable {
     @Override
     public boolean load() {
         if (ChatDirector.isDebug()) {
-            ChatDirector.logger.log(Level.WARNING, "Starting load of " + this);
+            ChatDirector.getLogger().log(Level.WARNING, "Starting load of " + this);
         }
         Sponge.getCommandManager().register(ChatDirectorSponge.instance,
                 CommandSpec.builder().permission("chatdirectorlocal.commands.reload").executor(this).build(),
@@ -29,7 +29,7 @@ public class ReloadCommand implements CommandExecutor, ILoadable {
 
     @Override
     public boolean unload() {
-        ChatDirector.logger.log(Level.WARNING, "Starting unload of " + this);
+        ChatDirector.getLogger().log(Level.WARNING, "Starting unload of " + this);
         Sponge.getCommandManager().removeMapping(Sponge.getCommandManager().get("chatdirectorlocal").get());
         return true;
     }

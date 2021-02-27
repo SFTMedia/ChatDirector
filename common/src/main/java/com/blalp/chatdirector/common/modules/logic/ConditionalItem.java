@@ -33,9 +33,9 @@ public abstract class ConditionalItem extends PassItem {
             result = !result;
         }
         if (ChatDirector.isDebug()) {
-            ChatDirector.logger.log(Level.WARNING,
+            ChatDirector.getLogger().log(Level.WARNING,
                     "Conditional " + this.getClass().getCanonicalName() + " test returned " + result);
-            ChatDirector.logger.log(Level.WARNING, "True is " + yesChain + " false is " + noChain);
+            ChatDirector.getLogger().log(Level.WARNING, "True is " + yesChain + " false is " + noChain);
         }
         if (result) {
             return yesChain.run(context);
