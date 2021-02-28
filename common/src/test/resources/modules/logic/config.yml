@@ -1,86 +1,80 @@
 debug: false
 chains:
-  - logic-test:
+  - if-contains:
       - if-contains:
           yes-chain:
             - stop: null
           no-chain:
             - stop: null
           contains: "String"
-          source: "%CURRENT%"
-          invert: false
+          source: "Source"
       - if-contains:
           contains: "String"
           yes-chain:
             - stop: null
       - if-contains:
           contains: "String"
-          no-chain:
-            - stop: null
+          yes-chain:
+            - if-contains:
+                contains: "String"
+                no-chain:
+                  - stop: null
+  - if-equals:
       - if-equals:
           yes-chain:
-            - cache-get:
-                key: "Key val"
+            - if-equals:
+                equals: "test"
+                no-chain:
+                  - stop: null
           no-chain:
             - stop: null
           equals: "String"
           source: "%CURRENT%"
-          invert: false
           ignore-case: false
       - if-equals:
           equals: "String"
           no-chain:
             - stop: null
+  - if-regex-match:
       - if-regex-match:
           yes-chain:
-            - echo: "hello!"
-            - cache-get:
-                key: "Key val"
+            - echo: "yes"
           no-chain:
-            - cache-get:
-                key: "Key val"
-            - echo: "hello!"
+            - echo: "no"
           match: "[sS]tring"
           source: "%CURRENT%"
-          invert: false
       - if-regex-match:
           match: "[sS]tring"
           yes-chain:
             - halt
+  - split:
       - split:
           - stream-1:
-              - echo: "hello!"
-              - break: null
+              - echo: "1"
           - stream-2:
-              - halt: null
+              - echo: "2"
       - split
+  - if-starts-with:
       - if-starts-with:
           yes-chain:
-            - cache-get:
-                key: "Key val"
-            - echo: "hello!"
+            - echo: "yes"
           no-chain:
-            - cache-get:
-                key: "Key val"
-            - echo: "hello!"
+            - echo: "no"
           starts: "String"
           source: "%CURRENT%"
       - if-starts-with:
-          starts: "String"
+          starts: "2"
           yes-chain:
             - halt
+  - if-ends-with:
       - if-ends-with:
           yes-chain:
-            - cache-get:
-                key: "Key val"
-            - echo: "hello!"
+            - echo: "yes"
           no-chain:
-            - cache-get:
-                key: "Key val"
-            - echo: "hello!"
+            - echo: "no"
           ends: "String"
           source: "%CURRENT%"
       - if-ends-with:
-          ends: "String"
+          ends: "2"
           yes-chain:
             - halt

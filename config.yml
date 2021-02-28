@@ -204,20 +204,17 @@ chains:
           no-chain: null # Or this can be nothing or optional
           contains: "String"
           source: "%CURRENT%" # Optional. source.contains(contains)
-          invert: false # Optional inverts the decision
       - if-equals:
           yes-chain: null # Optional
           no-chain: null # Optional
           equals: "String"
           source: "%CURRENT%" # Optional. source.equals(contains)
-          invert: false # Optional inverts the decision
           ignore-case: false # optional
       - if-regex-match:
           yes-chain: null # Optional
           no-chain: null # Optional
           match: "[sS]tring"
           source: "%CURRENT%" # Optional. source.match(contains)
-          invert: false # Optional inverts the decision
       - split:
           - stream-1:
               - echo: "hello!"

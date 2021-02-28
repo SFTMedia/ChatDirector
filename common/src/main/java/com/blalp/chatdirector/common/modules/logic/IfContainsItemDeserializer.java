@@ -30,9 +30,6 @@ public class IfContainsItemDeserializer extends JsonDeserializer<IfContainsItem>
         if (config.has("source") && config.get("source").isTextual()) {
             output.source = config.get("source").asText();
         }
-        if (config.has("invert") && config.get("invert").isTextual()) {
-            output.invert = config.get("invert").asBoolean();
-        }
         return output;
     }
 

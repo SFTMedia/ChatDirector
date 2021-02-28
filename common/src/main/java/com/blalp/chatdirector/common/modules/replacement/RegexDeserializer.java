@@ -19,8 +19,10 @@ public class RegexDeserializer extends JsonDeserializer<RegexItem> {
         ObjectCodec oc = p.getCodec();
         JsonNode config = oc.readTree(p);
         RegexItem output = new RegexItem();
-        for (Entry<String, JsonNode> pair : new IteratorIterable<>(config.fields())) {
-            output.pairs.put(pair.getKey(), pair.getValue().asText());
+        for (JsonNode pairObj : new IteratorIterable<>(config.elements())) {
+            for (Entry<String,JsonNode> pair : new IteratorIterable<>(pairObj.fields())) {
+                output.pairs.put(pair.getKey(), pair.getValue().asText());
+            }
         }
         return output;
     }

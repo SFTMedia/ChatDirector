@@ -23,15 +23,11 @@ public abstract class ConditionalItem extends PassItem {
 
     Chain yesChain;
     Chain noChain;
-    boolean invert = false;
     String source = "%CURRENT%";
 
     @Override
     public Context process(Context context) {
         boolean result = test(context);
-        if (invert) {
-            result = !result;
-        }
         if (ChatDirector.isDebug()) {
             ChatDirector.getLogger().log(Level.WARNING,
                     "Conditional " + this.getClass().getCanonicalName() + " test returned " + result);

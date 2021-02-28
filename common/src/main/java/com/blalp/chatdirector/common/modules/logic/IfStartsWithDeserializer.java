@@ -25,13 +25,10 @@ public class IfStartsWithDeserializer extends JsonDeserializer<IfStartsWithItem>
             output.noChain = config.get("no-chain").traverse(oc).readValueAs(Chain.class);
         }
         if (config.has("starts") && config.get("starts").isTextual()) {
-            output.startsWith = config.get("starts").asText();
+            output.starts = config.get("starts").asText();
         }
         if (config.has("source") && config.get("source").isTextual()) {
             output.source = config.get("source").asText();
-        }
-        if (config.has("invert") && config.get("invert").isTextual()) {
-            output.invert = config.get("invert").asBoolean();
         }
         return output;
     }

@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = IfStartsWithDeserializer.class)
 public class IfStartsWithItem extends ConditionalItem {
-    String startsWith;
+    String starts;
 
     public IfStartsWithItem(Chain nestedTrue, Chain nestedFalse, String startsWith, String source) {
         super(nestedTrue, nestedFalse);
-        this.startsWith = startsWith;
+        this.starts = startsWith;
         if (source == null) {
             source = "%CURRENT%";
         }
@@ -30,11 +30,11 @@ public class IfStartsWithItem extends ConditionalItem {
 
     @Override
     public boolean test(Context context) {
-        return ChatDirector.format(source, context).startsWith(startsWith);
+        return ChatDirector.format(source, context).startsWith(starts);
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(startsWith) && super.isValid();
+        return ValidationUtils.hasContent(starts) && super.isValid();
     }
 }

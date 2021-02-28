@@ -25,13 +25,10 @@ public class IfEndsWithDeserializer extends JsonDeserializer<IfEndsWithItem> {
             output.noChain = config.get("no-chain").traverse(oc).readValueAs(Chain.class);
         }
         if (config.has("ends") && config.get("ends").isTextual()) {
-            output.endsWith = config.get("ends").asText();
+            output.ends = config.get("ends").asText();
         }
         if (config.has("source") && config.get("source").isTextual()) {
             output.source = config.get("source").asText();
-        }
-        if (config.has("invert") && config.get("invert").isTextual()) {
-            output.invert = config.get("invert").asBoolean();
         }
         return output;
     }

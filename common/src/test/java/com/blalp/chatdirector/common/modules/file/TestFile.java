@@ -75,10 +75,4 @@ public class TestFile {
         fileOutputItem.create=false;
         assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").items.get(2));
     }
-
-    @Test
-    public void integration() {
-        init();
-
-    }
 }
