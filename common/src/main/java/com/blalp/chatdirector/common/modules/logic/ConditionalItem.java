@@ -34,9 +34,17 @@ public abstract class ConditionalItem extends PassItem {
             ChatDirector.getLogger().log(Level.WARNING, "True is " + yesChain + " false is " + noChain);
         }
         if (result) {
-            return yesChain.run(context);
+            if(yesChain!=null){
+                return context.diff(yesChain.run(context));
+            } else {
+                return new Context();
+            }
         } else {
-            return noChain.run(context);
+            if(noChain!=null){
+                return context.diff(noChain.run(context));
+            } else {
+                return new Context();
+            }
         }
     }
 

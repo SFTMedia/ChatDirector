@@ -35,7 +35,7 @@
 					<transformers>
 						<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 							<manifestEntries>
-								<Main-Class>com.blalp.chatdirector.platform.console.ChatDirectorConsole</Main-Class>
+								<Main-Class>com.blalp.chatdirector.console.ChatDirectorConsole</Main-Class>
 								<Build-Number>${project.version}</Build-Number>
 							</manifestEntries>
 						</transformer>
@@ -53,7 +53,6 @@
 					</filters>
 					<artifactSet>
 						<excludes>
-							<exclude>com.fasterxml.jackson.core:jackson-databind</exclude>
 							<exclude>org.projectlombok:lombok</exclude>
 						</excludes>
 					</artifactSet>

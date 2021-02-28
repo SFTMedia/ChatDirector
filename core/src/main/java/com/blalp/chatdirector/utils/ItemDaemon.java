@@ -1,13 +1,13 @@
 package com.blalp.chatdirector.utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.model.IItem;
 
 public abstract class ItemDaemon implements IDaemon {
-    List<IItem> items = new ArrayList<>();
+    Set<IItem> items = new HashSet<>();
 
     public void addItem(IItem item) {
         items.add(item);
@@ -18,11 +18,11 @@ public abstract class ItemDaemon implements IDaemon {
     }
 
     public boolean unload() {
-        items = new ArrayList<>();
+        items = new HashSet<>();
         return true;
     }
 
-    public List<IItem> getItems() {
+    public Set<IItem> getItems() {
         return items;
     }
 }

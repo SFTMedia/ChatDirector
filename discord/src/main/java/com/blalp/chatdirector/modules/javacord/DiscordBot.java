@@ -58,4 +58,7 @@ public class DiscordBot implements ILoadable {
         items.add(item);
         pendingItems.put(bot,items);
 	}
+    public static Map<String, List<DiscordInputItem>> getPendingItems() {
+        return pendingItems;
+    }
 }

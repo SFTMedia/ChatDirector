@@ -32,10 +32,18 @@ public class DiscordModule implements IModule {
                 DiscordBot.discordBots.put(bot.getKey(), new DiscordBot(bot.getValue()));
             }
         }
-        for (DiscordBot bot : DiscordBot.discordBots.values()) {
-            result = result && bot.load();
-            if (bot.daemon != null) {
-                result = result && bot.daemon.load();
+        for (Entry<String,DiscordBot> bot : DiscordBot.discordBots.entrySet()) {
+            result = result && bot.getValue().load();
+            if(DiscordBot.getPendingItems().containsKey(bot.getKey())){
+                for(DiscordInputItem item : DiscordBot.getPendingItems().get(bot.getKey())) {
+                    if(bot.getValue().daemon==null){
+                        bot.getValue().daemon=new DiscordInputDaemon(bot.getKey());
+                    }
+                    bot.getValue().daemon.addItem(item);
+                }
+            }
+            if (bot.getValue().daemon != null) {
+                result = result && bot.getValue().daemon.load();
             }
         }
         return result;

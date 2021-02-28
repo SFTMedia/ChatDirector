@@ -20,14 +20,15 @@ public class TimedLoad implements Runnable {
         while (loop) {
             System.out.println("Timed load attempting to load");
             try {
-                ChatDirector.getInstance().load();
-                if (!ChatDirector.hasChains()) {
-                    throw new Exception("No CHAINS!");
+                if(ChatDirector.getInstance().load()){
+                    if (!ChatDirector.hasChains()) {
+                        throw new Exception("No CHAINS!");
+                    }
+                    System.out.println("Timed load completed.");
+                    loop = false;
+                    instance = null;
+                    return;
                 }
-                System.out.println("Timed load completed.");
-                loop = false;
-                instance = null;
-                return;
             } catch (Exception e) {
                 e.printStackTrace();
             }

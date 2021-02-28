@@ -13,8 +13,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class Context extends HashMap<String, String> {
-    private boolean halt = false;
-    private List<Object> removeKeys = new ArrayList<>();
+    boolean halt = false;
+    List<Object> removeKeys = new ArrayList<>();
     /**
      *
      */
@@ -89,4 +89,26 @@ public class Context extends HashMap<String, String> {
         removeKeys.add(key);
         return super.remove(key);
     }
+
+	public Context diff(Context other) {
+        Context output = new Context();
+        for(String key:this.keySet()) {
+            if(!other.containsKey(key)) {
+                other.removeKeys.add(key);
+            } else {
+                if(!other.get(key).equals(this.get(key))){
+                    output.put(key, other.get(key));
+                }
+            }
+        }
+        if(other.halt||halt){
+            output.halt=true;
+        }
+        for(Object key:other.removeKeys){
+            if(!this.removeKeys.contains(key)){
+                output.removeKeys.add(key);
+            }
+        }
+		return output;
+	}
 }

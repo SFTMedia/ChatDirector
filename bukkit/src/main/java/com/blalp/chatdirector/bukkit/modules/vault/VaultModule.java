@@ -59,6 +59,11 @@ public class VaultModule implements IModule {
 
     @Override
     public boolean load() {
+        try {
+            Class.forName("org.bukkit.Bukkit");
+        } catch (ClassNotFoundException e) {
+            return true;
+        }
         setupChat();
         setupEconomy();
         setupPermissions();

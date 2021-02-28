@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.Map.Entry;
+import java.util.logging.Level;
 
 import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.model.IModule;
@@ -35,7 +38,7 @@ public class Configuration implements IConfiguration {
     // https://stackoverflow.com/questions/58102069/how-to-do-a-partial-deserialization-with-jackson#58102226
     @Override
     public boolean load() {
-        // The actual loading is done in ChatDirector
+        boolean result = true;
         if (debug) {
             System.out.println("Modules");
             for (IModule module : modules) {
@@ -49,7 +52,33 @@ public class Configuration implements IConfiguration {
                 }
             }
         }
-        return true;
+        // Load modules only if we already have a loaded config
+        for (IModule module : getModules()) {
+            result = result && module.load();
+            if(debug){
+                System.out.println(module+"returned "+result);
+            }
+        }
+        // Now validate chains
+        for (Entry<String, Chain> chain : getChains().entrySet()) {
+            if (chain.getValue() != null && !chain.getValue().isValid()) {
+                ChatDirector.getLogger().log(Level.SEVERE, "chain: " + chain.toString() + " is not valid.");
+                return false;
+            }
+        }
+        for (IModule module : getModules()) {
+            if (!module.isValid()) {
+                ChatDirector.getLogger().log(Level.SEVERE, "module " + module.toString() + " is not valid.");
+                return false;
+            }
+        }
+        for (IDaemon daemon : getDaemons()) {
+            if(!daemon.load()){
+                ChatDirector.getLogger().log(Level.SEVERE, "daemon " + daemon.toString() + " failed to load.");
+                return false;
+            }
+        }
+        return result;
     }
 
     @Override

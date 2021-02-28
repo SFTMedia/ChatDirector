@@ -90,7 +90,6 @@ public class ChatDirector implements IConfiguration {
     }
 
     public boolean load() {
-        boolean result = true;
         // Load config
         // NOTE: While config is being reloaded it will use the old config in parsing if
         // the singleton is used.
@@ -98,38 +97,13 @@ public class ChatDirector implements IConfiguration {
             return false;
         }
         // At this point config loaded
-        if (config != null) {
+        if (config.getChains().size()!=0) {
             // ignore if unload fails, as we always want to load.
             unload();
         }
         config = configStaging;
 
-        // Load modules only if we already have a loaded config
-        if (config != null) {
-            for (IModule module : config.getModules()) {
-                result = result && module.load();
-            }
-        }
-        // Now validate chains
-        for (Entry<String, Chain> chain : config.getChains().entrySet()) {
-            if (chain.getValue() != null && !chain.getValue().isValid()) {
-                logger.log(Level.SEVERE, "chain: " + chain.toString() + " is not valid.");
-                return false;
-            }
-        }
-        for (IModule module : config.getModules()) {
-            if (!module.isValid()) {
-                logger.log(Level.SEVERE, "module " + module.toString() + " is not valid.");
-                return false;
-            }
-        }
-        for (IDaemon daemon : config.getDaemons()) {
-            if(!daemon.load()){
-                logger.log(Level.SEVERE, "daemon " + daemon.toString() + " failed to load.");
-                return false;
-            }
-        }
-        return result;
+        return config.load();
     }
 
     public boolean unload() {

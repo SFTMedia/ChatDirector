@@ -37,6 +37,7 @@ public class DiscordParticipatesItem extends DiscordItem {
             }
         }
         Context workingContext = new Context();
+        workingContext.merge(context);
         for (User user : users.values()) {
             if (ChatDirector.isDebug()) {
                 ChatDirector.getLogger().log(Level.WARNING,

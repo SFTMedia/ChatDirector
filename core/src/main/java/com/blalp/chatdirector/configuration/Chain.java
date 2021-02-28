@@ -62,13 +62,14 @@ public class Chain implements IValid, Runnable {
         Context output;
         for (int i = indexOf; i < items.size(); i++) {
             if (ChatDirector.getConfig().debug) {
-                ChatDirector.getLogger().log(Level.WARNING,
-                        "Starting process of " + items.get(i) + " with context " + context.toString());
+                ChatDirector.getLogger().log(Level.INFO,
+                        "Starting process of " + items.get(i));
+                ChatDirector.getLogger().log(Level.INFO,context.toString());
             }
             output = items.get(i).process(context);
             if (ChatDirector.getConfig().debug) {
-                ChatDirector.getLogger().log(Level.WARNING,
-                        "Ended process of " + items.get(i) + " with context " + output.toString());
+                ChatDirector.getLogger().log(Level.INFO,
+                        "Ended process of " + items.get(i) + " with changed context " + output.toString());
             }
             // Setup LAST and CURRENT contexts
             if (output != null) {

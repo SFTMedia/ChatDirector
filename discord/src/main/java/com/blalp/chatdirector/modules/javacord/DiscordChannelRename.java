@@ -5,6 +5,7 @@ import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,8 @@ public class DiscordChannelRename extends DiscordItem {
 
     @Override
     public Context process(Context context) {
-        DiscordBot.get(bot).getDiscordApi()
-                .getServerChannelById(ChatDirector.format(channel, context)).get().createUpdater()
-                .setName(ChatDirector.format(name, context)).update();
+        DiscordBot.get(bot).getDiscordApi().getServerChannelById(ChatDirector.format(channel, context)).get()
+                .updateName(ChatDirector.format(name, context));
         return new Context();
     }
 

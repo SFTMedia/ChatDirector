@@ -45,7 +45,6 @@ public class SQLModule implements IModule {
 
     @Override
     public boolean unload() {
-        ChatDirector.getLogger().log(Level.WARNING, "Unloading " + this);
         for (SQLConnection connection : connections.values()) {
             connection.unload();
         }
