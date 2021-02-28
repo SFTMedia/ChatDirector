@@ -1,7 +1,7 @@
-# Example of just common items
+
 debug: false
 chains:
-  - loading-test: # all of these should load
+  - loading-test:
       - break
       - break: null
       - halt
@@ -11,18 +11,18 @@ chains:
       - echo: ""
       - reload
       - reload: null
-  - breaking-test: # This should return second value
+  - breaking-test:
       - echo: "This is the first value"
       - echo: "This is the second value"
       - break
       - echo: "This is the third value"
-  - echo-test: # This should echo "This was >This was >hello!<<, but before that it was >hello!<"
+  - echo-test:
       - echo: "hello!"
       - echo: "This was >%CURRENT%<"
       - echo: "This was >%CURRENT%<, but before that it was >%LAST%<"
-  - halt-test: # This should not get to the second value
+  - halt-test:
       - echo: "This is the first value"
       - halt
       - echo: "This is the second value"
-  - reload-test: # This should trigger a reload
+  - reload-test:
       - reload

@@ -1,14 +1,14 @@
 debug: false
 chains:
   - bukkit-input:
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           chat: false
           logout: true
           login: true
           server-started: true
           server-stopped: true
           check-canceled: true
-          override-chat: true # This will set the message to the result of the chain
+          override-chat: true
           new-player: true
           cancel-chat: true
           format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
@@ -17,7 +17,7 @@ chains:
           format-logout: "logout"
           format-stopped: "stopped"
           format-started: "started"
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           chat: true
           logout: false
           login: false
@@ -33,54 +33,54 @@ chains:
           format-logout: "logout 2"
           format-stopped: "stopped 2"
           format-started: "started 2"
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           chat: true
           format-chat: "formatting"
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           login: true
           format-login: "login 3"
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           login: true
           format-new-player: "new player 3"
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           logout: true
           format-logout: "logout 3"
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           server-started: true
           format-started: "started 3"
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           server-stopped: true
           format-stopped: "stopped 3"
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           chat: true
           check-canceled: true
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           chat: true
-          override-chat: true # This will set the message to the result of the chain
-      - bukkit-input: # All of these are optional
+          override-chat: true
+      - bukkit-input:
           login: true
           new-player: true
-      - bukkit-input: # All of these are optional
+      - bukkit-input:
           chat: true
           cancel-chat: true
   - bukkit-playerlist:
       - bukkit-playerlist:
-          format: "format 1" # Optional
-          format-player: "player 1" # Optional
-          format-no-players: "no players 1" # Optional
+          format: "format 1"
+          format-player: "player 1"
+          format-no-players: "no players 1"
       - bukkit-playerlist:
-          format-player: "player 2" # Optional
-          format-no-players: "no players 2" # Optional
+          format-player: "player 2"
+          format-no-players: "no players 2"
       - bukkit-playerlist:
-          format-no-players: "no players 3" # Optional
+          format-no-players: "no players 3"
       - bukkit-playerlist:
-          format: "format 4" # Optional
+          format: "format 4"
       - bukkit-playerlist:
-          format-player: "player 5" # Optional
+          format-player: "player 5"
       - bukkit-playerlist: null
   - bukkit-output:
       - bukkit-output:
-          permission: "permission test" # Optional
+          permission: "permission test"
       - bukkit-output: null
   - bukkit-command:
       - bukkit-command:

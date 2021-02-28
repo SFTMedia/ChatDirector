@@ -1,4 +1,4 @@
-# Example of everything at once.
+
 chains:
   - vault-demo:
-      - vault-context: null # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.
+      - vault-context: null

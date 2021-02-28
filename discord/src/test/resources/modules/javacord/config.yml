@@ -5,177 +5,177 @@ module_data:
 chains:
   - discord-input:
       - discord-input:
-          channel: "0" # CHANNEL_ID
+          channel: "0"
           bot: bot-name
-          category: "CATEGORY_ID" # optional
-          message: "MESSAGE_ID" # optional
-          reaction-add-event: true # optional
-          reaction-remove-event: false # optional
-          message-event: true # optional
+          category: "CATEGORY_ID"
+          message: "MESSAGE_ID"
+          reaction-add-event: true
+          reaction-remove-event: false
+          message-event: true
       - discord-input:
-          channel: "16" # CHANNEL_ID
+          channel: "16"
           bot: bot2
-          category: "CATEGORY 2" # optional
-          message: "MESSAGE 2" # optional
-          reaction-add-event: false # optional
-          reaction-remove-event: true # optional
-          message-event: false # optional
+          category: "CATEGORY 2"
+          message: "MESSAGE 2"
+          reaction-add-event: false
+          reaction-remove-event: true
+          message-event: false
       - discord-input:
-          channel: "16" # CHANNEL_ID
+          channel: "16"
           bot: bot2
-          category: "CATEGORY 2" # optional
+          category: "CATEGORY 2"
       - discord-input:
-          channel: "16" # CHANNEL_ID
+          channel: "16"
           bot: bot2
-          message: "MESSAGE 2" # optional
+          message: "MESSAGE 2"
       - discord-input:
-          channel: "16" # CHANNEL_ID
+          channel: "16"
           bot: bot2
-          reaction-add-event: false # optional
+          reaction-add-event: false
       - discord-input:
-          channel: "16" # CHANNEL_ID
+          channel: "16"
           bot: bot2
-          reaction-remove-event: true # optional
+          reaction-remove-event: true
       - discord-input:
-          channel: "16" # CHANNEL_ID
+          channel: "16"
           bot: bot2
-          message-event: false # optional
+          message-event: false
   - discord-resolve:
       - discord-resolve:
-          server: "0" # SERVER_ID
+          server: "0"
           bot: bot-name
           to-discord: false
           to-plain: true
       - discord-resolve:
-          server: "SERVER" # SERVER_ID
+          server: "SERVER"
           bot: bot
           to-discord: true
           to-plain: false
   - discord-output:
-      - discord-output: # Sends string with NO CONTEXT RESOLVING.
-          channel: "0" # CHANNEL_ID
-          format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%" # Optional
+      - discord-output:
+          channel: "0"
+          format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%"
           bot: bot-name
-      - discord-output: # Sends string with NO CONTEXT RESOLVING.
-          channel: "123" # CHANNEL_ID
+      - discord-output:
+          channel: "123"
           bot: bot
-      - discord-output: # Sends string with NO CONTEXT RESOLVING.
-          channel: "0" # CHANNEL_ID
+      - discord-output:
+          channel: "0"
           bot: bot-name
   - discord-output-reaction:
       - discord-output-reaction:
-          channel: "0" # CHANNEL_ID
+          channel: "0"
           bot: bot-name
           message: "MESSAGE ID"
           emoji: "either a custom emoji id or unicode"
-          add: true # true to add an emoji, false to remove one
+          add: true
       - discord-output-reaction:
-          channel: "789024" # CHANNEL_ID
+          channel: "789024"
           bot: bot2
           message: "MESSAGE"
           emoji: "r"
-          add: false # true to add an emoji, false to remove one
+          add: false
   - discord-get-dm-channel:
-      - discord-get-dm-channel: # Puts the ID into DISCORD_DM_CHANNEL_ID
+      - discord-get-dm-channel:
           bot: "bot-name"
           user: "USER ID"
-      - discord-get-dm-channel: # Puts the ID into DISCORD_DM_CHANNEL_ID
+      - discord-get-dm-channel:
           bot: "bot"
           user: "USER"
   - discord-output-file:
       - discord-output-file:
-          channel: "0" # CHANNEL_ID
-          name: "hello world" # Optional
+          channel: "0"
+          name: "hello world"
           bot: bot-name
       - discord-output-file:
-          channel: "0456" # CHANNEL_ID
-          name: "hello" # Optional
+          channel: "0456"
+          name: "hello"
           bot: bot
   - discord-create-channel:
       - discord-create-channel:
-          server: "0" # SERVER_ID
+          server: "0"
           bot: bot-name
-          name: "channel" # Optional
-          category: "%CATEGORY_ID%" # Optional
-          user: "%DISCORD_AUTHOR ID%" # Optional
-          topic: "hello world" # Optional
+          name: "channel"
+          category: "%CATEGORY_ID%"
+          user: "%DISCORD_AUTHOR ID%"
+          topic: "hello world"
       - discord-create-channel:
-          server: "4560" # SERVER_ID
+          server: "4560"
           bot: bot
-          name: "channel2" # Optional
-          category: "%CATEGORY_ID_2%" # Optional
-          user: "%DISCORD_AUTHOR ID 2%" # Optional
-          topic: "hello world 2" # Optional
+          name: "channel2"
+          category: "%CATEGORY_ID_2%"
+          user: "%DISCORD_AUTHOR ID 2%"
+          topic: "hello world 2"
       - discord-create-channel:
-          server: "4560" # SERVER_ID
+          server: "4560"
           bot: bot
-          name: "channel2" # Optional
+          name: "channel2"
       - discord-create-channel:
-          server: "4560" # SERVER_ID
+          server: "4560"
           bot: bot
-          category: "%CATEGORY_ID_2%" # Optional
+          category: "%CATEGORY_ID_2%"
       - discord-create-channel:
-          server: "4560" # SERVER_ID
+          server: "4560"
           bot: bot
-          user: "%DISCORD_AUTHOR ID 2%" # Optional
+          user: "%DISCORD_AUTHOR ID 2%"
       - discord-create-channel:
-          server: "4560" # SERVER_ID
+          server: "4560"
           bot: bot
-          topic: "hello world 2" # Optional
+          topic: "hello world 2"
   - discord-message-history:
       - discord-message-history:
           bot: "bot name"
           channel: "channel id"
-          length: 50 # Optional how many messages of history ot get
-          format: "%DISCORD_MESSAGE%" # Optional
+          length: 50
+          format: "%DISCORD_MESSAGE%"
       - discord-message-history:
           bot: "bot name"
           channel: "channel id"
-          length: 50 # Optional how many messages of history ot get
-          format: "%DISCORD_MESSAGE yikes%" # Optional
+          length: 50
+          format: "%DISCORD_MESSAGE yikes%"
       - discord-message-history:
           bot: "bot"
           channel: "channel"
-          length: 100 # Optional how many messages of history ot get
+          length: 100
   - discord-embed:
-      - discord-embed: # https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
+      - discord-embed:
           bot: "bot name"
           channel: "channel name"
-          author-avatar: "Author Avatar" # Optional
-          author-link: "Author Link" # Optional
-          author-name: "Author Name" # Optional
-          color: "BLUE" # Optional
-          description: "Description" # Optional
-          footer-avatar: "Footer Avatar" # Optional
-          footer-name: "Footer Name" # Optional
-          fields: # Optional
+          author-avatar: "Author Avatar"
+          author-link: "Author Link"
+          author-name: "Author Name"
+          color: "BLUE"
+          description: "Description"
+          footer-avatar: "Footer Avatar"
+          footer-name: "Footer Name"
+          fields:
             "field 1 header": "field 1 body"
             "field 2 header": "field 2 body"
-          inline-fields: # Optional
+          inline-fields:
             "inline field 1 header": "inline field 1 body"
             "inline field 2 header": "inline field 2 body"
-          image: "Image" # Optional
-          thumbnail: "Thumbnail" # Optional
-          title: "Title" # Optional
-      - discord-embed: # https://javacord.org/wiki/basic-tutorials/embeds.html#embed-limits
+          image: "Image"
+          thumbnail: "Thumbnail"
+          title: "Title"
+      - discord-embed:
           bot: "bot"
           channel: "channel"
-          author-avatar: "Author Avatar 2" # Optional
-          author-link: "Author Link 2" # Optional
-          author-name: "Author Name 2" # Optional
-          color: "BLUE" # Optional
-          description: "Description 2" # Optional
-          footer-avatar: "Footer Avatar 2" # Optional
-          footer-name: "Footer Name 2" # Optional
-          fields: # Optional
+          author-avatar: "Author Avatar 2"
+          author-link: "Author Link 2"
+          author-name: "Author Name 2"
+          color: "BLUE"
+          description: "Description 2"
+          footer-avatar: "Footer Avatar 2"
+          footer-name: "Footer Name 2"
+          fields:
             "field 1 header 2": "field 1 body 2"
             "field 2 header 2": "field 2 body 2"
-          inline-fields: # Optional
+          inline-fields:
             "inline field 1 header 2": "inline field 1 body 2"
             "inline field 2 header 2": "inline field 2 body 2"
-          image: "Image 2" # Optional
-          thumbnail: "Thumbnail 2" # Optional
-          title: "Title 2" # Optional
+          image: "Image 2"
+          thumbnail: "Thumbnail 2"
+          title: "Title 2"
       - discord-embed:
           bot: "bot"
           channel: "channel"
@@ -198,12 +198,12 @@ chains:
   - discord-participants:
       - discord-participants:
           bot: "bot name"
-          length: 50 # Optional how many messages of history ot get
+          length: 50
           channel: "channel id"
-          each: null # List of Items
+          each: null
       - discord-participants:
           bot: "bot"
-          length: 100 # Optional how many messages of history ot get
+          length: 100
           channel: "channel"
           each:
             - echo: "hello"
