@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.sql;
+package com.blalp.chatdirector.extra.modules.sql;
 
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SQLItem implements IItem {
     String table, name, key, connection;

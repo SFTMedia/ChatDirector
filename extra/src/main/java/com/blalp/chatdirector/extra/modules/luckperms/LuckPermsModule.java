@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.luckperms;
+package com.blalp.chatdirector.extra.modules.luckperms;
 
 import java.util.Arrays;
 import java.util.List;

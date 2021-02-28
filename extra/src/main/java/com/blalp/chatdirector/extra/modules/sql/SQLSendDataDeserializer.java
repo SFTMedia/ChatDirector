@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.sql;
+package com.blalp.chatdirector.extra.modules.sql;
 
 import java.io.IOException;
 
@@ -9,14 +9,14 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class SQLRetrieveDataDeserializer extends JsonDeserializer<SQLRetrieveDataItem> {
+public class SQLSendDataDeserializer extends JsonDeserializer<SQLSendDataItem> {
 
     @Override
-    public SQLRetrieveDataItem deserialize(JsonParser p, DeserializationContext ctxt)
+    public SQLSendDataItem deserialize(JsonParser p, DeserializationContext ctxt)
             throws IOException, JsonProcessingException {
         ObjectCodec oc = p.getCodec();
         JsonNode config = oc.readTree(p);
-        SQLRetrieveDataItem output = new SQLRetrieveDataItem();
+        SQLSendDataItem output = new SQLSendDataItem();
         if (config.has("cache")) {
             output.cache = config.get("cache").asBoolean();
         }
@@ -24,7 +24,13 @@ public class SQLRetrieveDataDeserializer extends JsonDeserializer<SQLRetrieveDat
         output.key = config.get("key").asText();
         output.name = config.get("name").asText();
         output.table = config.get("table").asText();
-        SQLModule.tables.get(output.connection).add(output.table);
+        output.value = config.get("value").asText();
+        try {
+            SQLModule.tables.get(output.connection).add(output.table);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.err.println("Not a registered connection " + output.connection);
+        }
         return output;
     }
 

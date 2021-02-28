@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.sql;
+package com.blalp.chatdirector.extra.modules.sql;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.common.modules.logic.ConditionalItem;

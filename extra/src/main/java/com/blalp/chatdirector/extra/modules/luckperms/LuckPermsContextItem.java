@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.luckperms;
+package com.blalp.chatdirector.extra.modules.luckperms;
 
 import com.blalp.chatdirector.minecraft.utils.PermissionItem;
 import com.blalp.chatdirector.model.Context;

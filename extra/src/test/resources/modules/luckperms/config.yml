@@ -1,0 +1,28 @@
+chains:
+  - luckperms-context:
+      - luckperms-context: null
+  - luckperms-has:
+      - luckperms-has:
+          yes-chain: null
+          no-chain: null
+          permission: "permission.node"
+      - luckperms-has:
+          yes-chain:
+            - echo: "yes"
+          no-chain:
+            - echo: "no"
+          permission: "permission.node 2"
+  - luckperms-set:
+      - luckperms-set:
+          permission: "permission.node"
+          value: false
+      - luckperms-set:
+          permission: "permission.node 2"
+          value: true
+  - luckperms-unset:
+      - luckperms-unset:
+          permission: "permission.node"
+          value: false
+      - luckperms-unset:
+          permission: "permission.node 2"
+          value: true
