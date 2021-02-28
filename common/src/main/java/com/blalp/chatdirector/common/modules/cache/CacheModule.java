@@ -3,6 +3,7 @@ package com.blalp.chatdirector.common.modules.cache;
 import java.util.Arrays;
 import java.util.List;
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
 public class CacheModule implements IModule {
@@ -28,7 +29,7 @@ public class CacheModule implements IModule {
         return new Context();
     }
 
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "cache-get":
                 return CacheGetItem.class;

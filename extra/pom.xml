@@ -38,8 +38,25 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.16</version>
+		</dependency>
+		<dependency>
 			<groupId>com.blalp.chatdirector</groupId>
 			<artifactId>core</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>com.blalp.chatdirector</groupId>
+			<artifactId>minecraft</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>com.blalp.chatdirector</groupId>
+			<artifactId>common</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>

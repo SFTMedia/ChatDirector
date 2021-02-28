@@ -23,7 +23,7 @@ public class BungeeCommand extends Command implements ILoadable {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Context context = BungeeModule.instance.getContext(sender);
+        Context context = ChatDirector.getConfig().getModule(BungeeModule.class).getContext(sender);
         String string = item.command;
         for (int i = 0; i < args.length; i++) {
             string += " " + args[i];

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
 import net.md_5.bungee.api.ProxyServer;
@@ -16,18 +17,9 @@ import net.md_5.bungee.api.event.ServerSwitchEvent;
 
 public class BungeeModule implements IModule {
 
-    public static BungeeModule instance;
-
-    public BungeeModule() {
-        instance = this;
-    }
-
     @Override
     public boolean load() {
         boolean result = true;
-        if (BungeeInputItemDaemon.instance != null) {
-            result = result && BungeeInputItemDaemon.instance.load();
-        }
         for (BungeeCommand command : BungeeCommand.commands) {
             result = result && command.load();
         }
@@ -37,9 +29,6 @@ public class BungeeModule implements IModule {
     @Override
     public boolean unload() {
         boolean result = true;
-        if (BungeeInputItemDaemon.instance != null) {
-            result = result && BungeeInputItemDaemon.instance.unload();
-        }
         for (BungeeCommand command : BungeeCommand.commands) {
             result = result && command.unload();
         }
@@ -107,7 +96,7 @@ public class BungeeModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "bungee-playerlist":
                 return BungeePlayerlistItem.class;

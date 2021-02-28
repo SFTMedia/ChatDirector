@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.bukkit.modules.bungeeMessage;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
@@ -16,10 +17,7 @@ public class FromBungeeItem extends PassItem {
     String channel;
 
     public FromBungeeItem() {
-        if (FromBungeeDaemon.instance == null) {
-            FromBungeeDaemon.instance = new FromBungeeDaemon();
-        }
-        FromBungeeDaemon.instance.addItem(this);
+        ChatDirector.getConfig().getOrCreateDaemon(FromBungeeDaemon.class).addItem(this);
 
     }
 

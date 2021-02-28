@@ -21,6 +21,7 @@ import lombok.Data;
 import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IConfiguration;
+import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.model.IItem;
 
 @Data
@@ -65,11 +66,8 @@ public class ChatDirector implements IConfiguration {
         this.file = new File("config.yml");
     }
 
-    public boolean load() {
+    public boolean loadConfig(){
         boolean result = true;
-        // Load config
-        // NOTE: While config is being reloaded it will use the old config in parsing if
-        // the singleton is used.
         ObjectMapper om = new ObjectMapper(new YAMLFactory())
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         try {
@@ -86,6 +84,17 @@ public class ChatDirector implements IConfiguration {
         } catch (IOException e1) {
             e1.printStackTrace();
             logger.log(Level.SEVERE, "config failed to load.");
+            return false;
+        }
+        return result;
+    }
+
+    public boolean load() {
+        boolean result = true;
+        // Load config
+        // NOTE: While config is being reloaded it will use the old config in parsing if
+        // the singleton is used.
+        if(!loadConfig()){
             return false;
         }
         // At this point config loaded
@@ -114,6 +123,12 @@ public class ChatDirector implements IConfiguration {
                 return false;
             }
         }
+        for (IDaemon daemon : config.getDaemons()) {
+            if(!daemon.load()){
+                logger.log(Level.SEVERE, "daemon " + daemon.toString() + " failed to load.");
+                return false;
+            }
+        }
         return result;
     }
 
@@ -121,6 +136,9 @@ public class ChatDirector implements IConfiguration {
         boolean result = true;
         for (IModule module : config.getModules()) {
             result = result && module.unload();
+        }
+        for (IDaemon daemon : config.getDaemons()) {
+            daemon.unload();
         }
         result = result && config.unload();
         return result;
@@ -163,7 +181,7 @@ public class ChatDirector implements IConfiguration {
         return getConfig().getChains().size() != 0;
     }
 
-    public Class<?> getItemClass(String itemType) {
+    public Class<? extends IItem> getItemClass(String itemType) {
         return config.getItemClass(itemType);
     }
 
@@ -173,7 +191,7 @@ public class ChatDirector implements IConfiguration {
     }
 
     @Override
-    public Class<?> getItemClass(String itemType, Iterable<IModule> modules) {
+    public Class<? extends IItem> getItemClass(String itemType, Iterable<IModule> modules) {
         return config.getItemClass(itemType, modules);
     }
 
@@ -185,15 +203,33 @@ public class ChatDirector implements IConfiguration {
         }
     }
 
+    public static Configuration getConfigStaging() {
+        if (instance.configStaging != null) {
+            return instance.configStaging;
+        } else {
+            return instance.config;
+        }
+    }
+
     public static boolean isDebug() {
         return instance.config.isDebug();
     }
-    
+
     public static ChatDirector getInstance() {
         return instance;
     }
 
-	public static Logger getLogger() {
+    public static Logger getLogger() {
         return logger;
+    }
+
+    @Override
+    public IModule getModule(Class<? extends IModule> class1) {
+        return config.getModule(class1);
+    }
+
+    @Override
+    public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1) {
+        return config.getOrCreateDaemon(class1);
     }
 }

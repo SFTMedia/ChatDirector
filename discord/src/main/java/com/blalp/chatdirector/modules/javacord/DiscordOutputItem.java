@@ -19,7 +19,7 @@ public class DiscordOutputItem extends DiscordItem {
 
     @Override
     public Context process(Context context) {
-        DiscordModule.instance.discordBots.get(bot).getDiscordApi()
+        DiscordBot.get(bot).getDiscordApi()
                 .getChannelById(ChatDirector.format(channel, context)).get().asTextChannel().get()
                 .sendMessage(ChatDirector.format(format, context));
         return new Context();

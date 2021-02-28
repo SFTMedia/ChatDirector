@@ -41,10 +41,7 @@ public class DiscordInputItemDeserializer extends JsonDeserializer<DiscordInputI
         if (node.has("bot") && node.get("bot").isTextual()) {
             item.bot = node.get("bot").asText();
         }
-        if (DiscordModule.instance.discordBots.get(item.bot).daemon == null) {
-            DiscordModule.instance.discordBots.get(item.bot).daemon = new DiscordInputDaemon(item.bot);
-        }
-        DiscordModule.instance.discordBots.get(item.bot).daemon.addItem(item);
+        DiscordBot.addPendingItems(item.bot,item);
         return item;
     }
 

@@ -11,4 +11,7 @@ public interface IConfiguration extends ILoadable {
 
     public Map<String, Chain> getChains();
 
+    public IModule getModule(Class<? extends IModule> class1);
+
+    public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1);
 }

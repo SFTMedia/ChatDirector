@@ -75,8 +75,8 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        Context context = SpongeModule.instance.getContext(src);
-        context.merge(SpongeModule.instance.getContext(args));
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(src);
+        context.merge(ChatDirector.getConfig().getModule(SpongeModule.class).getContext(args));
         String output = command;
         if (args.<String>getOne(Text.of("args")).isPresent()) {
             output = args.<String>getOne(Text.of("args")).get();

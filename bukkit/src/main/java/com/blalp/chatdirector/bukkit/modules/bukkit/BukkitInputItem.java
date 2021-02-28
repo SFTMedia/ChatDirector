@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.bukkit.modules.bukkit;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
@@ -23,10 +24,7 @@ public class BukkitInputItem implements IItem {
     boolean overrideChat = false;
 
     public BukkitInputItem() {
-        if (BukkitInputDaemon.instance == null) {
-            BukkitInputDaemon.instance = new BukkitInputDaemon();
-        }
-        BukkitInputDaemon.instance.addItem(this);
+        ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class).addItem(this);
     }
 
     @Override

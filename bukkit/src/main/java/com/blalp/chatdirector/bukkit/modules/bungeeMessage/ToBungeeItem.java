@@ -1,17 +1,7 @@
 package com.blalp.chatdirector.bukkit.modules.bungeeMessage;
 
-import java.util.Map.Entry;
-
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.bukkit.ChatDirectorBukkit;
-import com.blalp.chatdirector.utils.ValidationUtils;
-import com.google.common.collect.Iterables;
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -30,11 +20,22 @@ public class ToBungeeItem implements IItem {
     }
 
     @Override
+    public boolean isValid() {
+        return false;
+    }
+
+    @Override
+    public Context process(Context context) {
+        return null;
+    }
+/*
+    @Override
     public Context process(Context context) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Forward");
-        out.writeUTF("ALL"); // Should this be all or online
-                             // https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#forward?
+        // Should this be all or online
+        // https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#forward?
+        out.writeUTF("ALL");
         out.writeUTF("ChatDirector");
         out.writeUTF(channel);
         out.writeInt(context.size());
@@ -52,4 +53,5 @@ public class ToBungeeItem implements IItem {
     public boolean isValid() {
         return ValidationUtils.hasContent(channel);
     }
+    */
 }

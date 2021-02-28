@@ -112,7 +112,7 @@ public class BungeeOutputFancyItem implements IItem {
                         continue;
                     }
                 }
-                playerContext.merge(BungeeModule.instance.getContext(proxiedPlayer));
+                playerContext.merge(ChatDirector.getConfig().getModule(BungeeModule.class).getContext(proxiedPlayer));
                 BaseComponent message = fromFancyMessage(fancyBase.duplicate().withContext(playerContext));
                 // Since we want to do context resolution per player we need to duplicate
                 proxiedPlayer.sendMessage(message);

@@ -3,6 +3,7 @@ package com.blalp.chatdirector.sponge.modules.sponge;
 import java.util.Arrays;
 import java.util.List;
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
 import org.spongepowered.api.Sponge;
@@ -12,11 +13,6 @@ import org.spongepowered.api.event.message.MessageChannelEvent.Chat;
 import org.spongepowered.api.event.user.TargetUserEvent;
 
 public class SpongeModule implements IModule {
-    public static SpongeModule instance;
-
-    public SpongeModule() {
-        instance = this;
-    }
 
     @Override
     public List<String> getItemNames() {
@@ -26,9 +22,6 @@ public class SpongeModule implements IModule {
     @Override
     public boolean load() {
         boolean result = true;
-        if (SpongeInputDaemon.instance != null) {
-            result = result && SpongeInputDaemon.instance.load();
-        }
         for (SpongeCommandItem command : SpongeCommandItem.commands) {
             result = result && command.load();
         }
@@ -38,9 +31,6 @@ public class SpongeModule implements IModule {
     @Override
     public boolean unload() {
         boolean result = true;
-        if (SpongeInputDaemon.instance != null) {
-            result = result && SpongeInputDaemon.instance.unload();
-        }
         for (SpongeCommandItem command : SpongeCommandItem.commands) {
             result = result && command.unload();
         }
@@ -80,7 +70,7 @@ public class SpongeModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "sponge-command":
                 return SpongeCommandItem.class;

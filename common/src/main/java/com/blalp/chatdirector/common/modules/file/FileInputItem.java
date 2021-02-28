@@ -2,6 +2,7 @@ package com.blalp.chatdirector.common.modules.file;
 
 import java.io.File;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,10 +18,7 @@ public class FileInputItem extends PassItem {
     int delay = 500;
 
     public FileInputItem() {
-        if (FileInputDaemon.instance == null) {
-            FileInputDaemon.instance = new FileInputDaemon();
-        }
-        FileInputDaemon.instance.addItem(this);
+        ChatDirector.getConfigStaging().getOrCreateDaemon(FileInputDaemon.class).addItem(this);
     }
 
     @Override

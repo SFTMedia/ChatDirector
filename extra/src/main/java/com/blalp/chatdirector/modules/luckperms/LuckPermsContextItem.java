@@ -1,7 +1,7 @@
 package com.blalp.chatdirector.modules.luckperms;
 
+import com.blalp.chatdirector.minecraft.utils.PermissionItem;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.utils.PermissionItem;
 
 import net.luckperms.api.LuckPermsProvider;
 import lombok.Data;

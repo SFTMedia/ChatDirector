@@ -6,30 +6,22 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.TimedLoad;
 import com.blalp.chatdirector.bukkit.modules.bukkit.BukkitCommand;
 import com.blalp.chatdirector.bukkit.modules.bukkit.BukkitInputDaemon;
-import com.blalp.chatdirector.bukkit.modules.bungeeMessage.FromBungeeDaemon;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.messaging.PluginMessageListener;
 
-public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListener {
-    public static ChatDirectorBukkit instance;
+public class ChatDirectorBukkit extends JavaPlugin /*implements PluginMessageListener*/ {
     private ChatDirector chatDirector;
 
     @Override
     public void onEnable() {
-        instance = this;
         try {
             chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
-            BukkitInputDaemon.instance = new BukkitInputDaemon();
-            getServer().getPluginManager().registerEvents(BukkitInputDaemon.instance, this);
+            getServer().getPluginManager().registerEvents((BukkitInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class), this);
             this.getDataFolder().mkdirs();
             chatDirector.load();
-            if (BukkitInputDaemon.instance != null) {
-                BukkitInputDaemon.instance.onServerStart();
-            }
+            ((BukkitInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onServerStart();
             if (!ChatDirector.hasChains()) {
                 throw new Exception("NO CHAINS!");
             }
@@ -41,19 +33,17 @@ public class ChatDirectorBukkit extends JavaPlugin implements PluginMessageListe
 
     @Override
     public void onDisable() {
-        if (BukkitInputDaemon.instance != null) {
-            BukkitInputDaemon.instance.onServerStop();
-        }
+        ((BukkitInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onServerStop();
         chatDirector.unload();
     }
-
+/*
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
         if (FromBungeeDaemon.instance != null) {
             FromBungeeDaemon.trigger(channel, player, message);
         }
     }
-
+*/
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equals("chatdirectorlocal") && sender.hasPermission("chatdirector.reload")) {

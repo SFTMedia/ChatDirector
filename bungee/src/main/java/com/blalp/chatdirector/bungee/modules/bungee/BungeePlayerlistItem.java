@@ -39,7 +39,7 @@ public class BungeePlayerlistItem implements IItem {
         Context tempContext2 = new Context(context);
         if (splitByServer) {
             for (ServerInfo server : ProxyServer.getInstance().getServers().values()) {
-                tempContext.merge(BungeeModule.instance.getContext(server));
+                tempContext.merge(ChatDirector.getConfig().getModule(BungeeModule.class).getContext(server));
                 output += ChatDirector.format(formatServer, tempContext);
                 first = true;
                 for (ProxiedPlayer player : server.getPlayers()) {
@@ -49,7 +49,7 @@ public class BungeePlayerlistItem implements IItem {
                         first = false;
                     }
                     tempContext2.merge(tempContext);
-                    tempContext2.merge(BungeeModule.instance.getContext(player));
+                    tempContext2.merge(ChatDirector.getConfig().getModule(BungeeModule.class).getContext(player));
                     temp_output += ChatDirector.format(formatPlayer, tempContext2);
                     tempContext2 = new Context(tempContext);
                 }
@@ -70,7 +70,7 @@ public class BungeePlayerlistItem implements IItem {
                 } else {
                     first = false;
                 }
-                tempContext.merge(BungeeModule.instance.getContext(player));
+                tempContext.merge(ChatDirector.getConfig().getModule(BungeeModule.class).getContext(player));
                 output += ChatDirector.format(formatPlayer, tempContext);
                 tempContext = new Context(context);
             }

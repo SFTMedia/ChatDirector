@@ -1,96 +1,37 @@
 package com.blalp.chatdirector.common.modules.file;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
+import java.util.List;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.utils.ItemDaemon;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
-public class FileInputDaemon extends ItemDaemon implements Runnable {
-    public static FileInputDaemon instance;
-    private ArrayList<FileInputDaemon> runners = new ArrayList<>();
-    private BufferedReader reader;
-    FileInputItem item;
+public class FileInputDaemon extends ItemDaemon {
+    List<PerFileInputDaemon> perFileInputDaemons = new ArrayList<>();
 
-    public FileInputDaemon() {
-        instance = this;
+    @Override
+    public void addItem(IItem item) {
+        perFileInputDaemons.add(new PerFileInputDaemon(item));
+        super.addItem(item);
     }
-
-    public FileInputDaemon(FileInputItem item) {
-        this.item = item;
-    }
-
     @Override
     public boolean load() {
-        for (FileInputItem item : getItems().toArray(new FileInputItem[] {})) {
-            FileInputDaemon worker = new FileInputDaemon(item);
-            Thread thread = new Thread(worker);
-            thread.start();
-            runners.add(worker);
+        boolean result = true;
+        for(PerFileInputDaemon daemon:perFileInputDaemons){
+            new Thread(daemon).start();
+            result=result && daemon.load();
         }
-        return true;
+        result=result&&super.load();
+        return result;
     }
-
     @Override
     public boolean unload() {
-        for (FileInputDaemon runner : runners) {
-            try {
-                runner.stop();
-            } catch (ThreadDeath e) {
-                // System.out.println("Safe to ignore stacktrace.");
-            }
+        boolean result = true;
+        for(PerFileInputDaemon daemon:perFileInputDaemons){
+            result=result && daemon.unload();
         }
-        runners = new ArrayList<>();
-        return true;
+        result=result&&super.unload();
+        return result;
     }
 
-    public void run() {
-        Context context;
-        if (item.create) {
-            try {
-                if (!new File(item.path).createNewFile()) {
-                    if (ChatDirector.isDebug()) {
-                        ChatDirector.getLogger().log(Level.WARNING, item.path + " already exists");
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                ChatDirector.getLogger().log(Level.SEVERE, "Could not create file " + item.path);
-                return;
-            }
-        }
-        try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(item.path))));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                ChatDirector.getLogger().log(Level.WARNING, line + " read");
-                context = new Context(line);
-                context.put("FILE_PATH", item.path);
-                ChatDirector.run(item, context, true);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            Thread.sleep(item.delay);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    public void stop() {
-        Thread.currentThread().stop();
-    }
 }

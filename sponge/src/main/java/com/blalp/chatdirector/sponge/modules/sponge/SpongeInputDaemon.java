@@ -12,15 +12,10 @@ import org.spongepowered.api.event.network.ClientConnectionEvent.Login;
 import org.spongepowered.api.text.Text;
 
 public class SpongeInputDaemon extends ItemDaemon {
-    public static SpongeInputDaemon instance;
-
-    public SpongeInputDaemon() {
-        instance = this;
-    }
 
     public void onServerStop(GameStoppedServerEvent event) {
         // Loaded the main world. Server started!
-        Context context = SpongeModule.instance.getContext(event);
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
         for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
             if (item.serverStopped) {
                 context.put("CURRENT", ChatDirector.format(item.formatStopped, context));
@@ -31,7 +26,7 @@ public class SpongeInputDaemon extends ItemDaemon {
 
     public void onServerStart(GameStartedServerEvent event) {
         // Loaded the main world. Server started!
-        Context context = SpongeModule.instance.getContext(event);
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
         for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
             if (item.serverStarted) {
                 context.put("CURRENT", ChatDirector.format(item.formatStarted, context));
@@ -41,7 +36,7 @@ public class SpongeInputDaemon extends ItemDaemon {
     }
 
     public void onChat(Chat event) {
-        Context context = SpongeModule.instance.getContext(event);
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
         for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
@@ -61,7 +56,7 @@ public class SpongeInputDaemon extends ItemDaemon {
     }
 
     public void onLogin(Login event) {
-        Context context = SpongeModule.instance.getContext(event);
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
         for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
@@ -74,7 +69,7 @@ public class SpongeInputDaemon extends ItemDaemon {
     }
 
     public void onLogout(Disconnect event) {
-        Context context = SpongeModule.instance.getContext(event);
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
         for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
             if (item.leave) {
                 context.put("CURRENT", ChatDirector.format(item.formatLogout, context));

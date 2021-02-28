@@ -6,9 +6,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -34,9 +36,11 @@ public class SQLModule implements IModule {
                             .execute();
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    return false;
                 }
             }
         }
+        return true;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class SQLModule implements IModule {
         }
         connections = new HashMap<>();
         tables = new HashMap<>();
+        return true;
     }
 
     @Override
@@ -55,7 +60,7 @@ public class SQLModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "send-data":
                 return SQLSendDataItem.class;

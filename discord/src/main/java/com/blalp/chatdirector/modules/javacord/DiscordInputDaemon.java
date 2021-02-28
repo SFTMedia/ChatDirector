@@ -33,9 +33,9 @@ public class DiscordInputDaemon extends ItemDaemon
 
     @Override
     public boolean load() {
-        DiscordModule.instance.discordBots.get(bot).getDiscordApi().addMessageCreateListener(this);
-        DiscordModule.instance.discordBots.get(bot).getDiscordApi().addReactionAddListener(this);
-        DiscordModule.instance.discordBots.get(bot).getDiscordApi().addReactionRemoveListener(this);
+        DiscordBot.get(bot).getDiscordApi().addMessageCreateListener(this);
+        DiscordBot.get(bot).getDiscordApi().addReactionAddListener(this);
+        DiscordBot.get(bot).getDiscordApi().addReactionRemoveListener(this);
         return true;
     }
 
@@ -50,7 +50,7 @@ public class DiscordInputDaemon extends ItemDaemon
                 continue;
             }
             if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)) {
-                ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
+                ChatDirector.run(item, ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event), true);
             }
         }
     }
@@ -66,7 +66,7 @@ public class DiscordInputDaemon extends ItemDaemon
             }
             if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)
                     || sharesMessage(event.getMessage(), item.message)) {
-                ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
+                ChatDirector.run(item, ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event), true);
             }
         }
     }
@@ -82,7 +82,7 @@ public class DiscordInputDaemon extends ItemDaemon
             }
             if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)
                     || sharesMessage(event.getMessage(), item.message)) {
-                ChatDirector.run(item, DiscordModule.instance.getContext(event), true);
+                ChatDirector.run(item, ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event), true);
             }
         }
     }

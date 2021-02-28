@@ -14,18 +14,21 @@ public class ChatDirectorBungee extends Plugin {
     public static ChatDirectorBungee instance;
     private ChatDirector chatDirector;
 
+    public ChatDirectorBungee() {
+        instance = this;
+    }
+
     @Override
     public void onEnable() {
-        instance = this;
         // First thing's first, register the reload command
         ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance,
                 new ReloadCommand("chatdirectorlocal"));
         try {
             chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
-            BungeeInputItemDaemon.instance = new BungeeInputItemDaemon();
-            getProxy().getPluginManager().registerListener(this, BungeeInputItemDaemon.instance);
-            MultiChatInputItemDaemon.instance = new MultiChatInputItemDaemon();
-            getProxy().getPluginManager().registerListener(this, MultiChatInputItemDaemon.instance);
+            getProxy().getPluginManager().registerListener(this,
+                    (BungeeInputItemDaemon) ChatDirector.getConfig().getOrCreateDaemon(BungeeInputItemDaemon.class));
+            getProxy().getPluginManager().registerListener(this, (MultiChatInputItemDaemon) ChatDirector.getConfig()
+                    .getOrCreateDaemon(MultiChatInputItemDaemon.class));
             this.getDataFolder().mkdirs();
             chatDirector.load();
             if (!ChatDirector.hasChains()) {

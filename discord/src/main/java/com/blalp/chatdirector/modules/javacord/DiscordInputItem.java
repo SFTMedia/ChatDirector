@@ -27,7 +27,7 @@ public class DiscordInputItem extends DiscordItem {
         if (!super.isValid() || format == null || format.isEmpty()) {
             return false;
         }
-        if (!DiscordModule.instance.discordBots.containsKey(bot)) {
+        if (DiscordBot.get(bot)==null) {
             ChatDirector.getLogger().log(Level.WARNING, "Bot " + bot + " not registered for item ." + this);
             return false;
         }

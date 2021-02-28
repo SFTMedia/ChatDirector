@@ -25,15 +25,14 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
             configuration.setDebug(node.get("debug").asBoolean());
         }
         if (node.has("module_data")) {
-            for (JsonNode moduleData : new IteratorIterable<JsonNode>(node.get("module_data").elements())) {
-                for (Entry<String, JsonNode> singleModuleData : new IteratorIterable<>(moduleData.fields())) {
-                    Map<String, String> readModuleData = new HashMap<>();
-                    for (Entry<String, JsonNode> singleModuleDataEntry : new IteratorIterable<>(
-                            singleModuleData.getValue().fields())) {
-                        readModuleData.put(singleModuleDataEntry.getKey(), singleModuleDataEntry.getValue().asText());
+            for (Entry<String, JsonNode> moduleData : new IteratorIterable<Entry<String, JsonNode>>(node.get("module_data").fields())) {
+                Map<String, String> readModuleData = new HashMap<>();
+                for(JsonNode moduleArrayItem : new IteratorIterable<JsonNode>(moduleData.getValue().elements())) {
+                    for (Entry<String, JsonNode> singleModuleData : new IteratorIterable<>(moduleArrayItem.fields())) {
+                        readModuleData.put(singleModuleData.getKey(), singleModuleData.getValue().asText());
                     }
-                    configuration.moduleData.put(singleModuleData.getKey(), readModuleData);
                 }
+                configuration.moduleData.put(moduleData.getKey(), readModuleData);
             }
         }
         // System.out.println(ChatDirector.getConfig().getModules());

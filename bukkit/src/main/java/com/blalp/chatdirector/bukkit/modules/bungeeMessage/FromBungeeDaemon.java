@@ -1,25 +1,9 @@
 package com.blalp.chatdirector.bukkit.modules.bungeeMessage;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ItemDaemon;
-import com.blalp.chatdirector.bukkit.modules.bukkit.BukkitModule;
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
-
-import org.bukkit.entity.Player;
 
 public class FromBungeeDaemon extends ItemDaemon {
-    public static FromBungeeDaemon instance;
-
-    public FromBungeeDaemon() {
-        instance = this;
-    }
-
+/*
     public static void trigger(String channel, Player player, byte[] message) {
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
         String subChannel = in.readUTF();
@@ -49,4 +33,5 @@ public class FromBungeeDaemon extends ItemDaemon {
             }
         }
     }
+    */
 }

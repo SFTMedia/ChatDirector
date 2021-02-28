@@ -82,7 +82,7 @@ public class DiscordEmbedItem extends DiscordItem {
                 }
             }
         }
-        DiscordModule.instance.discordBots.get(bot).getDiscordApi()
+        DiscordBot.get(bot).getDiscordApi()
                 .getChannelById(ChatDirector.format(channel, context)).get().asServerTextChannel().get()
                 .sendMessage(embed);
         return new Context();

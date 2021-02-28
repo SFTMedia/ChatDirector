@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
 import xyz.olivermartin.multichat.bungee.events.PostBroadcastEvent;
@@ -12,25 +13,13 @@ import xyz.olivermartin.multichat.bungee.events.PostStaffChatEvent;
 
 public class MultiChatModule implements IModule {
 
-    public static MultiChatModule instance;
-
-    public MultiChatModule() {
-        instance = this;
-    }
-
     @Override
     public boolean load() {
-        if (MultiChatInputItemDaemon.instance != null) {
-            return MultiChatInputItemDaemon.instance.load();
-        }
         return true;
     }
 
     @Override
     public boolean unload() {
-        if (MultiChatInputItemDaemon.instance != null) {
-            return MultiChatInputItemDaemon.instance.unload();
-        }
         return true;
     }
 
@@ -73,7 +62,7 @@ public class MultiChatModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "multichat-input":
                 return MultiChatInputItem.class;

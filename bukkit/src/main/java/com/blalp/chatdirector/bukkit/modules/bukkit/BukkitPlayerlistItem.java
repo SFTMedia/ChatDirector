@@ -33,7 +33,7 @@ public class BukkitPlayerlistItem implements IItem {
             } else {
                 first = false;
             }
-            tempContext.merge(BukkitModule.instance.getContext(player));
+            tempContext.merge(ChatDirector.getConfig().getModule(BukkitModule.class).getContext(player));
             output += ChatDirector.format(formatPlayer, tempContext);
         }
         output += "\n```";

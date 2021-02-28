@@ -20,7 +20,7 @@ public class BukkitCommand {
 
     public boolean execute(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equals(item.command) && sender.hasPermission(item.permission)) {
-            Context context = BukkitModule.instance.getContext(sender);
+            Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(sender);
             String string = item.command;
             for (int i = 0; i < args.length; i++) {
                 string += " " + args[i];

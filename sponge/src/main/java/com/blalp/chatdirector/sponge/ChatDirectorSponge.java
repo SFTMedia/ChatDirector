@@ -19,8 +19,12 @@ import org.spongepowered.api.plugin.Plugin;
 
 @Plugin(id = "chatdirector", name = "Chat Director", version = "0.2.0-alpha-1", description = "Manages as much Chat as needed.")
 public class ChatDirectorSponge {
-    private ChatDirector chatDirector;
     public static ChatDirectorSponge instance;
+    private ChatDirector chatDirector;
+
+    public ChatDirectorSponge() {
+        instance=this;
+    }
 
     @Inject
     @ConfigDir(sharedRoot = false)
@@ -28,15 +32,12 @@ public class ChatDirectorSponge {
 
     @Listener
     public void onServerStart(GameStartedServerEvent e) {
-        instance = this;
         new ReloadCommand().load();
         try {
             chatDirector = new ChatDirector(configDir.getAbsolutePath() + File.separatorChar + "config.yml");
             configDir.mkdirs();
             chatDirector.load();
-            if (SpongeInputDaemon.instance != null) {
-                SpongeInputDaemon.instance.onServerStart(e);
-            }
+            ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onServerStart(e);
             if (!ChatDirector.hasChains()) {
                 throw new Exception("NO CHAINS!");
             }
@@ -48,9 +49,7 @@ public class ChatDirectorSponge {
 
     @Listener
     public void onServerStop(GameStoppedServerEvent e) {
-        if (SpongeInputDaemon.instance != null) {
-            SpongeInputDaemon.instance.onServerStop(e);
-        }
+        ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onServerStop(e);
         chatDirector.unload();
     }
 
@@ -61,23 +60,16 @@ public class ChatDirectorSponge {
 
     @Listener
     public void onChat(MessageChannelEvent.Chat e) {
-        if (SpongeInputDaemon.instance != null) {
-            SpongeInputDaemon.instance.onChat(e);
-        }
+        ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onChat(e);
     }
 
     @Listener
     public void onLogin(ClientConnectionEvent.Login e) {
-        if (SpongeInputDaemon.instance != null) {
-            SpongeInputDaemon.instance.onLogin(e);
-        }
+        ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onLogin(e);
     }
 
     @Listener
     public void onLogout(ClientConnectionEvent.Disconnect e) {
-        if (SpongeInputDaemon.instance != null) {
-            SpongeInputDaemon.instance.onLogout(e);
-        }
+        ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onLogout(e);
     }
-
 }

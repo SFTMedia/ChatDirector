@@ -10,26 +10,20 @@ import com.blalp.chatdirector.utils.ItemDaemon;
 
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
-import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
 public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
-    public static BungeeInputItemDaemon instance;
-
-    public BungeeInputItemDaemon() {
-        instance = this;
-    }
 
     private Set<UUID> existing_players = new HashSet<>();
 
     @EventHandler
     public void onEvent(PlayerDisconnectEvent e) {
-        Context context = BungeeModule.instance.getContext(e);
+        Context context = ChatDirector.getConfig().getModule(BungeeModule.class).getContext(e);
         existing_players.remove(e.getPlayer().getUniqueId());
-        for (BungeeInputItem item : instance.getItems().toArray(new BungeeInputItem[] {})) {
+        for (BungeeInputItem item : getItems().toArray(new BungeeInputItem[] {})) {
             if (item.disconnect) {
                 context.put("CURRENT", ChatDirector.format(item.formatDisconnect, context));
                 ChatDirector.run(item, context, true);
@@ -39,9 +33,9 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
 
     @EventHandler
     public void onEvent(ServerSwitchEvent e) {
-        Context context = BungeeModule.instance.getContext(e);
+        Context context = ChatDirector.getConfig().getModule(BungeeModule.class).getContext(e);
         // this is needed as ServerConnectEvent is also called for the first time.
-        for (BungeeInputItem item : instance.getItems().toArray(new BungeeInputItem[] {})) {
+        for (BungeeInputItem item : getItems().toArray(new BungeeInputItem[] {})) {
             if (existing_players.contains(e.getPlayer().getUniqueId())) {
                 if (item.switchServers) {
                     context.put("CURRENT", ChatDirector.format(item.formatSwitchServers, context));
@@ -55,9 +49,9 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
 
     @EventHandler
     public void onEvent(ServerConnectedEvent e) {
-        Context context = BungeeModule.instance.getContext(e);
+        Context context = ChatDirector.getConfig().getModule(BungeeModule.class).getContext(e);
         // this is needed as ServerConnectEvent is also called for the first time.
-        for (BungeeInputItem item : instance.getItems().toArray(new BungeeInputItem[] {})) {
+        for (BungeeInputItem item : getItems().toArray(new BungeeInputItem[] {})) {
             if (!existing_players.contains(e.getPlayer().getUniqueId())) {
                 if (item.join) {
                     context.put("CURRENT", ChatDirector.format(item.formatJoin, context));
@@ -69,8 +63,8 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
 
     @EventHandler
     public void onChat(ChatEvent e) {
-        Context context = BungeeModule.instance.getContext(e);
-        for (BungeeInputItem item : instance.getItems().toArray(new BungeeInputItem[] {})) {
+        Context context = ChatDirector.getConfig().getModule(BungeeModule.class).getContext(e);
+        for (BungeeInputItem item : getItems().toArray(new BungeeInputItem[] {})) {
             if ((item.chat && !e.getMessage().startsWith("/")) || item.command && e.getMessage().startsWith("/")) {
                 if (item.overrideChat) {
                     context.put("CURRENT", ChatDirector.format(item.formatJoin, context));
@@ -82,7 +76,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
             }
         }
     }
-
+    /*
     @EventHandler
     public void onMessage(PluginMessageEvent e) {
         // TODO

@@ -24,7 +24,7 @@ public class DiscordOutputReactionItem extends DiscordItem {
 
     @Override
     public Context process(Context context) {
-        DiscordApi api = DiscordModule.instance.discordBots.get(bot).getDiscordApi();
+        DiscordApi api = DiscordBot.get(bot).getDiscordApi();
         Message messageObj = api.getMessageById(ChatDirector.format(message, context),
                 api.getChannelById(ChatDirector.format(channel, context)).get().asTextChannel().get()).join();
         if (add) {

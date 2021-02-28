@@ -34,7 +34,7 @@ public class SpongePlayerlistItem implements IItem {
             } else {
                 first = false;
             }
-            workingContext.merge(SpongeModule.instance.getContext(player));
+            workingContext.merge(ChatDirector.getConfig().getModule(SpongeModule.class).getContext(player));
             output += ChatDirector.format(formatPlayer, workingContext);
             workingContext = new Context(context);
         }

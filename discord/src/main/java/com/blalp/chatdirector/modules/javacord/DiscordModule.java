@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Map.Entry;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.permission.Role;
@@ -20,20 +22,17 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.event.message.reaction.SingleReactionEvent;
 import org.javacord.api.event.user.OptionalUserEvent;
 
-@JsonDeserialize(using = DiscordModuleDeserializer.class)
 public class DiscordModule implements IModule {
-    static DiscordModule instance;
-
-    public DiscordModule() {
-        instance = this;
-    }
-
-    public Map<String, DiscordBot> discordBots = new HashMap<>();
 
     @Override
     public boolean load() {
         boolean result = true;
-        for (DiscordBot bot : discordBots.values()) {
+        for(Entry<String,String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
+            if(!DiscordBot.discordBots.containsKey(bot.getKey())){
+                DiscordBot.discordBots.put(bot.getKey(), new DiscordBot(bot.getValue()));
+            }
+        }
+        for (DiscordBot bot : DiscordBot.discordBots.values()) {
             result = result && bot.load();
             if (bot.daemon != null) {
                 result = result && bot.daemon.load();
@@ -45,13 +44,13 @@ public class DiscordModule implements IModule {
     @Override
     public boolean unload() {
         boolean result = true;
-        for (DiscordBot bot : discordBots.values()) {
+        for (DiscordBot bot : DiscordBot.discordBots.values()) {
             result = result && bot.unload();
             if (bot.daemon != null) {
                 result = result && bot.daemon.unload();
             }
         }
-        discordBots = new HashMap<>();
+        DiscordBot.discordBots = new HashMap<>();
         return result;
     }
 
@@ -169,7 +168,7 @@ public class DiscordModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "discord-input":
                 return DiscordInputItem.class;
@@ -198,5 +197,8 @@ public class DiscordModule implements IModule {
             default:
                 return null;
         }
+    }
+    public Map<String, DiscordBot> getDiscordBots() {
+        return DiscordBot.discordBots;
     }
 }

@@ -246,9 +246,9 @@ chains:
   - multichat-demo:
       - multichat-context: null # Adds more contexts
       - multichat-input:
-        global: true
-        staff: true
-        broadcast: true
+          global: true
+          staff: true
+          broadcast: true
   - replacement-demo:
       - regex:
           - "Regex to find": "regex to replace"

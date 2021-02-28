@@ -4,23 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
 public class FileModule implements IModule {
 
     @Override
     public boolean load() {
-        if (FileInputDaemon.instance != null) {
-            return FileInputDaemon.instance.load();
-        }
         return true;
     }
 
     @Override
     public boolean unload() {
-        if (FileInputDaemon.instance != null) {
-            return FileInputDaemon.instance.unload();
-        }
         return true;
     }
 
@@ -40,7 +35,7 @@ public class FileModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "file-input":
                 return FileInputItem.class;

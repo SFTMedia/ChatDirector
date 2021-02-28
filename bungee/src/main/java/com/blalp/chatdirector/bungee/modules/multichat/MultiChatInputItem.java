@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.bungee.modules.multichat;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
@@ -16,10 +17,7 @@ public class MultiChatInputItem extends PassItem {
     boolean global, staff, broadcast;
 
     public MultiChatInputItem() {
-        if (MultiChatInputItemDaemon.instance == null) {
-            MultiChatInputItemDaemon.instance = new MultiChatInputItemDaemon();
-        }
-        MultiChatInputItemDaemon.instance.addItem(this);
+        ChatDirector.getConfig().getOrCreateDaemon(MultiChatInputItemDaemon.class).addItem(this);
     }
 
     @Override

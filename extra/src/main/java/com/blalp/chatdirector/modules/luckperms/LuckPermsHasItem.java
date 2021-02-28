@@ -2,8 +2,8 @@ package com.blalp.chatdirector.modules.luckperms;
 
 import java.util.UUID;
 
+import com.blalp.chatdirector.common.modules.logic.ConditionalItem;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.modules.logic.ConditionalItem;
 
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.node.Node;

@@ -28,7 +28,7 @@ public class DiscordParticipatesItem extends DiscordItem {
 
     @Override
     public Context process(Context context) {
-        MessageSet messages = DiscordModule.instance.discordBots.get(bot).getDiscordApi()
+        MessageSet messages = DiscordBot.get(bot).getDiscordApi()
                 .getTextChannelById(ChatDirector.format(channel, context)).get().getMessages(length).join();
         HashMap<String, User> users = new HashMap<>();
         for (Message message : messages) {
@@ -43,7 +43,7 @@ public class DiscordParticipatesItem extends DiscordItem {
                         "Starting work for " + user.getName() + " (" + user.getIdAsString() + ")");
             }
             // All keys should be the same for each user and get overridden.
-            workingContext.merge(DiscordModule.instance.getContext(user));
+            workingContext.merge(((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(user));
             each.run(workingContext);
             workingContext = new Context();
         }

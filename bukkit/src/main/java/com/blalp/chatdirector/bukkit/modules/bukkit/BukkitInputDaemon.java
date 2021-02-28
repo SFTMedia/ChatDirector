@@ -13,12 +13,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 public class BukkitInputDaemon extends ItemDaemon implements Listener {
-    public static BukkitInputDaemon instance;
-
-    public BukkitInputDaemon() {
-        instance = this;
-    }
-
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
@@ -26,7 +20,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
                 continue;
             }
             if (item.chat) {
-                Context context = BukkitModule.instance.getContext(event);
+                Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(event);
                 if (item.overrideChat) {
                     context.put("CURRENT", ChatDirector.format(item.formatChat, context));
                     event.setFormat(ChatDirector.run(item, context, false).getCurrent());
@@ -43,7 +37,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerLoginEvent event) {
-        Context context = BukkitModule.instance.getContext(event);
+        Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(event);
         for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (event.getResult().equals(Result.ALLOWED) && item.checkCanceled) {
                 continue;
@@ -62,7 +56,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
 
     @EventHandler
     public void onLogout(PlayerQuitEvent event) {
-        Context context = BukkitModule.instance.getContext(event);
+        Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(event);
         for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (item.logout) {
                 context.put("CURRENT", ChatDirector.format(item.formatLogout, context));
@@ -72,7 +66,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     }
 
     public void onServerStart() {
-        Context context = BukkitModule.instance.getContext(null);
+        Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(null);
         // Loaded the main world. Server started!
         for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (item.serverStarted) {
@@ -83,7 +77,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     }
 
     public void onServerStop() {
-        Context context = BukkitModule.instance.getContext(null);
+        Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(null);
         // Loaded the main world. Server started!
         for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (item.serverStopped) {

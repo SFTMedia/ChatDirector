@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
 public class ConsoleModule implements IModule {
@@ -34,7 +35,7 @@ public class ConsoleModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "console-output-error":
                 return ConsoleOutputErrorItem.class;

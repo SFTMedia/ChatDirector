@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
 import org.bukkit.Bukkit;
@@ -18,26 +19,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class BukkitModule implements IModule {
 
-    public static BukkitModule instance;
-
-    public BukkitModule() {
-        instance = this;
-    }
-
     @Override
     public boolean load() {
-        if (BukkitInputDaemon.instance != null) {
-            return BukkitInputDaemon.instance.load();
-        }
         return true;
     }
 
     @Override
     public boolean unload() {
         BukkitCommand.commands = new ArrayList<>();
-        if (BukkitInputDaemon.instance != null) {
-            return BukkitInputDaemon.instance.unload();
-        }
         return true;
     }
 
@@ -86,7 +75,7 @@ public class BukkitModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "bukkit-input":
                 return BukkitInputItem.class;

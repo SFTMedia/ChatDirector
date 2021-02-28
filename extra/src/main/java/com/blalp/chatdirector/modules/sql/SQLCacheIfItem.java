@@ -1,8 +1,8 @@
 package com.blalp.chatdirector.modules.sql;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.common.modules.logic.ConditionalItem;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.modules.logic.ConditionalItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

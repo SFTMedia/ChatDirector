@@ -4,23 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
 public class BungeeMessageModule implements IModule {
 
     @Override
     public boolean load() {
-        if (FromBungeeDaemon.instance != null) {
-            return FromBungeeDaemon.instance.load();
-        }
         return true;
     }
 
     @Override
     public boolean unload() {
-        if (FromBungeeDaemon.instance != null) {
-            return FromBungeeDaemon.instance.unload();
-        }
         return true;
     }
 
@@ -41,7 +36,7 @@ public class BungeeMessageModule implements IModule {
     }
 
     @Override
-    public Class<?> getItemClass(String type) {
+    public Class<? extends IItem> getItemClass(String type) {
         return null;
         /*
          * switch (type) { case "bungee-to": return ToBungeeItem.class; case
