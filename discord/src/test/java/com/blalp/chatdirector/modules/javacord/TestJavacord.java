@@ -24,6 +24,7 @@ public class TestJavacord {
         chatDirector.load();
 
     }
+    /*
 
     @Test
     public void valid() {
@@ -35,7 +36,7 @@ public class TestJavacord {
             assertTrue(chain.isValid());
         }
     }
-/*
+
     @Test
     public void parseInput() {
         init();
