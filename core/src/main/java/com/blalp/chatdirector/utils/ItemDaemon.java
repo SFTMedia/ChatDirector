@@ -7,7 +7,7 @@ import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.ILoadable;
 
 public abstract class ItemDaemon implements ILoadable {
-    public List<IItem> items = new ArrayList<>();
+    List<IItem> items = new ArrayList<>();
 
     public void addItem(IItem item) {
         items.add(item);
@@ -20,5 +20,9 @@ public abstract class ItemDaemon implements ILoadable {
     public boolean unload() {
         items = new ArrayList<>();
         return true;
+    }
+
+    public List<IItem> getItems() {
+        return items;
     }
 }

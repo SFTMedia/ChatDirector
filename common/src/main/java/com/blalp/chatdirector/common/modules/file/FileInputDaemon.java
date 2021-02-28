@@ -29,7 +29,7 @@ public class FileInputDaemon extends ItemDaemon implements Runnable {
 
     @Override
     public boolean load() {
-        for (FileInputItem item : items.toArray(new FileInputItem[] {})) {
+        for (FileInputItem item : getItems().toArray(new FileInputItem[] {})) {
             FileInputDaemon worker = new FileInputDaemon(item);
             Thread thread = new Thread(worker);
             thread.start();

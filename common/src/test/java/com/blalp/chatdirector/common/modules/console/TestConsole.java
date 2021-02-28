@@ -40,10 +40,10 @@ public class TestConsole {
     public void parse() {
         init();
         assertTrue(chatDirector.getChains().containsKey("console-test"));
-        assertEquals(4, chatDirector.getChains().get("console-test").items.size());
-        assertEquals(new ConsoleOutputItem(), chatDirector.getChains().get("console-test").items.get(0));
-        assertEquals(new ConsoleOutputItem(), chatDirector.getChains().get("console-test").items.get(1));
-        assertEquals(new ConsoleOutputErrorItem(), chatDirector.getChains().get("console-test").items.get(2));
-        assertEquals(new ConsoleOutputErrorItem(), chatDirector.getChains().get("console-test").items.get(3));
+        assertEquals(4, chatDirector.getChains().get("console-test").getItems().size());
+        assertEquals(new ConsoleOutputItem(), chatDirector.getChains().get("console-test").getItems().get(0));
+        assertEquals(new ConsoleOutputItem(), chatDirector.getChains().get("console-test").getItems().get(1));
+        assertEquals(new ConsoleOutputErrorItem(), chatDirector.getChains().get("console-test").getItems().get(2));
+        assertEquals(new ConsoleOutputErrorItem(), chatDirector.getChains().get("console-test").getItems().get(3));
     }
 }

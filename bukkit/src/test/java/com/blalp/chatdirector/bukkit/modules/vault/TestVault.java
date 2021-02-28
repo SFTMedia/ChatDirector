@@ -40,7 +40,7 @@ public class TestVault {
     public void parseContext() {
         init();
         assertTrue(chatDirector.getChains().containsKey("vault-demo"));
-        assertEquals(1, chatDirector.getChains().get("vault-demo").items.size());
-        assertEquals(chatDirector.getChains().get("vault-demo").items.get(0), new VaultContextItem());
+        assertEquals(1, chatDirector.getChains().get("vault-demo").getItems().size());
+        assertEquals(chatDirector.getChains().get("vault-demo").getItems().get(0), new VaultContextItem());
     }
 }

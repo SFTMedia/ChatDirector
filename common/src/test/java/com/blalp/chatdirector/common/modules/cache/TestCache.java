@@ -49,22 +49,22 @@ public class TestCache {
         assertTrue(chatDirector.getChains().containsKey("cache-parse-test"));
         assertNotNull(chatDirector.getChains().get("cache-parse-test"));
         // Checking Per Chain metric
-        assertNotNull(chatDirector.getChains().get("cache-parse-test").items);
-        assertTrue(chatDirector.getChains().get("cache-parse-test").items.size() == 3);
+        assertNotNull(chatDirector.getChains().get("cache-parse-test").getItems());
+        assertTrue(chatDirector.getChains().get("cache-parse-test").getItems().size() == 3);
         assertTrue(chatDirector.getChains().get("cache-parse-test").isValid());
         // Checking Each item in chain
-        IItem item = chatDirector.getChains().get("cache-parse-test").items.get(0);
+        IItem item = chatDirector.getChains().get("cache-parse-test").getItems().get(0);
         assertTrue(item instanceof CacheGetItem);
         IItem compare = new CacheGetItem();
         ((CacheGetItem) compare).setKey("SomeUniqueKey");
         assertEquals(compare, item);
-        item = chatDirector.getChains().get("cache-parse-test").items.get(1);
+        item = chatDirector.getChains().get("cache-parse-test").getItems().get(1);
         assertTrue(item instanceof CacheSetItem);
         compare = new CacheSetItem();
         ((CacheSetItem) compare).setKey("EXAMPLE_KEY");
         ((CacheSetItem) compare).setValue("EXAMPLE_VALUE");
         assertEquals(compare, item);
-        item = chatDirector.getChains().get("cache-parse-test").items.get(2);
+        item = chatDirector.getChains().get("cache-parse-test").getItems().get(2);
         assertTrue(item instanceof CacheIfItem);
         compare = new CacheIfItem();
         ((CacheIfItem) compare).setKey("KEY");
@@ -86,17 +86,17 @@ public class TestCache {
         assertTrue(chatDirector.getChains().containsKey("cache-get-set-test"));
         assertNotNull(chatDirector.getChains().get("cache-get-set-test"));
         // Checking Per Chain metric
-        assertNotNull(chatDirector.getChains().get("cache-get-set-test").items);
-        assertTrue(chatDirector.getChains().get("cache-get-set-test").items.size() == 2);
+        assertNotNull(chatDirector.getChains().get("cache-get-set-test").getItems());
+        assertTrue(chatDirector.getChains().get("cache-get-set-test").getItems().size() == 2);
         assertTrue(chatDirector.getChains().get("cache-get-set-test").isValid());
         // Checking Each item in chain
-        IItem item = chatDirector.getChains().get("cache-get-set-test").items.get(0);
+        IItem item = chatDirector.getChains().get("cache-get-set-test").getItems().get(0);
         assertTrue(item instanceof CacheSetItem);
         IItem compare = new CacheSetItem();
         ((CacheSetItem) compare).setKey("SomeUniqueKey");
         ((CacheSetItem) compare).setValue("EXAMPLE_VALUE");
         assertEquals(compare, item);
-        item = chatDirector.getChains().get("cache-get-set-test").items.get(1);
+        item = chatDirector.getChains().get("cache-get-set-test").getItems().get(1);
         assertTrue(item instanceof CacheGetItem);
         compare = new CacheGetItem();
         ((CacheGetItem) compare).setKey("SomeUniqueKey");
@@ -110,17 +110,17 @@ public class TestCache {
         assertTrue(chatDirector.getChains().containsKey("cache-get-set-test-2"));
         assertNotNull(chatDirector.getChains().get("cache-get-set-test-2"));
         // Checking Per Chain metric
-        assertNotNull(chatDirector.getChains().get("cache-get-set-test-2").items);
-        assertTrue(chatDirector.getChains().get("cache-get-set-test-2").items.size() == 2);
+        assertNotNull(chatDirector.getChains().get("cache-get-set-test-2").getItems());
+        assertTrue(chatDirector.getChains().get("cache-get-set-test-2").getItems().size() == 2);
         assertTrue(chatDirector.getChains().get("cache-get-set-test-2").isValid());
         // Checking Each item in chain
-        IItem item = chatDirector.getChains().get("cache-get-set-test-2").items.get(0);
+        IItem item = chatDirector.getChains().get("cache-get-set-test-2").getItems().get(0);
         assertTrue(item instanceof CacheSetItem);
         IItem compare = new CacheSetItem();
         ((CacheSetItem) compare).setKey("SomeUniqueKey");
         ((CacheSetItem) compare).setValue("EXAMPLE_VALUE");
         assertEquals(compare, item);
-        item = chatDirector.getChains().get("cache-get-set-test-2").items.get(1);
+        item = chatDirector.getChains().get("cache-get-set-test-2").getItems().get(1);
         assertTrue(item instanceof CacheGetItem);
         compare = new CacheGetItem();
         ((CacheGetItem) compare).setKey("RandomKey");
@@ -134,17 +134,17 @@ public class TestCache {
         assertTrue(chatDirector.getChains().containsKey("cache-if-test"));
         assertNotNull(chatDirector.getChains().get("cache-if-test"));
         // Checking Per Chain metric
-        assertNotNull(chatDirector.getChains().get("cache-if-test").items);
-        assertTrue(chatDirector.getChains().get("cache-if-test").items.size() == 3);
+        assertNotNull(chatDirector.getChains().get("cache-if-test").getItems());
+        assertTrue(chatDirector.getChains().get("cache-if-test").getItems().size() == 3);
         assertTrue(chatDirector.getChains().get("cache-if-test").isValid());
         // Checking Each item in chain
-        IItem item = chatDirector.getChains().get("cache-if-test").items.get(0);
+        IItem item = chatDirector.getChains().get("cache-if-test").getItems().get(0);
         assertTrue(item instanceof CacheSetItem);
         IItem compare = new CacheSetItem();
         ((CacheSetItem) compare).setKey("SomeUniqueKey");
         ((CacheSetItem) compare).setValue("EXAMPLE_VALUE");
         assertEquals(compare, item);
-        item = chatDirector.getChains().get("cache-if-test").items.get(1);
+        item = chatDirector.getChains().get("cache-if-test").getItems().get(1);
         assertTrue(item instanceof CacheIfItem);
         compare = new CacheIfItem();
         Chain chain = new Chain();
@@ -157,7 +157,7 @@ public class TestCache {
         ((CacheIfItem) compare).setNoChain(chain);
         ((CacheIfItem) compare).setKey("SomeUniqueKey");
         assertEquals(compare, item);
-        item = chatDirector.getChains().get("cache-if-test").items.get(2);
+        item = chatDirector.getChains().get("cache-if-test").getItems().get(2);
         assertTrue(item instanceof CacheIfItem);
         compare = new CacheIfItem();
         chain = new Chain();

@@ -29,7 +29,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
     public void onEvent(PlayerDisconnectEvent e) {
         Context context = BungeeModule.instance.getContext(e);
         existing_players.remove(e.getPlayer().getUniqueId());
-        for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[] {})) {
+        for (BungeeInputItem item : instance.getItems().toArray(new BungeeInputItem[] {})) {
             if (item.disconnect) {
                 context.put("CURRENT", ChatDirector.format(item.formatDisconnect, context));
                 ChatDirector.run(item, context, true);
@@ -41,7 +41,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
     public void onEvent(ServerSwitchEvent e) {
         Context context = BungeeModule.instance.getContext(e);
         // this is needed as ServerConnectEvent is also called for the first time.
-        for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[] {})) {
+        for (BungeeInputItem item : instance.getItems().toArray(new BungeeInputItem[] {})) {
             if (existing_players.contains(e.getPlayer().getUniqueId())) {
                 if (item.switchServers) {
                     context.put("CURRENT", ChatDirector.format(item.formatSwitchServers, context));
@@ -57,7 +57,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
     public void onEvent(ServerConnectedEvent e) {
         Context context = BungeeModule.instance.getContext(e);
         // this is needed as ServerConnectEvent is also called for the first time.
-        for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[] {})) {
+        for (BungeeInputItem item : instance.getItems().toArray(new BungeeInputItem[] {})) {
             if (!existing_players.contains(e.getPlayer().getUniqueId())) {
                 if (item.join) {
                     context.put("CURRENT", ChatDirector.format(item.formatJoin, context));
@@ -70,7 +70,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
     @EventHandler
     public void onChat(ChatEvent e) {
         Context context = BungeeModule.instance.getContext(e);
-        for (BungeeInputItem item : instance.items.toArray(new BungeeInputItem[] {})) {
+        for (BungeeInputItem item : instance.getItems().toArray(new BungeeInputItem[] {})) {
             if ((item.chat && !e.getMessage().startsWith("/")) || item.command && e.getMessage().startsWith("/")) {
                 if (item.overrideChat) {
                     context.put("CURRENT", ChatDirector.format(item.formatJoin, context));

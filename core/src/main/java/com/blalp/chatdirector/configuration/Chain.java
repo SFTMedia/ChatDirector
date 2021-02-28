@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 @JsonDeserialize(using = ChainDeserializer.class)
 public class Chain implements IValid, Runnable {
-    public List<IItem> items = new ArrayList<>();
+    List<IItem> items = new ArrayList<>();
     int index;
     Context context;
 
@@ -134,5 +134,9 @@ public class Chain implements IValid, Runnable {
     public void addItem(IItem item) {
         items.add(item);
         ChatDirector.addItem(item, this);
+    }
+
+    public List<IItem> getItems() {
+        return items;
     }
 }

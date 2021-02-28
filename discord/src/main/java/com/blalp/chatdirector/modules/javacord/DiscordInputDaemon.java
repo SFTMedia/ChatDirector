@@ -45,7 +45,7 @@ public class DiscordInputDaemon extends ItemDaemon
         if (message.getAuthor().isYourself()) {
             return;
         }
-        for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
+        for (DiscordInputItem item : getItems().toArray(new DiscordInputItem[] {})) {
             if (!item.messageEvent) {
                 continue;
             }
@@ -60,7 +60,7 @@ public class DiscordInputDaemon extends ItemDaemon
         if (event.getUser().isPresent() && event.getUser().get().isYourself()) {
             return;
         }
-        for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
+        for (DiscordInputItem item : getItems().toArray(new DiscordInputItem[] {})) {
             if (!item.reactionRemoveEvent) {
                 continue;
             }
@@ -76,7 +76,7 @@ public class DiscordInputDaemon extends ItemDaemon
         if (event.getUser().isPresent() && event.getUser().get().isYourself()) {
             return;
         }
-        for (DiscordInputItem item : items.toArray(new DiscordInputItem[] {})) {
+        for (DiscordInputItem item : getItems().toArray(new DiscordInputItem[] {})) {
             if (!item.reactionAddEvent) {
                 continue;
             }

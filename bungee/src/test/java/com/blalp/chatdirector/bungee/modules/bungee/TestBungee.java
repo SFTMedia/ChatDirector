@@ -43,62 +43,62 @@ public class TestBungee {
     public void parseCommand() {
         init();
         assertTrue(chatDirector.getChains().containsKey("bungee-command"));
-        assertEquals(2, chatDirector.getChains().get("bungee-command").items.size());
+        assertEquals(2, chatDirector.getChains().get("bungee-command").getItems().size());
         BungeeCommandItem bungeeInputItem = new BungeeCommandItem();
         bungeeInputItem.setCommand("command");
         bungeeInputItem.setPermission("*");
-        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-command").items.get(0));
+        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-command").getItems().get(0));
         bungeeInputItem = new BungeeCommandItem();
         bungeeInputItem.setCommand("command 2");
         bungeeInputItem.setPermission("permission");
-        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-command").items.get(1));
+        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-command").getItems().get(1));
     }
 
     @Test
     public void parsePlayerlist() {
         init();
         assertTrue(chatDirector.getChains().containsKey("bungee-playerlist"));
-        assertEquals(7, chatDirector.getChains().get("bungee-playerlist").items.size());
+        assertEquals(7, chatDirector.getChains().get("bungee-playerlist").getItems().size());
         BungeePlayerlistItem bungeePlayerlistItem = new BungeePlayerlistItem();
         bungeePlayerlistItem.setFormat("```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n");
         bungeePlayerlistItem.formatPlayer = "%PLAYER_NAME%";
         bungeePlayerlistItem.formatServer = "%SERVER_NAME%";
         bungeePlayerlistItem.formatNoPlayers = "**No online players**";
         bungeePlayerlistItem.splitByServer = false;
-        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").items.get(0));
+        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").getItems().get(0));
         bungeePlayerlistItem = new BungeePlayerlistItem();
-        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").items.get(1));
+        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").getItems().get(1));
         bungeePlayerlistItem = new BungeePlayerlistItem();
         bungeePlayerlistItem.format = "format";
-        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").items.get(2));
+        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").getItems().get(2));
         bungeePlayerlistItem = new BungeePlayerlistItem();
         bungeePlayerlistItem.formatPlayer = "player";
-        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").items.get(3));
+        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").getItems().get(3));
         bungeePlayerlistItem = new BungeePlayerlistItem();
         bungeePlayerlistItem.formatServer = "server";
-        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").items.get(4));
+        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").getItems().get(4));
         bungeePlayerlistItem = new BungeePlayerlistItem();
         bungeePlayerlistItem.formatNoPlayers = "no one";
-        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").items.get(5));
+        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").getItems().get(5));
         bungeePlayerlistItem = new BungeePlayerlistItem();
         bungeePlayerlistItem.splitByServer = true;
-        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").items.get(6));
+        assertEquals(bungeePlayerlistItem, chatDirector.getChains().get("bungee-playerlist").getItems().get(6));
     }
 
     @Test
     public void parseOutput() {
         init();
         assertTrue(chatDirector.getChains().containsKey("bungee-output"));
-        assertEquals(1, chatDirector.getChains().get("bungee-output").items.size());
+        assertEquals(1, chatDirector.getChains().get("bungee-output").getItems().size());
         BungeeOutputItem bungeeOutputItem = new BungeeOutputItem();
-        assertEquals(bungeeOutputItem, chatDirector.getChains().get("bungee-output").items.get(0));
+        assertEquals(bungeeOutputItem, chatDirector.getChains().get("bungee-output").getItems().get(0));
     }
 
     @Test
     public void parseOutputFancy() {
         init();
         assertTrue(chatDirector.getChains().containsKey("bungee-output-fancy"));
-        assertEquals(2, chatDirector.getChains().get("bungee-output-fancy").items.size());
+        assertEquals(2, chatDirector.getChains().get("bungee-output-fancy").getItems().size());
         BungeeOutputFancyItem bungeeOutputFancy = new BungeeOutputFancyItem();
         FancyMessage[] fancyMessages = new FancyMessage[6];
         fancyMessages[0] = new FancyMessage();
@@ -129,7 +129,7 @@ public class TestBungee {
             fancyMessage.append(message);
         }
         bungeeOutputFancy.setFancyMessage(fancyMessage);
-        assertEquals(bungeeOutputFancy, chatDirector.getChains().get("bungee-output-fancy").items.get(0));
+        assertEquals(bungeeOutputFancy, chatDirector.getChains().get("bungee-output-fancy").getItems().get(0));
         bungeeOutputFancy = new BungeeOutputFancyItem();
         ArrayList<FancyMessage> nested = new ArrayList<>();
         FancyMessage child = new FancyMessage();
@@ -153,43 +153,43 @@ public class TestBungee {
             fancyMessage.append(message);
         }
         bungeeOutputFancy.setFancyMessage(fancyMessage);
-        assertEquals(bungeeOutputFancy, chatDirector.getChains().get("bungee-output-fancy").items.get(1));
+        assertEquals(bungeeOutputFancy, chatDirector.getChains().get("bungee-output-fancy").getItems().get(1));
     }
 
     @Test
     public void parseOutputServer() {
         init();
         assertTrue(chatDirector.getChains().containsKey("bungee-output-server"));
-        assertEquals(2, chatDirector.getChains().get("bungee-output-server").items.size());
+        assertEquals(2, chatDirector.getChains().get("bungee-output-server").getItems().size());
         BungeeOutputServerItem bungeeOutputServerItem = new BungeeOutputServerItem();
         bungeeOutputServerItem.server = "SERVER NAME";
-        assertEquals(bungeeOutputServerItem, chatDirector.getChains().get("bungee-output-server").items.get(0));
+        assertEquals(bungeeOutputServerItem, chatDirector.getChains().get("bungee-output-server").getItems().get(0));
         bungeeOutputServerItem = new BungeeOutputServerItem();
         bungeeOutputServerItem.server = "Test";
         bungeeOutputServerItem.permission = "permission";
-        assertEquals(bungeeOutputServerItem, chatDirector.getChains().get("bungee-output-server").items.get(1));
+        assertEquals(bungeeOutputServerItem, chatDirector.getChains().get("bungee-output-server").getItems().get(1));
     }
 
     @Test
     public void parseOutputPlayer() {
         init();
         assertTrue(chatDirector.getChains().containsKey("bungee-output-player"));
-        assertEquals(2, chatDirector.getChains().get("bungee-output-player").items.size());
+        assertEquals(2, chatDirector.getChains().get("bungee-output-player").getItems().size());
         BungeeOutputPlayerItem bungeeOutputPlayerItem = new BungeeOutputPlayerItem();
         bungeeOutputPlayerItem.player = "%PLAYER_NAME%";
         bungeeOutputPlayerItem.permission = null;
-        assertEquals(bungeeOutputPlayerItem, chatDirector.getChains().get("bungee-output-player").items.get(0));
+        assertEquals(bungeeOutputPlayerItem, chatDirector.getChains().get("bungee-output-player").getItems().get(0));
         bungeeOutputPlayerItem = new BungeeOutputPlayerItem();
         bungeeOutputPlayerItem.player = "test";
         bungeeOutputPlayerItem.permission = "test";
-        assertEquals(bungeeOutputPlayerItem, chatDirector.getChains().get("bungee-output-player").items.get(1));
+        assertEquals(bungeeOutputPlayerItem, chatDirector.getChains().get("bungee-output-player").getItems().get(1));
     }
 
     @Test
     public void parseInput() {
         init();
         assertTrue(chatDirector.getChains().containsKey("bungee-input"));
-        assertEquals(5, chatDirector.getChains().get("bungee-input").items.size());
+        assertEquals(5, chatDirector.getChains().get("bungee-input").getItems().size());
         BungeeInputItem bungeeInputItem = new BungeeInputItem();
         bungeeInputItem.chat = true;
         bungeeInputItem.disconnect = true;
@@ -202,7 +202,7 @@ public class TestBungee {
         bungeeInputItem.formatDisconnect = "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!";
         bungeeInputItem.formatJoin = "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!";
         bungeeInputItem.formatSwitchServers = "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%";
-        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(0));
+        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(0));
         bungeeInputItem = new BungeeInputItem();
         bungeeInputItem.disconnect = true;
         bungeeInputItem.switchServers = true;
@@ -214,16 +214,16 @@ public class TestBungee {
         bungeeInputItem.formatDisconnect = "dc 1";
         bungeeInputItem.formatJoin = "join";
         bungeeInputItem.formatSwitchServers = "switch";
-        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(1));
+        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(1));
         bungeeInputItem = new BungeeInputItem();
         bungeeInputItem.switchServers = true;
-        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(2));
+        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(2));
         bungeeInputItem = new BungeeInputItem();
         bungeeInputItem.join = true;
-        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(3));
+        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(3));
         bungeeInputItem = new BungeeInputItem();
         bungeeInputItem.command = true;
-        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").items.get(4));
+        assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(4));
 
     }
 }

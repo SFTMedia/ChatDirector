@@ -31,7 +31,7 @@ public class FromBungeeDaemon extends ItemDaemon {
         byte[] msgbytes = new byte[len];
         in.readFully(msgbytes);
         Context context;
-        for (FromBungeeItem item : (FromBungeeItem[]) instance.items.toArray()) {
+        for (FromBungeeItem item : (FromBungeeItem[]) instance.getItems().toArray()) {
             DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
             if (item.channel.equals(in.readUTF())) {
                 try {

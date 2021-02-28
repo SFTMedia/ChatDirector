@@ -41,11 +41,11 @@ public class TestReplacement {
         init();
         Chain targetChain = chatDirector.getChains().get("regex");
         assertTrue(chatDirector.getChains().containsKey("regex"));
-        assertEquals(1, targetChain.items.size());
+        assertEquals(1, targetChain.getItems().size());
         RegexItem regexItem = new RegexItem();
         regexItem.pairs.put("Regex to find", "regex to replace");
         regexItem.pairs.put("Regex to find2", "regex to replace2");
-        assertEquals(regexItem, targetChain.items.get(0));
+        assertEquals(regexItem, targetChain.getItems().get(0));
     }
 
     @Test
@@ -53,9 +53,9 @@ public class TestReplacement {
         init();
         Chain targetChain = chatDirector.getChains().get("remove-colors");
         assertTrue(chatDirector.getChains().containsKey("remove-colors"));
-        assertEquals(2, targetChain.items.size());
-        assertEquals(new RemoveColorsItem(), targetChain.items.get(0));
-        assertEquals(new RemoveColorsItem(), targetChain.items.get(1));
+        assertEquals(2, targetChain.getItems().size());
+        assertEquals(new RemoveColorsItem(), targetChain.getItems().get(0));
+        assertEquals(new RemoveColorsItem(), targetChain.getItems().get(1));
     }
 
     @Test
@@ -63,9 +63,9 @@ public class TestReplacement {
         init();
         Chain targetChain = chatDirector.getChains().get("resolve-colors");
         assertTrue(chatDirector.getChains().containsKey("resolve-colors"));
-        assertEquals(2, targetChain.items.size());
-        assertEquals(new ResolveColorsItem(), targetChain.items.get(0));
-        assertEquals(new ResolveColorsItem(), targetChain.items.get(1));
+        assertEquals(2, targetChain.getItems().size());
+        assertEquals(new ResolveColorsItem(), targetChain.getItems().get(0));
+        assertEquals(new ResolveColorsItem(), targetChain.getItems().get(1));
     }
 
     @Test
@@ -73,9 +73,9 @@ public class TestReplacement {
         init();
         Chain targetChain = chatDirector.getChains().get("to-upper");
         assertTrue(chatDirector.getChains().containsKey("to-upper"));
-        assertEquals(2, targetChain.items.size());
-        assertEquals(new ToUpperItem(), targetChain.items.get(0));
-        assertEquals(new ToUpperItem(), targetChain.items.get(1));
+        assertEquals(2, targetChain.getItems().size());
+        assertEquals(new ToUpperItem(), targetChain.getItems().get(0));
+        assertEquals(new ToUpperItem(), targetChain.getItems().get(1));
     }
 
     @Test
@@ -83,9 +83,9 @@ public class TestReplacement {
         init();
         Chain targetChain = chatDirector.getChains().get("to-lower");
         assertTrue(chatDirector.getChains().containsKey("to-lower"));
-        assertEquals(2, targetChain.items.size());
-        assertEquals(new ToLowerItem(), targetChain.items.get(0));
-        assertEquals(new ToLowerItem(), targetChain.items.get(1));
+        assertEquals(2, targetChain.getItems().size());
+        assertEquals(new ToLowerItem(), targetChain.getItems().get(0));
+        assertEquals(new ToLowerItem(), targetChain.getItems().get(1));
     }
 
     @Test
@@ -93,9 +93,9 @@ public class TestReplacement {
         init();
         Chain targetChain = chatDirector.getChains().get("to-word");
         assertTrue(chatDirector.getChains().containsKey("to-word"));
-        assertEquals(2, targetChain.items.size());
-        assertEquals(new ToWordItem(), targetChain.items.get(0));
-        assertEquals(new ToWordItem(), targetChain.items.get(1));
+        assertEquals(2, targetChain.getItems().size());
+        assertEquals(new ToWordItem(), targetChain.getItems().get(0));
+        assertEquals(new ToWordItem(), targetChain.getItems().get(1));
     }
 
     @Test
@@ -103,13 +103,13 @@ public class TestReplacement {
         init();
         Chain targetChain = chatDirector.getChains().get("sub-string");
         assertTrue(chatDirector.getChains().containsKey("sub-string"));
-        assertEquals(2, targetChain.items.size());
+        assertEquals(2, targetChain.getItems().size());
         SubStringItem subStringItem = new SubStringItem();
         subStringItem.start=2;
         subStringItem.end=4;
-        assertEquals(subStringItem, targetChain.items.get(0));
+        assertEquals(subStringItem, targetChain.getItems().get(0));
         subStringItem = new SubStringItem();
         subStringItem.end=4;
-        assertEquals(subStringItem, targetChain.items.get(1));
+        assertEquals(subStringItem, targetChain.getItems().get(1));
     }
 }

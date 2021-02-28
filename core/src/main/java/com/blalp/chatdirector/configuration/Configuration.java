@@ -39,7 +39,7 @@ public class Configuration implements IConfiguration {
             System.out.println("Chains");
             for (String pipeKey : chains.keySet()) {
                 System.out.println("Chain " + pipeKey);
-                for (IItem item : chains.get(pipeKey).items) {
+                for (IItem item : chains.get(pipeKey).getItems()) {
                     System.out.println(item);
                 }
             }

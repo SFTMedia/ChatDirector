@@ -21,7 +21,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        for (BukkitInputItem item : items.toArray(new BukkitInputItem[] {})) {
+        for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
@@ -44,7 +44,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerLoginEvent event) {
         Context context = BukkitModule.instance.getContext(event);
-        for (BukkitInputItem item : items.toArray(new BukkitInputItem[] {})) {
+        for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (event.getResult().equals(Result.ALLOWED) && item.checkCanceled) {
                 continue;
             }
@@ -63,7 +63,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     @EventHandler
     public void onLogout(PlayerQuitEvent event) {
         Context context = BukkitModule.instance.getContext(event);
-        for (BukkitInputItem item : items.toArray(new BukkitInputItem[] {})) {
+        for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (item.logout) {
                 context.put("CURRENT", ChatDirector.format(item.formatLogout, context));
                 ChatDirector.run(item, context, true);
@@ -74,7 +74,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public void onServerStart() {
         Context context = BukkitModule.instance.getContext(null);
         // Loaded the main world. Server started!
-        for (BukkitInputItem item : items.toArray(new BukkitInputItem[] {})) {
+        for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (item.serverStarted) {
                 context.put("CURRENT", ChatDirector.format(item.formatStarted, context));
                 ChatDirector.run(item, context, true);
@@ -85,7 +85,7 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
     public void onServerStop() {
         Context context = BukkitModule.instance.getContext(null);
         // Loaded the main world. Server started!
-        for (BukkitInputItem item : items.toArray(new BukkitInputItem[] {})) {
+        for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {
             if (item.serverStopped) {
                 context.put("CURRENT", ChatDirector.format(item.formatStopped, context));
                 ChatDirector.run(item, context, true);

@@ -6,8 +6,6 @@ import java.util.List;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IModule;
 
-import org.apache.commons.lang.NotImplementedException;
-
 public class BungeeMessageModule implements IModule {
 
     @Override

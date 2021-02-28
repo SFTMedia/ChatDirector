@@ -20,7 +20,7 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
     @EventHandler
     public void onEvent(PostBroadcastEvent e) {
         Context context = MultiChatModule.instance.getContext(e);
-        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[] {})) {
+        for (MultiChatInputItem item : instance.getItems().toArray(new MultiChatInputItem[] {})) {
             if (item.broadcast) {
                 context.put("CURRENT", e.getMessage());
                 ChatDirector.run(item, context, true);
@@ -31,7 +31,7 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
     @EventHandler
     public void onEvent(PostGlobalChatEvent e) {
         Context context = MultiChatModule.instance.getContext(e);
-        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[] {})) {
+        for (MultiChatInputItem item : instance.getItems().toArray(new MultiChatInputItem[] {})) {
             if (item.global) {
                 context.put("CURRENT", e.getMessage());
                 ChatDirector.run(item, context, true);
@@ -44,7 +44,7 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
     @EventHandler
     public void onChat(PostStaffChatEvent e) {
         Context context = MultiChatModule.instance.getContext(e);
-        for (MultiChatInputItem item : instance.items.toArray(new MultiChatInputItem[] {})) {
+        for (MultiChatInputItem item : instance.getItems().toArray(new MultiChatInputItem[] {})) {
             if (item.staff) {
                 context.put("CURRENT", e.getMessage());
                 ChatDirector.run(item, context, true);

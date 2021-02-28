@@ -54,10 +54,10 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
                         "Not adding item " + itemKey + ":" + itemValue + " it failed to load.");
             }
         }
-        while (chainObj.items.contains(null)) {
-            chainObj.items.remove(null);
+        while (chainObj.getItems().contains(null)) {
+            chainObj.getItems().remove(null);
         }
-        if (chainObj.items.size() == 0) {
+        if (chainObj.getItems().size() == 0) {
             ChatDirector.getLogger().log(Level.WARNING, "No items parsed in chain " + chain);
             return null;
         }
