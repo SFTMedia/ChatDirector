@@ -6,8 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Chain;
-import com.blalp.chatdirector.model.IModule;
+import com.blalp.chatdirector.bukkit.modules.placeholderapi.PlaceholderAPIResolveItem;
 
 import org.junit.jupiter.api.Test;
 
@@ -161,5 +160,14 @@ public class TestBukkit {
         bukkitCommandItem.setCommand("example-command");
         bukkitCommandItem.setPermission("example-permission");
         assertEquals(bukkitCommandItem, chatDirector.getChains().get("bukkit-command").getItems().get(0));
+    }
+
+    @Test
+    public void parsePlaceholderAPIResolve() {
+        init();
+        assertTrue(chatDirector.getChains().containsKey("placeholderapi-resolve"));
+        assertEquals(1, chatDirector.getChains().get("placeholderapi-resolve").getItems().size());
+        PlaceholderAPIResolveItem bukkitCommandItem = new PlaceholderAPIResolveItem();
+        assertEquals(bukkitCommandItem, chatDirector.getChains().get("placeholderapi-resolve").getItems().get(0));
     }
 }

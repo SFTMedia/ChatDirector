@@ -10,7 +10,7 @@ import org.bukkit.OfflinePlayer;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 
-public class PlaceholderapiResolveItem implements IItem {
+public class PlaceholderAPIResolveItem implements IItem {
 
     @Override
     public boolean isValid() {
@@ -18,6 +18,7 @@ public class PlaceholderapiResolveItem implements IItem {
     }
 
     @Override
+    @SuppressWarnings(value = "deprecation")
     public Context process(Context context) {
         OfflinePlayer player;
         if (context.containsKey("PLAYER_UUID")) {

@@ -86,3 +86,5 @@ chains:
       - bukkit-command:
           command: "example-command"
           permission: "example-permission"
+  - placeholderapi-resolve:
+      - placeholderapi-resolve

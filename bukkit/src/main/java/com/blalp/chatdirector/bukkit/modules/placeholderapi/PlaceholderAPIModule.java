@@ -7,10 +7,8 @@ import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
 
-/**
- * PlaceholderapiModule
- */
-public class PlaceholderapiModule implements IModule {
+
+public class PlaceholderAPIModule implements IModule {
 
     @Override
     public boolean load() {
@@ -46,7 +44,7 @@ public class PlaceholderapiModule implements IModule {
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
             case "placeholderapi-resolve":
-                return PlaceholderapiResolveItem.class;
+                return PlaceholderAPIResolveItem.class;
             default:
                 return null;
         }
