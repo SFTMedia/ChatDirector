@@ -25,7 +25,7 @@ public class TestSQL {
         chatDirector.load();
 
     }
-/*
+
     @Test
     public void valid() {
         init();
@@ -108,15 +108,14 @@ public class TestSQL {
         sqlCacheIfItem.key="Key";
         Chain chain = new Chain();
         chain.addItem(new HaltItem());
-        sqlCacheIfItem.setYesChain(chain);
+        sqlCacheIfItem.setNoChain(chain);
         assertEquals(sqlCacheIfItem, chatDirector.getChains().get("sql-cache-if").getItems().get(0));
         sqlCacheIfItem = new SQLCacheIfItem();
         sqlCacheIfItem.connection="other";
         sqlCacheIfItem.table="table";
         sqlCacheIfItem.name="name";
         sqlCacheIfItem.key="key";
-        sqlCacheIfItem.setNoChain(chain);
+        sqlCacheIfItem.setYesChain(chain);
         assertEquals(sqlCacheIfItem, chatDirector.getChains().get("sql-cache-if").getItems().get(1));
     }
-    */
 }
