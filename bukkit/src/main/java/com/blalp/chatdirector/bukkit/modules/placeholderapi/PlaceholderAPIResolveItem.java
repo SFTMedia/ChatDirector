@@ -8,8 +8,10 @@ import com.blalp.chatdirector.model.IItem;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
+import lombok.EqualsAndHashCode;
 import me.clip.placeholderapi.PlaceholderAPI;
 
+@EqualsAndHashCode
 public class PlaceholderAPIResolveItem implements IItem {
 
     @Override
