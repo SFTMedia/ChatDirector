@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class SpongePlayerlistItem implements IItem {
-    boolean ignoreCase = true;
     String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
     String formatNoPlayers = "**No online players**";
     String formatPlayer = "%PLAYER_NAME%";

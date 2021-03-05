@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class SpongeOutputItem implements IItem {
-    String permission, sender;
+    String permission;
 
     @Override
     public Context process(Context context) {
@@ -37,7 +37,7 @@ public class SpongeOutputItem implements IItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(sender);
+        return true;
     }
 
 }

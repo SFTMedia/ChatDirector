@@ -285,10 +285,8 @@ chains:
           format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n" # Optional
           format-player: "%PLAYER_NAME%" # Optional
           format-no-players: "**No online players**" # Optional
-          ignore-case: true # Optional
       - sponge-output:
-          permission: null # Optional
-          sender: "FakeME" # Optional
+          permission: "permission" # Optional
   - sql-demo:
       # The Table looks like this
       # name  key   value
