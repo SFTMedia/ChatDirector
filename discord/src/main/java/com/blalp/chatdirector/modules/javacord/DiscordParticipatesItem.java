@@ -44,7 +44,8 @@ public class DiscordParticipatesItem extends DiscordItem {
                         "Starting work for " + user.getName() + " (" + user.getIdAsString() + ")");
             }
             // All keys should be the same for each user and get overridden.
-            workingContext.merge(((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(user));
+            workingContext
+                    .merge(((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(user));
             each.run(workingContext);
             workingContext = new Context();
         }

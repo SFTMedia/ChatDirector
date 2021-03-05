@@ -1,7 +1,7 @@
 module_data:
-    discord:
-        - bot2: "LOL NO"
-        - bot-name: "REDACTED"
+  discord:
+    - bot2: "LOL NO"
+    - bot-name: "REDACTED"
 chains:
   - discord-input:
       - discord-input:

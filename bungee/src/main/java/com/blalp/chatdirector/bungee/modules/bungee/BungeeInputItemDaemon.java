@@ -77,11 +77,8 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
         }
     }
     /*
-    @EventHandler
-    public void onMessage(PluginMessageEvent e) {
-        // TODO
-    }
-    /*
+     * @EventHandler public void onMessage(PluginMessageEvent e) { // TODO } /*
+     * 
      * @Override public boolean load() {
      * ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(
      * ChatDirectorBungee.instance, this); }

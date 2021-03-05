@@ -22,16 +22,17 @@ public class SQLConnection implements ILoadable {
     @Override
     public boolean load() {
         try {
-            if(ChatDirector.getInstance().isDebug()) {
+            if (ChatDirector.getInstance().isDebug()) {
                 ChatDirector.getLogger().log(Level.INFO, "Loading " + this);
             }
             connection = DriverManager.getConnection(connectionString);
-            if(ChatDirector.getInstance().isDebug()) {
+            if (ChatDirector.getInstance().isDebug()) {
                 ChatDirector.getLogger().log(Level.INFO, "Loaded " + this);
             }
         } catch (SQLException e) {
-            if(ChatDirector.getInstance().isTesting()) {
-                System.err.println("connection " + connectionString + " failed, but we are testing so its to be expected.");
+            if (ChatDirector.getInstance().isTesting()) {
+                System.err.println(
+                        "connection " + connectionString + " failed, but we are testing so its to be expected.");
                 return true;
             } else {
                 System.err.println("connection " + connectionString + " failed.");
@@ -64,16 +65,18 @@ public class SQLConnection implements ILoadable {
         }
         return true;
     }
+
     public Connection getConnection() {
         return connection;
     }
+
     public void addTable(String table) {
         tables.add(table);
     }
 
-	public void addTables(Iterable<String> list) {
-        for(String table:list){
+    public void addTables(Iterable<String> list) {
+        for (String table : list) {
             addTable(table);
         }
-	}
+    }
 }

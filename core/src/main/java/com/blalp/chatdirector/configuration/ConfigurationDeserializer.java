@@ -25,9 +25,11 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
             configuration.setDebug(node.get("debug").asBoolean());
         }
         if (node.has("module_data")) {
-            for (Entry<String, JsonNode> moduleData : new IteratorIterable<Entry<String, JsonNode>>(node.get("module_data").fields())) {
+            for (Entry<String, JsonNode> moduleData : new IteratorIterable<Entry<String, JsonNode>>(
+                    node.get("module_data").fields())) {
                 Map<String, String> readModuleData = new HashMap<>();
-                for (Entry<String, JsonNode> singleModuleData : new IteratorIterable<>(moduleData.getValue().fields())) {
+                for (Entry<String, JsonNode> singleModuleData : new IteratorIterable<>(
+                        moduleData.getValue().fields())) {
                     readModuleData.put(singleModuleData.getKey(), singleModuleData.getValue().asText());
                 }
                 configuration.moduleData.put(moduleData.getKey(), readModuleData);

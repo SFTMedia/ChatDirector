@@ -82,16 +82,16 @@ public class SpongeModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "sponge-command":
-                return SpongeCommandItem.class;
-            case "sponge-output":
-                return SpongeOutputItem.class;
-            case "sponge-input":
-                return SpongeInputItem.class;
-            case "sponge-playerlist":
-                return SpongePlayerlistItem.class;
-            default:
-                return null;
+        case "sponge-command":
+            return SpongeCommandItem.class;
+        case "sponge-output":
+            return SpongeOutputItem.class;
+        case "sponge-input":
+            return SpongeInputItem.class;
+        case "sponge-playerlist":
+            return SpongePlayerlistItem.class;
+        default:
+            return null;
         }
     }
 

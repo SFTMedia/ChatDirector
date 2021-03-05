@@ -33,23 +33,23 @@ public class ReplacementModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "regex":
-                return RegexItem.class;
-            // return new RegexItem(config);
-            case "remove-colors":
-                return RemoveColorsItem.class;
-            case "resolve-colors":
-                return ResolveColorsItem.class;
-            case "sub-string":
-                return SubStringItem.class;
-            case "to-lower":
-                return ToLowerItem.class;
-            case "to-upper":
-                return ToUpperItem.class;
-            case "to-word":
-                return ToWordItem.class;
-            default:
-                return null;
+        case "regex":
+            return RegexItem.class;
+        // return new RegexItem(config);
+        case "remove-colors":
+            return RemoveColorsItem.class;
+        case "resolve-colors":
+            return ResolveColorsItem.class;
+        case "sub-string":
+            return SubStringItem.class;
+        case "to-lower":
+            return ToLowerItem.class;
+        case "to-upper":
+            return ToUpperItem.class;
+        case "to-word":
+            return ToWordItem.class;
+        default:
+            return null;
         }
     }
 

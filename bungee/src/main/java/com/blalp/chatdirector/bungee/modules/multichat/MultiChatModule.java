@@ -64,12 +64,12 @@ public class MultiChatModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "multichat-input":
-                return MultiChatInputItem.class;
-            case "multichat-context":
-                return MultiChatContextItem.class;
-            default:
-                return null;
+        case "multichat-input":
+            return MultiChatInputItem.class;
+        case "multichat-context":
+            return MultiChatContextItem.class;
+        default:
+            return null;
         }
     }
 }

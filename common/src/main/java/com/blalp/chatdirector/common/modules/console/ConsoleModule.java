@@ -37,12 +37,12 @@ public class ConsoleModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "console-output-error":
-                return ConsoleOutputErrorItem.class;
-            case "console-output":
-                return ConsoleOutputItem.class;
-            default:
-                return null;
+        case "console-output-error":
+            return ConsoleOutputErrorItem.class;
+        case "console-output":
+            return ConsoleOutputItem.class;
+        default:
+            return null;
         }
     }
 }

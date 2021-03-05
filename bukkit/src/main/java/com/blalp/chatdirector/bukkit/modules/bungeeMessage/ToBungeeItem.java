@@ -28,30 +28,21 @@ public class ToBungeeItem implements IItem {
     public Context process(Context context) {
         return null;
     }
-/*
-    @Override
-    public Context process(Context context) {
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("Forward");
-        // Should this be all or online
-        // https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#forward?
-        out.writeUTF("ALL");
-        out.writeUTF("ChatDirector");
-        out.writeUTF(channel);
-        out.writeInt(context.size());
-        for (Entry<String, String> contextItem : context.entrySet()) {
-            out.writeUTF(contextItem.getKey());
-            out.writeUTF(contextItem.getValue());
-        }
-        out.writeUTF(context.getCurrent());
-        Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
-        player.sendPluginMessage(ChatDirectorBukkit.instance, "BungeeCord", out.toByteArray());
-        return new Context();
-    }
-
-    @Override
-    public boolean isValid() {
-        return ValidationUtils.hasContent(channel);
-    }
-    */
+    /*
+     * @Override public Context process(Context context) { ByteArrayDataOutput out =
+     * ByteStreams.newDataOutput(); out.writeUTF("Forward"); // Should this be all
+     * or online //
+     * https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/#
+     * forward? out.writeUTF("ALL"); out.writeUTF("ChatDirector");
+     * out.writeUTF(channel); out.writeInt(context.size()); for (Entry<String,
+     * String> contextItem : context.entrySet()) {
+     * out.writeUTF(contextItem.getKey()); out.writeUTF(contextItem.getValue()); }
+     * out.writeUTF(context.getCurrent()); Player player =
+     * Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+     * player.sendPluginMessage(ChatDirectorBukkit.instance, "BungeeCord",
+     * out.toByteArray()); return new Context(); }
+     * 
+     * @Override public boolean isValid() { return
+     * ValidationUtils.hasContent(channel); }
+     */
 }

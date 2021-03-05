@@ -25,7 +25,8 @@ import lombok.EqualsAndHashCode;
 @JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration implements IConfiguration {
     boolean debug;
-    // Do not allow the user to specify whether or not they are in testing mode, that should only be done programmatically in the unit tests.
+    // Do not allow the user to specify whether or not they are in testing mode,
+    // that should only be done programmatically in the unit tests.
     @JsonIgnore()
     boolean testing = false;
     ServiceLoader<IModule> modules;
@@ -36,12 +37,12 @@ public class Configuration implements IConfiguration {
     Map<String, Map<String, String>> moduleData = new HashMap<>();
 
     public Configuration() {
-        modules = ServiceLoader.load(IModule.class,this.getClass().getClassLoader());
+        modules = ServiceLoader.load(IModule.class, this.getClass().getClassLoader());
         try {
             Class.forName("org.junit.jupiter.api.Test");
-            testing=true;
+            testing = true;
         } catch (ClassNotFoundException e) {
-            testing=false;
+            testing = false;
         }
     }
 
@@ -57,7 +58,7 @@ public class Configuration implements IConfiguration {
             System.out.println("Chains");
             for (String pipeKey : chains.keySet()) {
                 System.out.println("Chain " + pipeKey);
-                if(chains.get(pipeKey)!=null){
+                if (chains.get(pipeKey) != null) {
                     for (IItem item : chains.get(pipeKey).getItems()) {
                         System.out.println(item);
                     }
@@ -66,15 +67,15 @@ public class Configuration implements IConfiguration {
         }
         for (IModule module : getModules()) {
             result = result && module.load();
-            if(debug){
-                System.out.println(module+"returned "+result);
+            if (debug) {
+                System.out.println(module + "returned " + result);
             }
         }
-        if(!isValid()){
+        if (!isValid()) {
             return false;
         }
         for (IDaemon daemon : getDaemons()) {
-            if(!daemon.load()){
+            if (!daemon.load()) {
                 ChatDirector.getLogger().log(Level.SEVERE, "daemon " + daemon.toString() + " failed to load.");
                 return false;
             }
@@ -94,7 +95,7 @@ public class Configuration implements IConfiguration {
 
     @Override
     public boolean unload() {
-        for(IDaemon daemon:daemons){
+        for (IDaemon daemon : daemons) {
             daemon.unload();
         }
         for (IModule module : getModules()) {
@@ -116,6 +117,7 @@ public class Configuration implements IConfiguration {
         }
         return null;
     }
+
     public boolean hasDaemon(Class<? extends IDaemon> class1) {
         for (IDaemon daemon : daemons) {
             if (daemon.getClass().isAssignableFrom(class1)) {
@@ -139,8 +141,8 @@ public class Configuration implements IConfiguration {
                 | SecurityException e) {
             e.printStackTrace();
         }
-		return null;
-	}
+        return null;
+    }
 
     @Override
     public boolean isValid() {

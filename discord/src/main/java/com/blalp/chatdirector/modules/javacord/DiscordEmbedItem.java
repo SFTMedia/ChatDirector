@@ -24,8 +24,7 @@ import lombok.NoArgsConstructor;
 public class DiscordEmbedItem extends DiscordItem {
     String channel;
 
-    String title, description, authorName, authorLink, authorAvatar, color, footerName, footerAvatar, image,
-            thumbnail;
+    String title, description, authorName, authorLink, authorAvatar, color, footerName, footerAvatar, image, thumbnail;
     Map<String, String> fields, inlineFields;
 
     @Override
@@ -82,9 +81,8 @@ public class DiscordEmbedItem extends DiscordItem {
                 }
             }
         }
-        DiscordBot.get(bot).getDiscordApi()
-                .getChannelById(ChatDirector.format(channel, context)).get().asServerTextChannel().get()
-                .sendMessage(embed);
+        DiscordBot.get(bot).getDiscordApi().getChannelById(ChatDirector.format(channel, context)).get()
+                .asServerTextChannel().get().sendMessage(embed);
         return new Context();
     }
 

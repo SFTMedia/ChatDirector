@@ -96,10 +96,10 @@ public class VaultModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "vault-context":
-                return VaultContextItem.class;
-            default:
-                return null;
+        case "vault-context":
+            return VaultContextItem.class;
+        default:
+            return null;
         }
     }
 }

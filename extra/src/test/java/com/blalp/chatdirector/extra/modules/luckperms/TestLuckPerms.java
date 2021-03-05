@@ -47,13 +47,13 @@ public class TestLuckPerms {
         assertTrue(chatDirector.getChains().containsKey("luckperms-has"));
         assertEquals(2, chatDirector.getChains().get("luckperms-has").getItems().size());
         LuckPermsHasItem luckpermsHasItem = new LuckPermsHasItem();
-        luckpermsHasItem.permission="permission.node";
+        luckpermsHasItem.permission = "permission.node";
         Chain chain = new Chain();
         chain.addItem(new EchoItem("yes"));
         luckpermsHasItem.setYesChain(chain);
         assertEquals(luckpermsHasItem, chatDirector.getChains().get("luckperms-has").getItems().get(0));
         luckpermsHasItem = new LuckPermsHasItem();
-        luckpermsHasItem.permission="permission.node 2";
+        luckpermsHasItem.permission = "permission.node 2";
         chain = new Chain();
         chain.addItem(new EchoItem("no"));
         luckpermsHasItem.setNoChain(chain);
@@ -66,12 +66,12 @@ public class TestLuckPerms {
         assertTrue(chatDirector.getChains().containsKey("luckperms-set"));
         assertEquals(2, chatDirector.getChains().get("luckperms-set").getItems().size());
         LuckPermsSetItem luckpermsSetItem = new LuckPermsSetItem();
-        luckpermsSetItem.permission="permission.node";
-        luckpermsSetItem.value=false;
+        luckpermsSetItem.permission = "permission.node";
+        luckpermsSetItem.value = false;
         assertEquals(luckpermsSetItem, chatDirector.getChains().get("luckperms-set").getItems().get(0));
         luckpermsSetItem = new LuckPermsSetItem();
-        luckpermsSetItem.permission="permission.node 2";
-        luckpermsSetItem.value=true;
+        luckpermsSetItem.permission = "permission.node 2";
+        luckpermsSetItem.value = true;
         assertEquals(luckpermsSetItem, chatDirector.getChains().get("luckperms-set").getItems().get(1));
     }
 
@@ -81,12 +81,12 @@ public class TestLuckPerms {
         assertTrue(chatDirector.getChains().containsKey("luckperms-unset"));
         assertEquals(2, chatDirector.getChains().get("luckperms-unset").getItems().size());
         LuckPermsUnsetItem luckpermsSetItem = new LuckPermsUnsetItem();
-        luckpermsSetItem.permission="permission.node";
-        luckpermsSetItem.value=false;
+        luckpermsSetItem.permission = "permission.node";
+        luckpermsSetItem.value = false;
         assertEquals(luckpermsSetItem, chatDirector.getChains().get("luckperms-unset").getItems().get(0));
         luckpermsSetItem = new LuckPermsUnsetItem();
-        luckpermsSetItem.permission="permission.node 2";
-        luckpermsSetItem.value=true;
+        luckpermsSetItem.permission = "permission.node 2";
+        luckpermsSetItem.value = true;
         assertEquals(luckpermsSetItem, chatDirector.getChains().get("luckperms-unset").getItems().get(1));
     }
 }

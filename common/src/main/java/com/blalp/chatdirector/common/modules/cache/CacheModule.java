@@ -31,14 +31,14 @@ public class CacheModule implements IModule {
 
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "cache-get":
-                return CacheGetItem.class;
-            case "cache-set":
-                return CacheSetItem.class;
-            case "cache-if":
-                return CacheIfItem.class;
-            default:
-                return null;
+        case "cache-get":
+            return CacheGetItem.class;
+        case "cache-set":
+            return CacheSetItem.class;
+        case "cache-if":
+            return CacheIfItem.class;
+        default:
+            return null;
         }
     }
 

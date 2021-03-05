@@ -16,6 +16,6 @@ public interface IConfiguration extends ILoadable, IValid {
     public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1);
 
     public boolean isDebug();
-    
+
     public boolean isTesting();
 }

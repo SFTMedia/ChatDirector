@@ -17,12 +17,12 @@ public class SQLConnections extends HashMap<String, SQLConnection> implements ID
 
     @Override
     public boolean load() {
-        for(Entry<String,SQLConnection> connection:this.entrySet()) {
-            if(tables.containsKey(connection.getKey())){
+        for (Entry<String, SQLConnection> connection : this.entrySet()) {
+            if (tables.containsKey(connection.getKey())) {
                 connection.getValue().addTables(tables.get(connection.getKey()));
             }
-            if(!connection.getValue().load()){
-                ChatDirector.getLogger().log(Level.SEVERE, connection+" failed to load.");
+            if (!connection.getValue().load()) {
+                ChatDirector.getLogger().log(Level.SEVERE, connection + " failed to load.");
                 return false;
             }
         }
@@ -31,9 +31,9 @@ public class SQLConnections extends HashMap<String, SQLConnection> implements ID
 
     @Override
     public boolean unload() {
-        for(SQLConnection connection:this.values()) {
-            if(!connection.unload()){
-                ChatDirector.getLogger().log(Level.WARNING, connection+" failed to unload.");
+        for (SQLConnection connection : this.values()) {
+            if (!connection.unload()) {
+                ChatDirector.getLogger().log(Level.WARNING, connection + " failed to unload.");
             }
         }
         return true;
@@ -42,17 +42,17 @@ public class SQLConnections extends HashMap<String, SQLConnection> implements ID
     @Override
     public void addItem(IItem item) {
         if (item instanceof SQLItem) {
-            if(!tables.containsKey(((SQLItem)item).getConnection())){
-                tables.put(((SQLItem)item).getConnection(), new ArrayList<>());
+            if (!tables.containsKey(((SQLItem) item).getConnection())) {
+                tables.put(((SQLItem) item).getConnection(), new ArrayList<>());
             }
-            tables.get(((SQLItem)item).getConnection()).add(((SQLItem)item).getTable());
+            tables.get(((SQLItem) item).getConnection()).add(((SQLItem) item).getTable());
         } else if (item instanceof SQLCacheIfItem) {
-            if(!tables.containsKey(((SQLCacheIfItem)item).getConnection())){
-                tables.put(((SQLCacheIfItem)item).getConnection(), new ArrayList<>());
+            if (!tables.containsKey(((SQLCacheIfItem) item).getConnection())) {
+                tables.put(((SQLCacheIfItem) item).getConnection(), new ArrayList<>());
             }
-            tables.get(((SQLCacheIfItem)item).getConnection()).add(((SQLCacheIfItem)item).getTable());
+            tables.get(((SQLCacheIfItem) item).getConnection()).add(((SQLCacheIfItem) item).getTable());
         }
         return;
     }
-    
+
 }

@@ -28,7 +28,8 @@ public class DiscordMessageHistoryItem extends DiscordItem {
                 .getTextChannelById(ChatDirector.format(channel, context)).get().getMessages(length).join();
         String output = "";
         for (Message message : messages) {
-            workingContext.merge(((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(message));
+            workingContext.merge(
+                    ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(message));
             output += ChatDirector.format(format, workingContext);
         }
         return new Context(output);

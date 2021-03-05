@@ -37,12 +37,12 @@ public class FileModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "file-input":
-                return FileInputItem.class;
-            case "file-output":
-                return FileOutputItem.class;
-            default:
-                return null;
+        case "file-input":
+            return FileInputItem.class;
+        case "file-output":
+            return FileOutputItem.class;
+        default:
+            return null;
         }
     }
 }

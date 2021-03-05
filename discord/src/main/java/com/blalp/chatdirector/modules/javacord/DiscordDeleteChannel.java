@@ -19,8 +19,8 @@ public class DiscordDeleteChannel extends DiscordItem {
 
     @Override
     public Context process(Context context) {
-        DiscordBot.get(bot).getDiscordApi()
-                .getServerChannelById(ChatDirector.format(channel, context)).get().delete("Deleted by Chatdirector");
+        DiscordBot.get(bot).getDiscordApi().getServerChannelById(ChatDirector.format(channel, context)).get()
+                .delete("Deleted by Chatdirector");
         return new Context();
     }
 

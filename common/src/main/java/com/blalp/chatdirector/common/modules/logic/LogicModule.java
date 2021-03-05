@@ -37,20 +37,20 @@ public class LogicModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "if-contains":
-                return IfContainsItem.class;
-            case "if-equals":
-                return IfEqualsItem.class;
-            case "if-regex-match":
-                return IfRegexMatchesItem.class;
-            case "split":
-                return SplitItem.class;
-            case "if-starts-with":
-                return IfStartsWithItem.class;
-            case "if-ends-with":
-                return IfEndsWithItem.class;
-            default:
-                return null;
+        case "if-contains":
+            return IfContainsItem.class;
+        case "if-equals":
+            return IfEqualsItem.class;
+        case "if-regex-match":
+            return IfRegexMatchesItem.class;
+        case "split":
+            return SplitItem.class;
+        case "if-starts-with":
+            return IfStartsWithItem.class;
+        case "if-ends-with":
+            return IfEndsWithItem.class;
+        default:
+            return null;
         }
     }
 
