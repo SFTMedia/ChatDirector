@@ -61,7 +61,7 @@ public class SpongeInputDaemon extends ItemDaemon {
             if (event.isCancelled() && item.checkCanceled) {
                 continue;
             }
-            if (item.join) {
+            if (item.login) {
                 context.put("CURRENT", ChatDirector.format(item.formatLogin, context));
                 ChatDirector.run(item, context, true);
             }
@@ -71,7 +71,7 @@ public class SpongeInputDaemon extends ItemDaemon {
     public void onLogout(Disconnect event) {
         Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
         for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
-            if (item.leave) {
+            if (item.logout) {
                 context.put("CURRENT", ChatDirector.format(item.formatLogout, context));
                 ChatDirector.run(item, context, true);
             }

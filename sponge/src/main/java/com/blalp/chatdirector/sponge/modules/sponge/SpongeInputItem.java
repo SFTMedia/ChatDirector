@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SpongeInputItem extends PassItem {
-    boolean chat = false, checkCanceled = false, join = false, leave = false, serverStarted = false,
+    boolean chat = false, checkCanceled = false, login = false, logout = false, serverStarted = false,
             serverStopped = false, cancelChat = false, overrideChat = false;
     String formatChat = "%PLAYER_NAME%: %CHAT_MESSAGE%";
     String formatLogin = "**%PLAYER_NAME% joined the server**";
@@ -30,7 +30,7 @@ public class SpongeInputItem extends PassItem {
 
     @Override
     public boolean isValid() {
-        if (!(ValidationUtils.anyOf(chat, join, leave, serverStarted, serverStopped))) {
+        if (!(ValidationUtils.anyOf(chat, login, logout, serverStarted, serverStopped))) {
             ChatDirector.getLogger().log(Level.WARNING, "Missing a listener type chat/join/leave/start/stop.");
             return false;
         }

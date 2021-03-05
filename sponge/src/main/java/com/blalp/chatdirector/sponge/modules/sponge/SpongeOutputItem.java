@@ -37,7 +37,7 @@ public class SpongeOutputItem implements IItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(permission, sender);
+        return ValidationUtils.hasContent(sender);
     }
 
 }

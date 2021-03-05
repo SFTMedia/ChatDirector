@@ -1,0 +1,76 @@
+chains:
+  - sponge-command:
+      - sponge-command:
+          command: "command"
+          permission: "*"
+          args: true
+      - sponge-command:
+          command: "command 2"
+          permission: "permission"
+          args: false
+      - sponge-command:
+          command: "command2"
+          permission: "permission2"
+  - sponge-input:
+      - sponge-input:
+          chat: true
+          logout: true
+          login: true
+          server-started: true
+          server-stopped: true
+          override-chat: true
+          check-canceled: true
+          cancel-chat: true
+          format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
+          format-started: "**Server Started**"
+          format-stopped: "**Server Stopped**"
+          format-login: "**%PLAYER_NAME% joined the server**"
+          format-logout: "**%PLAYER_NAME% left the server**"
+      - sponge-input:
+          chat: true
+          format-chat: "chat"
+      - sponge-input:
+          logout: true
+          format-logout: "logout"
+      - sponge-input:
+          login: true
+          format-login: "login"
+      - sponge-input:
+          server-started: true
+          format-started: "started"
+      - sponge-input:
+          server-stopped: true
+          format-stopped: "stopped"
+      - sponge-input:
+          chat: true
+          override-chat: true
+          check-canceled: true
+          cancel-chat: true
+          format-chat: "chat 2"
+      - sponge-input:
+          chat: true
+          override-chat: false
+          check-canceled: false
+          cancel-chat: false
+          format-chat: "chat 3"
+  - sponge-playerlist:
+      - sponge-playerlist:
+          format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n"
+          format-player: "%PLAYER_NAME%"
+          format-no-players: "**No online players**"
+          ignore-case: true
+      - sponge-playerlist:
+          format: "format"
+      - sponge-playerlist:
+          format-player: "player"
+      - sponge-playerlist:
+          format-no-players: "no players"
+      - sponge-playerlist:
+          ignore-case: false
+  - sponge-output:
+      - sponge-output:
+          permission: null
+          sender: "FakeME"
+      - sponge-output:
+          permission: "permission"
+          sender: "sender"
