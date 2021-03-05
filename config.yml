@@ -314,7 +314,6 @@ chains:
           table: "" # Table name
           name: "" # First key
           key: "" # Second key
-          value: "" # This is set
           yes-chain: # List of items to run if there is a cached value
             - stop: null
           no-chain: null # List of items to run if there is no cached value

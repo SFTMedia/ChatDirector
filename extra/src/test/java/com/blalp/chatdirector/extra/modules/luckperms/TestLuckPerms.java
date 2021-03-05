@@ -11,7 +11,7 @@ import com.blalp.chatdirector.model.IModule;
 
 import org.junit.jupiter.api.Test;
 
-public class TestMultiChat {
+public class TestLuckPerms {
 
     private static ChatDirector chatDirector;
 
@@ -20,11 +20,11 @@ public class TestMultiChat {
             return;
         }
         chatDirector = new ChatDirector(
-                new File(this.getClass().getClassLoader().getResource("modules/multichat/config.yml").getFile()));
+                new File(this.getClass().getClassLoader().getResource("modules/luckperms/config.yml").getFile()));
         chatDirector.load();
 
     }
-
+/*
     @Test
     public void valid() {
         init();
