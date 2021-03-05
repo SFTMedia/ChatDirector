@@ -11,9 +11,11 @@ import com.blalp.chatdirector.model.IValid;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @EqualsAndHashCode
 @JsonDeserialize(using = ChainDeserializer.class)
+@ToString
 public class Chain implements IValid, Runnable {
     List<IItem> items = new ArrayList<>();
     int index;
