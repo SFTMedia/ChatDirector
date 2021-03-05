@@ -27,6 +27,9 @@ public class DiscordModule implements IModule {
     @Override
     public boolean load() {
         boolean result = true;
+        if(ChatDirector.getConfig().getModuleData()!=null||!ChatDirector.getConfig().getModuleData().containsKey("discord")){
+            return true;
+        }
         for(Entry<String,String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
             if(!DiscordBot.discordBots.containsKey(bot.getKey())){
                 DiscordBot.discordBots.put(bot.getKey(), new DiscordBot(bot.getValue()));

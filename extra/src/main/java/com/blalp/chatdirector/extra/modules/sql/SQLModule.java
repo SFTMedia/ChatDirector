@@ -27,6 +27,13 @@ public class SQLModule implements IModule {
     @Override
     public boolean load() {
         ChatDirector.getLogger().log(Level.WARNING, "Loading " + this);
+        if(ChatDirector.getConfig().getModuleData()==null||ChatDirector.getConfig().getModuleData().get("sql")==null){
+            ChatDirector.getLogger().log(Level.WARNING, "Failed to load SQL module, no module_data");
+            return true;
+        }
+        for (Entry<String,String> connection : ChatDirector.getConfig().getModuleData().get("sql").entrySet()) {
+            connections.put(connection.getKey(), new SQLConnection(connection.getValue()));
+        }
         for (Entry<String, SQLConnection> connection : connections.entrySet()) {
             connection.getValue().load();
             for (String table : tables.get(connection.getKey())) {
@@ -78,5 +85,12 @@ public class SQLModule implements IModule {
     public Context getContext(Object object) {
         return new Context();
     }
+
+	public static void addTable(String connection, String table) {
+        if(!tables.containsKey(connection)) {
+            tables.put(connection, new ArrayList<String>());
+        }
+        tables.get(connection).add(table);
+	}
 
 }
