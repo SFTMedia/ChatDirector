@@ -21,6 +21,11 @@ public class SpongeModule implements IModule {
 
     @Override
     public boolean load() {
+        try {
+            Class.forName("org.spongepowered.api.Sponge");
+        } catch (ClassNotFoundException e) {
+            return true;
+        }
         boolean result = true;
         for (SpongeCommandItem command : SpongeCommandItem.commands) {
             result = result && command.load();
@@ -30,6 +35,11 @@ public class SpongeModule implements IModule {
 
     @Override
     public boolean unload() {
+        try {
+            Class.forName("org.spongepowered.api.Sponge");
+        } catch (ClassNotFoundException e) {
+            return true;
+        }
         boolean result = true;
         for (SpongeCommandItem command : SpongeCommandItem.commands) {
             result = result && command.unload();
