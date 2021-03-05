@@ -7,7 +7,6 @@ import java.io.File;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.Chain;
-import com.blalp.chatdirector.model.IModule;
 
 import org.junit.jupiter.api.Test;
 
