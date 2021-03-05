@@ -21,6 +21,15 @@ public class Chain implements IValid, Runnable {
     int index;
     Context context;
 
+    public Chain() {
+
+    }
+    public Chain(Iterable<IItem> items) {
+        for(IItem item : items){
+            this.items.add(item);
+        }
+    }
+
     /**
      * This Starts execution at an item on a new thread.
      * 
