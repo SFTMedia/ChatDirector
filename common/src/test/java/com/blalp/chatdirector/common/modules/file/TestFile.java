@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.blalp.chatdirector.ChatDirector;
-
 
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +21,12 @@ public class TestFile {
         }
         chatDirector = new ChatDirector(
                 new File(this.getClass().getClassLoader().getResource("modules/file/config.yml").getFile()));
+        try {
+            new File("target/PATH_TO_FIFO").createNewFile();
+            new File("target/PATH_TO_FIFO_2").createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         assertTrue(chatDirector.load());
 
     }
