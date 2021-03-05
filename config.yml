@@ -249,6 +249,7 @@ chains:
           global: true
           staff: true
           broadcast: true
+  - placeholderapi-resolve: null
   - replacement-demo:
       - regex:
           - "Regex to find": "regex to replace"
