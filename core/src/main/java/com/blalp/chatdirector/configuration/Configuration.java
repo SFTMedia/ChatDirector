@@ -14,6 +14,7 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.model.IModule;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Data;
@@ -24,6 +25,9 @@ import lombok.EqualsAndHashCode;
 @JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration implements IConfiguration {
     boolean debug;
+    // Do not allow the user to specify whether or not they are in testing mode, that should only be done programmatically in the unit tests.
+    @JsonIgnore()
+    boolean testing = false;
     ServiceLoader<IModule> modules;
     List<IDaemon> daemons = new ArrayList<>();
     Map<String, Chain> chains = new HashMap<String, Chain>();
@@ -33,6 +37,12 @@ public class Configuration implements IConfiguration {
 
     public Configuration() {
         modules = ServiceLoader.load(IModule.class,this.getClass().getClassLoader());
+        try {
+            Class.forName("org.junit.jupiter.api.Test");
+            testing=true;
+        } catch (ClassNotFoundException e) {
+            testing=false;
+        }
     }
 
     // https://stackoverflow.com/questions/58102069/how-to-do-a-partial-deserialization-with-jackson#58102226
@@ -54,25 +64,14 @@ public class Configuration implements IConfiguration {
                 }
             }
         }
-        // Load modules only if we already have a loaded config
         for (IModule module : getModules()) {
             result = result && module.load();
             if(debug){
                 System.out.println(module+"returned "+result);
             }
         }
-        // Now validate chains
-        for (Entry<String, Chain> chain : getChains().entrySet()) {
-            if (chain.getValue() != null && !chain.getValue().isValid()) {
-                ChatDirector.getLogger().log(Level.SEVERE, "chain: " + chain.toString() + " is not valid.");
-                return false;
-            }
-        }
-        for (IModule module : getModules()) {
-            if (!module.isValid()) {
-                ChatDirector.getLogger().log(Level.SEVERE, "module " + module.toString() + " is not valid.");
-                return false;
-            }
+        if(!isValid()){
+            return false;
         }
         for (IDaemon daemon : getDaemons()) {
             if(!daemon.load()){
@@ -98,6 +97,9 @@ public class Configuration implements IConfiguration {
         for(IDaemon daemon:daemons){
             daemon.unload();
         }
+        for (IModule module : getModules()) {
+            module.unload();
+        }
         return true;
     }
 
@@ -113,6 +115,14 @@ public class Configuration implements IConfiguration {
             }
         }
         return null;
+    }
+    public boolean hasDaemon(Class<? extends IDaemon> class1) {
+        for (IDaemon daemon : daemons) {
+            if (daemon.getClass().isAssignableFrom(class1)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1) {
@@ -131,4 +141,21 @@ public class Configuration implements IConfiguration {
         }
 		return null;
 	}
+
+    @Override
+    public boolean isValid() {
+        for (Entry<String, Chain> chain : getChains().entrySet()) {
+            if (chain.getValue() != null && !chain.getValue().isValid()) {
+                ChatDirector.getLogger().log(Level.SEVERE, "chain: " + chain.toString() + " is not valid.");
+                return false;
+            }
+        }
+        for (IModule module : getModules()) {
+            if (!module.isValid()) {
+                ChatDirector.getLogger().log(Level.SEVERE, "module " + module.toString() + " is not valid.");
+                return false;
+            }
+        }
+        return true;
+    }
 }

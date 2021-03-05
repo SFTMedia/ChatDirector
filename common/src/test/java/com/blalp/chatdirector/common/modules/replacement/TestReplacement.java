@@ -15,25 +15,21 @@ public class TestReplacement {
 
     static ChatDirector chatDirector;
 
-    private void init() {
+    @Test
+    public void init() {
         if (chatDirector != null) {
             return;
         }
         chatDirector = new ChatDirector(
                 new File(this.getClass().getClassLoader().getResource("modules/replacement/config.yml").getFile()));
-        chatDirector.load();
+        assertTrue(chatDirector.load());
 
     }
 
     @Test
     public void valid() {
         init();
-        for (IModule module : ChatDirector.getConfig().getModules()) {
-            assertTrue(module.isValid());
-        }
-        for (Chain chain : ChatDirector.getConfig().getChains().values()) {
-            assertTrue(chain.isValid());
-        }
+        assertTrue(chatDirector.isValid());
     }
 
     @Test

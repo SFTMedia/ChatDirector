@@ -29,7 +29,6 @@ import com.blalp.chatdirector.model.IItem;
 public class ChatDirector implements IConfiguration {
     Configuration config = null;
     Configuration configStaging = null;
-    boolean useMain = false;
     static Logger logger;
     static Handler handler;
     /**
@@ -185,10 +184,6 @@ public class ChatDirector implements IConfiguration {
         }
     }
 
-    public static boolean isDebug() {
-        return instance.config.isDebug();
-    }
-
     public static ChatDirector getInstance() {
         return instance;
     }
@@ -205,5 +200,19 @@ public class ChatDirector implements IConfiguration {
     @Override
     public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1) {
         return config.getOrCreateDaemon(class1);
+    }
+
+    public boolean isDebug() {
+        return getConfig().isDebug();
+    }
+
+    @Override
+    public boolean isTesting() {
+        return getConfig().isTesting();
+    }
+
+    @Override
+    public boolean isValid() {
+        return getConfig().isValid();
     }
 }

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.blalp.chatdirector.configuration.Chain;
 
-public interface IConfiguration extends ILoadable {
+public interface IConfiguration extends ILoadable, IValid {
     public Class<?> getItemClass(String itemType);
 
     public Class<?> getItemClass(String itemType, Iterable<IModule> modules);
@@ -14,4 +14,8 @@ public interface IConfiguration extends ILoadable {
     public IModule getModule(Class<? extends IModule> class1);
 
     public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1);
+
+    public boolean isDebug();
+    
+    public boolean isTesting();
 }
