@@ -6,6 +6,7 @@ import com.blalp.chatdirector.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.logging.Level;
 
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = false)
 public abstract class ConditionalItem extends PassItem {
 
     Chain yesChain;

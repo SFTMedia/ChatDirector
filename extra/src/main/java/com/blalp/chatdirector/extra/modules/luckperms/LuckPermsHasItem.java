@@ -14,12 +14,14 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = LuckPermsHasDeserializer.class)
+@ToString(callSuper = true)
 public class LuckPermsHasItem extends ConditionalItem {
     String permission;
 
