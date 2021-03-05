@@ -36,18 +36,18 @@ public class TestSponge {
         assertTrue(chatDirector.getChains().containsKey("sponge-command"));
         assertEquals(3, chatDirector.getChains().get("sponge-command").getItems().size());
         SpongeCommandItem spongeCommand = new SpongeCommandItem();
-        spongeCommand.command="command";
-        spongeCommand.permission="*";
-        spongeCommand.args=true;
+        spongeCommand.command = "command";
+        spongeCommand.permission = "*";
+        spongeCommand.args = true;
         assertEquals(spongeCommand, chatDirector.getChains().get("sponge-command").getItems().get(0));
         spongeCommand = new SpongeCommandItem();
-        spongeCommand.command="command 2";
-        spongeCommand.permission="permission";
-        spongeCommand.args=false;
+        spongeCommand.command = "command 2";
+        spongeCommand.permission = "permission";
+        spongeCommand.args = false;
         assertEquals(spongeCommand, chatDirector.getChains().get("sponge-command").getItems().get(1));
         spongeCommand = new SpongeCommandItem();
-        spongeCommand.command="command2";
-        spongeCommand.permission="permission2";
+        spongeCommand.command = "command2";
+        spongeCommand.permission = "permission2";
         assertEquals(spongeCommand, chatDirector.getChains().get("sponge-command").getItems().get(2));
     }
 
@@ -112,16 +112,16 @@ public class TestSponge {
         spongeInputItem = new SpongeInputItem();
         spongeInputItem.chat = true;
         spongeInputItem.checkCanceled = true;
-        spongeInputItem.overrideChat =true;
-        spongeInputItem.cancelChat=true;
-        spongeInputItem.formatChat="chat 2";
+        spongeInputItem.overrideChat = true;
+        spongeInputItem.cancelChat = true;
+        spongeInputItem.formatChat = "chat 2";
         assertEquals(spongeInputItem, chatDirector.getChains().get("sponge-input").getItems().get(8));
         spongeInputItem = new SpongeInputItem();
         spongeInputItem.chat = true;
         spongeInputItem.checkCanceled = false;
-        spongeInputItem.overrideChat =false;
-        spongeInputItem.cancelChat=false;
-        spongeInputItem.formatChat="chat 3";
+        spongeInputItem.overrideChat = false;
+        spongeInputItem.cancelChat = false;
+        spongeInputItem.formatChat = "chat 3";
         assertEquals(spongeInputItem, chatDirector.getChains().get("sponge-input").getItems().get(9));
     }
 
@@ -139,7 +139,7 @@ public class TestSponge {
         spongePlayerlistItem.format = "format";
         assertEquals(spongePlayerlistItem, chatDirector.getChains().get("sponge-playerlist").getItems().get(1));
         spongePlayerlistItem = new SpongePlayerlistItem();
-        spongePlayerlistItem.formatPlayer="player";
+        spongePlayerlistItem.formatPlayer = "player";
         assertEquals(spongePlayerlistItem, chatDirector.getChains().get("sponge-playerlist").getItems().get(2));
         spongePlayerlistItem = new SpongePlayerlistItem();
         spongePlayerlistItem.formatNoPlayers = "no players";
@@ -155,7 +155,7 @@ public class TestSponge {
         spongeOutputItem.permission = null;
         assertEquals(spongeOutputItem, chatDirector.getChains().get("sponge-output").getItems().get(0));
         spongeOutputItem = new SpongeOutputItem();
-        spongeOutputItem.permission="permission";
+        spongeOutputItem.permission = "permission";
         assertEquals(spongeOutputItem, chatDirector.getChains().get("sponge-output").getItems().get(1));
     }
 }

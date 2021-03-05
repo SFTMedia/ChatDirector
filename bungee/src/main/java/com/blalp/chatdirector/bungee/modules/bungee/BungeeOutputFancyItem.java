@@ -73,8 +73,8 @@ public class BungeeOutputFancyItem implements IItem {
             output.setStrikethrough(true);
         }
         if (fancyMessage.getClick() != FancyMessageEnum.NONE) {
-            output.setClickEvent(
-                    new ClickEvent(ClickEvent.Action.valueOf(fancyMessage.getClick().toString()), fancyMessage.getClickData()));
+            output.setClickEvent(new ClickEvent(ClickEvent.Action.valueOf(fancyMessage.getClick().toString()),
+                    fancyMessage.getClickData()));
         }
         if (fancyMessage.getHover() == FancyMessageEnum.SHOW_TEXT) {
             output.setHoverEvent(new HoverEvent(HoverEvent.Action.valueOf(fancyMessage.getHover().toString()),

@@ -12,7 +12,7 @@ import org.javacord.api.DiscordApiBuilder;
 
 public class DiscordBot implements ILoadable {
     public static Map<String, DiscordBot> discordBots = new HashMap<>();
-    private static Map<String,List<DiscordInputItem>> pendingItems = new HashMap<>();
+    private static Map<String, List<DiscordInputItem>> pendingItems = new HashMap<>();
     private DiscordApi discordApi;
     private String token;
     public DiscordInputDaemon daemon;
@@ -42,22 +42,23 @@ public class DiscordBot implements ILoadable {
         return true;
     }
 
-	public static DiscordBot get(String bot) {
-        if(discordBots.containsKey(bot)){
-		    return discordBots.get(bot);
+    public static DiscordBot get(String bot) {
+        if (discordBots.containsKey(bot)) {
+            return discordBots.get(bot);
         } else {
             return null;
         }
-	}
+    }
 
-	public static void addPendingItems(String bot, DiscordInputItem item) {
-        if(!pendingItems.containsKey(bot)){
-            pendingItems.put(bot,new ArrayList<>());
+    public static void addPendingItems(String bot, DiscordInputItem item) {
+        if (!pendingItems.containsKey(bot)) {
+            pendingItems.put(bot, new ArrayList<>());
         }
         List<DiscordInputItem> items = pendingItems.get(bot);
         items.add(item);
-        pendingItems.put(bot,items);
-	}
+        pendingItems.put(bot, items);
+    }
+
     public static Map<String, List<DiscordInputItem>> getPendingItems() {
         return pendingItems;
     }

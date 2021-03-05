@@ -77,16 +77,16 @@ public class BukkitModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "bukkit-input":
-                return BukkitInputItem.class;
-            case "bukkit-output":
-                return BukkitOutputItem.class;
-            case "bukkit-playerlist":
-                return BukkitPlayerlistItem.class;
-            case "bukkit-command":
-                return BukkitCommandItem.class;
-            default:
-                return null;
+        case "bukkit-input":
+            return BukkitInputItem.class;
+        case "bukkit-output":
+            return BukkitOutputItem.class;
+        case "bukkit-playerlist":
+            return BukkitPlayerlistItem.class;
+        case "bukkit-command":
+            return BukkitCommandItem.class;
+        default:
+            return null;
         }
     }
 }

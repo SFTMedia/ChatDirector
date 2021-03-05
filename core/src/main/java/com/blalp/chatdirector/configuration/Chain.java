@@ -24,8 +24,9 @@ public class Chain implements IValid, Runnable {
     public Chain() {
 
     }
+
     public Chain(Iterable<IItem> items) {
-        for(IItem item : items){
+        for (IItem item : items) {
             this.items.add(item);
         }
     }
@@ -73,9 +74,8 @@ public class Chain implements IValid, Runnable {
         Context output;
         for (int i = indexOf; i < items.size(); i++) {
             if (ChatDirector.getConfig().debug) {
-                ChatDirector.getLogger().log(Level.INFO,
-                        "Starting process of " + items.get(i));
-                ChatDirector.getLogger().log(Level.INFO,context.toString());
+                ChatDirector.getLogger().log(Level.INFO, "Starting process of " + items.get(i));
+                ChatDirector.getLogger().log(Level.INFO, context.toString());
             }
             output = items.get(i).process(context);
             if (ChatDirector.getConfig().debug) {

@@ -100,11 +100,11 @@ public class TestReplacement {
         assertTrue(chatDirector.getChains().containsKey("sub-string"));
         assertEquals(2, targetChain.getItems().size());
         SubStringItem subStringItem = new SubStringItem();
-        subStringItem.start=2;
-        subStringItem.end=4;
+        subStringItem.start = 2;
+        subStringItem.end = 4;
         assertEquals(subStringItem, targetChain.getItems().get(0));
         subStringItem = new SubStringItem();
-        subStringItem.end=4;
+        subStringItem.end = 4;
         assertEquals(subStringItem, targetChain.getItems().get(1));
     }
 }

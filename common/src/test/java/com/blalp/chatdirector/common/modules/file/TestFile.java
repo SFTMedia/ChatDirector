@@ -43,17 +43,17 @@ public class TestFile {
         assertTrue(chatDirector.getChains().containsKey("file-input"));
         assertEquals(3, chatDirector.getChains().get("file-input").getItems().size());
         FileInputItem fileInputItem = new FileInputItem();
-        fileInputItem.path="target/PATH_TO_FIFO";
-        fileInputItem.delay=500;
-        fileInputItem.create=true;
+        fileInputItem.path = "target/PATH_TO_FIFO";
+        fileInputItem.delay = 500;
+        fileInputItem.create = true;
         assertEquals(fileInputItem, chatDirector.getChains().get("file-input").getItems().get(0));
         fileInputItem = new FileInputItem();
-        fileInputItem.path="target/PATH_TO_FIFO_2";
-        fileInputItem.create=true;
+        fileInputItem.path = "target/PATH_TO_FIFO_2";
+        fileInputItem.create = true;
         assertEquals(fileInputItem, chatDirector.getChains().get("file-input").getItems().get(1));
         fileInputItem = new FileInputItem();
-        fileInputItem.path="target/PATH_TO_FIFO_2";
-        fileInputItem.create=false;
+        fileInputItem.path = "target/PATH_TO_FIFO_2";
+        fileInputItem.create = false;
         assertEquals(fileInputItem, chatDirector.getChains().get("file-input").getItems().get(2));
     }
 
@@ -63,17 +63,17 @@ public class TestFile {
         assertTrue(chatDirector.getChains().containsKey("file-output"));
         assertEquals(3, chatDirector.getChains().get("file-output").getItems().size());
         FileOutputItem fileOutputItem = new FileOutputItem();
-        fileOutputItem.path="target/PATH_TO_FIFO";
-        fileOutputItem.delay=500;
-        fileOutputItem.create=true;
+        fileOutputItem.path = "target/PATH_TO_FIFO";
+        fileOutputItem.delay = 500;
+        fileOutputItem.create = true;
         assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").getItems().get(0));
         fileOutputItem = new FileOutputItem();
-        fileOutputItem.path="target/PATH_TO_FIFO_2";
-        fileOutputItem.create=true;
+        fileOutputItem.path = "target/PATH_TO_FIFO_2";
+        fileOutputItem.create = true;
         assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").getItems().get(1));
         fileOutputItem = new FileOutputItem();
-        fileOutputItem.path="target/PATH_TO_FIFO_2";
-        fileOutputItem.create=false;
+        fileOutputItem.path = "target/PATH_TO_FIFO_2";
+        fileOutputItem.create = false;
         assertEquals(fileOutputItem, chatDirector.getChains().get("file-output").getItems().get(2));
     }
 }

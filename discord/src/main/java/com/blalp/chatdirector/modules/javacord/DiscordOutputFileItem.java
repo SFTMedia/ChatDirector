@@ -25,8 +25,7 @@ public class DiscordOutputFileItem extends DiscordItem {
     public Context process(Context context) {
         ByteArrayInputStream stream = new ByteArrayInputStream(context.getCurrent().getBytes(StandardCharsets.UTF_16));
         new MessageBuilder().append(ChatDirector.format(name, context))
-                .addAttachment(stream, ChatDirector.format(name, context))
-                .send(DiscordBot.get(bot).getDiscordApi()
+                .addAttachment(stream, ChatDirector.format(name, context)).send(DiscordBot.get(bot).getDiscordApi()
                         .getChannelById(ChatDirector.format(channel, context)).get().asTextChannel().get());
         return new Context();
     }

@@ -37,16 +37,16 @@ public class ContextModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "get-context":
-                return ContextGetItem.class;
-            case "resolve-context":
-                return ContextResolveItem.class;
-            case "set-context":
-                return ContextSetItem.class;
-            case "remove-context":
-                return ContextRemoveItem.class;
-            default:
-                return null;
+        case "get-context":
+            return ContextGetItem.class;
+        case "resolve-context":
+            return ContextResolveItem.class;
+        case "set-context":
+            return ContextSetItem.class;
+        case "remove-context":
+            return ContextRemoveItem.class;
+        default:
+            return null;
         }
     }
 

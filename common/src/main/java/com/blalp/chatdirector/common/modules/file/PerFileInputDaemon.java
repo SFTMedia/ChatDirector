@@ -17,8 +17,8 @@ public class PerFileInputDaemon implements Runnable, ILoadable {
     private BufferedReader reader;
     FileInputItem item;
 
-    public PerFileInputDaemon(IItem item){
-        this.item= (FileInputItem) item;
+    public PerFileInputDaemon(IItem item) {
+        this.item = (FileInputItem) item;
     }
 
     @Override

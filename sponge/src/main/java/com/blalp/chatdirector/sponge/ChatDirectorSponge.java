@@ -23,7 +23,7 @@ public class ChatDirectorSponge {
     private ChatDirector chatDirector;
 
     public ChatDirectorSponge() {
-        instance=this;
+        instance = this;
     }
 
     @Inject
@@ -37,7 +37,7 @@ public class ChatDirectorSponge {
             chatDirector = new ChatDirector(configDir.getAbsolutePath() + File.separatorChar + "config.yml");
             configDir.mkdirs();
             chatDirector.load();
-            ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onServerStart(e);
+            ((SpongeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onServerStart(e);
             if (!ChatDirector.hasChains()) {
                 throw new Exception("NO CHAINS!");
             }
@@ -49,7 +49,7 @@ public class ChatDirectorSponge {
 
     @Listener
     public void onServerStop(GameStoppedServerEvent e) {
-        ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onServerStop(e);
+        ((SpongeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onServerStop(e);
         chatDirector.unload();
     }
 
@@ -60,16 +60,16 @@ public class ChatDirectorSponge {
 
     @Listener
     public void onChat(MessageChannelEvent.Chat e) {
-        ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onChat(e);
+        ((SpongeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onChat(e);
     }
 
     @Listener
     public void onLogin(ClientConnectionEvent.Login e) {
-        ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onLogin(e);
+        ((SpongeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onLogin(e);
     }
 
     @Listener
     public void onLogout(ClientConnectionEvent.Disconnect e) {
-        ((SpongeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onLogout(e);
+        ((SpongeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class)).onLogout(e);
     }
 }

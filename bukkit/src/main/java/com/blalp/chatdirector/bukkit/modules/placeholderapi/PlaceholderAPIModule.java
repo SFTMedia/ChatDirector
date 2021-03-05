@@ -6,6 +6,7 @@ import java.util.List;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
+
 public class PlaceholderAPIModule implements IModule {
 
     @Override
@@ -41,10 +42,10 @@ public class PlaceholderAPIModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "placeholderapi-resolve":
-                return PlaceholderAPIResolveItem.class;
-            default:
-                return null;
+        case "placeholderapi-resolve":
+            return PlaceholderAPIResolveItem.class;
+        default:
+            return null;
         }
-    } 
+    }
 }

@@ -65,7 +65,7 @@ public class ChatDirector implements IConfiguration {
         this.file = new File("config.yml");
     }
 
-    public boolean loadConfig(){
+    public boolean loadConfig() {
         boolean result = true;
         ObjectMapper om = new ObjectMapper(new YAMLFactory())
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
@@ -92,11 +92,11 @@ public class ChatDirector implements IConfiguration {
         // Load config
         // NOTE: While config is being reloaded it will use the old config in parsing if
         // the singleton is used.
-        if(!loadConfig()){
+        if (!loadConfig()) {
             return false;
         }
         // At this point config loaded
-        if (config.getChains().size()!=0) {
+        if (config.getChains().size() != 0) {
             // ignore if unload fails, as we always want to load.
             unload();
         }

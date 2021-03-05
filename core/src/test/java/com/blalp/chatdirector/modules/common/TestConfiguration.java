@@ -18,8 +18,8 @@ public class TestConfiguration {
         public void test() {
                 ChatDirector chatDirector = new ChatDirector(new File(
                                 this.getClass().getClassLoader().getResource("modules/common/config.yml").getFile()));
-        
-        assertTrue(chatDirector.load());
+
+                assertTrue(chatDirector.load());
                 // Checking Chain metrics
                 assertTrue(chatDirector.getChains().size() == 5);
                 assertTrue(chatDirector.getChains().containsKey("loading-test"));
@@ -110,8 +110,8 @@ public class TestConfiguration {
         public void testIntegration() {
                 ChatDirector chatDirector = new ChatDirector(new File(
                                 this.getClass().getClassLoader().getResource("modules/common/config.yml").getFile()));
-        
-        assertTrue(chatDirector.load());
+
+                assertTrue(chatDirector.load());
                 assertEquals(new Context(), chatDirector.getChains().get("loading-test").run(new Context()));
                 assertEquals(new Context("This is the second value", "This is the first value"),
                                 chatDirector.getChains().get("breaking-test").run(new Context()));

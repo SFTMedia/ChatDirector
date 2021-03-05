@@ -90,25 +90,25 @@ public class Context extends HashMap<String, String> {
         return super.remove(key);
     }
 
-	public Context diff(Context other) {
+    public Context diff(Context other) {
         Context output = new Context();
-        for(String key:this.keySet()) {
-            if(!other.containsKey(key)) {
+        for (String key : this.keySet()) {
+            if (!other.containsKey(key)) {
                 other.removeKeys.add(key);
             } else {
-                if(!other.get(key).equals(this.get(key))){
+                if (!other.get(key).equals(this.get(key))) {
                     output.put(key, other.get(key));
                 }
             }
         }
-        if(other.halt||halt){
-            output.halt=true;
+        if (other.halt || halt) {
+            output.halt = true;
         }
-        for(Object key:other.removeKeys){
-            if(!this.removeKeys.contains(key)){
+        for (Object key : other.removeKeys) {
+            if (!this.removeKeys.contains(key)) {
                 output.removeKeys.add(key);
             }
         }
-		return output;
-	}
+        return output;
+    }
 }

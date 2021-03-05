@@ -11,17 +11,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ChatDirectorBukkit extends JavaPlugin /*implements PluginMessageListener*/ {
+public class ChatDirectorBukkit extends JavaPlugin /* implements PluginMessageListener */ {
     private ChatDirector chatDirector;
 
     @Override
     public void onEnable() {
         try {
             chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
-            getServer().getPluginManager().registerEvents((BukkitInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class), this);
+            getServer().getPluginManager().registerEvents(
+                    (BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class), this);
             this.getDataFolder().mkdirs();
             chatDirector.load();
-            ((BukkitInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onServerStart();
+            ((BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onServerStart();
             if (!ChatDirector.hasChains()) {
                 throw new Exception("NO CHAINS!");
             }
@@ -33,17 +34,15 @@ public class ChatDirectorBukkit extends JavaPlugin /*implements PluginMessageLis
 
     @Override
     public void onDisable() {
-        ((BukkitInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onServerStop();
+        ((BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onServerStop();
         chatDirector.unload();
     }
-/*
-    @Override
-    public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if (FromBungeeDaemon.instance != null) {
-            FromBungeeDaemon.trigger(channel, player, message);
-        }
-    }
-*/
+
+    /*
+     * @Override public void onPluginMessageReceived(String channel, Player player,
+     * byte[] message) { if (FromBungeeDaemon.instance != null) {
+     * FromBungeeDaemon.trigger(channel, player, message); } }
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equals("chatdirectorlocal") && sender.hasPermission("chatdirector.reload")) {

@@ -37,16 +37,16 @@ public class LuckPermsModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "luckperms-context":
-                return LuckPermsContextItem.class;
-            case "luckperms-set":
-                return LuckPermsSetItem.class;
-            case "luckperms-unset":
-                return LuckPermsUnsetItem.class;
-            case "luckperms-has":
-                return LuckPermsHasItem.class;
-            default:
-                return null;
+        case "luckperms-context":
+            return LuckPermsContextItem.class;
+        case "luckperms-set":
+            return LuckPermsSetItem.class;
+        case "luckperms-unset":
+            return LuckPermsUnsetItem.class;
+        case "luckperms-has":
+            return LuckPermsHasItem.class;
+        default:
+            return null;
         }
     }
 

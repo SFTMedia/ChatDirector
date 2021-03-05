@@ -48,7 +48,9 @@ public class DiscordInputDaemon extends ItemDaemon
                 continue;
             }
             if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)) {
-                ChatDirector.run(item, ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event), true);
+                ChatDirector.run(item,
+                        ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event),
+                        true);
             }
         }
     }
@@ -64,7 +66,9 @@ public class DiscordInputDaemon extends ItemDaemon
             }
             if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)
                     || sharesMessage(event.getMessage(), item.message)) {
-                ChatDirector.run(item, ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event), true);
+                ChatDirector.run(item,
+                        ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event),
+                        true);
             }
         }
     }
@@ -80,7 +84,9 @@ public class DiscordInputDaemon extends ItemDaemon
             }
             if (sharesChannelOrCategory(event.getChannel(), item.channel, item.category)
                     || sharesMessage(event.getMessage(), item.message)) {
-                ChatDirector.run(item, ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event), true);
+                ChatDirector.run(item,
+                        ((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(event),
+                        true);
             }
         }
     }

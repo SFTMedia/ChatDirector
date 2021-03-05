@@ -38,11 +38,11 @@ public class DiscordResolveItem extends DiscordItem {
 					if (s.charAt(i1) == '>') {
 						try {
 							if (s.charAt(i + 2) == '!') {
-								output += "@" + DiscordBot.get(bot).getDiscordApi()
-										.getUserById(s.substring(i + 3, i1)).get().getName();
+								output += "@" + DiscordBot.get(bot).getDiscordApi().getUserById(s.substring(i + 3, i1))
+										.get().getName();
 							} else {
-								output += "@" + DiscordBot.get(bot).getDiscordApi()
-										.getUserById(s.substring(i + 2, i1)).get().getName();
+								output += "@" + DiscordBot.get(bot).getDiscordApi().getUserById(s.substring(i + 2, i1))
+										.get().getName();
 							}
 							i += i1 - i;
 						} catch (ExecutionException | InterruptedException e) {
@@ -54,8 +54,8 @@ public class DiscordResolveItem extends DiscordItem {
 			} else if (toPlain && (s.charAt(i) == '<' && i + 1 < s.length() && s.charAt(i + 1) == '#')) {
 				for (int i1 = i; i1 < s.length(); i1++) {
 					if (s.charAt(i1) == '>') {
-						output += "#" + DiscordBot.get(bot).getDiscordApi()
-								.getChannelById(s.substring(i + 2, i1)).get().asServerChannel().get().getName();
+						output += "#" + DiscordBot.get(bot).getDiscordApi().getChannelById(s.substring(i + 2, i1)).get()
+								.asServerChannel().get().getName();
 						i += i1 - i;
 						break;
 					}
@@ -127,8 +127,7 @@ public class DiscordResolveItem extends DiscordItem {
 
 	@Override
 	public boolean isValid() {
-		return ValidationUtils.anyOf(toDiscord, toPlain) && ValidationUtils.hasContent(server)
-				&& super.isValid();
+		return ValidationUtils.anyOf(toDiscord, toPlain) && ValidationUtils.hasContent(server) && super.isValid();
 	}
 
 }

@@ -7,7 +7,6 @@ import java.io.File;
 
 import com.blalp.chatdirector.ChatDirector;
 
-
 import org.junit.jupiter.api.Test;
 
 public class TestMultiChat {

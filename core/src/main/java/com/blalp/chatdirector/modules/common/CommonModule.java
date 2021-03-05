@@ -17,17 +17,17 @@ public class CommonModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "stop":
-            case "halt":
-                return HaltItem.class;
-            case "break":
-                return BreakItem.class;
-            case "echo":
-                return EchoItem.class;
-            case "reload":
-                return ReloadItem.class;
-            default:
-                return null;
+        case "stop":
+        case "halt":
+            return HaltItem.class;
+        case "break":
+            return BreakItem.class;
+        case "echo":
+            return EchoItem.class;
+        case "reload":
+            return ReloadItem.class;
+        default:
+            return null;
         }
     }
 

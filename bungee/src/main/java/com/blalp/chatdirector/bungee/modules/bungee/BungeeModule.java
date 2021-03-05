@@ -108,22 +108,22 @@ public class BungeeModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "bungee-playerlist":
-                return BungeePlayerlistItem.class;
-            case "bungee-command":
-                return BungeeCommandItem.class;
-            case "bungee-output":
-                return BungeeOutputItem.class;
-            case "bungee-output-fancy":
-                return BungeeOutputFancyItem.class;
-            case "bungee-output-player":
-                return BungeeOutputPlayerItem.class;
-            case "bungee-output-server":
-                return BungeeOutputServerItem.class;
-            case "bungee-input":
-                return BungeeInputItem.class;
-            default:
-                return null;
+        case "bungee-playerlist":
+            return BungeePlayerlistItem.class;
+        case "bungee-command":
+            return BungeeCommandItem.class;
+        case "bungee-output":
+            return BungeeOutputItem.class;
+        case "bungee-output-fancy":
+            return BungeeOutputFancyItem.class;
+        case "bungee-output-player":
+            return BungeeOutputPlayerItem.class;
+        case "bungee-output-server":
+            return BungeeOutputServerItem.class;
+        case "bungee-input":
+            return BungeeInputItem.class;
+        default:
+            return null;
         }
     }
 }

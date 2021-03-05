@@ -29,7 +29,8 @@ public class SQLSendDataItem extends SQLItem {
                     ChatDirector.format(key, context), ChatDirector.format(value, context));
         }
         try {
-            SQLConnection connectionObj = ((SQLConnections)ChatDirector.getConfig().getOrCreateDaemon(SQLConnections.class)).get(connection);
+            SQLConnection connectionObj = ((SQLConnections) ChatDirector.getConfig()
+                    .getOrCreateDaemon(SQLConnections.class)).get(connection);
             PreparedStatement statement = connectionObj.getConnection()
                     .prepareStatement("INSERT INTO " + ChatDirector.format(table, context)
                             + " (`name`,`key`,`value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value`=?");

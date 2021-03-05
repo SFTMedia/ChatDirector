@@ -27,20 +27,21 @@ public class DiscordModule implements IModule {
     @Override
     public boolean load() {
         boolean result = true;
-        if(ChatDirector.getConfig().getModuleData()!=null||!ChatDirector.getConfig().getModuleData().containsKey("discord")){
+        if (ChatDirector.getConfig().getModuleData() != null
+                || !ChatDirector.getConfig().getModuleData().containsKey("discord")) {
             return true;
         }
-        for(Entry<String,String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
-            if(!DiscordBot.discordBots.containsKey(bot.getKey())){
+        for (Entry<String, String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
+            if (!DiscordBot.discordBots.containsKey(bot.getKey())) {
                 DiscordBot.discordBots.put(bot.getKey(), new DiscordBot(bot.getValue()));
             }
         }
-        for (Entry<String,DiscordBot> bot : DiscordBot.discordBots.entrySet()) {
+        for (Entry<String, DiscordBot> bot : DiscordBot.discordBots.entrySet()) {
             result = result && bot.getValue().load();
-            if(DiscordBot.getPendingItems().containsKey(bot.getKey())){
-                for(DiscordInputItem item : DiscordBot.getPendingItems().get(bot.getKey())) {
-                    if(bot.getValue().daemon==null){
-                        bot.getValue().daemon=new DiscordInputDaemon(bot.getKey());
+            if (DiscordBot.getPendingItems().containsKey(bot.getKey())) {
+                for (DiscordInputItem item : DiscordBot.getPendingItems().get(bot.getKey())) {
+                    if (bot.getValue().daemon == null) {
+                        bot.getValue().daemon = new DiscordInputDaemon(bot.getKey());
                     }
                     bot.getValue().daemon.addItem(item);
                 }
@@ -181,34 +182,35 @@ public class DiscordModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "discord-input":
-                return DiscordInputItem.class;
-            case "discord-output":
-                return DiscordOutputItem.class;
-            case "discord-output-file":
-                return DiscordOutputFileItem.class;
-            case "discord-output-reaction":
-                return DiscordOutputReactionItem.class;
-            case "discord-resolve":
-                return DiscordResolveItem.class;
-            case "discord-embed":
-                return DiscordEmbedItem.class;
-            case "discord-get-dm-channel":
-                return DiscordGetDMChannelItem.class;
-            case "discord-message-history":
-                return DiscordMessageHistoryItem.class;
-            case "discord-create-channel":
-                return DiscordCreateChannelItem.class;
-            case "discord-delete-channel":
-                return DiscordDeleteChannel.class;
-            case "discord-rename-channel":
-                return DiscordChannelRename.class;
-            case "discord-participants":
-                return DiscordParticipatesItem.class;
-            default:
-                return null;
+        case "discord-input":
+            return DiscordInputItem.class;
+        case "discord-output":
+            return DiscordOutputItem.class;
+        case "discord-output-file":
+            return DiscordOutputFileItem.class;
+        case "discord-output-reaction":
+            return DiscordOutputReactionItem.class;
+        case "discord-resolve":
+            return DiscordResolveItem.class;
+        case "discord-embed":
+            return DiscordEmbedItem.class;
+        case "discord-get-dm-channel":
+            return DiscordGetDMChannelItem.class;
+        case "discord-message-history":
+            return DiscordMessageHistoryItem.class;
+        case "discord-create-channel":
+            return DiscordCreateChannelItem.class;
+        case "discord-delete-channel":
+            return DiscordDeleteChannel.class;
+        case "discord-rename-channel":
+            return DiscordChannelRename.class;
+        case "discord-participants":
+            return DiscordParticipatesItem.class;
+        default:
+            return null;
         }
     }
+
     public Map<String, DiscordBot> getDiscordBots() {
         return DiscordBot.discordBots;
     }
