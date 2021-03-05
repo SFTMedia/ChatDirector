@@ -26,7 +26,6 @@ public class SQLModule implements IModule {
 
     @Override
     public boolean load() {
-        ChatDirector.getLogger().log(Level.WARNING, "Loading " + this);
         if(ChatDirector.getConfig().getModuleData()==null||ChatDirector.getConfig().getModuleData().get("sql")==null){
             ChatDirector.getLogger().log(Level.WARNING, "Failed to load SQL module, no module_data");
             return true;
