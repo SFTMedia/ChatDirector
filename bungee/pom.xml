@@ -54,14 +54,14 @@
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-api</artifactId>
-			<version>1.16-R0.4-SNAPSHOT</version>
+			<version>1.16-R0.4</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>xyz.olivermartin.multichat</groupId>
 			<artifactId>multichat</artifactId>
-			<version>1.9.6-custom-5</version>
+			<version>1.9.6-custom-8</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
