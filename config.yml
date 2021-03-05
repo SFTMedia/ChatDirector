@@ -13,8 +13,8 @@ chains:
   - bukkit-demo:
       - bukkit-input: # All of these are optional
           chat: true
-          leave: true
-          join: true
+          logout: true
+          login: true
           server-started: true
           server-stopped: true
           check-canceled: true
@@ -81,9 +81,9 @@ chains:
           permission: null # optional
       - bungee-input: # All Optional
           chat: true
-          disconnect: true
+          logout: true
           switch-servers: true
-          join: true
+          login: true
           override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
           command: false
           format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
@@ -269,8 +269,8 @@ chains:
           args: true # Optional
       - sponge-input: # All of these are optional
           chat: true
-          leave: true
-          join: true
+          logout: true
+          login: true
           server-started: true
           server-stopped: true
           override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
