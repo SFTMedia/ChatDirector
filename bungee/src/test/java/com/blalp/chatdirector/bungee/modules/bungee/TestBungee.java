@@ -188,10 +188,10 @@ public class TestBungee {
         assertEquals(5, chatDirector.getChains().get("bungee-input").getItems().size());
         BungeeInputItem bungeeInputItem = new BungeeInputItem();
         bungeeInputItem.chat = true;
-        bungeeInputItem.disconnect = true;
+        bungeeInputItem.logout = true;
         bungeeInputItem.switchServers = true;
         bungeeInputItem.switchServers = true;
-        bungeeInputItem.join = true;
+        bungeeInputItem.login = true;
         bungeeInputItem.overrideChat = true;
         bungeeInputItem.command = false;
         bungeeInputItem.formatChat = "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%";
@@ -200,10 +200,10 @@ public class TestBungee {
         bungeeInputItem.formatSwitchServers = "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%";
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(0));
         bungeeInputItem = new BungeeInputItem();
-        bungeeInputItem.disconnect = true;
+        bungeeInputItem.logout = true;
         bungeeInputItem.switchServers = true;
         bungeeInputItem.switchServers = true;
-        bungeeInputItem.join = true;
+        bungeeInputItem.login = true;
         bungeeInputItem.overrideChat = true;
         bungeeInputItem.command = false;
         bungeeInputItem.formatChat = "form 1";
@@ -215,7 +215,7 @@ public class TestBungee {
         bungeeInputItem.switchServers = true;
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(2));
         bungeeInputItem = new BungeeInputItem();
-        bungeeInputItem.join = true;
+        bungeeInputItem.login = true;
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(3));
         bungeeInputItem = new BungeeInputItem();
         bungeeInputItem.command = true;

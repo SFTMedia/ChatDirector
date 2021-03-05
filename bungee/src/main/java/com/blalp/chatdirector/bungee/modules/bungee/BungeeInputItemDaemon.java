@@ -24,7 +24,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
         Context context = ChatDirector.getConfig().getModule(BungeeModule.class).getContext(e);
         existing_players.remove(e.getPlayer().getUniqueId());
         for (BungeeInputItem item : getItems().toArray(new BungeeInputItem[] {})) {
-            if (item.disconnect) {
+            if (item.logout) {
                 context.put("CURRENT", ChatDirector.format(item.formatDisconnect, context));
                 ChatDirector.run(item, context, true);
             }
@@ -53,7 +53,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
         // this is needed as ServerConnectEvent is also called for the first time.
         for (BungeeInputItem item : getItems().toArray(new BungeeInputItem[] {})) {
             if (!existing_players.contains(e.getPlayer().getUniqueId())) {
-                if (item.join) {
+                if (item.login) {
                     context.put("CURRENT", ChatDirector.format(item.formatJoin, context));
                     ChatDirector.run(item, context, true);
                 }

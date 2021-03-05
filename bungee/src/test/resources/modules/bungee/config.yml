@@ -85,9 +85,9 @@ chains:
   - bungee-input:
       - bungee-input:
           chat: true
-          disconnect: true
+          logout: true
           switch-servers: true
-          join: true
+          login: true
           override-chat: true
           command: false
           format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
@@ -95,9 +95,9 @@ chains:
           format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
           format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
       - bungee-input:
-          disconnect: true
+          logout: true
           switch-servers: true
-          join: true
+          login: true
           override-chat: true
           command: false
           format-chat: "form 1"
@@ -107,6 +107,6 @@ chains:
       - bungee-input:
           switch-servers: true
       - bungee-input:
-          join: true
+          login: true
       - bungee-input:
           command: true
