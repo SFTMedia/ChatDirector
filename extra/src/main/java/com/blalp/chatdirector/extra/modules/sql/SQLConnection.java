@@ -21,9 +21,14 @@ public class SQLConnection implements ILoadable {
 
     @Override
     public boolean load() {
-        ChatDirector.getLogger().log(Level.INFO, "Loading " + this);
         try {
+            if(ChatDirector.getInstance().isDebug()) {
+                ChatDirector.getLogger().log(Level.INFO, "Loading " + this);
+            }
             connection = DriverManager.getConnection(connectionString);
+            if(ChatDirector.getInstance().isDebug()) {
+                ChatDirector.getLogger().log(Level.INFO, "Loaded " + this);
+            }
         } catch (SQLException e) {
             if(ChatDirector.getInstance().isTesting()) {
                 System.err.println("connection " + connectionString + " failed, but we are testing so its to be expected.");
