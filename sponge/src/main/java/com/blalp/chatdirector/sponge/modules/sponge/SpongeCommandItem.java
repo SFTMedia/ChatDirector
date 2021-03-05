@@ -46,7 +46,7 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
 
     @Override
     public boolean load() {
-        if (ChatDirector.isDebug()) {
+        if (ChatDirector.getInstance().isDebug()) {
             ChatDirector.getLogger().log(Level.WARNING, "Starting load of " + this);
         }
         Builder myCommandSpec = CommandSpec.builder().permission(permission).executor(this);

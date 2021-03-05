@@ -1,7 +1,7 @@
 module_data:
-  - sql:
-      all: "all"
-      other: "other"
+  sql:
+    all: "all"
+    other: "other"
 chains:
   - sql-send-data:
     - send-data:

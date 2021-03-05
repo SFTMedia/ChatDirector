@@ -18,7 +18,7 @@ import org.spongepowered.api.command.spec.CommandSpec;
 public class ReloadCommand implements CommandExecutor, ILoadable {
     @Override
     public boolean load() {
-        if (ChatDirector.isDebug()) {
+        if (ChatDirector.getInstance().isDebug()) {
             ChatDirector.getLogger().log(Level.WARNING, "Starting load of " + this);
         }
         Sponge.getCommandManager().register(ChatDirectorSponge.instance,

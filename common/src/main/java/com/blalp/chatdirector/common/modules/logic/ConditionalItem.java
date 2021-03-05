@@ -28,7 +28,7 @@ public abstract class ConditionalItem extends PassItem {
     @Override
     public Context process(Context context) {
         boolean result = test(context);
-        if (ChatDirector.isDebug()) {
+        if (ChatDirector.getInstance().isDebug()) {
             ChatDirector.getLogger().log(Level.WARNING,
                     "Conditional " + this.getClass().getCanonicalName() + " test returned " + result);
             ChatDirector.getLogger().log(Level.WARNING, "True is " + yesChain + " false is " + noChain);

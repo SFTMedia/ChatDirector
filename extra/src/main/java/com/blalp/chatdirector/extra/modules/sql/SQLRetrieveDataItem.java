@@ -31,8 +31,9 @@ public class SQLRetrieveDataItem extends SQLItem {
             output.put("CACHE_RESULT", SQLCacheStore.getValue(connection, ChatDirector.format(table, context),
                     ChatDirector.format(name, context), ChatDirector.format(key, context)));
         } else {
+            SQLConnection connectionObj = ((SQLConnections)ChatDirector.getConfig().getOrCreateDaemon(SQLConnections.class)).get(connection);
             try {
-                PreparedStatement statement = SQLModule.connections.get(connection).connection
+                PreparedStatement statement = connectionObj.getConnection()
                         .prepareStatement("SELECT `value` from " + ChatDirector.format(table, context)
                                 + " WHERE `name`=? AND `key`=? LIMIT 1");
                 statement.setString(1, ChatDirector.format(name, context));

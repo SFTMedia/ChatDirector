@@ -2,6 +2,7 @@ package com.blalp.chatdirector.extra.modules.sql;
 
 import java.io.IOException;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.Chain;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,7 +35,7 @@ public class SQLCacheIfDeserializer extends JsonDeserializer<SQLCacheIfItem> {
         output.key = config.get("key").asText();
         output.name = config.get("name").asText();
         output.table = config.get("table").asText();
-        SQLModule.tables.get(output.connection).add(output.table);
+        ChatDirector.getConfig().getOrCreateDaemon(SQLConnections.class).addItem(output);
         return output;
     }
 

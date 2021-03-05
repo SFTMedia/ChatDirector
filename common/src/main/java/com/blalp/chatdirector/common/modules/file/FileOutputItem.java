@@ -34,7 +34,7 @@ public class FileOutputItem implements IItem {
         if (create) {
             try {
                 if (!new File(path).createNewFile()) {
-                    if (ChatDirector.isDebug()) {
+                    if (ChatDirector.getInstance().isDebug()) {
                         ChatDirector.getLogger().log(Level.WARNING, path + " already exists");
                     }
                 }

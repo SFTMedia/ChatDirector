@@ -1,9 +1,6 @@
 package com.blalp.chatdirector.extra.modules.sql;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -12,12 +9,8 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(using = SQLModuleDeserializer.class)
 public class SQLModule implements IModule {
-    public static HashMap<String, SQLConnection> connections = new HashMap<>();
-    public static HashMap<String, ArrayList<String>> tables = new HashMap<>();
 
     @Override
     public List<String> getItemNames() {
@@ -27,35 +20,24 @@ public class SQLModule implements IModule {
     @Override
     public boolean load() {
         if(ChatDirector.getConfig().getModuleData()==null||ChatDirector.getConfig().getModuleData().get("sql")==null){
-            ChatDirector.getLogger().log(Level.WARNING, "Failed to load SQL module, no module_data");
+            if(ChatDirector.getConfig().hasDaemon(SQLConnections.class)){
+                // Only spit out a warning if there were SQL items
+                ChatDirector.getLogger().log(Level.WARNING, "Failed to load SQL module, no module_data");
+            } else {
+                // Of if debug mode is on
+                ChatDirector.getLogger().log(Level.INFO, "Failed to load SQL module, no module_data. If you are not using SQL items, you can safely ignore this.");
+            }
             return true;
         }
+        SQLConnections connections = (SQLConnections) ChatDirector.getConfig().getOrCreateDaemon(SQLConnections.class);
         for (Entry<String,String> connection : ChatDirector.getConfig().getModuleData().get("sql").entrySet()) {
             connections.put(connection.getKey(), new SQLConnection(connection.getValue()));
-        }
-        for (Entry<String, SQLConnection> connection : connections.entrySet()) {
-            connection.getValue().load();
-            for (String table : tables.get(connection.getKey())) {
-                try {
-                    connection.getValue().connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + table
-                            + " (`name` varchar(255) NOT NULL,`key` varchar(255) NOT NULL, `value` varchar(255) NOT NULL, PRIMARY KEY (`key`, `name`));")
-                            .execute();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
         }
         return true;
     }
 
     @Override
     public boolean unload() {
-        for (SQLConnection connection : connections.values()) {
-            connection.unload();
-        }
-        connections = new HashMap<>();
-        tables = new HashMap<>();
         return true;
     }
 
@@ -84,12 +66,5 @@ public class SQLModule implements IModule {
     public Context getContext(Object object) {
         return new Context();
     }
-
-	public static void addTable(String connection, String table) {
-        if(!tables.containsKey(connection)) {
-            tables.put(connection, new ArrayList<String>());
-        }
-        tables.get(connection).add(table);
-	}
 
 }

@@ -1,6 +1,5 @@
 package com.blalp.chatdirector.extra.modules.luckperms;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -15,29 +14,25 @@ public class TestLuckPerms {
 
     private static ChatDirector chatDirector;
 
-    private void init() {
+    @Test
+    public void init() {
         if (chatDirector != null) {
             return;
         }
         chatDirector = new ChatDirector(
                 new File(this.getClass().getClassLoader().getResource("modules/luckperms/config.yml").getFile()));
-        chatDirector.load();
+        assertTrue(chatDirector.load());
 
     }
-/*
+
     @Test
     public void valid() {
         init();
-        for (IModule module : ChatDirector.getConfig().getModules()) {
-            assertTrue(module.isValid());
-        }
-        for (Chain chain : ChatDirector.getConfig().getChains().values()) {
-            assertTrue(chain.isValid());
-        }
+        assertTrue(chatDirector.isValid());
     }
 /*
     @Test
-    public void parseInput() {
+    public void parseContext() {
         init();
         assertTrue(chatDirector.getChains().containsKey("multichat-input"));
         assertEquals(4, chatDirector.getChains().get("multichat-input").getItems().size());

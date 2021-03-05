@@ -39,7 +39,7 @@ public class DiscordParticipatesItem extends DiscordItem {
         Context workingContext = new Context();
         workingContext.merge(context);
         for (User user : users.values()) {
-            if (ChatDirector.isDebug()) {
+            if (ChatDirector.getInstance().isDebug()) {
                 ChatDirector.getLogger().log(Level.WARNING,
                         "Starting work for " + user.getName() + " (" + user.getIdAsString() + ")");
             }

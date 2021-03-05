@@ -37,7 +37,7 @@ public class PerFileInputDaemon implements Runnable, ILoadable {
         if (item.create) {
             try {
                 if (!new File(item.path).createNewFile()) {
-                    if (ChatDirector.isDebug()) {
+                    if (ChatDirector.getInstance().isDebug()) {
                         ChatDirector.getLogger().log(Level.WARNING, item.path + " already exists");
                     }
                 }
