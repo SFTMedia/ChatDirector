@@ -25,12 +25,7 @@ public class SQLSendDataDeserializer extends JsonDeserializer<SQLSendDataItem> {
         output.name = config.get("name").asText();
         output.table = config.get("table").asText();
         output.value = config.get("value").asText();
-        try {
-            SQLModule.tables.get(output.connection).add(output.table);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            System.err.println("Not a registered connection " + output.connection);
-        }
+        SQLModule.addTable(output.connection, output.table);
         return output;
     }
 

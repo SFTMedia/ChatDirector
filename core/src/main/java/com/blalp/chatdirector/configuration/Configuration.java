@@ -32,7 +32,7 @@ public class Configuration implements IConfiguration {
     Map<String, Map<String, String>> moduleData = new HashMap<>();
 
     public Configuration() {
-        modules = ServiceLoader.load(IModule.class);
+        modules = ServiceLoader.load(IModule.class,this.getClass().getClassLoader());
     }
 
     // https://stackoverflow.com/questions/58102069/how-to-do-a-partial-deserialization-with-jackson#58102226
@@ -47,8 +47,10 @@ public class Configuration implements IConfiguration {
             System.out.println("Chains");
             for (String pipeKey : chains.keySet()) {
                 System.out.println("Chain " + pipeKey);
-                for (IItem item : chains.get(pipeKey).getItems()) {
-                    System.out.println(item);
+                if(chains.get(pipeKey)!=null){
+                    for (IItem item : chains.get(pipeKey).getItems()) {
+                        System.out.println(item);
+                    }
                 }
             }
         }
@@ -93,6 +95,9 @@ public class Configuration implements IConfiguration {
 
     @Override
     public boolean unload() {
+        for(IDaemon daemon:daemons){
+            daemon.unload();
+        }
         return true;
     }
 
@@ -117,7 +122,9 @@ public class Configuration implements IConfiguration {
             }
         }
         try {
-            return (IDaemon) class1.getConstructors()[0].newInstance();
+            IDaemon daemon = (IDaemon) class1.getConstructors()[0].newInstance();
+            daemons.add(daemon);
+            return daemon;
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | SecurityException e) {
             e.printStackTrace();

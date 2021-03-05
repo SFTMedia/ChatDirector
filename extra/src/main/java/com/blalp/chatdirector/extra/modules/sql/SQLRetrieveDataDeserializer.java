@@ -24,7 +24,7 @@ public class SQLRetrieveDataDeserializer extends JsonDeserializer<SQLRetrieveDat
         output.key = config.get("key").asText();
         output.name = config.get("name").asText();
         output.table = config.get("table").asText();
-        SQLModule.tables.get(output.connection).add(output.table);
+        SQLModule.addTable(output.connection,output.table);
         return output;
     }
 
