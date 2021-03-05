@@ -10,7 +10,6 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.IModule;
 import com.blalp.chatdirector.modules.common.BreakItem;
 import com.blalp.chatdirector.modules.common.EchoItem;
 import com.blalp.chatdirector.modules.common.HaltItem;
