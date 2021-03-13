@@ -46,7 +46,7 @@ public class SpongeInputDaemon extends ItemDaemon {
                 if (item.overrideChat) {
                     event.setMessage(Text.of(ChatDirector.run(item, context, false)));
                 } else {
-                    event.setMessage(Text.of(ChatDirector.run(item, context, true)));
+                    ChatDirector.run(item, context, true);
                 }
                 if (item.cancelChat) {
                     event.setCancelled(true);

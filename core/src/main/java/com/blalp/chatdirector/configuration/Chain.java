@@ -70,7 +70,6 @@ public class Chain implements IValid, Runnable {
      * @return Modified Contexts
      */
     private Context runAt(int indexOf, Context context) {
-        Context workingContext = new Context();
         Context output;
         for (int i = indexOf; i < items.size(); i++) {
             if (ChatDirector.getConfig().debug) {
@@ -89,7 +88,6 @@ public class Chain implements IValid, Runnable {
                         && !output.getCurrent().equals(context.getCurrent())) {
                     output.put("LAST", context.get("CURRENT"));
                 }
-                workingContext.merge(output);
                 context.merge(output);
                 if (context.isHalt()) {
                     if (ChatDirector.getConfig().debug) {
@@ -104,7 +102,11 @@ public class Chain implements IValid, Runnable {
                 break;
             }
         }
-        return workingContext;
+        if (ChatDirector.getConfig().debug) {
+            ChatDirector.getLogger().log(Level.INFO,
+                    "Ended process of " + this + " with context " + context);
+        }
+        return context;
     }
 
     /**

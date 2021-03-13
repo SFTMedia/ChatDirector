@@ -24,6 +24,9 @@ public class SQLConnection implements ILoadable {
         try {
             if (ChatDirector.getInstance().isDebug()) {
                 ChatDirector.getLogger().log(Level.INFO, "Loading " + this);
+                if(!connectionString.contains("autoReconnect")){
+                    ChatDirector.getLogger().log(Level.WARNING, "Consider adding autoReconnect=true to your connection string");
+                }
             }
             connection = DriverManager.getConnection(connectionString);
             if (ChatDirector.getInstance().isDebug()) {
@@ -57,7 +60,9 @@ public class SQLConnection implements ILoadable {
     public boolean unload() {
         ChatDirector.getLogger().log(Level.INFO, "Unloading " + this);
         try {
-            connection.close();
+            if(connection!=null) {
+                connection.close();
+            }
         } catch (SQLException e) {
             System.err.println("Failed to unload " + connectionString);
             e.printStackTrace();
