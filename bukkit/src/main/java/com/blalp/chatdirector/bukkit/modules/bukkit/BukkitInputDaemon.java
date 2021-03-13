@@ -23,7 +23,8 @@ public class BukkitInputDaemon extends ItemDaemon implements Listener {
                 Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(event);
                 if (item.overrideChat) {
                     context.put("CURRENT", ChatDirector.format(item.formatChat, context));
-                    event.setFormat(ChatDirector.run(item, context, false).getCurrent().replaceAll("%", "%%"));
+                    event.setFormat("%s");
+                    event.setMessage(ChatDirector.run(item, context, false).getCurrent().replace("%","%%"));
                 } else {
                     context.put("CURRENT", ChatDirector.format(item.formatChat, context));
                     ChatDirector.run(item, context, true);

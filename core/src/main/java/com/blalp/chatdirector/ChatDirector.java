@@ -136,6 +136,7 @@ public class ChatDirector implements IConfiguration {
         if (items.containsKey(item)) {
             if (async) {
                 items.get(item).runAsync(item, context);
+                return new Context();
             } else {
                 return items.get(item).runAt(item, context);
             }
@@ -143,7 +144,6 @@ public class ChatDirector implements IConfiguration {
             logger.log(Level.SEVERE, "Could not find chain to go with " + item);
             return new Context().halt();
         }
-        return new Context();
     }
 
     public static void addItem(IItem item, Chain chain) {
