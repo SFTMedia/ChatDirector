@@ -2,6 +2,32 @@
 
 Manages chat however you specify in the config. Not plug and play, but very customizable.
 
+# Execution Flow
+
+## Chains
+
+Independent lists of items. Execution continues along the chain, item after item.
+
+## Items
+
+These are the things that actuall do things.
+
+### Input Items
+
+These items that execution can start at. Things like discord event listeners. Contexts are generated here with background information.
+
+### Output Items
+
+These items send some output to a log file, discord, ect.
+
+## Conditional Items
+
+These items check for a condition to be true (like if statements), and if so start execution on the yes-chain, if not start execution on the no-chain.
+
+## Contexts
+
+Contexts represent the running state of the program. They preform the function of variables in other programming languages. Turning `debug: true` on allows you to see these change in real-time.
+
 # Configuration documentation:
 
 See config.yml
