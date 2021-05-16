@@ -3,7 +3,7 @@
 
 	<groupId>com.blalp.chatdirector</groupId>
 	<artifactId>bukkit</artifactId>
-	<version>0.2.0-alpha-2</version>
+	<version>0.2.0</version>
 	<packaging>jar</packaging>
 
 	<name>ChatDirector-Bukkit</name>
