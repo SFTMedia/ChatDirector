@@ -1,8 +1,5 @@
 package com.blalp.chatdirector.modules.javacord;
 
-import java.util.logging.Level;
-
-import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
