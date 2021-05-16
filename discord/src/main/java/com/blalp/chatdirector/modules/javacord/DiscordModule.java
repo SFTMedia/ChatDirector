@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
@@ -72,7 +71,8 @@ public class DiscordModule implements IModule {
     public List<String> getItemNames() {
         return Arrays.asList("discord-input", "discord-output", "discord-output-file", "discord-output-reaction",
                 "discord-resolve", "discord-embed", "discord-get-dm-channel", "discord-message-history",
-                "discord-create-channel", "discord-delete-channel", "discord-rename-channel", "discord-participants");
+                "discord-create-channel", "discord-delete-channel", "discord-rename-channel", "discord-participants",
+                "discord-delete-message");
     }
 
     @Override
@@ -204,6 +204,8 @@ public class DiscordModule implements IModule {
             return DiscordCreateChannelItem.class;
         case "discord-delete-channel":
             return DiscordDeleteChannel.class;
+        case "discord-delete-message":
+            return DiscordDeleteMessage.class;
         case "discord-rename-channel":
             return DiscordChannelRename.class;
         case "discord-participants":
