@@ -91,7 +91,7 @@ chains:
           override-chat: true
           command: false
           format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
-          format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
+          format-logout: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
           format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
           format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
       - bungee-input:
@@ -101,7 +101,7 @@ chains:
           override-chat: true
           command: false
           format-chat: "form 1"
-          format-disconnect: "dc 1"
+          format-logout: "dc 1"
           format-join: "join"
           format-switch-servers: "switch"
       - bungee-input:
