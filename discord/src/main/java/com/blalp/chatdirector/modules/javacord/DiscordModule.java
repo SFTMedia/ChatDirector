@@ -128,7 +128,7 @@ public class DiscordModule implements IModule {
             }
             if (((TextChannelEvent) event).getChannel().asPrivateChannel().isPresent()) {
                 context.put("DISCORD_DM_USER_ID", ((TextChannelEvent) event).getChannel().asPrivateChannel().get()
-                        .getRecipient().getIdAsString());
+                        .getRecipient().get().getIdAsString());
             }
             if (((TextChannelEvent) event).getChannel().asCategorizable().isPresent()
                     && ((TextChannelEvent) event).getChannel().asCategorizable().get().getCategory().isPresent()) {
