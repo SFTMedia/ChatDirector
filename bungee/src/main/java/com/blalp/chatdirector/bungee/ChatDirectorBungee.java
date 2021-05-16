@@ -22,7 +22,7 @@ public class ChatDirectorBungee extends Plugin {
     public void onEnable() {
         // First thing's first, register the reload command
         ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance,
-                new ReloadCommand("chatdirectorlocal"));
+                new ReloadCommand("chatdirector"));
         try {
             chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
             getProxy().getPluginManager().registerListener(this,
