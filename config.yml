@@ -1,9 +1,9 @@
 # Example of everything at once.
 module_data:
-  - discord:
-      bot-name: "TOKEN"
-  - sql:
-      all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
+  discord:
+    bot-name: "TOKEN"
+  sql:
+    all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
 chains:
   - common-demo: # This module is always loaded
       - break # This stops the chain, but returns the value
@@ -87,7 +87,7 @@ chains:
           override-chat: true # This will set the message to the result of the chain WARNING THIS MAY SLOW DOWN SERVER
           command: false
           format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
-          format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
+          format-logout: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
           format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
           format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
   - cache-demo:
