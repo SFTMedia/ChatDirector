@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @JsonDeserialize(using = SQLSendDataDeserializer.class)
 public class SQLSendDataItem extends SQLItem {
     String value;
+    private boolean attemptedReload=false;
 
     @Override
     public Context process(Context context) {
@@ -28,9 +29,9 @@ public class SQLSendDataItem extends SQLItem {
             SQLCacheStore.setValue(connection, ChatDirector.format(table, context), ChatDirector.format(name, context),
                     ChatDirector.format(key, context), ChatDirector.format(value, context));
         }
+        SQLConnection connectionObj = ((SQLConnections) ChatDirector.getConfig()
+                .getOrCreateDaemon(SQLConnections.class)).get(connection);
         try {
-            SQLConnection connectionObj = ((SQLConnections) ChatDirector.getConfig()
-                    .getOrCreateDaemon(SQLConnections.class)).get(connection);
             PreparedStatement statement = connectionObj.getConnection()
                     .prepareStatement("INSERT INTO " + ChatDirector.format(table, context)
                             + " (`name`,`key`,`value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value`=?");
@@ -43,6 +44,11 @@ public class SQLSendDataItem extends SQLItem {
             System.err.println(this + " failed on " + context.getCurrent());
             ChatDirector.getLogger().log(Level.WARNING, "Failed SQL " + e.getSQLState());
             e.printStackTrace();
+            if(!attemptedReload) {
+                connectionObj.unload();
+                connectionObj.load();
+                this.process(context);
+            }
         }
         return new Context();
     }
