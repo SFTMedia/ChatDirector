@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.configuration.Configuration;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
@@ -27,8 +28,9 @@ public class DiscordModule implements IModule {
     @Override
     public boolean load() {
         boolean result = true;
-        if (ChatDirector.getConfig().getModuleData() != null
+        if (ChatDirector.getConfig().getModuleData() == null
                 || !ChatDirector.getConfig().getModuleData().containsKey("discord")) {
+            System.err.println("discord module does not have any data");
             return true;
         }
         for (Entry<String, String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
