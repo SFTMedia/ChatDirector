@@ -178,6 +178,10 @@ chains:
       - discord-delete-channel:
           bot: "bot name"
           channel: "channel id"
+      - discord-delete-channel:
+          bot: "bot name"
+          channel: "channel id"
+          message: "channel id"
       - discord-rename-channel:
           bot: "bot name"
           channel: "channel id"
