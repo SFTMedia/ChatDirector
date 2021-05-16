@@ -55,6 +55,13 @@ public class Configuration implements IConfiguration {
             for (IModule module : modules) {
                 System.out.println(module);
             }
+            System.out.println("Module Data");
+            for (Entry<String,Map<String,String>> module : moduleData.entrySet()) {
+                System.out.println(module.getKey()+": ");
+                for (Entry<String,String> item : module.getValue().entrySet()) {
+                    System.out.println("\t"+item.getKey()+": "+item.getValue());
+                }
+            }
             System.out.println("Chains");
             for (String pipeKey : chains.keySet()) {
                 System.out.println("Chain " + pipeKey);
@@ -68,7 +75,7 @@ public class Configuration implements IConfiguration {
         for (IModule module : getModules()) {
             result = result && module.load();
             if (debug) {
-                System.out.println(module + "returned " + result);
+                System.out.println(module + " returned " + result);
             }
         }
         if (!isValid()) {
