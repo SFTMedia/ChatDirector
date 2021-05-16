@@ -21,6 +21,8 @@ import lombok.NoArgsConstructor;
 @JsonDeserialize(using = SQLRetrieveDataDeserializer.class)
 public class SQLRetrieveDataItem extends SQLItem {
 
+    private boolean attemptedReload=false;
+
     @Override
     public Context process(Context context) {
         Context output = new Context();
@@ -53,6 +55,11 @@ public class SQLRetrieveDataItem extends SQLItem {
                 System.err.println(this + " failed on " + context.getCurrent());
                 ChatDirector.getLogger().log(Level.WARNING, "Failed SQL " + e.getSQLState());
                 e.printStackTrace();
+                if(!attemptedReload) {
+                    connectionObj.unload();
+                    connectionObj.load();
+                    this.process(context);
+                }
             }
         }
         return output;
