@@ -25,7 +25,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
         existing_players.remove(e.getPlayer().getUniqueId());
         for (BungeeInputItem item : getItems().toArray(new BungeeInputItem[] {})) {
             if (item.logout) {
-                context.put("CURRENT", ChatDirector.format(item.formatDisconnect, context));
+                context.put("CURRENT", ChatDirector.format(item.formatLogout, context));
                 ChatDirector.run(item, context, true);
             }
         }
