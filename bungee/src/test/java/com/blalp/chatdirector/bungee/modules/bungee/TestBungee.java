@@ -195,7 +195,7 @@ public class TestBungee {
         bungeeInputItem.overrideChat = true;
         bungeeInputItem.command = false;
         bungeeInputItem.formatChat = "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%";
-        bungeeInputItem.formatDisconnect = "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!";
+        bungeeInputItem.formatLogout = "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!";
         bungeeInputItem.formatJoin = "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!";
         bungeeInputItem.formatSwitchServers = "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%";
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(0));
@@ -207,7 +207,7 @@ public class TestBungee {
         bungeeInputItem.overrideChat = true;
         bungeeInputItem.command = false;
         bungeeInputItem.formatChat = "form 1";
-        bungeeInputItem.formatDisconnect = "dc 1";
+        bungeeInputItem.formatLogout = "dc 1";
         bungeeInputItem.formatJoin = "join";
         bungeeInputItem.formatSwitchServers = "switch";
         assertEquals(bungeeInputItem, chatDirector.getChains().get("bungee-input").getItems().get(1));
