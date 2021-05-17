@@ -84,6 +84,15 @@
 					<services>
 						<param>com.blalp.chatdirector.model.IModule</param>
 					</services>
+					<relocations>
+						<relocation>
+							<pattern>com.fasterxml.jackson</pattern>
+							<shadedPattern>com.blalp.chatdirector.libs.com.fasterxml.jackson</shadedPattern>
+							<excludes>
+								<exclude>com.blalp.chatdirector</exclude>
+							</excludes>
+						</relocation>
+					</relocations>
 				</configuration>
 				<executions>
 					<execution>
