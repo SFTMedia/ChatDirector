@@ -14,10 +14,11 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class RedisRemoveItem extends RedisItem {
-    
+
     @Override
     public Context process(Context context) {
-        RedisConnection connection = ((RedisConnections)ChatDirector.getConfig().getOrCreateDaemon(RedisConnections.class)).get(this.connection);
+        RedisConnection connection = ((RedisConnections) ChatDirector.getConfig()
+                .getOrCreateDaemon(RedisConnections.class)).get(this.connection);
         connection.getConnection().del(key);
         return new Context();
     }

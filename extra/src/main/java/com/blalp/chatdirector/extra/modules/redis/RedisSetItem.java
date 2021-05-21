@@ -21,10 +21,11 @@ public class RedisSetItem extends RedisItem {
     public boolean isValid() {
         return ValidationUtils.hasContent(value) && super.isValid();
     }
-    
+
     @Override
     public Context process(Context context) {
-        RedisConnection connection = ((RedisConnections)ChatDirector.getConfig().getOrCreateDaemon(RedisConnections.class)).get(this.connection);
+        RedisConnection connection = ((RedisConnections) ChatDirector.getConfig()
+                .getOrCreateDaemon(RedisConnections.class)).get(this.connection);
         connection.getConnection().set(this.key, value);
         return super.process(context);
     }

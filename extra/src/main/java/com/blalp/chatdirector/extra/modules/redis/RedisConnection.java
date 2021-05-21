@@ -13,7 +13,7 @@ public class RedisConnection implements ILoadable {
     private RedisClient redisClient;
 
     public RedisConnection(String connection) {
-        connectionString=connection;
+        connectionString = connection;
     }
 
     @Override
