@@ -10,7 +10,8 @@ public class RedisIfItem extends ConditionalItem {
 
     @Override
     public boolean test(Context context) {
-        RedisConnection redisConnection = ((RedisConnections)ChatDirector.getConfig().getOrCreateDaemon(RedisConnections.class)).get(connection);
+        RedisConnection redisConnection = ((RedisConnections) ChatDirector.getConfig()
+                .getOrCreateDaemon(RedisConnections.class)).get(connection);
         return redisConnection.getConnection().exists(key);
     }
 
