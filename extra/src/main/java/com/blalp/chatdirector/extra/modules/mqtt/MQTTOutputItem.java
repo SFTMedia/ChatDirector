@@ -32,7 +32,17 @@ public class MQTTOutputItem extends MQTTItem {
                         false);
             } catch (Exception e) {
                 e.printStackTrace();
-                output.put("_ERROR", "Could not send message");
+                ChatDirector.getLogger().warning("FAILED to send message " + this);
+                if(!connection.blockingConnection.isConnected()){
+                    try {
+                        ChatDirector.getLogger().warning("connection dropped, attempted re-connect...");
+                        connection.blockingConnection.connect();
+                        connection.getBlockingConnection().publish(topic, context.getCurrent().getBytes(), QoS.EXACTLY_ONCE,
+                        false);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         }
         return output;
