@@ -1,4 +1,4 @@
-fpackage com.blalp.chatdirector.extra.modules.redis;
+package com.blalp.chatdirector.extra.modules.redis;
 
 import java.util.HashMap;
 import java.util.logging.Level;
