@@ -14,10 +14,11 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class RedisGetItem extends RedisItem {
-    
+
     @Override
     public Context process(Context context) {
-        RedisConnection connection = ((RedisConnections)ChatDirector.getConfig().getOrCreateDaemon(RedisConnections.class)).get(this.connection);
+        RedisConnection connection = ((RedisConnections) ChatDirector.getConfig()
+                .getOrCreateDaemon(RedisConnections.class)).get(this.connection);
         return new Context(connection.getConnection().get(this.key));
     }
 }
