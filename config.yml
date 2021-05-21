@@ -256,6 +256,14 @@ chains:
           global: true
           staff: true
           broadcast: true
+  - mqtt:
+      - mqtt-output:
+          connection: "mqtt"
+          async: false
+          topic: "example topic"
+      - mqtt-input:
+          connection: "mqtt"
+          topic: "example topic"
   - placeholderapi-resolve: null
   - redis:
         - redis-get:
