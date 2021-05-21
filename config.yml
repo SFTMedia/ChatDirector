@@ -266,23 +266,23 @@ chains:
           topic: "example topic"
   - placeholderapi-resolve: null
   - redis:
-        - redis-get:
-            connection: "redis"
-            key: "example key"
-        - redis-set:
-            connection: "redis"
-            key: "example key"
-            value: "example value"
-        - redis-remove:
-            connection: "redis"
-            key: "example key"
-        - redis-if:
-            connection: "redis"
-            key: "example key"
-            yes-chain:
-                - echo: "yes"
-            no-chain:
-                -echo: "no"
+      - redis-get:
+          connection: "redis"
+          key: "example key"
+      - redis-set:
+          connection: "redis"
+          key: "example key"
+          value: "example value"
+      - redis-remove:
+          connection: "redis"
+          key: "example key"
+      - redis-if:
+          connection: "redis"
+          key: "example key"
+          yes-chain:
+            - echo: "yes"
+          no-chain:
+            -echo: "no"
   - replacement-demo:
       - regex:
           - "Regex to find": "regex to replace"
