@@ -66,7 +66,6 @@ public class ChatDirector implements IConfiguration {
     }
 
     public boolean loadConfig() {
-        boolean result = true;
         ObjectMapper om = new ObjectMapper(new YAMLFactory())
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         try {
@@ -85,7 +84,7 @@ public class ChatDirector implements IConfiguration {
             logger.log(Level.SEVERE, "config failed to load.");
             return false;
         }
-        return result;
+        return true;
     }
 
     public boolean load() {
@@ -93,13 +92,13 @@ public class ChatDirector implements IConfiguration {
         // NOTE: While config is being reloaded it will use the old config in parsing if
         // the singleton is used.
         if (!loadConfig()) {
+            configStaging.unload();
+            logger.warning("New config failed to load, keeping old config...");
             return false;
         }
-        // At this point config loaded
-        if (config.getChains().size() != 0) {
-            // ignore if unload fails, as we always want to load.
-            unload();
-        }
+        logger.info("New config loaded, unloading old config...");
+        // At this point configStaging loaded
+        config.unload();
         config = configStaging;
 
         return config.load();
