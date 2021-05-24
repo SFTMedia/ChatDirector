@@ -8,13 +8,13 @@ import com.blalp.chatdirector.model.Context;
 
 import org.fusesource.mqtt.client.Message;
 
-public class MQTTInputItemDaemonWorker implements Runnable {
+public class MQTTInputDaemonWorker implements Runnable {
 
     String connectionName;
     MQTTConnection connection;
     HashMap<String, List<MQTTInputItem>> items;
 
-    public MQTTInputItemDaemonWorker(MQTTConnection connection, String connectionName,
+    public MQTTInputDaemonWorker(MQTTConnection connection, String connectionName,
             HashMap<String, List<MQTTInputItem>> items) {
         this.connection = connection;
         this.connectionName = connectionName;
