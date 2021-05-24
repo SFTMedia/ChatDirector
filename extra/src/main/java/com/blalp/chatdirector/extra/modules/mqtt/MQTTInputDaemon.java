@@ -12,7 +12,7 @@ import com.blalp.chatdirector.model.IItem;
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
 
-public class MQTTInputItemDaemon extends MQTTItem implements IDaemon {
+public class MQTTInputDaemon extends MQTTItem implements IDaemon {
 
     HashMap<String, HashMap<String, List<MQTTInputItem>>> items = new HashMap<>();
     List<Thread> workers = new ArrayList<>();
@@ -45,7 +45,7 @@ public class MQTTInputItemDaemon extends MQTTItem implements IDaemon {
                 }
             }
             Thread thread = new Thread(
-                    new MQTTInputItemDaemonWorker(connection, itemConnection.getKey(), itemConnection.getValue()));
+                    new MQTTInputDaemonWorker(connection, itemConnection.getKey(), itemConnection.getValue()));
             workers.add(thread);
             thread.run();
         }
