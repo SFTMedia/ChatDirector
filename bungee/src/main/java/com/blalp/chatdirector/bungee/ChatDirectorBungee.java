@@ -32,6 +32,7 @@ public class ChatDirectorBungee extends Plugin implements Listener {
         // First thing's first, register the reload command
         ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance,
                 new ReloadCommand("chatdirector"));
+        getProxy().getPluginManager().registerListener(ChatDirectorBungee.instance, this);
         try {
             chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
             this.getDataFolder().mkdirs();
