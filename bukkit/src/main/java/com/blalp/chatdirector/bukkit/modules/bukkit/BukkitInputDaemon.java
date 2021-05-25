@@ -22,7 +22,7 @@ public class BukkitInputDaemon extends ItemDaemon {
                 Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(event);
                 if (item.overrideChat) {
                     context.put("CURRENT", ChatDirector.format(item.formatChat, context));
-                    event.setFormat(ChatDirector.run(item, context, false).getCurrent().replace("%","%%"));
+                    event.setFormat(ChatDirector.run(item, context, false).getCurrent().replace("%", "%%"));
                 } else {
                     context.put("CURRENT", ChatDirector.format(item.formatChat, context));
                     ChatDirector.run(item, context, true);

@@ -29,7 +29,7 @@ public class DiscordResolveItem extends DiscordItem {
 	public Context process(Context context) {
 		String s = context.getCurrent();
 		DiscordApi api = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class)).get(bot)
-		.getDiscordApi();
+				.getDiscordApi();
 		Server serverObj = api.getServerById(server).get();
 		String output = "";
 		boolean found = false;
@@ -42,11 +42,9 @@ public class DiscordResolveItem extends DiscordItem {
 					if (s.charAt(i1) == '>') {
 						try {
 							if (s.charAt(i + 2) == '!') {
-								output += "@" + api.getUserById(s.substring(i + 3, i1))
-										.get().getName();
+								output += "@" + api.getUserById(s.substring(i + 3, i1)).get().getName();
 							} else {
-								output += "@" + api.getUserById(s.substring(i + 2, i1))
-										.get().getName();
+								output += "@" + api.getUserById(s.substring(i + 2, i1)).get().getName();
 							}
 							i += i1 - i;
 						} catch (ExecutionException | InterruptedException e) {
@@ -58,8 +56,8 @@ public class DiscordResolveItem extends DiscordItem {
 			} else if (toPlain && (s.charAt(i) == '<' && i + 1 < s.length() && s.charAt(i + 1) == '#')) {
 				for (int i1 = i; i1 < s.length(); i1++) {
 					if (s.charAt(i1) == '>') {
-						output += "#" + api.getChannelById(s.substring(i + 2, i1)).get()
-								.asServerChannel().get().getName();
+						output += "#"
+								+ api.getChannelById(s.substring(i + 2, i1)).get().asServerChannel().get().getName();
 						i += i1 - i;
 						break;
 					}

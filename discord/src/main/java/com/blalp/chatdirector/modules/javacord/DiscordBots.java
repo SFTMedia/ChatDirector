@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.ILoadable;
 
-public class DiscordBots extends HashMap<String,DiscordBot> implements ILoadable {
+public class DiscordBots extends HashMap<String, DiscordBot> implements ILoadable {
 
     @Override
     public boolean load() {
@@ -15,7 +15,7 @@ public class DiscordBots extends HashMap<String,DiscordBot> implements ILoadable
             }
         }
         boolean result = true;
-        for (DiscordBot discordBot : this.values()){
+        for (DiscordBot discordBot : this.values()) {
             result = result && discordBot.load();
         }
         return result;
@@ -24,10 +24,10 @@ public class DiscordBots extends HashMap<String,DiscordBot> implements ILoadable
     @Override
     public boolean unload() {
         boolean result = true;
-        for (DiscordBot discordBot : this.values()){
+        for (DiscordBot discordBot : this.values()) {
             result = result && discordBot.unload();
         }
         return result;
     }
-    
+
 }

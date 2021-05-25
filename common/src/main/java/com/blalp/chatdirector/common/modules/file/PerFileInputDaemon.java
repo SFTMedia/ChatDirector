@@ -34,7 +34,7 @@ public class PerFileInputDaemon implements Runnable, ILoadable {
     }
 
     public void run() {
-        thread=Thread.currentThread();
+        thread = Thread.currentThread();
         Context context;
         if (item.create) {
             try {
