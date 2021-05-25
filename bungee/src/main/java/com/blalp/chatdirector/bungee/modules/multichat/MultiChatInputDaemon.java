@@ -1,6 +1,7 @@
 package com.blalp.chatdirector.bungee.modules.multichat;
 
 import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.bungee.ChatDirectorBungee;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ItemDaemon;
 
@@ -10,7 +11,7 @@ import xyz.olivermartin.multichat.bungee.events.PostBroadcastEvent;
 import xyz.olivermartin.multichat.bungee.events.PostGlobalChatEvent;
 import xyz.olivermartin.multichat.bungee.events.PostStaffChatEvent;
 
-public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
+public class MultiChatInputDaemon extends ItemDaemon implements Listener {
 
     @EventHandler
     public void onEvent(PostBroadcastEvent e) {
@@ -46,13 +47,16 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
             }
         }
     }
-    /*
-     * @Override public boolean load() {
-     * ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(
-     * ChatDirectorBungee.instance, this); }
-     * 
-     * @Override public boolean unload() {
-     * ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(
-     * this); }
-     */
+
+    @Override
+    public boolean load() {
+        ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(ChatDirectorBungee.instance, this);
+        return true;
+    }
+
+    @Override
+    public boolean unload() {
+        ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(this);
+        return true;
+    }
 }

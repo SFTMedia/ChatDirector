@@ -3,15 +3,12 @@ package com.blalp.chatdirector.bungee.modules.bungee;
 import java.util.ArrayList;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.bungee.ChatDirectorBungee;
 import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.ILoadable;
 
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
 
-public class BungeeCommand extends Command implements ILoadable {
+public class BungeeCommand extends Command {
     public static ArrayList<BungeeCommand> commands = new ArrayList<>();
     public BungeeCommandItem item;
 
@@ -34,17 +31,4 @@ public class BungeeCommand extends Command implements ILoadable {
         context.put("CURRENT", string);
         ChatDirector.run(item, context, true);
     }
-
-    @Override
-    public boolean load() {
-        ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance, this);
-        return true;
-    }
-
-    @Override
-    public boolean unload() {
-        ProxyServer.getInstance().getPluginManager().unregisterCommand(this);
-        return true;
-    }
-
 }

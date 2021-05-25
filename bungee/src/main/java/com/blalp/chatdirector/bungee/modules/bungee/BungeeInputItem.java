@@ -26,7 +26,7 @@ public class BungeeInputItem extends PassItem implements Listener {
     boolean overrideChat = false;
 
     public BungeeInputItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(BungeeInputItemDaemon.class).addItem(this);
+        ChatDirector.getConfigStaging().getOrCreateDaemon(BungeeInputDaemon.class).addItem(this);
     }
 
     @Override

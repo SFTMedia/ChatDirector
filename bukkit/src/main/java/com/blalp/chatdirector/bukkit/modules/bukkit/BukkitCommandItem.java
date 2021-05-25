@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.bukkit.modules.bukkit;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -20,7 +21,7 @@ public class BukkitCommandItem extends PassItem {
     public BukkitCommandItem(String name, String permission) {
         this.command = name;
         this.permission = permission;
-        new BukkitCommand(name, this);
+        ChatDirector.getConfigStaging().getOrCreateDaemon(BukkitCommandDaemon.class).addItem(this);
     }
 
     @Override

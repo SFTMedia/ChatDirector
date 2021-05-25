@@ -15,9 +15,9 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 public class VaultModule implements IModule {
-    public static Permission permission = null;
-    public static Economy economy = null;
-    public static Chat chat = null;
+    public Permission permission = null;
+    public Economy economy = null;
+    public Chat chat = null;
 
     private boolean setupPermissions() {
         if (Bukkit.getServer() == null) {

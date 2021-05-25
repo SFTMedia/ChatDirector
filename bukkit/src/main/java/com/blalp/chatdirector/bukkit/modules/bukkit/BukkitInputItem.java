@@ -24,7 +24,7 @@ public class BukkitInputItem implements IItem {
     boolean overrideChat = false;
 
     public BukkitInputItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class).addItem(this);
+        ChatDirector.getConfigStaging().getOrCreateDaemon(BukkitInputDaemon.class).addItem(this);
     }
 
     @Override

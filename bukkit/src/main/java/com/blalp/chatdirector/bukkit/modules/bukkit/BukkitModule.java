@@ -1,6 +1,5 @@
 package com.blalp.chatdirector.bukkit.modules.bukkit;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,7 +25,6 @@ public class BukkitModule implements IModule {
 
     @Override
     public boolean unload() {
-        BukkitCommand.commands = new ArrayList<>();
         return true;
     }
 
