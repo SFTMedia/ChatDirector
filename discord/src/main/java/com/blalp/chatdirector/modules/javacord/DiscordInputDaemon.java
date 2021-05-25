@@ -5,13 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.ILoadable;
-import com.blalp.chatdirector.utils.ItemDaemon;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.Channel;
@@ -29,36 +26,40 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode()
 public class DiscordInputDaemon
         implements MessageCreateListener, ReactionAddListener, ReactionRemoveListener, IDaemon {
 
     // ONLY used per-load.
-    HashMap<String,List<DiscordInputItem>> pendingItems = new HashMap<>();
+    List<DiscordInputItem> pendingItems = new ArrayList<>();
     // constructed from pendingItems during load
     HashMap<DiscordApi,List<DiscordInputItem>> items = new HashMap<>();
 
     @Override
     public boolean load() {
         DiscordBots discordBots = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class));
-        for (Entry<String,List<DiscordInputItem>> entry : pendingItems.entrySet()) {
-            items.put(discordBots.get(entry.getKey()).getDiscordApi(), entry.getValue());
-        }
-        pendingItems=new HashMap<>();
         // Make sure discord bots are already loaded before continuing.
         discordBots.load();
-        for (DiscordBot discordBot : discordBots.values()) {
-            discordBot.getDiscordApi().addMessageCreateListener(this);
-            discordBot.getDiscordApi().addReactionAddListener(this);
-            discordBot.getDiscordApi().addReactionRemoveListener(this);
+        for (Entry<String,DiscordBot> discordBot : discordBots.entrySet()) {
+            ArrayList<DiscordInputItem> tempItems = new ArrayList<>();
+            for(DiscordInputItem item:pendingItems){
+                if(item.getBot().equals(discordBot.getKey())){
+                    tempItems.add(item);
+                }
+            }
+            items.put(discordBot.getValue().getDiscordApi(), tempItems);
+            discordBot.getValue().getDiscordApi().addMessageCreateListener(this);
+            discordBot.getValue().getDiscordApi().addReactionAddListener(this);
+            discordBot.getValue().getDiscordApi().addReactionRemoveListener(this);
         }
+        pendingItems=new ArrayList<>();
         return true;
     }
 
     @Override
     public boolean unload() {
         items=new HashMap<>();
-        pendingItems=new HashMap<>();
+        pendingItems=new ArrayList<>();
         return true;
     }
 
@@ -128,14 +129,6 @@ public class DiscordInputDaemon
 
     @Override
     public void addItem(IItem item) {
-        DiscordInputItem discordItem = (DiscordInputItem) item;
-        List<DiscordInputItem> tempItems;
-        if(!pendingItems.containsKey(discordItem.bot)){
-            tempItems=new ArrayList<>();
-            pendingItems.put(discordItem.bot,tempItems);
-        } else {
-            tempItems=pendingItems.get(discordItem.bot);
-        }
-        tempItems.add(discordItem);
+        pendingItems.add((DiscordInputItem) item);
     }
 }
