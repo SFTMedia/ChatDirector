@@ -76,6 +76,8 @@ public class BungeePlayerlistItem implements IItem {
             }
         }
         output += "\n```";
+        // Get global bungee stats
+        context.merge(ChatDirector.getConfig().getModule(BungeeModule.class).getContext(null));
         if (output.equals(ChatDirector.format(format.replace("%NUM_PLAYERS%", "0"), context))) {
             output = ChatDirector.format(formatNoPlayers, context);
         }
