@@ -53,6 +53,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - CHAT_FORMAT
 - CHAT_MESSAGE
 - PLAYER_QUIT_MESSAGE
+- CANCELED
 
 ## Bungee
 
@@ -70,6 +71,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - COMMAND_PERMISSION
 - SERVER\_##\_PLAYERS
 - SERVER\_##\_NUM_PLAYERS
+- CANCELED
 
 ## Context
 
@@ -139,6 +141,7 @@ USE `%CONTEXT_NAME%` and it will replace in most messages if it can. If an item 
 - CHAT_MESSAGE
 - CHAT_MESSAGE_FORMATTED
 - CHAT_MESSAGE_ORIGINAL
+- CANCELED
 
 ## SQL
 

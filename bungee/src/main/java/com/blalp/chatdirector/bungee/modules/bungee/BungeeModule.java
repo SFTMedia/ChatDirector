@@ -14,6 +14,7 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.event.ServerSwitchEvent;
+import net.md_5.bungee.api.plugin.Cancellable;
 
 public class BungeeModule implements IModule {
 
@@ -41,6 +42,9 @@ public class BungeeModule implements IModule {
                 context.put("PLAYER_SERVER_NAME", ((ProxiedPlayer) event).getServer().getInfo().getName());
                 context.put("PLAYER_SERVER_MOTD", ((ProxiedPlayer) event).getServer().getInfo().getMotd());
             }
+        }
+        if(event instanceof Cancellable) {
+            context.put("CANCELED", ((Cancellable) event).isCancelled()?"1":"0");
         }
         if (event instanceof ServerInfo) {
             context.put("SERVER_NAME", ((ServerInfo) event).getName());

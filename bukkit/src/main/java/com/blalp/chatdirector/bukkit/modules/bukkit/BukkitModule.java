@@ -12,6 +12,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -45,6 +46,9 @@ public class BukkitModule implements IModule {
         context.put("SERVER_MAX_PLAYERS", String.valueOf(Bukkit.getMaxPlayers()));
         context.put("SERVER_NAME", String.valueOf(Bukkit.getServer().getName()));
         context.put("SERVER_MOTD", String.valueOf(Bukkit.getMotd()));
+        if (event instanceof Cancellable) {
+            context.put("CANCELED", ((Cancellable) event).isCancelled()?"1":"0");
+        }
         if (event instanceof PlayerEvent) {
             context.put("PLAYER_NAME", ((PlayerEvent) event).getPlayer().getName());
             context.put("PLAYER_UUID", ((PlayerEvent) event).getPlayer().getUniqueId().toString());
