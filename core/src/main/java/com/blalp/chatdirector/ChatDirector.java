@@ -93,10 +93,6 @@ public class ChatDirector implements IConfiguration {
             // ignore if unload fails, as we always want to load.
             config.unload();
         }
-        System.out.println(config);
-        System.out.println(configStaging);
-        System.out.println(config.getChains().size());
-        System.out.println(configStaging.getChains().size());
         config = configStaging;
 
         return config.load();
