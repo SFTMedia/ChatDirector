@@ -33,7 +33,7 @@ public class IfEqualsItem extends ConditionalItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(equals) && super.isValid();
+        return ValidationUtils.isNotNull(equals) && super.isValid();
     }
 
 }
