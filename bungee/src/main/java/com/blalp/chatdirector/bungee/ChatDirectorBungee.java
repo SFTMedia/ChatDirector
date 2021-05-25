@@ -5,6 +5,7 @@ import java.io.File;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.bungee.modules.bungee.BungeeInputDaemon;
 import com.blalp.chatdirector.bungee.modules.bungee.ReloadCommand;
+import com.blalp.chatdirector.bungee.modules.multichat.MultiChatInputDaemon;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.event.ChatEvent;
@@ -14,6 +15,9 @@ import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
+import xyz.olivermartin.multichat.bungee.events.PostBroadcastEvent;
+import xyz.olivermartin.multichat.bungee.events.PostGlobalChatEvent;
+import xyz.olivermartin.multichat.bungee.events.PostStaffChatEvent;
 
 public class ChatDirectorBungee extends Plugin implements Listener {
     public static ChatDirectorBungee instance;
@@ -64,5 +68,20 @@ public class ChatDirectorBungee extends Plugin implements Listener {
     @EventHandler
     public void onChat(ChatEvent e) {
         ((BungeeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
+    }
+
+    @EventHandler
+    public void onEvent(PostBroadcastEvent e) {
+        ((MultiChatInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(MultiChatInputDaemon.class)).onEvent(e);
+    }
+
+    @EventHandler
+    public void onEvent(PostGlobalChatEvent e) {
+        ((MultiChatInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(MultiChatInputDaemon.class)).onEvent(e);
+    }
+
+    @EventHandler
+    public void onEvent(PostStaffChatEvent e) {
+        ((MultiChatInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(MultiChatInputDaemon.class)).onEvent(e);
     }
 }

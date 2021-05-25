@@ -7,10 +7,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.minecraft.model.FancyMessage;
 import com.blalp.chatdirector.minecraft.utils.FancyMessageEnum;
-import com.blalp.chatdirector.model.IModule;
 
 import org.junit.jupiter.api.Test;
 

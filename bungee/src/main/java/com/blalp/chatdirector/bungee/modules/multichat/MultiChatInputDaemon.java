@@ -1,7 +1,6 @@
 package com.blalp.chatdirector.bungee.modules.multichat;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.bungee.ChatDirectorBungee;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ItemDaemon;
 
@@ -38,7 +37,7 @@ public class MultiChatInputDaemon extends ItemDaemon implements Listener {
     }
 
     @EventHandler
-    public void onChat(PostStaffChatEvent e) {
+    public void onEvent(PostStaffChatEvent e) {
         Context context = ChatDirector.getConfig().getModule(MultiChatModule.class).getContext(e);
         for (MultiChatInputItem item : getItems().toArray(new MultiChatInputItem[] {})) {
             if (item.staff) {
@@ -46,17 +45,5 @@ public class MultiChatInputDaemon extends ItemDaemon implements Listener {
                 ChatDirector.run(item, context, true);
             }
         }
-    }
-
-    @Override
-    public boolean load() {
-        ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(ChatDirectorBungee.instance, this);
-        return true;
-    }
-
-    @Override
-    public boolean unload() {
-        ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(this);
-        return true;
     }
 }
