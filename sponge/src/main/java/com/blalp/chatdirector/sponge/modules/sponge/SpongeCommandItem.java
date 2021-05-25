@@ -1,6 +1,5 @@
 package com.blalp.chatdirector.sponge.modules.sponge;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;

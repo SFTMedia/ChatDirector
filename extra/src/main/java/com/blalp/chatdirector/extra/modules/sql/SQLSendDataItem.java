@@ -26,7 +26,8 @@ public class SQLSendDataItem extends SQLItem {
     @Override
     public Context process(Context context) {
         if (cache) {
-            SQLCacheStore.setValue(connection, ChatDirector.format(table, context), ChatDirector.format(name, context),
+            SQLCacheStore sqlCacheStore = (SQLCacheStore) ChatDirector.getConfig().getOrCreateDaemon(SQLCacheStore.class);
+            sqlCacheStore.setValue(connection, ChatDirector.format(table, context), ChatDirector.format(name, context),
                     ChatDirector.format(key, context), ChatDirector.format(value, context));
         }
         SQLConnection connectionObj = ((SQLConnections) ChatDirector.getConfig()

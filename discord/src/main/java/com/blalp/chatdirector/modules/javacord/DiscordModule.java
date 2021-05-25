@@ -1,11 +1,8 @@
 package com.blalp.chatdirector.modules.javacord;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Map.Entry;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
@@ -32,39 +29,12 @@ public class DiscordModule implements IModule {
             System.err.println("discord module does not have any data");
             return true;
         }
-        for (Entry<String, String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
-            if (!DiscordBot.discordBots.containsKey(bot.getKey())) {
-                DiscordBot.discordBots.put(bot.getKey(), new DiscordBot(bot.getValue()));
-            }
-        }
-        for (Entry<String, DiscordBot> bot : DiscordBot.discordBots.entrySet()) {
-            result = result && bot.getValue().load();
-            if (DiscordBot.getPendingItems().containsKey(bot.getKey())) {
-                for (DiscordInputItem item : DiscordBot.getPendingItems().get(bot.getKey())) {
-                    if (bot.getValue().daemon == null) {
-                        bot.getValue().daemon = new DiscordInputDaemon(bot.getKey());
-                    }
-                    bot.getValue().daemon.addItem(item);
-                }
-            }
-            if (bot.getValue().daemon != null) {
-                result = result && bot.getValue().daemon.load();
-            }
-        }
         return result;
     }
 
     @Override
     public boolean unload() {
-        boolean result = true;
-        for (DiscordBot bot : DiscordBot.discordBots.values()) {
-            result = result && bot.unload();
-            if (bot.daemon != null) {
-                result = result && bot.daemon.unload();
-            }
-        }
-        DiscordBot.discordBots = new HashMap<>();
-        return result;
+        return true;
     }
 
     @Override
@@ -213,9 +183,5 @@ public class DiscordModule implements IModule {
         default:
             return null;
         }
-    }
-
-    public Map<String, DiscordBot> getDiscordBots() {
-        return DiscordBot.discordBots;
     }
 }

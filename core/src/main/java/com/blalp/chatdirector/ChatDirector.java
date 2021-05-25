@@ -3,10 +3,8 @@ package com.blalp.chatdirector;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.blalp.chatdirector.configuration.Configuration;
@@ -21,8 +19,8 @@ import lombok.Data;
 import com.blalp.chatdirector.configuration.Chain;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IConfiguration;
-import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.model.ILoadable;
 
 @Data
 // Should implement both bungee, sponge and bukkit if possible
@@ -30,13 +28,6 @@ public class ChatDirector implements IConfiguration {
     Configuration config = null;
     Configuration configStaging = null;
     static Logger logger;
-    static Handler handler;
-    /**
-     * Maintain this list as some things run in separate threads, so with an item
-     * you need to be able to get the chain object to start execution. Look for a
-     * better solution.
-     */
-    static Map<IItem, Chain> items = new HashMap<>();
     static ChatDirector instance;
     // One of these three is populated with data
     File file;
@@ -116,7 +107,7 @@ public class ChatDirector implements IConfiguration {
         for (IModule module : config.getModules()) {
             result = result && module.unload();
         }
-        for (IDaemon daemon : config.getDaemons()) {
+        for (ILoadable daemon : config.getDaemons().values()) {
             daemon.unload();
         }
         result = result && config.unload();
@@ -139,12 +130,13 @@ public class ChatDirector implements IConfiguration {
     }
 
     public static Context run(IItem item, Context context, boolean async) {
-        if (items.containsKey(item)) {
+        Chain chain = ChatDirector.getConfig().getChainForItem(item);
+        if (chain!=null) {
             if (async) {
-                items.get(item).runAsync(item, context);
+                chain.runAsync(item, context);
                 return new Context();
             } else {
-                return items.get(item).runAt(item, context);
+                return chain.runAt(item, context);
             }
         } else {
             logger.log(Level.SEVERE, "Could not find chain to go with " + item);
@@ -153,7 +145,7 @@ public class ChatDirector implements IConfiguration {
     }
 
     public static void addItem(IItem item, Chain chain) {
-        items.put(item, chain);
+        ChatDirector.getConfig().putChainForItem(item, chain);
     }
 
     public static boolean hasChains() {
@@ -196,7 +188,7 @@ public class ChatDirector implements IConfiguration {
     }
 
     @Override
-    public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1) {
+    public ILoadable getOrCreateDaemon(Class<? extends ILoadable> class1) {
         return config.getOrCreateDaemon(class1);
     }
 

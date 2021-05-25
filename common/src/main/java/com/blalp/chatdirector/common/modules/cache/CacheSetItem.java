@@ -18,7 +18,8 @@ public class CacheSetItem extends CacheItem {
 
 	@Override
 	public Context process(Context context) {
-		CacheStore.setValue(ChatDirector.format(this.key, context), ChatDirector.format(value, context));
+		CacheStore cacheStore = (CacheStore) ChatDirector.getConfig().getOrCreateDaemon(CacheStore.class);
+		cacheStore.setValue(ChatDirector.format(this.key, context), ChatDirector.format(value, context));
 		return new Context();
 	}
 

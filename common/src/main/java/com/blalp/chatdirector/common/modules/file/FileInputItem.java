@@ -18,7 +18,7 @@ public class FileInputItem extends PassItem {
     int delay = 500;
 
     public FileInputItem() {
-        ChatDirector.getConfigStaging().getOrCreateDaemon(FileInputDaemon.class).addItem(this);
+        ((FileInputDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(FileInputDaemon.class)).addItem(this);
     }
 
     @Override

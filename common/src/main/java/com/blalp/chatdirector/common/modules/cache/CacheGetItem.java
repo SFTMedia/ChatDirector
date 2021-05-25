@@ -17,8 +17,9 @@ public class CacheGetItem extends CacheItem {
 
     @Override
     public Context process(Context context) {
-        if (CacheStore.containsKey(ChatDirector.format(this.key, context))) {
-            return new Context(CacheStore.getValue(ChatDirector.format(this.key, context)));
+        CacheStore cacheStore = (CacheStore) ChatDirector.getConfig().getOrCreateDaemon(CacheStore.class);
+        if (cacheStore.containsKey(ChatDirector.format(this.key, context))) {
+            return new Context(cacheStore.getValue(ChatDirector.format(this.key, context)));
         }
         return new Context();
     }

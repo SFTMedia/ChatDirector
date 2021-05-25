@@ -18,7 +18,7 @@ public class BungeeCommandItem extends PassItem {
     String permission;
     
     public BungeeCommandItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(BungeeCommandDaemon.class).addItem(this);
+        ((BungeeCommandDaemon) ChatDirector.getConfig().getOrCreateDaemon(BungeeCommandDaemon.class)).addItem(this);
     }
 
     @Override

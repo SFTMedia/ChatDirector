@@ -2,6 +2,7 @@ package com.blalp.chatdirector.bungee.modules.bungee;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
+import com.blalp.chatdirector.utils.ItemDaemon;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
 import net.md_5.bungee.api.plugin.Listener;
@@ -26,7 +27,7 @@ public class BungeeInputItem extends PassItem implements Listener {
     boolean overrideChat = false;
 
     public BungeeInputItem() {
-        ChatDirector.getConfigStaging().getOrCreateDaemon(BungeeInputDaemon.class).addItem(this);
+        ((ItemDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(BungeeInputDaemon.class)).addItem(this);
     }
 
     @Override

@@ -21,30 +21,12 @@ public class SpongeModule implements IModule {
 
     @Override
     public boolean load() {
-        try {
-            Class.forName("org.spongepowered.api.Sponge");
-        } catch (ClassNotFoundException e) {
-            return true;
-        }
-        boolean result = true;
-        for (SpongeCommandItem command : SpongeCommandItem.commands) {
-            result = result && command.load();
-        }
-        return result;
+        return true;
     }
 
     @Override
     public boolean unload() {
-        try {
-            Class.forName("org.spongepowered.api.Sponge");
-        } catch (ClassNotFoundException e) {
-            return true;
-        }
-        boolean result = true;
-        for (SpongeCommandItem command : SpongeCommandItem.commands) {
-            result = result && command.unload();
-        }
-        return result;
+        return true;
     }
 
     @Override

@@ -13,7 +13,6 @@ public class CacheModule implements IModule {
     }
 
     public boolean unload() {
-        CacheStore.shred();
         return true;
     }
 

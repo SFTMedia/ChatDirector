@@ -3,9 +3,11 @@ package com.blalp.chatdirector.modules.javacord;
 import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
+import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
 import lombok.Data;
@@ -26,7 +28,9 @@ public class DiscordResolveItem extends DiscordItem {
 	@Override
 	public Context process(Context context) {
 		String s = context.getCurrent();
-		Server serverObj = DiscordBot.get(bot).getDiscordApi().getServerById(server).get();
+		DiscordApi api = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class)).get(bot)
+		.getDiscordApi();
+		Server serverObj = api.getServerById(server).get();
 		String output = "";
 		boolean found = false;
 		for (int i = 0; i < s.length(); i++) {
@@ -38,10 +42,10 @@ public class DiscordResolveItem extends DiscordItem {
 					if (s.charAt(i1) == '>') {
 						try {
 							if (s.charAt(i + 2) == '!') {
-								output += "@" + DiscordBot.get(bot).getDiscordApi().getUserById(s.substring(i + 3, i1))
+								output += "@" + api.getUserById(s.substring(i + 3, i1))
 										.get().getName();
 							} else {
-								output += "@" + DiscordBot.get(bot).getDiscordApi().getUserById(s.substring(i + 2, i1))
+								output += "@" + api.getUserById(s.substring(i + 2, i1))
 										.get().getName();
 							}
 							i += i1 - i;
@@ -54,7 +58,7 @@ public class DiscordResolveItem extends DiscordItem {
 			} else if (toPlain && (s.charAt(i) == '<' && i + 1 < s.length() && s.charAt(i + 1) == '#')) {
 				for (int i1 = i; i1 < s.length(); i1++) {
 					if (s.charAt(i1) == '>') {
-						output += "#" + DiscordBot.get(bot).getDiscordApi().getChannelById(s.substring(i + 2, i1)).get()
+						output += "#" + api.getChannelById(s.substring(i + 2, i1)).get()
 								.asServerChannel().get().getName();
 						i += i1 - i;
 						break;
