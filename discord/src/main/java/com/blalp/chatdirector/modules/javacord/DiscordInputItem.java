@@ -38,7 +38,7 @@ public class DiscordInputItem extends DiscordItem {
     }
 
     public DiscordInputItem() {
-        ((ItemDaemon) ChatDirector.getConfig().getOrCreateDaemon(DiscordInputDaemon.class)).addItem(this);
+        ((ItemDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(DiscordInputDaemon.class)).addItem(this);
     }
 
 }
