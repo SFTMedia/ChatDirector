@@ -138,14 +138,15 @@ public class Configuration implements IConfiguration {
     public ILoadable getOrCreateDaemon(Class<? extends ILoadable> class1) {
         if(daemons.containsKey(class1)){
             return daemons.get(class1);
-        }
-        try {
-            ILoadable daemon = (ILoadable) class1.getConstructors()[0].newInstance();
-            daemons.put(class1,daemon);
-            return daemon;
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                | SecurityException e) {
-            e.printStackTrace();
+        } else {
+            try {
+                ILoadable daemon = (ILoadable) class1.getConstructors()[0].newInstance();
+                daemons.put(class1,daemon);
+                return daemon;
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                    | SecurityException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
