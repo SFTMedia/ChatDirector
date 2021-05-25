@@ -15,6 +15,7 @@ import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Cancellable;
+import xyz.olivermartin.multichat.bungee.events.PostGlobalChatEvent;
 
 public class BungeeModule implements IModule {
 
@@ -56,6 +57,9 @@ public class BungeeModule implements IModule {
         if (event instanceof ServerConnectedEvent) {
             context.merge(getContext(((ServerConnectedEvent) event).getPlayer()));
             context.merge(getContext(((ServerConnectedEvent) event).getServer().getInfo()));
+        }
+        if(event instanceof PostGlobalChatEvent) {
+            context.merge(getContext(((PostGlobalChatEvent)event).getSender()));
         }
         if (event instanceof ChatEvent) {
             if (((ChatEvent) event).getSender() instanceof ProxiedPlayer) {
