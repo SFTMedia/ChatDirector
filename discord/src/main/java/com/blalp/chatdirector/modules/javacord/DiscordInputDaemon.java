@@ -23,17 +23,15 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @EqualsAndHashCode(callSuper = true)
 public class DiscordInputDaemon extends ItemDaemon
         implements MessageCreateListener, ReactionAddListener, ReactionRemoveListener {
-    String bot;
-
-    public DiscordInputDaemon(String botName) {
-        this.bot = botName;
-    }
 
     @Override
     public boolean load() {
-        DiscordBot.get(bot).getDiscordApi().addMessageCreateListener(this);
-        DiscordBot.get(bot).getDiscordApi().addReactionAddListener(this);
-        DiscordBot.get(bot).getDiscordApi().addReactionRemoveListener(this);
+        DiscordBots discordBots = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class));
+        for (DiscordBot discordBot : discordBots.values()) {
+            discordBot.getDiscordApi().addMessageCreateListener(this);
+            discordBot.getDiscordApi().addReactionAddListener(this);
+            discordBot.getDiscordApi().addReactionRemoveListener(this);
+        }
         return true;
     }
 

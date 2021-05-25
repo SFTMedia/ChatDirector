@@ -1,26 +1,45 @@
 package com.blalp.chatdirector.common.modules.cache;
 
-import java.util.LinkedHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class CacheStore {
-    private static LinkedHashMap<String, String> data = new LinkedHashMap<String, String>();
+import com.blalp.chatdirector.model.IDaemon;
+import com.blalp.chatdirector.model.IItem;
 
-    public static String getValue(String key) {
+public class CacheStore implements IDaemon {
+    private ConcurrentHashMap<String, String> data = new ConcurrentHashMap<String, String>();
+
+    public String getValue(String key) {
         if (data.containsKey(key)) {
             return data.get(key);
         }
         return "";
     }
 
-    public static void setValue(String key, String value) {
+    public void setValue(String key, String value) {
         data.put(key, value);
     }
 
-    public static boolean containsKey(String key) {
+    public boolean containsKey(String key) {
         return data.containsKey(key);
     }
 
-    public static void shred() {
-        data = new LinkedHashMap<String, String>();
+    public void shred() {
+        data = new ConcurrentHashMap<String, String>();
+    }
+
+    @Override
+    public boolean load() {
+        return true;
+    }
+
+    @Override
+    public boolean unload() {
+        shred();
+        return true;
+    }
+
+    @Override
+    public void addItem(IItem item) {
+        // N/A
     }
 }

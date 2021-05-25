@@ -54,9 +54,9 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
                     ChatDirector.getLogger().log(Level.WARNING,
                             "Not adding item " + itemKey + ":" + itemValue + " it failed to load.");
                 } catch (IllegalAccessError e) {
-                    // Due to how Jackson works sometimes itemValue cannot be serialized into a string.
-                    ChatDirector.getLogger().log(Level.WARNING,
-                            "Not adding item " + itemKey + " it failed to load.");
+                    // Due to how Jackson works sometimes itemValue cannot be serialized into a
+                    // string.
+                    ChatDirector.getLogger().log(Level.WARNING, "Not adding item " + itemKey + " it failed to load.");
                 }
             }
         }

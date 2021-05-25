@@ -21,16 +21,17 @@ import lombok.NoArgsConstructor;
 @JsonDeserialize(using = SQLRetrieveDataDeserializer.class)
 public class SQLRetrieveDataItem extends SQLItem {
 
-    private boolean attemptedReload=false;
+    private boolean attemptedReload = false;
 
     @Override
     public Context process(Context context) {
         Context output = new Context();
-        if (cache && SQLCacheStore.containsKey(connection, ChatDirector.format(table, context),
+        SQLCacheStore sqlCacheStore = (SQLCacheStore) ChatDirector.getConfig().getOrCreateDaemon(SQLCacheStore.class);
+        if (cache && sqlCacheStore.containsKey(connection, ChatDirector.format(table, context),
                 ChatDirector.format(name, context), ChatDirector.format(key, context))) {
-            output.put("SQL_RESULT", SQLCacheStore.getValue(connection, ChatDirector.format(table, context),
+            output.put("SQL_RESULT", sqlCacheStore.getValue(connection, ChatDirector.format(table, context),
                     ChatDirector.format(name, context), ChatDirector.format(key, context)));
-            output.put("CACHE_RESULT", SQLCacheStore.getValue(connection, ChatDirector.format(table, context),
+            output.put("CACHE_RESULT", sqlCacheStore.getValue(connection, ChatDirector.format(table, context),
                     ChatDirector.format(name, context), ChatDirector.format(key, context)));
         } else {
             SQLConnection connectionObj = ((SQLConnections) ChatDirector.getConfig()
@@ -44,7 +45,7 @@ public class SQLRetrieveDataItem extends SQLItem {
                 if (results.next()) {
                     output.put("SQL_RESULT", results.getString("value"));
                     if (cache) {
-                        SQLCacheStore.setValue(connection, ChatDirector.format(table, context),
+                        sqlCacheStore.setValue(connection, ChatDirector.format(table, context),
                                 ChatDirector.format(name, context), ChatDirector.format(key, context),
                                 results.getString("value"));
                     }
@@ -55,7 +56,7 @@ public class SQLRetrieveDataItem extends SQLItem {
                 System.err.println(this + " failed on " + context.getCurrent());
                 ChatDirector.getLogger().log(Level.WARNING, "Failed SQL " + e.getSQLState());
                 e.printStackTrace();
-                if(!attemptedReload) {
+                if (!attemptedReload) {
                     connectionObj.unload();
                     connectionObj.load();
                     this.process(context);

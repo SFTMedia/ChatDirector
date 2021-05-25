@@ -2,6 +2,7 @@ package com.blalp.chatdirector.bukkit.modules.bungeeMessage;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
+import com.blalp.chatdirector.utils.ItemDaemon;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -17,7 +18,7 @@ public class FromBungeeItem extends PassItem {
     String channel;
 
     public FromBungeeItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(FromBungeeDaemon.class).addItem(this);
+        ((ItemDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(FromBungeeDaemon.class)).addItem(this);
 
     }
 

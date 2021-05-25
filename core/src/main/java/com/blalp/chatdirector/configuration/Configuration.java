@@ -1,15 +1,15 @@
 package com.blalp.chatdirector.configuration;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.model.ILoadable;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IConfiguration;
 import com.blalp.chatdirector.model.IDaemon;
@@ -30,11 +30,17 @@ public class Configuration implements IConfiguration {
     @JsonIgnore()
     boolean testing = false;
     ServiceLoader<IModule> modules;
-    List<IDaemon> daemons = new ArrayList<>();
+    Map<Class<?>, ILoadable> daemons = new ConcurrentHashMap<>();
     Map<String, Chain> chains = new HashMap<String, Chain>();
     // This is for storage of generic keys that modules may need.
     // The first key is the module name
     Map<String, Map<String, String>> moduleData = new HashMap<>();
+    /**
+     * Maintain this list as some things run in separate threads, so with an item
+     * you need to be able to get the chain object to start execution. Look for a
+     * better solution.
+     */
+    static Map<IItem, Chain> items = new HashMap<>();
 
     public Configuration() {
         modules = ServiceLoader.load(IModule.class, this.getClass().getClassLoader());
@@ -56,10 +62,10 @@ public class Configuration implements IConfiguration {
                 System.out.println(module);
             }
             System.out.println("Module Data");
-            for (Entry<String,Map<String,String>> module : moduleData.entrySet()) {
-                System.out.println(module.getKey()+": ");
-                for (Entry<String,String> item : module.getValue().entrySet()) {
-                    System.out.println("\t"+item.getKey()+": "+item.getValue());
+            for (Entry<String, Map<String, String>> module : moduleData.entrySet()) {
+                System.out.println(module.getKey() + ": ");
+                for (Entry<String, String> item : module.getValue().entrySet()) {
+                    System.out.println("\t" + item.getKey() + ": " + item.getValue());
                 }
             }
             System.out.println("Chains");
@@ -81,7 +87,7 @@ public class Configuration implements IConfiguration {
         if (!isValid()) {
             return false;
         }
-        for (IDaemon daemon : getDaemons()) {
+        for (ILoadable daemon : getDaemons().values()) {
             if (!daemon.load()) {
                 ChatDirector.getLogger().log(Level.SEVERE, "daemon " + daemon.toString() + " failed to load.");
                 return false;
@@ -102,7 +108,7 @@ public class Configuration implements IConfiguration {
 
     @Override
     public boolean unload() {
-        for (IDaemon daemon : daemons) {
+        for (ILoadable daemon : daemons.values()) {
             daemon.unload();
         }
         for (IModule module : getModules()) {
@@ -126,27 +132,21 @@ public class Configuration implements IConfiguration {
     }
 
     public boolean hasDaemon(Class<? extends IDaemon> class1) {
-        for (IDaemon daemon : daemons) {
-            if (daemon.getClass().isAssignableFrom(class1)) {
-                return true;
-            }
-        }
-        return false;
+        return daemons.containsKey(class1);
     }
 
-    public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1) {
-        for (IDaemon daemon : daemons) {
-            if (daemon.getClass().isAssignableFrom(class1)) {
+    public ILoadable getOrCreateDaemon(Class<? extends ILoadable> class1) {
+        if (daemons.containsKey(class1)) {
+            return daemons.get(class1);
+        } else {
+            try {
+                ILoadable daemon = (ILoadable) class1.getConstructors()[0].newInstance();
+                daemons.put(class1, daemon);
                 return daemon;
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | SecurityException e) {
+                e.printStackTrace();
             }
-        }
-        try {
-            IDaemon daemon = (IDaemon) class1.getConstructors()[0].newInstance();
-            daemons.add(daemon);
-            return daemon;
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                | SecurityException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -166,5 +166,16 @@ public class Configuration implements IConfiguration {
             }
         }
         return true;
+    }
+
+    public Chain getChainForItem(IItem item) {
+        if (items.containsKey(item)) {
+            return items.get(item);
+        }
+        return null;
+    }
+
+    public void putChainForItem(IItem item, Chain chain) {
+        items.put(item, chain);
     }
 }

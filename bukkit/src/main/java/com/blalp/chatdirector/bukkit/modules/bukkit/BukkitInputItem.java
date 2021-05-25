@@ -3,6 +3,7 @@ package com.blalp.chatdirector.bukkit.modules.bukkit;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.utils.ItemDaemon;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -24,7 +25,7 @@ public class BukkitInputItem implements IItem {
     boolean overrideChat = false;
 
     public BukkitInputItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class).addItem(this);
+        ((ItemDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(BukkitInputDaemon.class)).addItem(this);
     }
 
     @Override

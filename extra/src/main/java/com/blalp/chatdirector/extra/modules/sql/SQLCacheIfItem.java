@@ -24,7 +24,8 @@ public class SQLCacheIfItem extends ConditionalItem {
 
     @Override
     public boolean test(Context context) {
-        return SQLCacheStore.containsKey(connection, ChatDirector.format(table, context),
+        SQLCacheStore sqlCacheStore = (SQLCacheStore) ChatDirector.getConfig().getOrCreateDaemon(SQLCacheStore.class);
+        return sqlCacheStore.containsKey(connection, ChatDirector.format(table, context),
                 ChatDirector.format(name, context), ChatDirector.format(key, context));
     }
 

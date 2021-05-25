@@ -25,7 +25,7 @@ public class SQLRetrieveDataDeserializer extends JsonDeserializer<SQLRetrieveDat
         output.key = config.get("key").asText();
         output.name = config.get("name").asText();
         output.table = config.get("table").asText();
-        ChatDirector.getConfig().getOrCreateDaemon(SQLConnections.class).addItem(output);
+        ((SQLConnections) ChatDirector.getConfigStaging().getOrCreateDaemon(SQLConnections.class)).addItem(output);
         return output;
     }
 

@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 
 public class PerFileInputDaemon implements Runnable, ILoadable {
     private BufferedReader reader;
-    private static Thread thread;
+    private Thread thread;
     FileInputItem item;
 
     public PerFileInputDaemon(IItem item) {
@@ -34,7 +34,7 @@ public class PerFileInputDaemon implements Runnable, ILoadable {
     }
 
     public void run() {
-        thread=Thread.currentThread();
+        thread = Thread.currentThread();
         Context context;
         if (item.create) {
             try {

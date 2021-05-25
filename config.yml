@@ -103,12 +103,12 @@ chains:
           key: "KEY" # The key to check for
   - context-demo:
       - get-context:
-          context: "SERVER_%SERVER_NAME%_Players" # Normally such a nested contexts would not be possible
+          key: "SERVER_%SERVER_NAME%_Players" # Normally such a nested contexts would not be possible
       - set-context:
-          context: "TARGET_CONTEXT"
+          key: "TARGET_CONTEXT"
           value: "Hello %PLAYER_NAME% you have %BALANCE% money!" # Optional. defaults to CURRENT
       - remove-context:
-          context: "SERVER_NAME"
+          key: "SERVER_NAME"
       - resolve-context: null # This resolves the input string as a formattable message. Normally this shouldn't be needed and could allow for formatting injection.
   - console-demo:
       - console-output: null

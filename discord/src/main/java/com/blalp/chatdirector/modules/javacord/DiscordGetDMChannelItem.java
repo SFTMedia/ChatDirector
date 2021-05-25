@@ -21,7 +21,8 @@ public class DiscordGetDMChannelItem extends DiscordItem {
 
     @Override
     public Context process(Context context) {
-        User userObj = DiscordBot.get(bot).getDiscordApi().getUserById(ChatDirector.format(user, context)).join();
+        User userObj = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class)).get(bot)
+                .getDiscordApi().getUserById(ChatDirector.format(user, context)).join();
         if (!userObj.getPrivateChannel().isPresent()) {
             userObj.openPrivateChannel().join();
         }

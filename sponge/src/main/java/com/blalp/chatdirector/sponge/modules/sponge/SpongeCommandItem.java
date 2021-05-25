@@ -1,6 +1,5 @@
 package com.blalp.chatdirector.sponge.modules.sponge;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
@@ -36,12 +35,10 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
     String command;
     String permission;
     boolean args = false;
-    static ArrayList<SpongeCommandItem> commands = new ArrayList<>();
 
     public SpongeCommandItem(String name, String permission) {
         this.command = name;
         this.permission = permission;
-        commands.add(this);
     }
 
     @Override
@@ -69,7 +66,6 @@ public class SpongeCommandItem extends PassItem implements CommandExecutor, ILoa
         } else {
             System.err.println("Mapping was not found");
         }
-        commands = new ArrayList<>();
         return true;
     }
 

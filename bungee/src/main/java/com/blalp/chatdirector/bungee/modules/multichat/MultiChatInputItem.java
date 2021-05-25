@@ -2,6 +2,7 @@ package com.blalp.chatdirector.bungee.modules.multichat;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
+import com.blalp.chatdirector.utils.ItemDaemon;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -17,7 +18,7 @@ public class MultiChatInputItem extends PassItem {
     boolean global, staff, broadcast;
 
     public MultiChatInputItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(MultiChatInputItemDaemon.class).addItem(this);
+        ((ItemDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(MultiChatInputDaemon.class)).addItem(this);
     }
 
     @Override

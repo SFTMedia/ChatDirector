@@ -13,8 +13,6 @@ import com.blalp.chatdirector.model.IItem;
 public class SQLConnections extends HashMap<String, SQLConnection> implements IDaemon {
     Map<String, List<String>> tables = new HashMap<>();
 
-    private static final long serialVersionUID = 6162777671695607532L;
-
     @Override
     public boolean load() {
         for (Entry<String, SQLConnection> connection : this.entrySet()) {

@@ -10,7 +10,7 @@ import xyz.olivermartin.multichat.bungee.events.PostBroadcastEvent;
 import xyz.olivermartin.multichat.bungee.events.PostGlobalChatEvent;
 import xyz.olivermartin.multichat.bungee.events.PostStaffChatEvent;
 
-public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
+public class MultiChatInputDaemon extends ItemDaemon implements Listener {
 
     @EventHandler
     public void onEvent(PostBroadcastEvent e) {
@@ -37,7 +37,7 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
     }
 
     @EventHandler
-    public void onChat(PostStaffChatEvent e) {
+    public void onEvent(PostStaffChatEvent e) {
         Context context = ChatDirector.getConfig().getModule(MultiChatModule.class).getContext(e);
         for (MultiChatInputItem item : getItems().toArray(new MultiChatInputItem[] {})) {
             if (item.staff) {
@@ -46,13 +46,4 @@ public class MultiChatInputItemDaemon extends ItemDaemon implements Listener {
             }
         }
     }
-    /*
-     * @Override public boolean load() {
-     * ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(
-     * ChatDirectorBungee.instance, this); }
-     * 
-     * @Override public boolean unload() {
-     * ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(
-     * this); }
-     */
 }

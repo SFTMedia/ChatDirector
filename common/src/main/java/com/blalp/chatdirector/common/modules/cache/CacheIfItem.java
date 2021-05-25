@@ -20,7 +20,8 @@ public class CacheIfItem extends ConditionalItem {
 
     @Override
     public boolean test(Context context) {
-        return CacheStore.containsKey(ChatDirector.format(key, context));
+        CacheStore cacheStore = (CacheStore) ChatDirector.getConfig().getOrCreateDaemon(CacheStore.class);
+        return cacheStore.containsKey(ChatDirector.format(key, context));
     }
 
     @Override

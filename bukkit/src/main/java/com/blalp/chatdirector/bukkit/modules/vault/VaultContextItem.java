@@ -24,22 +24,22 @@ public class VaultContextItem extends PermissionItem {
     @SuppressWarnings("deprecation")
     @Override
     public String getPrefix(String playerName) {
-        return VaultModule.chat.getPlayerPrefix(Bukkit.getWorlds().get(0).getName(),
-                Bukkit.getOfflinePlayer(playerName));
+        return ((VaultModule) ChatDirector.getConfig().getModule(VaultModule.class)).chat
+                .getPlayerPrefix(Bukkit.getWorlds().get(0).getName(), Bukkit.getOfflinePlayer(playerName));
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public String getSuffix(String playerName) {
-        return VaultModule.chat.getPlayerSuffix(Bukkit.getWorlds().get(0).getName(),
-                Bukkit.getOfflinePlayer(playerName));
+        return ((VaultModule) ChatDirector.getConfig().getModule(VaultModule.class)).chat
+                .getPlayerSuffix(Bukkit.getWorlds().get(0).getName(), Bukkit.getOfflinePlayer(playerName));
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public String getGroup(String playerName) {
-        return VaultModule.chat.getPlayerGroups(Bukkit.getWorlds().get(0).getName(),
-                Bukkit.getOfflinePlayer(playerName))[0];
+        return ((VaultModule) ChatDirector.getConfig().getModule(VaultModule.class)).chat
+                .getPlayerGroups(Bukkit.getWorlds().get(0).getName(), Bukkit.getOfflinePlayer(playerName))[0];
     }
 
     @SuppressWarnings("deprecation")
@@ -48,8 +48,9 @@ public class VaultContextItem extends PermissionItem {
         Context output = super.process(context);
         try {
             if (output.containsKey("PLAYER_NAME")) {
-                output.put("PLAYER_BALANCE", Double
-                        .toString(VaultModule.economy.getBalance(Bukkit.getOfflinePlayer(context.get("PLAYER_NAME")))));
+                output.put("PLAYER_BALANCE",
+                        Double.toString(((VaultModule) ChatDirector.getConfig().getModule(VaultModule.class)).economy
+                                .getBalance(Bukkit.getOfflinePlayer(context.get("PLAYER_NAME")))));
             }
         } catch (NullPointerException e) {
             e.printStackTrace();

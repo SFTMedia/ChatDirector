@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IteratorIterable;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,6 +22,7 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
         ObjectCodec oc = p.getCodec();
         JsonNode node = oc.readTree(p);
         Configuration configuration = new Configuration();
+        ChatDirector.getInstance().setConfigStaging(configuration);
         if (node.has("debug") && node.get("debug").isBoolean()) {
             configuration.setDebug(node.get("debug").asBoolean());
         }

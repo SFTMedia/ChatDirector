@@ -3,6 +3,7 @@ package com.blalp.chatdirector.bukkit.modules.vault;
 import java.util.Arrays;
 import java.util.List;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IModule;
@@ -15,9 +16,9 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 public class VaultModule implements IModule {
-    public static Permission permission = null;
-    public static Economy economy = null;
-    public static Chat chat = null;
+    public Permission permission = null;
+    public Economy economy = null;
+    public Chat chat = null;
 
     private boolean setupPermissions() {
         if (Bukkit.getServer() == null) {
@@ -64,9 +65,21 @@ public class VaultModule implements IModule {
         } catch (ClassNotFoundException e) {
             return true;
         }
-        setupChat();
-        setupEconomy();
-        setupPermissions();
+        if(!setupChat()){
+            if(ChatDirector.getInstance().isDebug()){
+                ChatDirector.getLogger().warning("Vault Chat failed to load");
+            }
+        }
+        if(!setupEconomy()){
+            if(ChatDirector.getInstance().isDebug()){
+                ChatDirector.getLogger().warning("Vault Chat failed to load");
+            }
+        }
+        if(!setupPermissions()){
+            if(ChatDirector.getInstance().isDebug()){
+                ChatDirector.getLogger().warning("Vault Chat failed to load");
+            }
+        }
         return true;
     }
 

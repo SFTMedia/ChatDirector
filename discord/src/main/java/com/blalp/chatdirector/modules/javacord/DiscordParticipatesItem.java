@@ -28,8 +28,9 @@ public class DiscordParticipatesItem extends DiscordItem {
 
     @Override
     public Context process(Context context) {
-        MessageSet messages = DiscordBot.get(bot).getDiscordApi()
-                .getTextChannelById(ChatDirector.format(channel, context)).get().getMessages(length).join();
+        MessageSet messages = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class)).get(bot)
+                .getDiscordApi().getTextChannelById(ChatDirector.format(channel, context)).get().getMessages(length)
+                .join();
         HashMap<String, User> users = new HashMap<>();
         for (Message message : messages) {
             if (message.getUserAuthor().isPresent() && !message.getAuthor().isYourself()) {

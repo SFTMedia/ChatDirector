@@ -8,6 +8,7 @@ import com.blalp.chatdirector.model.IModule;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Cancellable;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.message.MessageChannelEvent.Chat;
 import org.spongepowered.api.event.user.TargetUserEvent;
@@ -21,30 +22,12 @@ public class SpongeModule implements IModule {
 
     @Override
     public boolean load() {
-        try {
-            Class.forName("org.spongepowered.api.Sponge");
-        } catch (ClassNotFoundException e) {
-            return true;
-        }
-        boolean result = true;
-        for (SpongeCommandItem command : SpongeCommandItem.commands) {
-            result = result && command.load();
-        }
-        return result;
+        return true;
     }
 
     @Override
     public boolean unload() {
-        try {
-            Class.forName("org.spongepowered.api.Sponge");
-        } catch (ClassNotFoundException e) {
-            return true;
-        }
-        boolean result = true;
-        for (SpongeCommandItem command : SpongeCommandItem.commands) {
-            result = result && command.unload();
-        }
-        return result;
+        return true;
     }
 
     @Override
@@ -66,6 +49,9 @@ public class SpongeModule implements IModule {
         if (event instanceof Player) {
             context.put("PLAYER_NAME", ((Player) event).getName());
             context.put("PLAYER_UUID", ((Player) event).getUniqueId().toString());
+        }
+        if(event instanceof Cancellable){
+            context.put("CANCELED", ((Cancellable)event).isCancelled()?"1":"0");
         }
         if (event instanceof Chat) {
             context.put("CHAT_MESSAGE", ((Chat) event).getRawMessage().toPlain());
