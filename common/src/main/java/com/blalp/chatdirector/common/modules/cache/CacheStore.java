@@ -40,6 +40,6 @@ public class CacheStore implements IDaemon {
 
     @Override
     public void addItem(IItem item) {
-        // N/A        
+        // N/A
     }
 }

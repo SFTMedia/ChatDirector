@@ -49,25 +49,24 @@ public class ChatDirectorBungee extends Plugin implements Listener {
         chatDirector.unload();
     }
 
-
     @EventHandler
     public void onEvent(PlayerDisconnectEvent e) {
-        ((BungeeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
+        ((BungeeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
     }
 
     @EventHandler
     public void onEvent(ServerSwitchEvent e) {
-        ((BungeeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
+        ((BungeeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
     }
 
     @EventHandler
     public void onEvent(ServerConnectedEvent e) {
-        ((BungeeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
+        ((BungeeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
     }
 
     @EventHandler
     public void onChat(ChatEvent e) {
-        ((BungeeInputDaemon)ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
+        ((BungeeInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BungeeInputDaemon.class)).onEvent(e);
     }
 
     @EventHandler

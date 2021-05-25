@@ -26,8 +26,8 @@ public class DiscordInputDaemon extends ItemDaemon
 
     @Override
     public boolean load() {
-        DiscordBots discordBots = ((DiscordBots)ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class));
-        for (DiscordBot discordBot: discordBots.values()) {
+        DiscordBots discordBots = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class));
+        for (DiscordBot discordBot : discordBots.values()) {
             discordBot.getDiscordApi().addMessageCreateListener(this);
             discordBot.getDiscordApi().addReactionAddListener(this);
             discordBot.getDiscordApi().addReactionRemoveListener(this);

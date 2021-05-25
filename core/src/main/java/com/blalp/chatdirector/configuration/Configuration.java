@@ -30,7 +30,7 @@ public class Configuration implements IConfiguration {
     @JsonIgnore()
     boolean testing = false;
     ServiceLoader<IModule> modules;
-    Map<Class<?>,ILoadable> daemons = new ConcurrentHashMap<>();
+    Map<Class<?>, ILoadable> daemons = new ConcurrentHashMap<>();
     Map<String, Chain> chains = new HashMap<String, Chain>();
     // This is for storage of generic keys that modules may need.
     // The first key is the module name
@@ -62,10 +62,10 @@ public class Configuration implements IConfiguration {
                 System.out.println(module);
             }
             System.out.println("Module Data");
-            for (Entry<String,Map<String,String>> module : moduleData.entrySet()) {
-                System.out.println(module.getKey()+": ");
-                for (Entry<String,String> item : module.getValue().entrySet()) {
-                    System.out.println("\t"+item.getKey()+": "+item.getValue());
+            for (Entry<String, Map<String, String>> module : moduleData.entrySet()) {
+                System.out.println(module.getKey() + ": ");
+                for (Entry<String, String> item : module.getValue().entrySet()) {
+                    System.out.println("\t" + item.getKey() + ": " + item.getValue());
                 }
             }
             System.out.println("Chains");
@@ -136,15 +136,15 @@ public class Configuration implements IConfiguration {
     }
 
     public ILoadable getOrCreateDaemon(Class<? extends ILoadable> class1) {
-        if(daemons.containsKey(class1)){
+        if (daemons.containsKey(class1)) {
             return daemons.get(class1);
         } else {
             try {
                 ILoadable daemon = (ILoadable) class1.getConstructors()[0].newInstance();
-                daemons.put(class1,daemon);
+                daemons.put(class1, daemon);
                 return daemon;
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                    | SecurityException e) {
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | SecurityException e) {
                 e.printStackTrace();
             }
         }
@@ -169,7 +169,7 @@ public class Configuration implements IConfiguration {
     }
 
     public Chain getChainForItem(IItem item) {
-        if(items.containsKey(item)){
+        if (items.containsKey(item)) {
             return items.get(item);
         }
         return null;

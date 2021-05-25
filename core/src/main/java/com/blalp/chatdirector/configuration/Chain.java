@@ -103,8 +103,7 @@ public class Chain implements IValid, Runnable {
             }
         }
         if (ChatDirector.getConfig().debug) {
-            ChatDirector.getLogger().log(Level.INFO,
-                    "Ended process of " + this + " with context " + context);
+            ChatDirector.getLogger().log(Level.INFO, "Ended process of " + this + " with context " + context);
         }
         return context;
     }

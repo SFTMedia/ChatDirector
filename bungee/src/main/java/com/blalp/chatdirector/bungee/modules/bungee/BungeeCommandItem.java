@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 public class BungeeCommandItem extends PassItem {
     String command;
     String permission;
-    
+
     public BungeeCommandItem() {
         ((BungeeCommandDaemon) ChatDirector.getConfig().getOrCreateDaemon(BungeeCommandDaemon.class)).addItem(this);
     }

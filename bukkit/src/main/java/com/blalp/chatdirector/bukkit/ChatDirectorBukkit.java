@@ -23,7 +23,7 @@ public class ChatDirectorBukkit extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        instance=this;
+        instance = this;
         try {
             chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
             this.getDataFolder().mkdirs();
@@ -55,14 +55,15 @@ public class ChatDirectorBukkit extends JavaPlugin implements Listener {
         if (command.getName().equals("chatdirectorlocal") && sender.hasPermission("chatdirector.reload")) {
             new Thread(new TimedLoad()).start();
         }
-        ((BukkitCommandDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitCommandDaemon.class)).execute(sender, command, label, args);
+        ((BukkitCommandDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitCommandDaemon.class)).execute(sender,
+                command, label, args);
         return false;
     }
 
     public static ChatDirectorBukkit getInstance() {
         return instance;
     }
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         ((BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onPlayerChat(event);

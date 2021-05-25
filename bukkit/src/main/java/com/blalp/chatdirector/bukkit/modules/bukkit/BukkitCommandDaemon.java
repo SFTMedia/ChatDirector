@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 public class BukkitCommandDaemon extends ItemDaemon {
 
     public boolean execute(CommandSender sender, Command command, String label, String[] args) {
-        for (BukkitCommandItem item:this.getItems().toArray(new BukkitCommandItem[]{})){
+        for (BukkitCommandItem item : this.getItems().toArray(new BukkitCommandItem[] {})) {
             if (command.getName().equals(item.command) && sender.hasPermission(item.permission)) {
                 Context context = ChatDirector.getConfig().getModule(BukkitModule.class).getContext(sender);
                 String string = item.command;

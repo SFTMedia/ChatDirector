@@ -131,7 +131,7 @@ public class ChatDirector implements IConfiguration {
 
     public static Context run(IItem item, Context context, boolean async) {
         Chain chain = ChatDirector.getConfig().getChainForItem(item);
-        if (chain!=null) {
+        if (chain != null) {
             if (async) {
                 chain.runAsync(item, context);
                 return new Context();
