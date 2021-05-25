@@ -4,23 +4,30 @@ import java.io.File;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.configuration.TimedLoad;
-import com.blalp.chatdirector.bukkit.modules.bukkit.BukkitCommand;
+import com.blalp.chatdirector.bukkit.modules.bukkit.BukkitCommandDaemon;
 import com.blalp.chatdirector.bukkit.modules.bukkit.BukkitInputDaemon;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ChatDirectorBukkit extends JavaPlugin /* implements PluginMessageListener */ {
+public class ChatDirectorBukkit extends JavaPlugin implements Listener {
     private ChatDirector chatDirector;
+    public static ChatDirectorBukkit instance;
 
     @Override
     public void onEnable() {
+        instance=this;
         try {
             chatDirector = new ChatDirector(new File(this.getDataFolder(), "config.yml"));
-            getServer().getPluginManager().registerEvents(
-                    (BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class), this);
             this.getDataFolder().mkdirs();
+            getServer().getPluginManager().registerEvents(this, this);
             chatDirector.load();
             ((BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onServerStart();
             if (!ChatDirector.hasChains()) {
@@ -48,9 +55,26 @@ public class ChatDirectorBukkit extends JavaPlugin /* implements PluginMessageLi
         if (command.getName().equals("chatdirectorlocal") && sender.hasPermission("chatdirector.reload")) {
             new Thread(new TimedLoad()).start();
         }
-        for (BukkitCommand bukkitCommand : BukkitCommand.commands) {
-            bukkitCommand.execute(sender, command, label, args);
-        }
+        ((BukkitCommandDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitCommandDaemon.class)).execute(sender, command, label, args);
         return false;
+    }
+
+    public static ChatDirectorBukkit getInstance() {
+        return instance;
+    }
+    
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        ((BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onPlayerChat(event);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onLogin(PlayerLoginEvent event) {
+        ((BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onLogin(event);
+    }
+
+    @EventHandler
+    public void onLogout(PlayerQuitEvent event) {
+        ((BukkitInputDaemon) ChatDirector.getConfig().getOrCreateDaemon(BukkitInputDaemon.class)).onLogout(event);
     }
 }

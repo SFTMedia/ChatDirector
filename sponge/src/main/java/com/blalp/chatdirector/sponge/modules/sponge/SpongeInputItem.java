@@ -25,7 +25,7 @@ public class SpongeInputItem extends PassItem {
     String formatStarted = "**Server Started**";
 
     public SpongeInputItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(SpongeInputDaemon.class).addItem(this);
+        ChatDirector.getConfigStaging().getOrCreateDaemon(SpongeInputDaemon.class).addItem(this);
     }
 
     @Override

@@ -15,10 +15,6 @@ import lombok.ToString;
 public class Context extends HashMap<String, String> {
     boolean halt = false;
     List<Object> removeKeys = new ArrayList<>();
-    /**
-     *
-     */
-    private static final long serialVersionUID = 766895053736513613L;
 
     public Context() {
     }

@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.bungee.modules.bungee;
 
+import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
@@ -8,20 +9,16 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class BungeeCommandItem extends PassItem {
     String command;
     String permission;
-
-    public BungeeCommandItem(String name, String permission) {
-        this.command = name;
-        this.permission = permission;
-        new BungeeCommand(name, this);
+    
+    public BungeeCommandItem() {
+        ChatDirector.getConfig().getOrCreateDaemon(BungeeCommandDaemon.class).addItem(this);
     }
 
     @Override

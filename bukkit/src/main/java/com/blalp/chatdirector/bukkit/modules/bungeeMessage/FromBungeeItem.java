@@ -17,7 +17,7 @@ public class FromBungeeItem extends PassItem {
     String channel;
 
     public FromBungeeItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(FromBungeeDaemon.class).addItem(this);
+        ChatDirector.getConfigStaging().getOrCreateDaemon(FromBungeeDaemon.class).addItem(this);
 
     }
 

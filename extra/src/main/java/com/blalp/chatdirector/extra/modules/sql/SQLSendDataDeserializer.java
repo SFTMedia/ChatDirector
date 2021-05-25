@@ -26,7 +26,7 @@ public class SQLSendDataDeserializer extends JsonDeserializer<SQLSendDataItem> {
         output.name = config.get("name").asText();
         output.table = config.get("table").asText();
         output.value = config.get("value").asText();
-        ChatDirector.getConfig().getOrCreateDaemon(SQLConnections.class).addItem(output);
+        ChatDirector.getConfigStaging().getOrCreateDaemon(SQLConnections.class).addItem(output);
         return output;
     }
 

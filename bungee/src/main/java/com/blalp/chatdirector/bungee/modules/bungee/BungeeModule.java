@@ -19,30 +19,12 @@ public class BungeeModule implements IModule {
 
     @Override
     public boolean load() {
-        boolean result = true;
-        try {
-            Class.forName("net.md_5.bungee.api.ProxyServer");
-        } catch (ClassNotFoundException e) {
-            return true;
-        }
-        for (BungeeCommand command : BungeeCommand.commands) {
-            result = result && command.load();
-        }
-        return result;
+        return true;
     }
 
     @Override
     public boolean unload() {
-        boolean result = true;
-        try {
-            Class.forName("net.md_5.bungee.api.ProxyServer");
-        } catch (ClassNotFoundException e) {
-            return result;
-        }
-        for (BungeeCommand command : BungeeCommand.commands) {
-            result = result && command.unload();
-        }
-        return result;
+        return true;
     }
 
     @SuppressWarnings("deprecation")

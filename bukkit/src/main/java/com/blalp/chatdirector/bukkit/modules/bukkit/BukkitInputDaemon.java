@@ -6,13 +6,12 @@ import com.blalp.chatdirector.utils.ItemDaemon;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
-public class BukkitInputDaemon extends ItemDaemon implements Listener {
+public class BukkitInputDaemon extends ItemDaemon {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         for (BukkitInputItem item : getItems().toArray(new BukkitInputItem[] {})) {

@@ -17,7 +17,7 @@ public class MultiChatInputItem extends PassItem {
     boolean global, staff, broadcast;
 
     public MultiChatInputItem() {
-        ChatDirector.getConfig().getOrCreateDaemon(MultiChatInputItemDaemon.class).addItem(this);
+        ChatDirector.getConfigStaging().getOrCreateDaemon(MultiChatInputDaemon.class).addItem(this);
     }
 
     @Override

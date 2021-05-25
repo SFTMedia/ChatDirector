@@ -158,7 +158,7 @@ public class DiscordModule implements IModule {
         return context;
     }
 
-    private static Context getContextUserServer(User user, Optional<Server> server) {
+    private Context getContextUserServer(User user, Optional<Server> server) {
         Context context = new Context();
         if (server.isPresent()) {
             context.put("DISCORD_SERVER_NAME", server.get().getName());

@@ -15,7 +15,7 @@ import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
+public class BungeeInputDaemon extends ItemDaemon implements Listener {
 
     private Set<UUID> existing_players = new HashSet<>();
 
@@ -62,7 +62,7 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
     }
 
     @EventHandler
-    public void onChat(ChatEvent e) {
+    public void onEvent(ChatEvent e) {
         Context context = ChatDirector.getConfig().getModule(BungeeModule.class).getContext(e);
         for (BungeeInputItem item : getItems().toArray(new BungeeInputItem[] {})) {
             if ((item.chat && !e.getMessage().startsWith("/")) || item.command && e.getMessage().startsWith("/")) {
@@ -76,15 +76,5 @@ public class BungeeInputItemDaemon extends ItemDaemon implements Listener {
             }
         }
     }
-    /*
-     * @EventHandler public void onMessage(PluginMessageEvent e) { // TODO } /*
-     * 
-     * @Override public boolean load() {
-     * ChatDirectorBungee.instance.getProxy().getPluginManager().registerListener(
-     * ChatDirectorBungee.instance, this); }
-     * 
-     * @Override public boolean unload() {
-     * ChatDirectorBungee.instance.getProxy().getPluginManager().unregisterListener(
-     * this); }
-     */
+    // @EventHandler public void onMessage(PluginMessageEvent e) { // TODO } /*
 }
