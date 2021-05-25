@@ -24,8 +24,9 @@ public class DiscordMessageHistoryItem extends DiscordItem {
     @Override
     public Context process(Context context) {
         Context workingContext = new Context(context);
-        MessageSet messages = DiscordBot.get(bot).getDiscordApi()
-                .getTextChannelById(ChatDirector.format(channel, context)).get().getMessages(length).join();
+        MessageSet messages = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class)).get(bot)
+                .getDiscordApi().getTextChannelById(ChatDirector.format(channel, context)).get().getMessages(length)
+                .join();
         String output = "";
         for (Message message : messages) {
             workingContext.merge(

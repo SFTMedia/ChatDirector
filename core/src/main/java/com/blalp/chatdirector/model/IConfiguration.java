@@ -13,7 +13,7 @@ public interface IConfiguration extends ILoadable, IValid {
 
     public IModule getModule(Class<? extends IModule> class1);
 
-    public IDaemon getOrCreateDaemon(Class<? extends IDaemon> class1);
+    public ILoadable getOrCreateDaemon(Class<? extends ILoadable> class1);
 
     public boolean isDebug();
 

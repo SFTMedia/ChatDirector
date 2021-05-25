@@ -4,6 +4,7 @@ import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.modules.common.PassItem;
+import com.blalp.chatdirector.utils.ItemDaemon;
 import com.blalp.chatdirector.utils.ValidationUtils;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -25,7 +26,7 @@ public class SpongeInputItem extends PassItem {
     String formatStarted = "**Server Started**";
 
     public SpongeInputItem() {
-        ChatDirector.getConfigStaging().getOrCreateDaemon(SpongeInputDaemon.class).addItem(this);
+        ((ItemDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(SpongeInputDaemon.class)).addItem(this);
     }
 
     @Override

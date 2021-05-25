@@ -1,15 +1,15 @@
 package com.blalp.chatdirector.modules.javacord;
 
+import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.utils.ItemDaemon;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.NoArgsConstructor;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
-@NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = DiscordInputItemDeserializer.class)
@@ -32,6 +32,10 @@ public class DiscordInputItem extends DiscordItem {
         } else {
             return false;
         }
+    }
+
+    public DiscordInputItem() {
+        ((ItemDaemon) ChatDirector.getConfig().getOrCreateDaemon(DiscordInputDaemon.class)).addItem(this);
     }
 
 }

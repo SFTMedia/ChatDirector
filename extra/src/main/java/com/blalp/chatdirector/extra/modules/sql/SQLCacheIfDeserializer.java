@@ -35,7 +35,7 @@ public class SQLCacheIfDeserializer extends JsonDeserializer<SQLCacheIfItem> {
         output.key = config.get("key").asText();
         output.name = config.get("name").asText();
         output.table = config.get("table").asText();
-        ChatDirector.getConfigStaging().getOrCreateDaemon(SQLConnections.class).addItem(output);
+        ((Chain) ChatDirector.getConfigStaging().getOrCreateDaemon(SQLConnections.class)).addItem(output);
         return output;
     }
 

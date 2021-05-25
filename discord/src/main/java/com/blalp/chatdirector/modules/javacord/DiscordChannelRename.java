@@ -19,7 +19,8 @@ public class DiscordChannelRename extends DiscordItem {
 
     @Override
     public Context process(Context context) {
-        DiscordBot.get(bot).getDiscordApi().getServerChannelById(ChatDirector.format(channel, context)).get()
+        ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class)).get(bot).getDiscordApi()
+                .getServerChannelById(ChatDirector.format(channel, context)).get()
                 .updateName(ChatDirector.format(name, context));
         return new Context();
     }

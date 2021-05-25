@@ -8,6 +8,8 @@ import com.blalp.chatdirector.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import org.javacord.api.DiscordApi;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -24,11 +26,10 @@ public class DiscordDeleteMessage extends DiscordItem {
     @Override
     public Context process(Context context) {
         try {
-            DiscordBot.get(bot).getDiscordApi()
-                    .getMessageById(ChatDirector.format(message, context),
-                            DiscordBot.get(bot).getDiscordApi()
-                                    .getTextChannelById(ChatDirector.format(channel, context)).get())
-                    .get().delete().get();
+            DiscordApi api = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class)).get(bot)
+                    .getDiscordApi();
+            api.getMessageById(ChatDirector.format(message, context),
+                    api.getTextChannelById(ChatDirector.format(channel, context)).get()).get().delete().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
