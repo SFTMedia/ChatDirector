@@ -92,13 +92,16 @@ public class ChatDirector implements IConfiguration {
         // NOTE: While config is being reloaded it will use the old config in parsing if
         // the singleton is used.
         if (!loadConfig()) {
-            configStaging.unload();
             logger.warning("New config failed to load, keeping old config...");
             return false;
         }
         logger.info("New config loaded, unloading old config...");
         // At this point configStaging loaded
-        config.unload();
+        // only unload the existing config if it was valid (aka has chains)
+        if (config.getChains().size() != 0) {
+            // ignore if unload fails, as we always want to load.
+            config.unload();
+        }
         config = configStaging;
 
         return config.load();
