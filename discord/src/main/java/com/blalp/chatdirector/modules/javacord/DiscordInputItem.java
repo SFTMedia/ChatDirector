@@ -6,6 +6,8 @@ import com.blalp.chatdirector.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(using = DiscordInputItemDeserializer.class)
+@ToString(callSuper = true)
 public class DiscordInputItem extends DiscordItem {
     boolean reactionAddEvent = false;
     boolean reactionRemoveEvent = false;
