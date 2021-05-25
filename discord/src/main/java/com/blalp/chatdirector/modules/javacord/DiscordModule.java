@@ -24,6 +24,8 @@ public class DiscordModule implements IModule {
     @Override
     public boolean load() {
         boolean result = true;
+        // Make sure a DiscordBots item is created
+        ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class);
         if (ChatDirector.getConfig().getModuleData() == null
                 || !ChatDirector.getConfig().getModuleData().containsKey("discord")) {
             System.err.println("discord module does not have any data");
