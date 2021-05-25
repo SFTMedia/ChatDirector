@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 
 public class PerFileInputDaemon implements Runnable, ILoadable {
     private BufferedReader reader;
+    private static Thread thread;
     FileInputItem item;
 
     public PerFileInputDaemon(IItem item) {
@@ -33,6 +34,7 @@ public class PerFileInputDaemon implements Runnable, ILoadable {
     }
 
     public void run() {
+        thread=Thread.currentThread();
         Context context;
         if (item.create) {
             try {
@@ -72,6 +74,6 @@ public class PerFileInputDaemon implements Runnable, ILoadable {
 
     @SuppressWarnings("deprecation")
     public void stop() {
-        Thread.currentThread().stop();
+        thread.stop();
     }
 }
