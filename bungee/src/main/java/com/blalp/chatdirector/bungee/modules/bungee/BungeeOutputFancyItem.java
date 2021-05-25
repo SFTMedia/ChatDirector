@@ -92,7 +92,7 @@ public class BungeeOutputFancyItem implements IItem {
         // Resolve all of the contexts that you can before resolving player related ones
         FancyMessage fancyBase = fancyMessage.duplicate().withContext(context);
         for (ProxiedPlayer proxiedPlayer : ProxyServer.getInstance().getPlayers()) {
-            if (proxiedPlayer == null
+            if (player == null
                     || (ChatDirector.format(player, context).length() > 16
                             && proxiedPlayer.getUniqueId().toString().equals(ChatDirector.format(player, context)))
                     || (ChatDirector.format(player, context).length() < 16
