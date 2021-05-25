@@ -1,7 +1,7 @@
 package com.blalp.chatdirector.modules.javacord;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.utils.ItemDaemon;
+import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
@@ -38,7 +38,7 @@ public class DiscordInputItem extends DiscordItem {
     }
 
     public DiscordInputItem() {
-        ((ItemDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(DiscordInputDaemon.class)).addItem(this);
+        ((IDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(DiscordInputDaemon.class)).addItem(this);
     }
 
 }
