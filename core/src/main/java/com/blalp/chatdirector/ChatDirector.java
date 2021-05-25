@@ -116,7 +116,7 @@ public class ChatDirector implements IConfiguration {
 
     public static String format(String format, Context context) {
         if(format==null){
-            return null;
+            return "";
         }
         synchronized (context) {
             for (Entry<String, String> singleContext : context.entrySet()) {
