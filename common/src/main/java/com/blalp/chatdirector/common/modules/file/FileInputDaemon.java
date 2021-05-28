@@ -6,6 +6,11 @@ import java.util.List;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.utils.ItemDaemon;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class FileInputDaemon extends ItemDaemon {
     List<PerFileInputDaemon> perFileInputDaemons = new ArrayList<>();
 

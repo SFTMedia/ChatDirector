@@ -89,7 +89,7 @@ public class Configuration implements IConfiguration {
         }
         for (ILoadable daemon : getDaemons().values()) {
             if (!daemon.load()) {
-                ChatDirector.getLogger().log(Level.SEVERE, "daemon " + daemon.toString() + " failed to load.");
+                ChatDirector.getLogger().log(Level.SEVERE, "daemon " + daemon.getClass() + " " + daemon + " failed to load.");
                 return false;
             }
         }

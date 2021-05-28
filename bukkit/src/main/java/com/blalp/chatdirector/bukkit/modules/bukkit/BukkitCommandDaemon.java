@@ -7,6 +7,11 @@ import com.blalp.chatdirector.utils.ItemDaemon;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class BukkitCommandDaemon extends ItemDaemon {
 
     public boolean execute(CommandSender sender, Command command, String label, String[] args) {
