@@ -1,12 +1,12 @@
-debug: true
+debug: false
 module_data:
   redis:
     connection: "redis://2OJRavsgNNmEOOISxcgJhY1zrxCE3S8avog64MYNOocpID46kRhCOsTbDfk51dSpnvX5eaBFfhPrzO22t6dTcl0SA2rBOpLMlgaUO9DdGRDEwewB1le3u1cKQvWPldErEIEqAdbfWCUvuLU9cdMWv1eHVVUB6spmEMtapN9iHZuKxg@redis"
 chains:
   - node1:
-    - schedule-input-item:
-        delay: 1000
-        period: 1000
+    - schedule-input:
+        delay: 0
+        period: 2000
     - redis-set:
         key: test
         connection: connection
