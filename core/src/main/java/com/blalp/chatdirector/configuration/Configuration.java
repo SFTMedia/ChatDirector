@@ -12,7 +12,6 @@ import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.ILoadable;
 import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.IConfiguration;
-import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.model.IModule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -55,45 +54,67 @@ public class Configuration implements IConfiguration {
     // https://stackoverflow.com/questions/58102069/how-to-do-a-partial-deserialization-with-jackson#58102226
     @Override
     public boolean load() {
-        boolean result = true;
         if (debug) {
             System.out.println("Modules");
             for (IModule module : modules) {
-                System.out.println(module);
+                System.out.println("\t"+module);
             }
+            System.out.println();
             System.out.println("Module Data");
             for (Entry<String, Map<String, String>> module : moduleData.entrySet()) {
-                System.out.println(module.getKey() + ": ");
+                System.out.println("\t"+module.getKey() + ": ");
                 for (Entry<String, String> item : module.getValue().entrySet()) {
-                    System.out.println("\t" + item.getKey() + ": " + item.getValue());
+                    System.out.println("\t\t" + item.getKey() + ": " + item.getValue());
                 }
             }
+            System.out.println();
+            System.out.println("Daemons");
+            for (ILoadable daemon : daemons.values()) {
+                System.out.println("\t" + daemon);
+            }
+            System.out.println();
             System.out.println("Chains");
             for (String pipeKey : chains.keySet()) {
-                System.out.println("Chain " + pipeKey);
+                System.out.println("\t"+"Chain " + pipeKey);
                 if (chains.get(pipeKey) != null) {
                     for (IItem item : chains.get(pipeKey).getItems()) {
-                        System.out.println(item);
+                        System.out.println("\t\t"+item);
                     }
                 }
             }
         }
+        if(debug){
+            System.out.println();
+            System.out.println("Loading Modules...");
+        }
         for (IModule module : getModules()) {
-            result = result && module.load();
             if (debug) {
-                System.out.println(module + " returned " + result);
+                System.out.println("\t"+module);
             }
+            if(!module.load()){
+                ChatDirector.getLogger().log(Level.SEVERE, "Module " + module.getClass() + " " + module + " failed to load.");
+                return false;
+            }
+        }
+        if(debug){
+            System.out.println();
+            System.out.println("Checking Validity...");
         }
         if (!isValid()) {
             return false;
         }
+        if(debug){
+            System.out.println();
+            System.out.println("Loading Daemons...");
+        }
         for (ILoadable daemon : getDaemons().values()) {
+            System.out.println("\t"+daemon);
             if (!daemon.load()) {
                 ChatDirector.getLogger().log(Level.SEVERE, "daemon " + daemon.getClass() + " " + daemon + " failed to load.");
                 return false;
             }
         }
-        return result;
+        return true;
     }
 
     @Override
@@ -131,7 +152,7 @@ public class Configuration implements IConfiguration {
         return null;
     }
 
-    public boolean hasDaemon(Class<? extends IDaemon> class1) {
+    public boolean hasDaemon(Class<? extends ILoadable> class1) {
         return daemons.containsKey(class1);
     }
 
