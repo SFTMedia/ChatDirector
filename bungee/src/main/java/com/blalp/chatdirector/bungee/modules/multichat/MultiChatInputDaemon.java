@@ -4,12 +4,16 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ItemDaemon;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import xyz.olivermartin.multichat.bungee.events.PostBroadcastEvent;
 import xyz.olivermartin.multichat.bungee.events.PostGlobalChatEvent;
 import xyz.olivermartin.multichat.bungee.events.PostStaffChatEvent;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class MultiChatInputDaemon extends ItemDaemon implements Listener {
 
     @EventHandler

@@ -6,6 +6,10 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.ILoadable;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class PerFileInputDaemon implements Runnable, ILoadable {
     private BufferedReader reader;
     private Thread thread;

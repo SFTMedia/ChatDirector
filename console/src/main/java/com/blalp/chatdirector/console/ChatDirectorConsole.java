@@ -24,15 +24,17 @@ public class ChatDirectorConsole {
         }
         System.out.println("Finished Loading");
         Console console = System.console();
-        String line;
-        while (true) {
-            System.out.print("ChatDirector > ");
-            line = console.readLine();
-            if (line.equals("reload")) {
-                console.writer().println("Reloading...");
-                new Thread(new TimedLoad()).start();
-            } else {
-                console.writer().println("Only valid command is reload.");
+        if(console!=null){
+            String line;
+            while (true) {
+                System.out.print("ChatDirector > ");
+                line = console.readLine();
+                if (line.equals("reload")) {
+                    console.writer().println("Reloading...");
+                    new Thread(new TimedLoad()).start();
+                } else {
+                    console.writer().println("Only valid command is reload.");
+                }
             }
         }
     }

@@ -8,6 +8,8 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.utils.ItemDaemon;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
@@ -15,6 +17,8 @@ import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class BungeeInputDaemon extends ItemDaemon implements Listener {
 
     private Set<UUID> existing_players = new HashSet<>();
