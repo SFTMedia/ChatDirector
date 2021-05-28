@@ -4,17 +4,21 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.IDaemon;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.model.ILoadable;
 
-public class MQTTConnections extends HashMap<String, MQTTConnection> implements IDaemon {
+public class MQTTConnections extends HashMap<String, MQTTConnection> implements ILoadable {
+
+    boolean loaded=false;
 
     @Override
     public boolean load() {
-        for (MQTTConnection connection : this.values()) {
-            if (!connection.load()) {
-                ChatDirector.getLogger().log(Level.SEVERE, connection + " failed to load.");
-                return false;
+        if(!loaded){
+            loaded=true;
+            for (MQTTConnection connection : this.values()) {
+                if (!connection.load()) {
+                    ChatDirector.getLogger().log(Level.SEVERE, connection + " failed to load.");
+                    return false;
+                }
             }
         }
         return true;
@@ -29,15 +33,6 @@ public class MQTTConnections extends HashMap<String, MQTTConnection> implements 
             }
         }
         return true;
-    }
-
-    @Override
-    public void addItem(IItem item) {
-        try {
-            throw new Exception("Not implemented");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }
