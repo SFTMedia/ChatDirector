@@ -76,6 +76,11 @@
 			<version>3.2.Final</version>
 		</dependency>
 		<dependency>
+		  <groupId>org.fusesource.mqtt-client</groupId>
+		  <artifactId>mqtt-client</artifactId>
+		  <version>1.12</version>
+		</dependency>
+		<dependency>
 			<groupId>com.blalp.chatdirector</groupId>
 			<artifactId>core</artifactId>
 			<version>${project.version}</version>

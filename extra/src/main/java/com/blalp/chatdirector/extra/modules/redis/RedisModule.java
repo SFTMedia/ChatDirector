@@ -21,8 +21,7 @@ public class RedisModule implements IModule {
                 ChatDirector.getLogger().log(Level.WARNING, "Failed to load Redis module, no module_data");
             } else {
                 // Of if debug mode is on
-                ChatDirector.getLogger().log(Level.INFO,
-                        "Failed to load Redis module, no module_data. If you are not using Redis items, you can safely ignore this.");
+                //ChatDirector.getLogger().log(Level.INFO,"Failed to load Redis module, no module_data. If you are not using Redis items, you can safely ignore this.");
             }
             return true;
         }
