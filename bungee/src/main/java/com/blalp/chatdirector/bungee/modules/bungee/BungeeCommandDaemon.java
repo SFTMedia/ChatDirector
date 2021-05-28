@@ -7,8 +7,12 @@ import com.blalp.chatdirector.bungee.ChatDirectorBungee;
 import com.blalp.chatdirector.model.IDaemon;
 import com.blalp.chatdirector.model.IItem;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.md_5.bungee.api.ProxyServer;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class BungeeCommandDaemon implements IDaemon {
     private HashMap<BungeeCommandItem, BungeeCommand> commands = new HashMap<>();
 

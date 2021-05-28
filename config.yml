@@ -4,6 +4,9 @@ module_data:
     bot-name: "TOKEN"
   sql:
     all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
+  redis:
+    redis: "redis://password@host:port"
+    redis_ssl: "rediss://password@host:port"
 chains:
   - common-demo: # This module is always loaded
       - break # This stops the chain, but returns the value
@@ -254,6 +257,24 @@ chains:
           staff: true
           broadcast: true
   - placeholderapi-resolve: null
+  - redis:
+      - redis-get:
+          connection: "redis"
+          key: "example key"
+      - redis-set:
+          connection: "redis"
+          key: "example key"
+          value: "example value"
+      - redis-remove:
+          connection: "redis"
+          key: "example key"
+      - redis-if:
+          connection: "redis"
+          key: "example key"
+          yes-chain:
+            - echo: "yes"
+          no-chain:
+            -echo: "no"
   - replacement-demo:
       - regex:
           - "Regex to find": "regex to replace"

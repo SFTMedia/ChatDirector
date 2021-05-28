@@ -11,6 +11,11 @@ import org.spongepowered.api.event.network.ClientConnectionEvent.Disconnect;
 import org.spongepowered.api.event.network.ClientConnectionEvent.Login;
 import org.spongepowered.api.text.Text;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class SpongeInputDaemon extends ItemDaemon {
 
     public void onServerStop(GameStoppedServerEvent event) {
