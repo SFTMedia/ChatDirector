@@ -266,6 +266,12 @@ chains:
       - sub-string:
         start: 2 # number of characters to end at (optional)
         end: 4 # number of characters to end at (optional)
+  - schedule-demo:
+      - schedule-input:
+          delay: 100 # Delay in Milliseconds
+          period: 100 # Milliseconds to repeat (optional)
+      - schedule-cron:
+          cron: "" # Cron formatted string (not year or dow)
   - sponge-demo:
       - sponge-command:
           command: "command"
