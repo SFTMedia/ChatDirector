@@ -50,6 +50,7 @@ public class ChainDeserializer extends JsonDeserializer<Chain> {
                 }
                 chainObj.addItem(itemObj);
             } else {
+                chainObj.setInvalidItem();
                 try {
                     ChatDirector.getLogger().log(Level.WARNING,
                             "Not adding item " + itemKey + ":" + itemValue + " it failed to load.");

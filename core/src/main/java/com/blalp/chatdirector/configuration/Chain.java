@@ -8,6 +8,7 @@ import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.model.Context;
 import com.blalp.chatdirector.model.IItem;
 import com.blalp.chatdirector.model.IValid;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.EqualsAndHashCode;
@@ -20,6 +21,8 @@ public class Chain implements IValid, Runnable {
     List<IItem> items = new ArrayList<>();
     int index;
     Context context;
+    @JsonIgnore
+    boolean invalidItem;
 
     public Chain() {
 
@@ -136,7 +139,12 @@ public class Chain implements IValid, Runnable {
                 return false;
             }
         }
-        return true;
+        if(invalidItem){
+            ChatDirector.getLogger().log(Level.SEVERE, "failed to read all items.");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -151,5 +159,8 @@ public class Chain implements IValid, Runnable {
 
     public List<IItem> getItems() {
         return items;
+    }
+    public void setInvalidItem(){
+        invalidItem=true;
     }
 }
