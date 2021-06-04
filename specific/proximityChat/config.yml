@@ -1,0 +1,12 @@
+chains:
+  - proximityChat:
+      # Requires PLAYERS_LOCATION_${PLAYERNAME}= "${X} ${Y} ${Z}"
+      # Requires PLAYERS_WORLD_${PLAYERNAME}= "${WORLD}"
+    - specific-proximity-chat-calculate: 
+        radius: 10 # Optional
+    - specific-proximity-chat-discord-move: 
+        bot: "bot"
+        category: "CATEGORY ID"
+    - specific-proximity-chat-convert-to-discord: 
+        table: "table name"
+        connection: "connection name"
