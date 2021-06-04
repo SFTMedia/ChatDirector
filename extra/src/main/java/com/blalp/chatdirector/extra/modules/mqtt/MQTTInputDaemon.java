@@ -12,8 +12,9 @@ import com.blalp.chatdirector.model.IItem;
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
 
-public class MQTTInputDaemon extends MQTTItem implements IDaemon {
+public class MQTTInputDaemon implements IDaemon {
 
+    List<MQTTInputItem> pendingItems = new ArrayList<>();
     HashMap<String, HashMap<String, List<MQTTInputItem>>> items = new HashMap<>();
     List<Thread> workers = new ArrayList<>();
 
@@ -21,6 +22,21 @@ public class MQTTInputDaemon extends MQTTItem implements IDaemon {
     public boolean load() {
         MQTTConnections mqttConnections = (MQTTConnections) ChatDirector.getConfig()
                 .getOrCreateDaemon(MQTTConnections.class);
+        if(!mqttConnections.load()){
+            ChatDirector.getLogger().warning("MQTT connections failed.");
+            return false;
+        }
+        for (MQTTInputItem item : pendingItems) {
+            if (!items.containsKey((item).connection)) {
+                items.put((item).connection, new HashMap<>());
+            }
+            if (!items.get((item).connection).containsKey((item).topic)) {
+                items.get((item).connection).put((item).topic, new ArrayList<>());
+            }
+            List<MQTTInputItem> existing = items.get((item).connection)
+                    .get((item).topic);
+            existing.add(item);
+        }
         for (Entry<String, HashMap<String, List<MQTTInputItem>>> itemConnection : items.entrySet()) {
             if (!mqttConnections.containsKey(itemConnection.getKey())) {
                 ChatDirector.getLogger()
@@ -60,15 +76,7 @@ public class MQTTInputDaemon extends MQTTItem implements IDaemon {
     @Override
     public void addItem(IItem item) {
         if (item instanceof MQTTInputItem) {
-            if (!items.containsKey(((MQTTInputItem) item).connection)) {
-                items.put(((MQTTInputItem) item).connection, new HashMap<>());
-            }
-            if (!items.get(((MQTTInputItem) item).connection).containsKey(((MQTTInputItem) item).topic)) {
-                items.get(((MQTTInputItem) item).connection).put(((MQTTInputItem) item).topic, new ArrayList<>());
-            }
-            List<MQTTInputItem> existing = items.get(((MQTTInputItem) item).connection)
-                    .get(((MQTTInputItem) item).topic);
-            existing.add((MQTTInputItem) item);
+            pendingItems.add((MQTTInputItem) item);
         }
     }
 }

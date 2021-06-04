@@ -6,7 +6,11 @@ module_data:
     all: "jdbc:mysql://localhost:3306/?user=USERNAME&password=PASSWORD"
   redis:
     redis: "redis://password@host:port"
-    redis_ssl: "rediss://password@host:port"
+    redis_ssl: "rediss://password@host:port" # https://redis.io/topics/encryption
+  mqtt:
+    # https://mosquitto.org/documentation/dynamic-security/ https://www.hivemq.com/mqtt-security-fundamentals/
+    mqtt: tcp://localhost:1883
+    mqtt_ssl: ssl://localhost:1883
 chains:
   - common-demo: # This module is always loaded
       - break # This stops the chain, but returns the value
