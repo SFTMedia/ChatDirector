@@ -1,0 +1,18 @@
+module_data:
+  discord:
+    bot: "${DISCORD_TOKEN}"
+  sql:
+    connection: "jdbc:mysql://mariadb:3306/?user=${MYSQL_USER}&password=${MYSQL_PASSWORD}"
+chains:
+  test:
+    - schedule-input:
+        delay: 2000
+        repeat: 5000
+    - specific-proximity-chat-calculate: 
+        radius: 100
+    - specific-proximity-chat-discord-move: 
+        bot: "bot"
+        category: "${PROXIMITY_CHAT_DISCORD_CATEGORY}"
+    - specific-proximity-chat-convert-to-discord: 
+        table: "LinkedAccounts"
+        connection: "connection"

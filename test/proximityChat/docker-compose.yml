@@ -1,0 +1,23 @@
+version: "3"
+services: 
+    minecraft:
+        build:
+            context: "../../"
+            dockerfile: "test/proximityChat/mc.Dockerfile"
+    proximity-chat:
+        build:
+            context: "../../"
+            dockerfile: "test/proximityChat/java.Dockerfile"
+            args: 
+                MYSQL_USER: ${MYSQL_USER}
+                MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+                MYSQL_DATABASE: ${MYSQL_DATABASE}
+                DISCORD_TOKEN: ${DISCORD_TOKEN}
+                PROXIMITY_CHAT_DISCORD_CATEGORY: ${PROXIMITY_CHAT_DISCORD_CATEGORY}
+    mariadb:
+        image: mariadb
+        environment: 
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_RANDOM_ROOT_PASSWORD: 1
