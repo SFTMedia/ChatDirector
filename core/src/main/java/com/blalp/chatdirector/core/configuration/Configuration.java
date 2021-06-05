@@ -193,7 +193,8 @@ public class Configuration implements IConfiguration {
                 return false;
             }
         }
-        return true;
+        // Make sure there are chains
+        return getChains().size()!=0;
     }
 
     public Chain getChainForItem(IItem item) {
