@@ -43,6 +43,7 @@ chains:
       - bukkit-command:
           command: "example-command"
           permission: "example-permission"
+      - bukkit-context: null
   - bungee-demo:
       - bungee-to:
           channel: "custom-channel"

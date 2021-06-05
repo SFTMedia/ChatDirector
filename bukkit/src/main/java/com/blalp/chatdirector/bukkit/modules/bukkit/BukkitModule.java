@@ -36,7 +36,7 @@ public class BukkitModule implements IModule {
 
     @Override
     public List<String> getItemNames() {
-        return Arrays.asList("bukkit-input", "bukkit-output", "bukkit-playerlist", "bukkit-command");
+        return Arrays.asList("bukkit-input", "bukkit-output", "bukkit-playerlist", "bukkit-command", "bukkit-context");
     }
 
     @Override
@@ -87,6 +87,8 @@ public class BukkitModule implements IModule {
             return BukkitPlayerlistItem.class;
         case "bukkit-command":
             return BukkitCommandItem.class;
+        case "bukkit-context":
+            return BukkitContextItem.class;
         default:
             return null;
         }
