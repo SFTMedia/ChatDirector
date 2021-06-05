@@ -22,15 +22,5 @@ public class PlaceholderAPILegacyModule implements ILegacyModule {
         default:
             return null;
         }
-    }
-
-    @Override
-    public String getItemName(Class<? extends ILegacyItem> itemClass) {
-        if(itemClass.equals(PlaceholderAPIResolveItem_v0_2_5.class)) {
-            return "placeholderapi-resolve";
-        } else {
-            return null;
-        }
-    }
-    
+    }    
 }

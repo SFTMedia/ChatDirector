@@ -2,7 +2,6 @@ package com.blalp.chatdirector.core.configuration;
 
 import java.io.IOException;
 
-import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.ILegacyItem;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -15,7 +14,7 @@ public class LegacyChainSerializer extends JsonSerializer<LegacyChain> {
         gen.writeStartArray();
         for (ILegacyItem iLegacyItem : value.getItems()) {
             gen.writeStartObject();
-            gen.writeFieldName(ChatDirector.getInstance().getLegacyConfig().getItemName(iLegacyItem.getClass()));
+            gen.writeFieldName(iLegacyItem.name());
             gen.writeObject(iLegacyItem);
             gen.writeEndObject();
         }

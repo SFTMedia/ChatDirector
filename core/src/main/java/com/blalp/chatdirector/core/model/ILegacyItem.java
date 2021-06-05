@@ -9,4 +9,5 @@ public interface ILegacyItem {
      */
     public List<ILegacyItem> updateToNextLegacyItems();
     public Version nextUpdateVersion();
+    public String name();
 }

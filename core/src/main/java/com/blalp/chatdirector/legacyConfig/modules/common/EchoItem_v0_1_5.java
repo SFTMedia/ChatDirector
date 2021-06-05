@@ -28,4 +28,9 @@ public class EchoItem_v0_1_5 implements ILegacyItem {
         return new Version();
     }
 
+    @Override
+    public String name() {
+        return "echo";
+    }
+
 }

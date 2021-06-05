@@ -46,5 +46,10 @@ public class BukkitInputItem_v0_2_0 implements ILegacyItem {
     public Version nextUpdateVersion() {
         return new Version(0,2,0);
     }
-    
+
+
+    @Override
+    public String name() {
+        return "bukkit-input";
+    }    
 }

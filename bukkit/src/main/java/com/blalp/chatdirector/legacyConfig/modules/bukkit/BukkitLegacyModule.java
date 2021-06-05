@@ -33,20 +33,4 @@ public class BukkitLegacyModule implements ILegacyModule {
             return null;
         }
     }
-
-    @Override
-    public String getItemName(Class<? extends ILegacyItem> itemClass) {
-        if (itemClass.equals(BukkitInputItem_v0_2_5.class) || itemClass.equals(BukkitInputItem_v0_2_0.class)) {
-            return "bukkit-input";
-        } else if (itemClass.equals(BukkitOutputItem_v0_2_5.class)) {
-            return "bukkit-output";
-        } else if (itemClass.equals(BukkitPlayerlistItem_v0_2_5.class)) {
-            return "bukkit-playerlist";
-        } else if (itemClass.equals(BukkitCommandItem_v0_2_5.class)) {
-            return "bukkit-command";
-        } else {
-            return null;
-        }
-    }
-
 }

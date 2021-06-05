@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Map.Entry;
 
-import com.blalp.chatdirector.core.model.ILegacyItem;
 import com.blalp.chatdirector.core.model.ILegacyModule;
 import com.blalp.chatdirector.core.model.Version;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,14 +47,6 @@ public class LegacyConfiguration {
         for (ILegacyModule module : modules) {
             if (module.getItemNames(version).contains(itemType)) {
                 return module.getItemClass(itemType,version);
-            }
-        }
-        return null;
-    }
-    public String getItemName(Class<? extends ILegacyItem> itemClass) {
-        for (ILegacyModule module : modules) {
-            if (module.getItemName(itemClass)!=null) {
-                return module.getItemName(itemClass);
             }
         }
         return null;

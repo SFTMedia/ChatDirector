@@ -21,5 +21,10 @@ public class BukkitCommandItem_v0_2_5 implements ILegacyItem {
     public Version nextUpdateVersion() {
         return new Version();
     }
-    
+
+
+    @Override
+    public String name() {
+        return "bukkit-command";
+    }    
 }

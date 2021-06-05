@@ -17,4 +17,9 @@ public class PassItem_v0_1_5 implements ILegacyItem {
         return new Version(0, 1, 8);
     }
 
+    @Override
+    public String name() {
+        return "pass";
+    }
+
 }

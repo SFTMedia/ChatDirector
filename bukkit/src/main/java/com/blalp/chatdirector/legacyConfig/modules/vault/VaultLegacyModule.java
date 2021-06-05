@@ -23,13 +23,4 @@ public class VaultLegacyModule implements ILegacyModule {
             return null;
         }
     }
-
-    @Override
-    public String getItemName(Class<? extends ILegacyItem> itemClass) {
-        if(itemClass.equals(VaultContextItem_v0_2_5.class)){
-            return "vault-context";
-        } else {
-            return null;
-        }
-    }
 }
