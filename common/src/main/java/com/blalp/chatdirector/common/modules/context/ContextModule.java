@@ -11,7 +11,7 @@ public class ContextModule implements IModule {
 
     @Override
     public List<String> getItemNames() {
-        return Arrays.asList("get-context", "set-context", "remove-context", "resolve-context");
+        return Arrays.asList("get-context", "set-context", "remove-context");
     }
 
     @Override
@@ -39,8 +39,6 @@ public class ContextModule implements IModule {
         switch (type) {
         case "get-context":
             return ContextGetItem.class;
-        case "resolve-context":
-            return ContextResolveItem.class;
         case "set-context":
             return ContextSetItem.class;
         case "remove-context":
