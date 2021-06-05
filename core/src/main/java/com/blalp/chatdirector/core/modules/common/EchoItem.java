@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import lombok.NoArgsConstructor;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @JsonDeserialize(using = EchoItemDeserializer.class)
+@JsonSerialize(using = EchoItemSerializer.class)
 public class EchoItem implements IItem {
     String format;
 
