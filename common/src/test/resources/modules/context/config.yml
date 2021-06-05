@@ -10,8 +10,6 @@ chains:
           key: "TARGET_CONTEXT"
       - remove-context:
           key: "SERVER_NAME"
-      - resolve-context: null
-      - resolve-context
   - context-get-set-test:
       - set-context:
           key: "TARGET_CONTEXT"
@@ -20,4 +18,3 @@ chains:
           key: "TARGET_CONTEXT"
       - remove-context:
           key: "SERVER_NAME"
-      - resolve-context: null

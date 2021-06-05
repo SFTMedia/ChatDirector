@@ -40,7 +40,7 @@ public class TestContext {
         assertNotNull(chatDirector.getChains().get("context-parse-test"));
         // Checking Per Chain metric
         assertNotNull(chatDirector.getChains().get("context-parse-test").getItems());
-        assertTrue(chatDirector.getChains().get("context-parse-test").getItems().size() == 6);
+        assertTrue(chatDirector.getChains().get("context-parse-test").getItems().size() == 4);
         assertTrue(chatDirector.getChains().get("context-parse-test").isValid());
         // Checking Each item in chain
         IItem item = chatDirector.getChains().get("context-parse-test").getItems().get(0);
@@ -63,14 +63,6 @@ public class TestContext {
         assertTrue(item instanceof ContextRemoveItem);
         compare = new ContextRemoveItem();
         ((ContextRemoveItem) compare).setKey("SERVER_NAME");
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").getItems().get(4);
-        assertTrue(item instanceof ContextResolveItem);
-        compare = new ContextResolveItem();
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").getItems().get(5);
-        assertTrue(item instanceof ContextResolveItem);
-        compare = new ContextResolveItem();
         assertEquals(compare, item);
     }
 
@@ -82,7 +74,7 @@ public class TestContext {
         assertNotNull(chatDirector.getChains().get("context-parse-test"));
         // Checking Per Chain metric
         assertNotNull(chatDirector.getChains().get("context-parse-test").getItems());
-        assertTrue(chatDirector.getChains().get("context-parse-test").getItems().size() == 6);
+        assertTrue(chatDirector.getChains().get("context-parse-test").getItems().size() == 4);
         assertTrue(chatDirector.getChains().get("context-parse-test").isValid());
         // Checking Each item in chain
         IItem item = chatDirector.getChains().get("context-parse-test").getItems().get(0);
@@ -105,13 +97,6 @@ public class TestContext {
         assertTrue(item instanceof ContextRemoveItem);
         compare = new ContextRemoveItem();
         ((ContextRemoveItem) compare).setKey("SERVER_NAME");
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").getItems().get(4);
-        assertTrue(item instanceof ContextResolveItem);
-        compare = new ContextResolveItem();
-        assertEquals(compare, item);
-        item = chatDirector.getChains().get("context-parse-test").getItems().get(5);
-        assertTrue(item instanceof ContextResolveItem);
         assertEquals(compare, item);
 
         // Behavior testing
