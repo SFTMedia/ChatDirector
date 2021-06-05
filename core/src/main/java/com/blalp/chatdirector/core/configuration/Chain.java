@@ -20,6 +20,7 @@ import lombok.ToString;
 public class Chain implements IValid, Runnable {
     List<IItem> items = new ArrayList<>();
     int index;
+    //TODO: Fix this so we don't get race conditions with runAt (critical component)
     Context context;
     @JsonIgnore
     boolean invalidItem;
