@@ -1,0 +1,19 @@
+version: "0.3.0"
+chains:
+  test:
+    - bukkit-input:
+        chat: true
+        logout: true
+        login: true
+        server-started: true
+        server-stopped: true
+        check-canceled: true
+        override-chat: true
+        new-player: true
+        cancel-chat: true
+        format-chat: "a"
+        format-login: "b"
+        format-new-player: "c"
+        format-logout: "d"
+        format-stopped: "e"
+        format-started: "f"
