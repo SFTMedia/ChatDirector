@@ -3,7 +3,7 @@
 
 	<groupId>com.blalp.chatdirector</groupId>
 	<artifactId>discord</artifactId>
-	<version>0.2.5</version>
+	<version>0.3.0</version>
 	<packaging>jar</packaging>
 
 	<name>ChatDirector-Discord</name>
