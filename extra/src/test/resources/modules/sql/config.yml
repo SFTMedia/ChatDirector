@@ -50,7 +50,7 @@ chains:
           name: "Name"
           key: "Key"
           yes-chain:
-            - stop: null
+            - halt: null
           no-chain: null
       - sql-cache-if:
           connection: "other"
@@ -59,4 +59,4 @@ chains:
           key: "key"
           yes-chain: null
           no-chain:
-            - stop: null
+            - halt: null

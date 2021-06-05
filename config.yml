@@ -105,7 +105,7 @@ chains:
           value: ""
       - cache-if:
           yes-chain: # List of items to run if there is a cached value
-            - stop: null
+            - halt: null
           no-chain: null # List of items to run if there is no cached value
           key: "KEY" # The key to check for
   - context-demo:
@@ -211,7 +211,7 @@ chains:
       - if-contains:
           yes-chain: # this can be any list of items or optional
             - pass: null
-            - stop: null
+            - halt: null
           no-chain: null # Or this can be nothing or optional
           contains: "String"
           source: "%CURRENT%" # Optional. source.contains(contains)
@@ -357,7 +357,7 @@ chains:
           name: "" # First key
           key: "" # Second key
           yes-chain: # List of items to run if there is a cached value
-            - stop: null
+            - halt: null
           no-chain: null # List of items to run if there is no cached value
   - vault-demo:
       - vault-context: null # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.

@@ -8,7 +8,7 @@ chains:
           value: "EXAMPLE_VALUE"
       - cache-if:
           yes-chain:
-            - stop: null
+            - halt: null
           no-chain:
             - break: null
           key: "KEY"
