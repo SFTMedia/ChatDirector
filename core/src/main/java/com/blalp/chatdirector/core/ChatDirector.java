@@ -14,6 +14,7 @@ import com.blalp.chatdirector.core.model.Version;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import lombok.Data;
@@ -56,6 +57,7 @@ public class ChatDirector implements IConfiguration {
     public ChatDirector() {
         objectMapper = new ObjectMapper(new YAMLFactory())
                 .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         config = new Configuration();
         instance = this;
         logger = Logger.getLogger("ChatDirector");
