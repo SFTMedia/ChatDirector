@@ -1,9 +1,9 @@
 package com.blalp.chatdirector.bukkit.modules.bukkit;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.modules.common.PassItem;
-import com.blalp.chatdirector.utils.ItemDaemon;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.modules.common.PassItem;
+import com.blalp.chatdirector.core.utils.ItemDaemon;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 

@@ -2,7 +2,7 @@ package com.blalp.chatdirector.extra.modules.mqtt;
 
 import java.net.URISyntaxException;
 
-import com.blalp.chatdirector.model.ILoadable;
+import com.blalp.chatdirector.core.model.ILoadable;
 
 import org.fusesource.mqtt.client.BlockingConnection;
 import org.fusesource.mqtt.client.FutureConnection;

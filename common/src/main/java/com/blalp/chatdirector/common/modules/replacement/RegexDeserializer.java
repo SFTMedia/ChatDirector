@@ -3,7 +3,7 @@ package com.blalp.chatdirector.common.modules.replacement;
 import java.io.IOException;
 import java.util.Map.Entry;
 
-import com.blalp.chatdirector.model.IteratorIterable;
+import com.blalp.chatdirector.core.model.IteratorIterable;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;

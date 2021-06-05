@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.IDaemon;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.IDaemon;
+import com.blalp.chatdirector.core.model.IItem;
 
 public class SQLConnections extends HashMap<String, SQLConnection> implements IDaemon {
     Map<String, List<String>> tables = new HashMap<>();

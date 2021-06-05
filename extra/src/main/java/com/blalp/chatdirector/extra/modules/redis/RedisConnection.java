@@ -1,6 +1,6 @@
 package com.blalp.chatdirector.extra.modules.redis;
 
-import com.blalp.chatdirector.model.ILoadable;
+import com.blalp.chatdirector.core.model.ILoadable;
 import com.lambdaworks.redis.RedisClient;
 import com.lambdaworks.redis.RedisURI;
 

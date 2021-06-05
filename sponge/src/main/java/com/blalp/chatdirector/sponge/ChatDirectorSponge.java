@@ -2,8 +2,8 @@ package com.blalp.chatdirector.sponge;
 
 import java.io.File;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.TimedLoad;
+import com.blalp.chatdirector.core.configuration.TimedLoad;
+import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.sponge.modules.sponge.ReloadCommand;
 import com.blalp.chatdirector.sponge.modules.sponge.SpongeInputDaemon;
 import com.google.inject.Inject;

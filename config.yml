@@ -43,6 +43,7 @@ chains:
       - bukkit-command:
           command: "example-command"
           permission: "example-permission"
+      - bukkit-context: null
   - bungee-demo:
       - bungee-to:
           channel: "custom-channel"
@@ -116,7 +117,6 @@ chains:
           value: "Hello %PLAYER_NAME% you have %BALANCE% money!" # Optional. defaults to CURRENT
       - remove-context:
           key: "SERVER_NAME"
-      - resolve-context: null # This resolves the input string as a formattable message. Normally this shouldn't be needed and could allow for formatting injection.
   - console-demo:
       - console-output: null
       - console-output-error: null

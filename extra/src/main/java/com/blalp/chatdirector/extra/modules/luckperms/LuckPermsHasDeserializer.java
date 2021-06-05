@@ -2,7 +2,7 @@ package com.blalp.chatdirector.extra.modules.luckperms;
 
 import java.io.IOException;
 
-import com.blalp.chatdirector.configuration.Chain;
+import com.blalp.chatdirector.core.configuration.Chain;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;

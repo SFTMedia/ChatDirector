@@ -3,7 +3,7 @@ package com.blalp.chatdirector.minecraft.utils;
 import java.io.IOException;
 
 import com.blalp.chatdirector.minecraft.model.FancyMessage;
-import com.blalp.chatdirector.model.IteratorIterable;
+import com.blalp.chatdirector.core.model.IteratorIterable;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;

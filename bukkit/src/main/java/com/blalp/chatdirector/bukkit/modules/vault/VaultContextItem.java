@@ -2,9 +2,9 @@ package com.blalp.chatdirector.bukkit.modules.vault;
 
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.minecraft.utils.PermissionItem;
-import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.core.model.Context;
 
 import org.bukkit.Bukkit;
 

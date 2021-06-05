@@ -3,9 +3,9 @@ package com.blalp.chatdirector.common.modules.schedule;
 import java.util.Date;
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.modules.common.PassItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.modules.common.PassItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

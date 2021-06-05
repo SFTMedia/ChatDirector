@@ -3,8 +3,8 @@ package com.blalp.chatdirector.extra.modules.mqtt;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.ILoadable;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.ILoadable;
 
 public class MQTTConnections extends HashMap<String, MQTTConnection> implements ILoadable {
 

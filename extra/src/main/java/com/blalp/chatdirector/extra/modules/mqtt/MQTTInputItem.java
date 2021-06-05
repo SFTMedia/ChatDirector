@@ -1,7 +1,7 @@
 package com.blalp.chatdirector.extra.modules.mqtt;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.IDaemon;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.IDaemon;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 

@@ -2,9 +2,9 @@ package com.blalp.chatdirector.extra.modules.luckperms;
 
 import java.util.UUID;
 
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.modules.common.PassItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.modules.common.PassItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;

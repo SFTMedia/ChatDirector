@@ -3,9 +3,9 @@ package com.blalp.chatdirector.extra.modules.redis;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.IDaemon;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.IDaemon;
+import com.blalp.chatdirector.core.model.IItem;
 
 public class RedisConnections extends HashMap<String, RedisConnection> implements IDaemon {
 

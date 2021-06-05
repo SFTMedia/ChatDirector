@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.IItem;
 
 import org.junit.jupiter.api.Test;
 

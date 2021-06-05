@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.minecraft.model.FancyMessage;
 import com.blalp.chatdirector.minecraft.utils.FancyMessageEnum;
 

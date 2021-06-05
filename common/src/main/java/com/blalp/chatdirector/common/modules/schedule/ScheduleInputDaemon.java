@@ -3,9 +3,9 @@ package com.blalp.chatdirector.common.modules.schedule;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.utils.ItemDaemon;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.utils.ItemDaemon;
 
 public class ScheduleInputDaemon extends ItemDaemon {
 

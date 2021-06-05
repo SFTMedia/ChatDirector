@@ -2,8 +2,8 @@ package com.blalp.chatdirector.extra.modules.sql;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.blalp.chatdirector.model.IDaemon;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.model.IDaemon;
+import com.blalp.chatdirector.core.model.IItem;
 
 public class SQLCacheStore implements IDaemon {
     private ConcurrentHashMap<String, String> data = new ConcurrentHashMap<>();

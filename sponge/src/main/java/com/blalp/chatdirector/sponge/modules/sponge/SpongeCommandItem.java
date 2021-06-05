@@ -2,12 +2,12 @@ package com.blalp.chatdirector.sponge.modules.sponge;
 
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.ILoadable;
-import com.blalp.chatdirector.modules.common.PassItem;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.ILoadable;
+import com.blalp.chatdirector.core.modules.common.PassItem;
 import com.blalp.chatdirector.sponge.ChatDirectorSponge;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;

@@ -1,8 +1,8 @@
 package com.blalp.chatdirector.extra.modules.sql;
 
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

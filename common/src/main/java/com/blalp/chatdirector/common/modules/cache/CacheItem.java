@@ -1,7 +1,7 @@
 package com.blalp.chatdirector.common.modules.cache;
 
-import com.blalp.chatdirector.modules.common.PassItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.modules.common.PassItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

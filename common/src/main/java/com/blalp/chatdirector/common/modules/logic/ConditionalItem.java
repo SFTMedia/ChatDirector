@@ -1,7 +1,7 @@
 package com.blalp.chatdirector.common.modules.logic;
 
-import com.blalp.chatdirector.modules.common.PassItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.modules.common.PassItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,9 +10,9 @@ import lombok.ToString;
 
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Chain;
-import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.core.configuration.Chain;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 

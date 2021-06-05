@@ -1,6 +1,6 @@
 package com.blalp.chatdirector.common.modules.context;
 
-import com.blalp.chatdirector.modules.common.PassItem;
+import com.blalp.chatdirector.core.modules.common.PassItem;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

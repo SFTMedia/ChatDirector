@@ -1,6 +1,6 @@
 package com.blalp.chatdirector.bukkit.modules.bungeeMessage;
 
-import com.blalp.chatdirector.utils.ItemDaemon;
+import com.blalp.chatdirector.core.utils.ItemDaemon;
 
 public class FromBungeeDaemon extends ItemDaemon {
     /*

@@ -1,9 +1,9 @@
 package com.blalp.chatdirector.common.modules.logic;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Chain;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.configuration.Chain;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

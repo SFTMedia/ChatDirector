@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.utils.ItemDaemon;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.utils.ItemDaemon;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
