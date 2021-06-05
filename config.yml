@@ -26,7 +26,7 @@ chains:
           server-stopped: true
           check-canceled: true
           override-chat: true # This will set the message to the result of the chain
-          new-join: true
+          new-player: true
           cancel-chat: true
           format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
           format-login: "**%PLAYER_NAME% joined the server**"

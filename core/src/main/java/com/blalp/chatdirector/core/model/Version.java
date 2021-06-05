@@ -15,6 +15,16 @@ public class Version implements Comparable<Version> {
         major=minor=patch=Integer.MAX_VALUE;
     }
 
+    public Version(String version){
+        if(version==null){
+            major=minor=patch=Integer.MAX_VALUE;
+            return;
+        }
+        major=Integer.parseInt(version.split("\\.")[0]);
+        minor=Integer.parseInt(version.split("\\.")[1]);
+        patch=Integer.parseInt(version.split("\\.")[2]);
+    }
+
     /**
      * 
      * @param other
@@ -44,5 +54,9 @@ public class Version implements Comparable<Version> {
         } else {
             return 3;
         }
+    }
+    @Override
+    public String toString() {
+        return major+"."+minor+"."+patch;
     }
 }

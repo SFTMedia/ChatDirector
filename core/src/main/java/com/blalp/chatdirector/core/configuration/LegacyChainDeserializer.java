@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import com.blalp.chatdirector.core.model.IteratorIterable;
+import com.blalp.chatdirector.core.model.Version;
 import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.ILegacyItem;
 import com.fasterxml.jackson.core.JsonParser;
@@ -35,7 +36,7 @@ public class LegacyChainDeserializer extends JsonDeserializer<LegacyChain> {
                     itemValue = innerItem.getValue();
                 }
             }
-            Class<?> itemClass = ChatDirector.getInstance().getItemClass(itemKey);
+            Class<?> itemClass = ChatDirector.getInstance().getLegacyItemClass(itemKey,new Version(ChatDirector.getConfigStaging().getVersion()));
             if (itemClass != null && ILegacyItem.class.isAssignableFrom(itemClass)) {
                 ILegacyItem itemObj = null;
                 if (itemValue == null || itemValue.isNull()) {

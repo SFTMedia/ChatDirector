@@ -13,7 +13,7 @@ public class PlaceholderAPIResolveItem_v0_2_5 implements ILegacyItem {
     }
 
     @Override
-    public Version getNextUpdateVersion() {
+    public Version nextUpdateVersion() {
         return new Version();
     }
     

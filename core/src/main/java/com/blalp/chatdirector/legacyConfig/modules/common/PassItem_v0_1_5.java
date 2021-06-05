@@ -13,7 +13,7 @@ public class PassItem_v0_1_5 implements ILegacyItem {
     }
 
     @Override
-    public Version getNextUpdateVersion() {
+    public Version nextUpdateVersion() {
         return new Version(0, 1, 8);
     }
 

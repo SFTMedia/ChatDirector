@@ -24,11 +24,17 @@ import lombok.EqualsAndHashCode;
 @JsonDeserialize(using = ConfigurationDeserializer.class)
 public class Configuration implements IConfiguration {
     boolean debug;
+    String version;
     // Do not allow the user to specify whether or not they are in testing mode,
     // that should only be done programmatically in the unit tests.
-    @JsonIgnore()
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     boolean testing = false;
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     ServiceLoader<IModule> modules;
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     Map<Class<?>, ILoadable> daemons = new ConcurrentHashMap<>();
     Map<String, Chain> chains = new HashMap<String, Chain>();
     // This is for storage of generic keys that modules may need.
@@ -39,6 +45,7 @@ public class Configuration implements IConfiguration {
      * you need to be able to get the chain object to start execution. Look for a
      * better solution.
      */
+    @JsonIgnore
     static Map<IItem, Chain> items = new HashMap<>();
 
     public Configuration() {

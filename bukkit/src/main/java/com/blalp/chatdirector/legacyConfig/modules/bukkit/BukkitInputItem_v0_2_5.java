@@ -24,7 +24,7 @@ public class BukkitInputItem_v0_2_5 implements ILegacyItem {
         return null;
     }
     @Override
-    public Version getNextUpdateVersion() {
+    public Version nextUpdateVersion() {
         return new Version();
     }
     

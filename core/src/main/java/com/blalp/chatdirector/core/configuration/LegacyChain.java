@@ -7,16 +7,20 @@ import java.util.List;
 import com.blalp.chatdirector.core.model.ILegacyItem;
 import com.blalp.chatdirector.core.model.IValid;
 import com.blalp.chatdirector.core.model.Version;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @EqualsAndHashCode
 @JsonDeserialize(using = LegacyChainDeserializer.class)
+@JsonSerialize(using = LegacyChainSerializer.class)
 @ToString
 public class LegacyChain implements IValid {
     List<ILegacyItem> items = new ArrayList<>();
+    @JsonIgnore
     boolean invalidItem = false;
 
     public void addItem(ILegacyItem item) {
@@ -56,14 +60,14 @@ public class LegacyChain implements IValid {
             return output;
         }
         List<ILegacyItem> pendingOutput = new ArrayList<>();
-        if (item.getNextUpdateVersion().compareTo(version) <= 0) {
+        if (item.nextUpdateVersion().compareTo(version) <= 0) {
             pendingOutput.addAll(item.updateToNextLegacyItems());
+            for (ILegacyItem iLegacyItem : pendingOutput) {
+                // Recursive call to make sure the items we are added are latest.
+                output.addAll(updateTo(iLegacyItem, version));
+            }
         } else {
-            pendingOutput.add(item);
-        }
-        for (ILegacyItem iLegacyItem : pendingOutput) {
-            // Recursive call to make sure the items we are added are latest.
-            output.addAll(updateTo(iLegacyItem, version));
+            output.add(item);
         }
         return output;
     }

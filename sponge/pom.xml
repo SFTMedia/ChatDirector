@@ -40,6 +40,7 @@
 				<configuration>
 					<services>
 						<param>com.blalp.chatdirector.core.model.IModule</param>
+						<param>com.blalp.chatdirector.core.model.ILegacyModule</param>
 					</services>
 				</configuration>
 				<executions>

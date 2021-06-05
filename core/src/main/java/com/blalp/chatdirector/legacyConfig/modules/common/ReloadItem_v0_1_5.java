@@ -13,7 +13,7 @@ public class ReloadItem_v0_1_5 implements ILegacyItem {
     }
 
     @Override
-    public Version getNextUpdateVersion() {
+    public Version nextUpdateVersion() {
         return new Version();
     }
 

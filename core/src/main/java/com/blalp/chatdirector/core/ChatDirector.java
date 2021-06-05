@@ -8,7 +8,9 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.blalp.chatdirector.core.configuration.Configuration;
+import com.blalp.chatdirector.core.configuration.LegacyConfiguration;
 import com.blalp.chatdirector.core.model.IModule;
+import com.blalp.chatdirector.core.model.Version;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -27,12 +29,14 @@ import com.blalp.chatdirector.core.model.ILoadable;
 public class ChatDirector implements IConfiguration {
     Configuration config = null;
     Configuration configStaging = null;
+    LegacyConfiguration legacyConfig = null;
     static Logger logger;
     static ChatDirector instance;
     // One of these three is populated with data
     File file;
     InputStream stream;
     String rawData;
+    ObjectMapper objectMapper;
 
     public ChatDirector(InputStream stream) {
         this();
@@ -50,6 +54,8 @@ public class ChatDirector implements IConfiguration {
     }
 
     public ChatDirector() {
+        objectMapper = new ObjectMapper(new YAMLFactory())
+                .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         config = new Configuration();
         instance = this;
         logger = Logger.getLogger("ChatDirector");
@@ -57,15 +63,13 @@ public class ChatDirector implements IConfiguration {
     }
 
     public boolean loadConfig() {
-        ObjectMapper om = new ObjectMapper(new YAMLFactory())
-                .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         try {
             if (rawData != null) {
-                configStaging = om.readValue(rawData, Configuration.class);
+                configStaging = objectMapper.readValue(rawData, Configuration.class);
             } else if (stream != null) {
-                configStaging = om.readValue(stream, Configuration.class);
+                configStaging = objectMapper.readValue(stream, Configuration.class);
             } else if (file != null) {
-                configStaging = om.readValue(file, Configuration.class);
+                configStaging = objectMapper.readValue(file, Configuration.class);
             }
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
@@ -203,5 +207,9 @@ public class ChatDirector implements IConfiguration {
     @Override
     public boolean isValid() {
         return getConfig().isValid();
+    }
+
+    public Class<?> getLegacyItemClass(String itemKey, Version version) {
+        return legacyConfig.getLegacyItemClass(itemKey, version);
     }
 }

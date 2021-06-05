@@ -2,9 +2,13 @@ package com.blalp.chatdirector.core.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Map.Entry;
 
+import com.blalp.chatdirector.core.model.ILegacyItem;
+import com.blalp.chatdirector.core.model.ILegacyModule;
 import com.blalp.chatdirector.core.model.Version;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Data;
@@ -15,18 +19,45 @@ import lombok.EqualsAndHashCode;
 @JsonDeserialize(using = LegacyConfigurationDeserializer.class)
 public class LegacyConfiguration {
     boolean debug;
+    String version;
+    @JsonIgnore
+    ServiceLoader<ILegacyModule> modules;
     Map<String, LegacyChain> chains = new HashMap<String, LegacyChain>();
     // This is for storage of generic keys that modules may need.
     // The first key is the module name
     Map<String, Map<String, String>> moduleData = new HashMap<>();
 
+    public LegacyConfiguration() {
+        modules = ServiceLoader.load(ILegacyModule.class, this.getClass().getClassLoader());
+    }
+
     public LegacyConfiguration updateTo(Version version) {
         LegacyConfiguration output = new LegacyConfiguration();
+        for (ILegacyModule iLegacyModule : modules) {
+            System.out.println(iLegacyModule);
+        }
         output.setDebug(debug);
         output.moduleData.putAll(moduleData);
+        output.version=version.toString();
         for (Entry<String, LegacyChain> chain : chains.entrySet()) {
             output.chains.put(chain.getKey(), chain.getValue().updateTo(version));
         }
         return output;
+    }
+    public Class<?> getLegacyItemClass(String itemType, Version version) {
+        for (ILegacyModule module : modules) {
+            if (module.getItemNames(version).contains(itemType)) {
+                return module.getItemClass(itemType,version);
+            }
+        }
+        return null;
+    }
+    public String getItemName(Class<? extends ILegacyItem> itemClass) {
+        for (ILegacyModule module : modules) {
+            if (module.getItemName(itemClass)!=null) {
+                return module.getItemName(itemClass);
+            }
+        }
+        return null;
     }
 }

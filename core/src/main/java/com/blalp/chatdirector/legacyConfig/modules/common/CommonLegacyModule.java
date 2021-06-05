@@ -34,4 +34,23 @@ public class CommonLegacyModule implements ILegacyModule {
         }
         return null;
     }
+
+    @Override
+    public String getItemName(Class<? extends ILegacyItem> itemClass) {
+        if(itemClass.equals(PassItem_v0_1_5.class)){
+            return "pass";
+        } else if (itemClass.equals(StopItem_v0_0_4.class)){
+            return "stop";
+        } else if (itemClass.equals(HaltItem_v0_1_5.class)){
+            return "halt";
+        } else if (itemClass.equals(BreakItem_v0_1_5.class)){
+            return "break";
+        } else if (itemClass.equals(EchoItem_v0_1_5.class)) {
+            return "echo";
+        } else if (itemClass.equals(ReloadItem_v0_1_5.class)) {
+            return "reload";
+        } else {
+            return null;
+        }
+    }
 }

@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.IteratorIterable;
+import com.blalp.chatdirector.core.model.Version;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -23,6 +24,13 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
         JsonNode node = oc.readTree(p);
         Configuration configuration = new Configuration();
         ChatDirector.getInstance().setConfigStaging(configuration);
+        if (node.has("version")&&!node.get("version").asText().equals("0.2.5")) {
+            configuration.setVersion(node.get("version").asText());
+            LegacyConfiguration legacyConfiguration = new LegacyConfigurationDeserializer().deserialize(oc,node);
+            LegacyConfiguration updatedConfiguration = legacyConfiguration.updateTo(new Version("0.2.5"));
+            String updatedConfig = ChatDirector.getInstance().getObjectMapper().writeValueAsString(updatedConfiguration);
+            return ChatDirector.getInstance().getObjectMapper().readValue(updatedConfig, Configuration.class);
+        }
         if (node.has("debug") && node.get("debug").isBoolean()) {
             configuration.setDebug(node.get("debug").asBoolean());
         }
@@ -37,18 +45,9 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
                 configuration.moduleData.put(moduleData.getKey(), readModuleData);
             }
         }
-        // System.out.println(ChatDirector.getConfig().getModules());
-        Chain chainObj;
-        for (JsonNode chain : new IteratorIterable<JsonNode>(node.get("chains").elements())) {
-            chainObj = null;
-            for (Entry<String, JsonNode> innerChain : new IteratorIterable<>(chain.fields())) {
-                if (chainObj != null) {
-                    System.err.println("More than one chain in a chain?");
-                    break;
-                }
-                chainObj = innerChain.getValue().traverse(oc).readValueAs(Chain.class);
-                configuration.chains.put(innerChain.getKey(), chainObj);
-            }
+        for (Entry<String, JsonNode> chain : new IteratorIterable<>(node.get("chains").fields())) {
+            Chain chainObj = chain.getValue().traverse(oc).readValueAs(Chain.class);
+            configuration.chains.put(chain.getKey(), chainObj);
         }
         return configuration;
     }
