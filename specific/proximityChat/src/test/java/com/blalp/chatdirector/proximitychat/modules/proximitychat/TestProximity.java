@@ -45,7 +45,7 @@ public class TestProximity {
             double x = rand.nextInt(maxX - minX) + minX;
             double y = rand.nextInt(maxY - minZ) + minY;
             double z = rand.nextInt(maxZ - minZ) + minY;
-            output.put("PLAYERS_LOCATION_" + name, x + " " + y + " " + z);
+            output.put("PLAYERS_LOCATION_" + name, x + "," + y + "," + z);
             // Just use numeric worlds
             output.put("PLAYERS_WORLD_" + name, "" + rand.nextInt(numWorlds));
         }
