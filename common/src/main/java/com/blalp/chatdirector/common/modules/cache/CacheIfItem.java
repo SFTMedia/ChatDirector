@@ -1,9 +1,9 @@
 package com.blalp.chatdirector.common.modules.cache;
 
-import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.common.modules.logic.ConditionalItem;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

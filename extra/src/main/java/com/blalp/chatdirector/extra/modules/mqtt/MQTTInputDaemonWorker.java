@@ -3,8 +3,8 @@ package com.blalp.chatdirector.extra.modules.mqtt;
 import java.util.HashMap;
 import java.util.List;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
 
 import org.fusesource.mqtt.client.Message;
 

@@ -2,10 +2,10 @@ package com.blalp.chatdirector.bungee;
 
 import java.io.File;
 
-import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.bungee.modules.bungee.BungeeInputDaemon;
 import com.blalp.chatdirector.bungee.modules.bungee.ReloadCommand;
 import com.blalp.chatdirector.bungee.modules.multichat.MultiChatInputDaemon;
+import com.blalp.chatdirector.core.ChatDirector;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.event.ChatEvent;

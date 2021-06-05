@@ -1,9 +1,9 @@
 package com.blalp.chatdirector.bukkit.modules.bukkit;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

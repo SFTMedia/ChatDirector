@@ -2,8 +2,8 @@ package com.blalp.chatdirector.common.modules.cache;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.blalp.chatdirector.model.IDaemon;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.model.IDaemon;
+import com.blalp.chatdirector.core.model.IItem;
 
 public class CacheStore implements IDaemon {
     private ConcurrentHashMap<String, String> data = new ConcurrentHashMap<String, String>();

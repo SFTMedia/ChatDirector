@@ -1,8 +1,8 @@
 package com.blalp.chatdirector.extra.modules.redis;
 
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 

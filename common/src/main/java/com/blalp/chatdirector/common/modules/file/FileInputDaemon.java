@@ -3,8 +3,8 @@ package com.blalp.chatdirector.common.modules.file;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.utils.ItemDaemon;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.utils.ItemDaemon;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

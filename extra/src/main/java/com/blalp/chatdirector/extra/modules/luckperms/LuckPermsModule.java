@@ -3,9 +3,9 @@ package com.blalp.chatdirector.extra.modules.luckperms;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.IModule;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.model.IModule;
 
 public class LuckPermsModule implements IModule {
 

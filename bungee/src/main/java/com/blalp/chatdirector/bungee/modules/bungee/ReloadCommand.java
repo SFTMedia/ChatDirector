@@ -1,6 +1,6 @@
 package com.blalp.chatdirector.bungee.modules.bungee;
 
-import com.blalp.chatdirector.configuration.TimedLoad;
+import com.blalp.chatdirector.core.configuration.TimedLoad;
 
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;

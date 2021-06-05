@@ -2,8 +2,8 @@ package com.blalp.chatdirector.extra.modules.sql;
 
 import java.io.IOException;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.Chain;
+import com.blalp.chatdirector.core.configuration.Chain;
+import com.blalp.chatdirector.core.ChatDirector;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;

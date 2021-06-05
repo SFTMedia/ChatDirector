@@ -3,8 +3,8 @@ package com.blalp.chatdirector.console;
 import java.io.Console;
 import java.io.File;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.TimedLoad;
+import com.blalp.chatdirector.core.configuration.TimedLoad;
+import com.blalp.chatdirector.core.ChatDirector;
 
 public class ChatDirectorConsole {
     public static void main(String[] args) {

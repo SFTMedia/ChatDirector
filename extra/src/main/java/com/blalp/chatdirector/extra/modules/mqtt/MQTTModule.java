@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.IModule;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.model.IModule;
 
 import org.fusesource.mqtt.client.Message;
 

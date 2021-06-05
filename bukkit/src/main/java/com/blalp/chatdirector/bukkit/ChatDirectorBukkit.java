@@ -2,8 +2,8 @@ package com.blalp.chatdirector.bukkit;
 
 import java.io.File;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.configuration.TimedLoad;
+import com.blalp.chatdirector.core.configuration.TimedLoad;
+import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.bukkit.modules.bukkit.BukkitCommandDaemon;
 import com.blalp.chatdirector.bukkit.modules.bukkit.BukkitInputDaemon;
 

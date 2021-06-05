@@ -3,9 +3,9 @@ package com.blalp.chatdirector.bukkit.modules.bukkit;
 import java.util.Arrays;
 import java.util.List;
 
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.IModule;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.model.IModule;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

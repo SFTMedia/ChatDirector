@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
 import lombok.Data;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

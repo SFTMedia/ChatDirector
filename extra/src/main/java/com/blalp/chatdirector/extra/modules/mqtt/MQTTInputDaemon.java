@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.IDaemon;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.IDaemon;
+import com.blalp.chatdirector.core.model.IItem;
 
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;

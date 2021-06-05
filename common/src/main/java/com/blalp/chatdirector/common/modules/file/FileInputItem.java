@@ -2,8 +2,8 @@ package com.blalp.chatdirector.common.modules.file;
 
 import java.io.File;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.modules.common.PassItem;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.modules.common.PassItem;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

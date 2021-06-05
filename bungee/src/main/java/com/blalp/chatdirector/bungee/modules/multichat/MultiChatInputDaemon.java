@@ -1,8 +1,8 @@
 package com.blalp.chatdirector.bungee.modules.multichat;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.utils.ItemDaemon;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.utils.ItemDaemon;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

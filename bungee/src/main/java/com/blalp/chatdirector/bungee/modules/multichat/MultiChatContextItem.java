@@ -3,8 +3,8 @@ package com.blalp.chatdirector.bungee.modules.multichat;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
 
 import xyz.olivermartin.multichat.bungee.PlayerMeta;
 import xyz.olivermartin.multichat.bungee.PlayerMetaManager;

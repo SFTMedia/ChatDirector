@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
-import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.core.ChatDirector;
 
 import org.junit.jupiter.api.Test;
 

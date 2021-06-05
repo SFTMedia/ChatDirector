@@ -1,8 +1,8 @@
 package com.blalp.chatdirector.minecraft.utils;
 
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.model.IPermission;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.model.IPermission;
 
 public abstract class PermissionItem implements IPermission, IItem {
 

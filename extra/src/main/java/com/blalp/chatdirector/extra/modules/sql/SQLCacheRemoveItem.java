@@ -2,8 +2,8 @@ package com.blalp.chatdirector.extra.modules.sql;
 
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

@@ -1,7 +1,7 @@
 package com.blalp.chatdirector.common.modules.context;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

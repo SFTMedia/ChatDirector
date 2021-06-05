@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
-import com.blalp.chatdirector.ChatDirector;
 import com.blalp.chatdirector.bukkit.modules.placeholderapi.PlaceholderAPIResolveItem;
+import com.blalp.chatdirector.core.ChatDirector;
 
 import org.junit.jupiter.api.Test;
 

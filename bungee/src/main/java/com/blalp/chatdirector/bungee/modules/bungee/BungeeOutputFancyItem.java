@@ -2,12 +2,12 @@ package com.blalp.chatdirector.bungee.modules.bungee;
 
 import java.util.logging.Level;
 
-import com.blalp.chatdirector.ChatDirector;
+import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.minecraft.model.FancyMessage;
 import com.blalp.chatdirector.minecraft.utils.FancyMessageEnum;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;

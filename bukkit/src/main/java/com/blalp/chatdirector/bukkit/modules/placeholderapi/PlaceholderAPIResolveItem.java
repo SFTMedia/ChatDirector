@@ -2,8 +2,8 @@ package com.blalp.chatdirector.bukkit.modules.placeholderapi;
 
 import java.util.UUID;
 
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
