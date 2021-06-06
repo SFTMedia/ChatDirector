@@ -26,7 +26,7 @@ public class SQLSendDataItem_v0_2_0 implements ILegacyItem {
 
     @Override
     public String name() {
-        return null;
+        return "send-data";
     }
 
 }
