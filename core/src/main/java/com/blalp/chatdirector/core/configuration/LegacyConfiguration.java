@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Map.Entry;
 
+import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.ILegacyModule;
 import com.blalp.chatdirector.core.model.Version;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,7 +40,11 @@ public class LegacyConfiguration {
         output.moduleData.putAll(moduleData);
         output.version=version.toString();
         for (Entry<String, LegacyChain> chain : chains.entrySet()) {
-            output.chains.put(chain.getKey(), chain.getValue().updateTo(version));
+            if(chain.getValue()!=null){
+                output.chains.put(chain.getKey(), chain.getValue().updateTo(version));
+            } else {
+                ChatDirector.getLogger().warning("Chain "+chain.getValue()+" was null at configuration update");
+            }
         }
         return output;
     }
