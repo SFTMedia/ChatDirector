@@ -63,7 +63,7 @@ public class ChatDirector implements IConfiguration {
         this.file = new File("config.yml");
     }
 
-    public boolean loadConfig() {
+    private boolean loadConfig() {
         try {
             if (rawData != null) {
                 configStaging = objectMapper.readValue(rawData, Configuration.class);
