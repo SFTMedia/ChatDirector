@@ -1,7 +1,7 @@
-version: "0.2.0"
+version: "0.2.5"
 debug: false
 chains:
-  - bukkit-input:
+  bukkit-input:
       - bukkit-input:
           chat: false
           logout: true
@@ -64,7 +64,7 @@ chains:
       - bukkit-input:
           chat: true
           cancel-chat: true
-  - bukkit-playerlist:
+  bukkit-playerlist:
       - bukkit-playerlist:
           format: "format 1"
           format-player: "player 1"
@@ -79,13 +79,13 @@ chains:
       - bukkit-playerlist:
           format-player: "player 5"
       - bukkit-playerlist: null
-  - bukkit-output:
+  bukkit-output:
       - bukkit-output:
           permission: "permission test"
       - bukkit-output: null
-  - bukkit-command:
+  bukkit-command:
       - bukkit-command:
           command: "example-command"
           permission: "example-permission"
-  - placeholderapi-resolve:
+  placeholderapi-resolve:
       - placeholderapi-resolve
