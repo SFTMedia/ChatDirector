@@ -9,7 +9,6 @@ import com.blalp.chatdirector.core.model.Context;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +16,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonDeserialize(using = SplitDeserializer.class)
 public class SplitItem extends PassItem {
     ArrayList<Chain> chains = new ArrayList<Chain>();
 
