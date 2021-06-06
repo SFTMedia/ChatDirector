@@ -23,7 +23,7 @@ public class ContextGetItem_v0_2_0 implements ILegacyItem {
 
     @Override
     public String name() {
-        return "context-get";
+        return "get-context";
     }
     
 }

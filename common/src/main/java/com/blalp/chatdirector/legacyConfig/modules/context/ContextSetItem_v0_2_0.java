@@ -21,7 +21,7 @@ public class ContextSetItem_v0_2_0 implements ILegacyItem {
     }
     @Override
     public String name() {
-        return "context-set";
+        return "set-context";
     }
     
 }
