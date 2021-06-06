@@ -8,10 +8,14 @@ import com.blalp.chatdirector.core.model.Version;
 import lombok.Data;
 
 @Data
-public class SpongePlayerlistItem_v0_2_0 implements ILegacyItem {
-    String format = "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n";
-    String formatNoPlayers = "**No online players**";
-    String formatPlayer = "%PLAYER_NAME%";
+public class SpongeInputItem_v0_2_5 implements ILegacyItem {
+    boolean chat = false, checkCanceled = false, login = false, logout = false, serverStarted = false,
+            serverStopped = false, cancelChat = false, overrideChat = false;
+    String formatChat = "%PLAYER_NAME%: %CHAT_MESSAGE%";
+    String formatLogin = "**%PLAYER_NAME% joined the server**";
+    String formatLogout = "**%PLAYER_NAME% joined the server**";
+    String formatStopped = "**Server Stopped**";
+    String formatStarted = "**Server Started**";
 
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
@@ -28,7 +32,7 @@ public class SpongePlayerlistItem_v0_2_0 implements ILegacyItem {
     @Override
     public String name() {
         // TODO Auto-generated method stub
-        return "sponge-playerlist";
+        return "sponge-input-item";
     }
 
 }

@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class SpongeOutputItem_v0_2_0 implements ILegacyItem {
     String permission;
-    
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         // TODO Auto-generated method stub
@@ -28,5 +28,5 @@ public class SpongeOutputItem_v0_2_0 implements ILegacyItem {
         // TODO Auto-generated method stub
         return "sponge-output";
     }
-    
+
 }

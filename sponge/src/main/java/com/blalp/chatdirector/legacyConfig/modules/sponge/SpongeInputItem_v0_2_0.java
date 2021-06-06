@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.legacyConfig.modules.sponge;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.blalp.chatdirector.core.model.ILegacyItem;
@@ -9,8 +10,8 @@ import lombok.Data;
 
 @Data
 public class SpongeInputItem_v0_2_0 implements ILegacyItem {
-    boolean chat = false, checkCanceled = false, login = false, logout = false, serverStarted = false,
-            serverStopped = false, cancelChat = false, overrideChat = false;
+    boolean chat = false, checkCanceled = false, join = false, leave = false, serverStarted = false,
+            serverStopped = false, cancelChat = false;
     String formatChat = "%PLAYER_NAME%: %CHAT_MESSAGE%";
     String formatLogin = "**%PLAYER_NAME% joined the server**";
     String formatLogout = "**%PLAYER_NAME% joined the server**";
@@ -19,14 +20,25 @@ public class SpongeInputItem_v0_2_0 implements ILegacyItem {
 
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
-        // TODO Auto-generated method stub
-        return null;
+        SpongeInputItem_v0_2_5 output = new SpongeInputItem_v0_2_5();
+        output.chat=chat;
+        output.checkCanceled=checkCanceled;
+        output.login=join;
+        output.logout=leave;
+        output.serverStarted=serverStarted;
+        output.serverStopped=serverStopped;
+        output.cancelChat=cancelChat;
+        output.formatChat=formatChat;
+        output.formatLogin=formatLogin;
+        output.formatLogout=formatLogout;
+        output.formatStarted=formatStarted;
+        output.formatStopped=formatStopped;
+        return Arrays.asList(output);
     }
 
     @Override
     public Version nextUpdateVersion() {
-        // TODO Auto-generated method stub
-        return null;
+        return new Version(0,2,5);
     }
 
     @Override
@@ -34,5 +46,5 @@ public class SpongeInputItem_v0_2_0 implements ILegacyItem {
         // TODO Auto-generated method stub
         return "sponge-input-item";
     }
-    
+
 }

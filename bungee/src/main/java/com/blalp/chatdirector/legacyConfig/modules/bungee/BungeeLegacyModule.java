@@ -31,7 +31,11 @@ public class BungeeLegacyModule implements ILegacyModule {
         case "bungee-output-server":
             return BungeeOutputServerItem_v0_2_0.class;
         case "bungee-input":
-            return BungeeInputItem_v0_2_0.class;
+            if (version.compareTo(new BungeeInputItem_v0_2_0().nextUpdateVersion()) > 0) {
+                return BungeeInputItem_v0_2_5.class;
+            } else {
+                return BungeeInputItem_v0_2_0.class;
+            }
         default:
             return null;
         }

@@ -10,7 +10,8 @@ import com.blalp.chatdirector.core.model.Version;
 import lombok.Data;
 
 @Data
-public class SpongeLegacyModule implements ILegacyModule {@Override
+public class SpongeLegacyModule implements ILegacyModule {
+    @Override
     public List<String> getItemNames(Version version) {
         return Arrays.asList("sponge-output", "sponge-input", "sponge-playerlist", "sponge-command");
     }
@@ -23,12 +24,16 @@ public class SpongeLegacyModule implements ILegacyModule {@Override
         case "sponge-output":
             return SpongeOutputItem_v0_2_0.class;
         case "sponge-input":
-            return SpongeInputItem_v0_2_0.class;
+            if (version.compareTo(new SpongeInputItem_v0_2_0().nextUpdateVersion()) > 0) {
+                return SpongeInputItem_v0_2_5.class;
+            } else {
+                return SpongeInputItem_v0_2_0.class;
+            }
         case "sponge-playerlist":
             return SpongePlayerlistItem_v0_2_0.class;
         default:
             return null;
         }
     }
-    
+
 }
