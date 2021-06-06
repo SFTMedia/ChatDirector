@@ -13,14 +13,14 @@ public class ScheduleInputDaemon extends ItemDaemon {
 
     @Override
     public boolean load() {
-        for (ScheduleInputItem item : this.getItems().toArray(new ScheduleInputItem[]{})) {
-            TimerTask task = new TimerTask(){
+        for (ScheduleInputItem item : this.getItems().toArray(new ScheduleInputItem[] {})) {
+            TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
                     ChatDirector.run(item, new Context(), true);
                 }
             };
-            if(item.period==-1){
+            if (item.period == -1) {
                 timer.schedule(task, item.delay);
             } else {
                 timer.scheduleAtFixedRate(task, item.delay, item.period);
@@ -34,5 +34,5 @@ public class ScheduleInputDaemon extends ItemDaemon {
         timer.cancel();
         return true;
     }
-    
+
 }

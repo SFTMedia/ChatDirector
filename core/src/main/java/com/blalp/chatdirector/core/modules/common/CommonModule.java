@@ -11,13 +11,12 @@ public class CommonModule implements IModule {
 
     @Override
     public List<String> getItemNames() {
-        return Arrays.asList("pass", "stop", "halt", "break", "echo", "reload");
+        return Arrays.asList("stop", "halt", "break", "echo", "reload");
     }
 
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-        case "stop":
         case "halt":
             return HaltItem.class;
         case "break":

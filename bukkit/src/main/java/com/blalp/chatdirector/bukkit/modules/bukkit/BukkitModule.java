@@ -47,7 +47,7 @@ public class BukkitModule implements IModule {
         context.put("SERVER_NAME", String.valueOf(Bukkit.getServer().getName()));
         context.put("SERVER_MOTD", String.valueOf(Bukkit.getMotd()));
         if (event instanceof Cancellable) {
-            context.put("CANCELED", ((Cancellable) event).isCancelled()?"1":"0");
+            context.put("CANCELED", ((Cancellable) event).isCancelled() ? "1" : "0");
         }
         if (event instanceof PlayerEvent) {
             context.put("PLAYER_NAME", ((PlayerEvent) event).getPlayer().getName());

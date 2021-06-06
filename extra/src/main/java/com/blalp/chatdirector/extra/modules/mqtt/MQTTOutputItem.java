@@ -33,12 +33,12 @@ public class MQTTOutputItem extends MQTTItem {
             } catch (Exception e) {
                 e.printStackTrace();
                 ChatDirector.getLogger().warning("FAILED to send message " + this);
-                if(!connection.blockingConnection.isConnected()){
+                if (!connection.blockingConnection.isConnected()) {
                     try {
                         ChatDirector.getLogger().warning("connection dropped, attempted re-connect...");
                         connection.blockingConnection.connect();
-                        connection.getBlockingConnection().publish(topic, context.getCurrent().getBytes(), QoS.EXACTLY_ONCE,
-                        false);
+                        connection.getBlockingConnection().publish(topic, context.getCurrent().getBytes(),
+                                QoS.EXACTLY_ONCE, false);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }

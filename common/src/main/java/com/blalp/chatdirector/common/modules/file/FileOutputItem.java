@@ -11,6 +11,8 @@ import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.Context;
 import com.blalp.chatdirector.core.model.IItem;
 import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,7 @@ public class FileOutputItem implements IItem {
     String path;
     boolean create = false;
     int delay = 500;
+    @JsonIgnore
     BufferedWriter writer;
 
     @Override

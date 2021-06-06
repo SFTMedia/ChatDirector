@@ -1,3 +1,4 @@
+version: "0.2.0"
 debug: false
 chains:
   - bungee-command:
@@ -57,6 +58,8 @@ chains:
           permission: "test"
           send-to-current-server: false
           fancy-message:
+            - raw:
+                text: "RAW"
             - hover:
                 show-text: "hover"
                 text:
@@ -85,28 +88,28 @@ chains:
   - bungee-input:
       - bungee-input:
           chat: true
-          logout: true
+          disconnect: true
           switch-servers: true
-          login: true
+          join: true
           override-chat: true
           command: false
           format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
-          format-logout: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
+          format-disconnect: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
           format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
           format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
       - bungee-input:
-          logout: true
+          disconnect: true
           switch-servers: true
-          login: true
+          join: true
           override-chat: true
           command: false
           format-chat: "form 1"
-          format-logout: "dc 1"
+          format-disconnect: "dc 1"
           format-join: "join"
           format-switch-servers: "switch"
       - bungee-input:
           switch-servers: true
       - bungee-input:
-          login: true
+          join: true
       - bungee-input:
           command: true

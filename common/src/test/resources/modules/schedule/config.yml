@@ -1,13 +1,14 @@
+version: "0.2.0"
 debug: false
 chains:
   - schedule-input:
       - schedule-input:
-            delay: 10
+          delay: 10
       - schedule-input:
-            delay: 15
-            period: 100
+          delay: 15
+          period: 100
   - schedule-cron-input:
       - schedule-cron-input:
-            cron: "* *"
+          cron: "* *"
       - schedule-cron-input:
-            cron: "* * *"
+          cron: "* * *"

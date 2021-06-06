@@ -1,14 +1,15 @@
+version: "0.2.0"
 debug: false
 module_data:
   mqtt:
     connection: "tcp://mqtt:1883"
 chains:
   - node1:
-    - schedule-input:
-        delay: 0
-        period: 2000
-    - echo: "node1 packet"
-    - mqtt-output:
-        connection: connection
-        async: true
-        topic: "test/node1"
+      - schedule-input:
+          delay: 0
+          period: 2000
+      - echo: "node1 packet"
+      - mqtt-output:
+          connection: connection
+          async: true
+          topic: "test/node1"

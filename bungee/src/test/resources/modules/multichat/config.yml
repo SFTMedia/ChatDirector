@@ -1,3 +1,4 @@
+version: "0.2.0"
 chains:
   - multichat-context:
       - multichat-context: null

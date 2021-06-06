@@ -1,3 +1,4 @@
+version: "0.2.0"
 module_data:
   discord:
     - bot2: "LOL NO"
@@ -24,14 +25,16 @@ chains:
           channel: "16"
           bot: bot2
           category: "CATEGORY 2"
+          message-event: true
       - discord-input:
           channel: "16"
           bot: bot2
           message: "MESSAGE 2"
+          message-event: true
       - discord-input:
           channel: "16"
           bot: bot2
-          reaction-add-event: false
+          reaction-add-event: true
       - discord-input:
           channel: "16"
           bot: bot2
@@ -39,7 +42,7 @@ chains:
       - discord-input:
           channel: "16"
           bot: bot2
-          message-event: false
+          message-event: true
   - discord-resolve:
       - discord-resolve:
           server: "0"
@@ -200,7 +203,8 @@ chains:
           bot: "bot name"
           length: 50
           channel: "channel id"
-          each: null
+          each:
+            - echo: "test 1"
       - discord-participants:
           bot: "bot"
           length: 100
@@ -211,4 +215,5 @@ chains:
       - discord-participants:
           bot: "bot"
           channel: "channel"
-          each: null
+          each:
+            - echo: "test 2"

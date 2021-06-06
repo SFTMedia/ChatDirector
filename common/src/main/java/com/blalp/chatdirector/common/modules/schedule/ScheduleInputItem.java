@@ -19,14 +19,15 @@ public class ScheduleInputItem extends PassItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.isNotNull(delay,period);
+        return ValidationUtils.isNotNull(delay, period);
     }
 
-    public ScheduleInputItem () {
-        ((ScheduleInputDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(ScheduleInputDaemon.class)).addItem(this);
+    public ScheduleInputItem() {
+        ((ScheduleInputDaemon) ChatDirector.getConfigStaging().getOrCreateDaemon(ScheduleInputDaemon.class))
+                .addItem(this);
     }
 
     public void getDelayUntilNext() {
     }
-    
+
 }

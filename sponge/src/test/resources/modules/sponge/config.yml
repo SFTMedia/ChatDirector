@@ -1,5 +1,6 @@
+version: "0.2.5"
 chains:
-  - sponge-command:
+  sponge-command:
       - sponge-command:
           command: "command"
           permission: "*"
@@ -11,7 +12,7 @@ chains:
       - sponge-command:
           command: "command2"
           permission: "permission2"
-  - sponge-input:
+  sponge-input:
       - sponge-input:
           chat: false
           logout: true
@@ -69,7 +70,7 @@ chains:
           check-canceled: false
           cancel-chat: false
           format-chat: "chat 3"
-  - sponge-playerlist:
+  sponge-playerlist:
       - sponge-playerlist:
           format: "format 1"
           format-player: "player 1"
@@ -80,7 +81,7 @@ chains:
           format-player: "player"
       - sponge-playerlist:
           format-no-players: "no players"
-  - sponge-output:
+  sponge-output:
       - sponge-output:
           permission: null
       - sponge-output:

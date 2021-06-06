@@ -50,8 +50,8 @@ public class SpongeModule implements IModule {
             context.put("PLAYER_NAME", ((Player) event).getName());
             context.put("PLAYER_UUID", ((Player) event).getUniqueId().toString());
         }
-        if(event instanceof Cancellable){
-            context.put("CANCELED", ((Cancellable)event).isCancelled()?"1":"0");
+        if (event instanceof Cancellable) {
+            context.put("CANCELED", ((Cancellable) event).isCancelled() ? "1" : "0");
         }
         if (event instanceof Chat) {
             context.put("CHAT_MESSAGE", ((Chat) event).getRawMessage().toPlain());

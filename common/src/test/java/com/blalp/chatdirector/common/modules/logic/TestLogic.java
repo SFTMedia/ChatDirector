@@ -129,10 +129,10 @@ public class TestLogic {
         SplitItem splitItem = new SplitItem();
         Chain chain = new Chain();
         chain.getItems().add(new EchoItem("1"));
-        splitItem.chains.add(chain);
+        splitItem.chains.put("stream-1", chain);
         chain = new Chain();
         chain.getItems().add(new EchoItem("2"));
-        splitItem.chains.add(chain);
+        splitItem.chains.put("stream-2", chain);
         assertEquals(splitItem, targetChain.getItems().get(0));
         splitItem = new SplitItem();
         assertEquals(splitItem, targetChain.getItems().get(1));

@@ -10,18 +10,18 @@ import com.blalp.chatdirector.core.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.NoArgsConstructor;
 
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
-@NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonDeserialize(using = SQLSendDataDeserializer.class)
 public class SQLSendDataItem extends SQLItem {
     String value;
     private boolean attemptedReload = false;
+
+    public SQLSendDataItem() {
+        ((SQLConnections) ChatDirector.getConfigStaging().getOrCreateDaemon(SQLConnections.class)).addItem(this);
+    }
 
     @Override
     public Context process(Context context) {

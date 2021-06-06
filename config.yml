@@ -12,12 +12,12 @@ module_data:
     mqtt: tcp://localhost:1883
     mqtt_ssl: ssl://localhost:1883
 chains:
-  - common-demo: # This module is always loaded
+  common-demo: # This module is always loaded
       - break # This stops the chain, but returns the value
       - halt # Exits at that current point, do not continue afterwards (this used to be called stop)
       - echo: "echo'd %CURRENT%" # This sets the string to the specifiedFormat. The Previous value is set to the CURRENT context
       - reload # Reloads ChatDirector
-  - bukkit-demo:
+  bukkit-demo:
       - bukkit-input: # All of these are optional
           chat: true
           logout: true
@@ -26,7 +26,7 @@ chains:
           server-stopped: true
           check-canceled: true
           override-chat: true # This will set the message to the result of the chain
-          new-join: true
+          new-player: true
           cancel-chat: true
           format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
           format-login: "**%PLAYER_NAME% joined the server**"
@@ -43,7 +43,7 @@ chains:
       - bukkit-command:
           command: "example-command"
           permission: "example-permission"
-  - bungee-demo:
+  bungee-demo:
       - bungee-to:
           channel: "custom-channel"
       - bungee-from:
@@ -97,7 +97,7 @@ chains:
           format-logout: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
           format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
           format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
-  - cache-demo:
+  cache-demo:
       - cache-get:
           key: "SomeUnqiueKey" # Where get the value from
       - cache-set:
@@ -105,10 +105,10 @@ chains:
           value: ""
       - cache-if:
           yes-chain: # List of items to run if there is a cached value
-            - stop: null
+            - halt: null
           no-chain: null # List of items to run if there is no cached value
           key: "KEY" # The key to check for
-  - context-demo:
+  context-demo:
       - get-context:
           key: "SERVER_%SERVER_NAME%_Players" # Normally such a nested contexts would not be possible
       - set-context:
@@ -117,10 +117,10 @@ chains:
       - remove-context:
           key: "SERVER_NAME"
       - resolve-context: null # This resolves the input string as a formattable message. Normally this shouldn't be needed and could allow for formatting injection.
-  - console-demo:
+  console-demo:
       - console-output: null
       - console-output-error: null
-  - discord-demo:
+  discord-demo:
       - discord-input:
           channel: "0" # CHANNEL_ID
           bot: bot-name
@@ -198,7 +198,7 @@ chains:
           length: 50 # Optional how many messages of history ot get
           channel: "channel id"
           each: null # List of Items
-  - file-demo:
+  file-demo:
       - file-input:
           path: PATH_TO_FIFO
           delay: 500 # optional, defaults to 500
@@ -207,11 +207,11 @@ chains:
           path: PATH_TO_FIFO
           delay: 500 # optional, defaults to 500
           create: false # optional defaults to false
-  - logic-demo:
+  logic-demo:
       - if-contains:
           yes-chain: # this can be any list of items or optional
             - pass: null
-            - stop: null
+            - halt: null
           no-chain: null # Or this can be nothing or optional
           contains: "String"
           source: "%CURRENT%" # Optional. source.contains(contains)
@@ -242,7 +242,7 @@ chains:
           no-chain: null # Optional
           ends: "String"
           source: "%CURRENT%" # Optional. source.endsWith(contains)
-  - luckperms-demo:
+  luckperms-demo:
       - luckperms-context: null # This loads the PREFIX, SUFFIX and GROUP of the player in the PLAYER_NAME context.
       - luckperms-has: # This is checked against the player in PLAYER_UUID
           yes-chain: null # Chain of items
@@ -254,13 +254,13 @@ chains:
       - luckperms-unset: # This is applied to the player in PLAYER_UUID
           permission: "permission.node" # Just normal nodes, no regex, no contexts.
           value: false # Set the node to true or false ( (non-functional?)
-  - multichat-demo:
+  multichat-demo:
       - multichat-context: null # Adds more contexts
       - multichat-input:
           global: true
           staff: true
           broadcast: true
-  - mqtt:
+  mqtt:
       - mqtt-output:
           connection: "mqtt"
           async: false
@@ -268,8 +268,8 @@ chains:
       - mqtt-input:
           connection: "mqtt"
           topic: "example topic"
-  - placeholderapi-resolve: null
-  - redis:
+  placeholderapi-resolve: null
+  redis:
       - redis-get:
           connection: "redis"
           key: "example key"
@@ -287,7 +287,7 @@ chains:
             - echo: "yes"
           no-chain:
             -echo: "no"
-  - replacement-demo:
+  replacement-demo:
       - regex:
           - "Regex to find": "regex to replace"
           - "Regex to find": "regex to replace"
@@ -299,13 +299,13 @@ chains:
       - sub-string:
         start: 2 # number of characters to end at (optional)
         end: 4 # number of characters to end at (optional)
-  - schedule-demo:
+  schedule-demo:
       - schedule-input:
           delay: 100 # Delay in Milliseconds
           period: 100 # Milliseconds to repeat (optional)
       - schedule-cron:
           cron: "" # Cron formatted string (not year or dow)
-  - sponge-demo:
+  sponge-demo:
       - sponge-command:
           command: "command"
           permission: "*"
@@ -330,7 +330,7 @@ chains:
           format-no-players: "**No online players**" # Optional
       - sponge-output:
           permission: "permission" # Optional
-  - sql-demo:
+  sql-demo:
       # The Table looks like this
       # name  key   value
       - send-data:
@@ -357,7 +357,7 @@ chains:
           name: "" # First key
           key: "" # Second key
           yes-chain: # List of items to run if there is a cached value
-            - stop: null
+            - halt: null
           no-chain: null # List of items to run if there is no cached value
-  - vault-demo:
+  vault-demo:
       - vault-context: null # This loads the PREFIX, SUFFIX, BALANCE and GROUP of the player in the PLAYER_NAME context.

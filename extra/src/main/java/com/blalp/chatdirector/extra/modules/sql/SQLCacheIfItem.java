@@ -22,6 +22,7 @@ public class SQLCacheIfItem extends ConditionalItem {
     String table, name, key, connection;
     boolean cache;
 
+
     @Override
     public boolean test(Context context) {
         SQLCacheStore sqlCacheStore = (SQLCacheStore) ChatDirector.getConfig().getOrCreateDaemon(SQLCacheStore.class);

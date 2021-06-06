@@ -31,6 +31,7 @@
 				<configuration>
 					<services>
 						<param>com.blalp.chatdirector.core.model.IModule</param>
+						<param>com.blalp.chatdirector.core.model.ILegacyModule</param>
 					</services>
 				</configuration>
 				<executions>
@@ -81,9 +82,9 @@
 			<version>3.2.Final</version>
 		</dependency>
 		<dependency>
-		  <groupId>org.fusesource.mqtt-client</groupId>
-		  <artifactId>mqtt-client</artifactId>
-		  <version>1.12</version>
+			<groupId>org.fusesource.mqtt-client</groupId>
+			<artifactId>mqtt-client</artifactId>
+			<version>1.12</version>
 		</dependency>
 		<dependency>
 			<groupId>com.blalp.chatdirector</groupId>

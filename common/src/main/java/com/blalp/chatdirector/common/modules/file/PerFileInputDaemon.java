@@ -80,7 +80,7 @@ public class PerFileInputDaemon implements Runnable, ILoadable {
 
     @SuppressWarnings("deprecation")
     public void stop() {
-        if(thread!=null){
+        if (thread != null) {
             thread.stop();
         }
     }

@@ -65,18 +65,18 @@ public class VaultModule implements IModule {
         } catch (ClassNotFoundException e) {
             return true;
         }
-        if(!setupChat()){
-            if(ChatDirector.getInstance().isDebug()){
+        if (!setupChat()) {
+            if (ChatDirector.getInstance().isDebug()) {
                 ChatDirector.getLogger().warning("Vault Chat failed to load");
             }
         }
-        if(!setupEconomy()){
-            if(ChatDirector.getInstance().isDebug()){
+        if (!setupEconomy()) {
+            if (ChatDirector.getInstance().isDebug()) {
                 ChatDirector.getLogger().warning("Vault Chat failed to load");
             }
         }
-        if(!setupPermissions()){
-            if(ChatDirector.getInstance().isDebug()){
+        if (!setupPermissions()) {
+            if (ChatDirector.getInstance().isDebug()) {
                 ChatDirector.getLogger().warning("Vault Chat failed to load");
             }
         }

@@ -22,7 +22,7 @@ public class MQTTInputDaemon implements IDaemon {
     public boolean load() {
         MQTTConnections mqttConnections = (MQTTConnections) ChatDirector.getConfig()
                 .getOrCreateDaemon(MQTTConnections.class);
-        if(!mqttConnections.load()){
+        if (!mqttConnections.load()) {
             ChatDirector.getLogger().warning("MQTT connections failed.");
             return false;
         }
@@ -33,8 +33,7 @@ public class MQTTInputDaemon implements IDaemon {
             if (!items.get((item).connection).containsKey((item).topic)) {
                 items.get((item).connection).put((item).topic, new ArrayList<>());
             }
-            List<MQTTInputItem> existing = items.get((item).connection)
-                    .get((item).topic);
+            List<MQTTInputItem> existing = items.get((item).connection).get((item).topic);
             existing.add(item);
         }
         for (Entry<String, HashMap<String, List<MQTTInputItem>>> itemConnection : items.entrySet()) {

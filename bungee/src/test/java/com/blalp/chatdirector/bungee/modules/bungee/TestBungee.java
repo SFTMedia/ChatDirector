@@ -134,12 +134,14 @@ public class TestBungee {
         child.setObfuscated(true);
         child.setText("I am blue");
         nested.add(child);
-        fancyMessages = new FancyMessage[2];
+        fancyMessages = new FancyMessage[3];
         fancyMessages[0] = new FancyMessage();
-        fancyMessages[0].setHoverEvent(FancyMessageEnum.SHOW_TEXT, "hover");
-        fancyMessages[0].setNext(nested);
+        fancyMessages[0].setText("RAW");
         fancyMessages[1] = new FancyMessage();
-        fancyMessages[1].setText("RAW");
+        fancyMessages[1].setHoverEvent(FancyMessageEnum.SHOW_TEXT, "hover");
+        fancyMessages[1].setNext(nested);
+        fancyMessages[2] = new FancyMessage();
+        fancyMessages[2].setText("RAW");
         bungeeOutputFancy.setPermission("test");
         bungeeOutputFancy.sendToCurrentServer = false;
         fancyMessage = new FancyMessage();

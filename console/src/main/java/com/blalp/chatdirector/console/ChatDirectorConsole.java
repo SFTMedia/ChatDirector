@@ -24,7 +24,7 @@ public class ChatDirectorConsole {
         }
         System.out.println("Finished Loading");
         Console console = System.console();
-        if(console!=null){
+        if (console != null) {
             String line;
             while (true) {
                 System.out.print("ChatDirector > ");

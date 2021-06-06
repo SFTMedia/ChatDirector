@@ -38,5 +38,5 @@ public class RedisConnections extends HashMap<String, RedisConnection> implement
             e.printStackTrace();
         }
     }
-    
+
 }
