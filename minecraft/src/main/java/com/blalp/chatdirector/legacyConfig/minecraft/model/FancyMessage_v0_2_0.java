@@ -3,17 +3,15 @@ package com.blalp.chatdirector.legacyConfig.minecraft.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.blalp.chatdirector.minecraft.utils.FancyMessageDeserializer;
 import com.blalp.chatdirector.minecraft.utils.FancyMessageEnum;
-import com.blalp.chatdirector.minecraft.utils.FancyMessageSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@JsonDeserialize(using = FancyMessageDeserializer.class)
-@JsonSerialize(using = FancyMessageSerializer.class)
+@JsonDeserialize(using = FancyMessageDeserializer_v0_2_0.class)
+@JsonSerialize(using = FancyMessageSerializer_v0_2_0.class)
 @Data
 @EqualsAndHashCode
 public class FancyMessage_v0_2_0 {

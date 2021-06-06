@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class FancyMesasgeDeserializer_v0_2_0 extends JsonDeserializer<FancyMessage_v0_2_0> {
+public class FancyMessageDeserializer_v0_2_0 extends JsonDeserializer<FancyMessage_v0_2_0> {
 
     @Override
     public FancyMessage_v0_2_0 deserialize(JsonParser p, DeserializationContext ctxt)
