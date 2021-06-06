@@ -26,8 +26,6 @@ public class TestLegacyBukkit {
         chatDirector = new ChatDirector(output);
         assertTrue(chatDirector.load());
         Configuration latestConfiguration = ChatDirector.getConfig();
-        System.out.println(legacyConfiguration);
-        System.out.println(latestConfiguration);
         assertEquals(legacyConfiguration, latestConfiguration);
     }
 }

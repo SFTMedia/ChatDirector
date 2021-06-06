@@ -123,8 +123,6 @@ public class TestBungee {
             fancyMessage.append(message);
         }
         bungeeOutputFancy.setFancyMessage(fancyMessage);
-        System.out.println(bungeeOutputFancy);
-        System.out.println(chatDirector.getChains().get("bungee-output-fancy").getItems().get(0));
         assertEquals(bungeeOutputFancy, chatDirector.getChains().get("bungee-output-fancy").getItems().get(0));
         bungeeOutputFancy = new BungeeOutputFancyItem();
         ArrayList<FancyMessage> nested = new ArrayList<>();

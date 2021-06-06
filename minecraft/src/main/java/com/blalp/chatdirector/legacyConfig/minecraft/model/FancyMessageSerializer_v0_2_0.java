@@ -29,9 +29,6 @@ public class FancyMessageSerializer_v0_2_0 extends JsonSerializer<FancyMessage_v
             } else {
                 gen.writeStringField("text", value.getText());
             }
-            if (value.getText().equals("")) {
-                System.out.println(value);
-            }
             if (!value.getClick().equals(FancyMessageEnum.NONE)) {
                 switch (value.getClick()) {
                 case OPEN_FILE:
