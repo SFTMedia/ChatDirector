@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class ScheduleCronItem extends PassItem {
 
     // Format <seconds> <minutes> <hours> <day-of-month> <month>
