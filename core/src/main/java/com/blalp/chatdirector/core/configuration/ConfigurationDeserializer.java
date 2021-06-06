@@ -35,6 +35,8 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
                 ChatDirector.getLogger().info(updatedConfig);
             }
             return ChatDirector.getInstance().getObjectMapper().readValue(updatedConfig, Configuration.class);
+        } else if (!node.has("version")){
+            ChatDirector.getLogger().warning("Config does not have a version specified, please add one if you want the config to auto-update");
         }
         if (node.has("debug") && node.get("debug").isBoolean()) {
             configuration.setDebug(node.get("debug").asBoolean());
