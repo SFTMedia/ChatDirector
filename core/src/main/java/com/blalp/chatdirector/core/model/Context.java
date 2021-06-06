@@ -111,7 +111,7 @@ public class Context extends HashMap<String, String> {
     public Context getContextAtPath(String string) {
         Context output = new Context();
         for (String key : this.keySet()) {
-            if(key.startsWith(string)){
+            if (key.startsWith(string)) {
                 output.put(key.substring(string.length()), this.get(key));
             }
         }

@@ -64,12 +64,12 @@ public class Configuration implements IConfiguration {
         if (debug) {
             System.out.println("Modules");
             for (IModule module : modules) {
-                System.out.println("\t"+module);
+                System.out.println("\t" + module);
             }
             System.out.println();
             System.out.println("Module Data");
             for (Entry<String, Map<String, String>> module : moduleData.entrySet()) {
-                System.out.println("\t"+module.getKey() + ": ");
+                System.out.println("\t" + module.getKey() + ": ");
                 for (Entry<String, String> item : module.getValue().entrySet()) {
                     System.out.println("\t\t" + item.getKey() + ": " + item.getValue());
                 }
@@ -82,42 +82,44 @@ public class Configuration implements IConfiguration {
             System.out.println();
             System.out.println("Chains");
             for (String pipeKey : chains.keySet()) {
-                System.out.println("\t"+"Chain " + pipeKey);
+                System.out.println("\t" + "Chain " + pipeKey);
                 if (chains.get(pipeKey) != null) {
                     for (IItem item : chains.get(pipeKey).getItems()) {
-                        System.out.println("\t\t"+item);
+                        System.out.println("\t\t" + item);
                     }
                 }
             }
         }
-        if(debug){
+        if (debug) {
             System.out.println();
             System.out.println("Loading Modules...");
         }
         for (IModule module : getModules()) {
             if (debug) {
-                System.out.println("\t"+module);
+                System.out.println("\t" + module);
             }
-            if(!module.load()){
-                ChatDirector.getLogger().log(Level.SEVERE, "Module " + module.getClass() + " " + module + " failed to load.");
+            if (!module.load()) {
+                ChatDirector.getLogger().log(Level.SEVERE,
+                        "Module " + module.getClass() + " " + module + " failed to load.");
                 return false;
             }
         }
-        if(debug){
+        if (debug) {
             System.out.println();
             System.out.println("Checking Validity...");
         }
         if (!isValid()) {
             return false;
         }
-        if(debug){
+        if (debug) {
             System.out.println();
             System.out.println("Loading Daemons...");
         }
         for (ILoadable daemon : getDaemons().values()) {
-            System.out.println("\t"+daemon);
+            System.out.println("\t" + daemon);
             if (!daemon.load()) {
-                ChatDirector.getLogger().log(Level.SEVERE, "daemon " + daemon.getClass() + " " + daemon + " failed to load.");
+                ChatDirector.getLogger().log(Level.SEVERE,
+                        "daemon " + daemon.getClass() + " " + daemon + " failed to load.");
                 return false;
             }
         }
@@ -194,7 +196,7 @@ public class Configuration implements IConfiguration {
             }
         }
         // Make sure there are chains
-        return getChains().size()!=0;
+        return getChains().size() != 0;
     }
 
     public Chain getChainForItem(IItem item) {

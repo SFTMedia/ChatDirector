@@ -21,24 +21,24 @@ public class SpongeInputItem_v0_2_0 implements ILegacyItem {
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         SpongeInputItem_v0_2_5 output = new SpongeInputItem_v0_2_5();
-        output.chat=chat;
-        output.checkCanceled=checkCanceled;
-        output.login=join;
-        output.logout=leave;
-        output.serverStarted=serverStarted;
-        output.serverStopped=serverStopped;
-        output.cancelChat=cancelChat;
-        output.formatChat=formatChat;
-        output.formatLogin=formatLogin;
-        output.formatLogout=formatLogout;
-        output.formatStarted=formatStarted;
-        output.formatStopped=formatStopped;
+        output.chat = chat;
+        output.checkCanceled = checkCanceled;
+        output.login = join;
+        output.logout = leave;
+        output.serverStarted = serverStarted;
+        output.serverStopped = serverStopped;
+        output.cancelChat = cancelChat;
+        output.formatChat = formatChat;
+        output.formatLogin = formatLogin;
+        output.formatLogout = formatLogout;
+        output.formatStarted = formatStarted;
+        output.formatStopped = formatStopped;
         return Arrays.asList(output);
     }
 
     @Override
     public Version nextUpdateVersion() {
-        return new Version(0,2,5);
+        return new Version(0, 2, 5);
     }
 
     @Override

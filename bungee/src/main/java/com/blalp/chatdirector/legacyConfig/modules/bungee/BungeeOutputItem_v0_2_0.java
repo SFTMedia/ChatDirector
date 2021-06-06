@@ -8,7 +8,8 @@ import com.blalp.chatdirector.core.model.Version;
 import lombok.Data;
 
 @Data
-public class BungeeOutputItem_v0_2_0  implements ILegacyItem {@Override
+public class BungeeOutputItem_v0_2_0 implements ILegacyItem {
+    @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
@@ -22,5 +23,5 @@ public class BungeeOutputItem_v0_2_0  implements ILegacyItem {@Override
     public String name() {
         return "bungee-output";
     }
-    
+
 }

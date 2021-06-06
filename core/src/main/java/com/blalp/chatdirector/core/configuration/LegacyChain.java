@@ -52,7 +52,7 @@ public class LegacyChain implements IValid {
         }
         return output;
     }
-    
+
     private Collection<? extends ILegacyItem> updateTo(ILegacyItem item, Version version) {
         List<ILegacyItem> output = new ArrayList<>();
         // It's possible for an item's latest version to be null (aka useless)
@@ -61,7 +61,7 @@ public class LegacyChain implements IValid {
         }
         List<ILegacyItem> pendingOutput = new ArrayList<>();
         // nextUpdateVersion could be null (aka newest)
-        if (item.nextUpdateVersion()!=null&&item.nextUpdateVersion().compareTo(version) <= 0) {
+        if (item.nextUpdateVersion() != null && item.nextUpdateVersion().compareTo(version) <= 0) {
             pendingOutput.addAll(item.updateToNextLegacyItems());
             for (ILegacyItem iLegacyItem : pendingOutput) {
                 // Recursive call to make sure the items we are added are latest.

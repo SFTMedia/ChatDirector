@@ -26,5 +26,5 @@ public class BungeeOutputServerItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "bungee-output-server";
     }
-    
+
 }

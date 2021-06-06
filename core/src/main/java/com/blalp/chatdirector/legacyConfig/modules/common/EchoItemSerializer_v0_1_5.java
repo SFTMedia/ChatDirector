@@ -12,5 +12,5 @@ public class EchoItemSerializer_v0_1_5 extends JsonSerializer<EchoItem_v0_1_5> {
     public void serialize(EchoItem_v0_1_5 value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeString(value.format);
     }
-    
+
 }

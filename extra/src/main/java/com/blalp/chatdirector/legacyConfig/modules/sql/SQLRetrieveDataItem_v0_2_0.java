@@ -12,6 +12,7 @@ public class SQLRetrieveDataItem_v0_2_0 implements ILegacyItem {
     private boolean attemptedReload = false;
     String table, name, key, connection;
     boolean cache;
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -26,5 +27,5 @@ public class SQLRetrieveDataItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "retrieve-data";
     }
-    
+
 }

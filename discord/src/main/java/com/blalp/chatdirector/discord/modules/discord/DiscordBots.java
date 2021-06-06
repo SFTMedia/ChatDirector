@@ -7,14 +7,14 @@ import com.blalp.chatdirector.core.model.ILoadable;
 
 public class DiscordBots extends HashMap<String, DiscordBot> implements ILoadable {
 
-    boolean loaded=false;
+    boolean loaded = false;
 
     @Override
     public boolean load() {
-        if(!loaded){
-            loaded=true;
+        if (!loaded) {
+            loaded = true;
             System.out.println(ChatDirector.getConfig());
-            if(ChatDirector.getConfig().getModuleData().containsKey("discord")) {
+            if (ChatDirector.getConfig().getModuleData().containsKey("discord")) {
                 for (Entry<String, String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
                     if (!this.containsKey(bot.getKey())) {
                         this.put(bot.getKey(), new DiscordBot(bot.getValue()));
@@ -34,7 +34,7 @@ public class DiscordBots extends HashMap<String, DiscordBot> implements ILoadabl
 
     @Override
     public boolean unload() {
-        loaded=false;
+        loaded = false;
         boolean result = true;
         for (DiscordBot discordBot : this.values()) {
             result = result && discordBot.unload();

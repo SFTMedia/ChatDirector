@@ -17,6 +17,7 @@ public class BukkitPlayerlistItem_v0_2_5 implements ILegacyItem {
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
+
     @Override
     public Version nextUpdateVersion() {
         return new Version();

@@ -33,28 +33,29 @@ public class LegacyConfiguration {
 
     public LegacyConfiguration updateTo(Version version) {
         LegacyConfiguration output = new LegacyConfiguration();
-        if (ChatDirector.getInstance().getLegacyConfig().isDebug()){
+        if (ChatDirector.getInstance().getLegacyConfig().isDebug()) {
             ChatDirector.getLogger().info("Legacy Modules:");
             for (ILegacyModule iLegacyModule : modules) {
-                ChatDirector.getLogger().info("\t"+iLegacyModule);
+                ChatDirector.getLogger().info("\t" + iLegacyModule);
             }
         }
         output.setDebug(debug);
         output.moduleData.putAll(moduleData);
-        output.version=version.toString();
+        output.version = version.toString();
         for (Entry<String, LegacyChain> chain : chains.entrySet()) {
-            if(chain.getValue()!=null){
+            if (chain.getValue() != null) {
                 output.chains.put(chain.getKey(), chain.getValue().updateTo(version));
             } else {
-                ChatDirector.getLogger().warning("Chain "+chain.getValue()+" was null at configuration update");
+                ChatDirector.getLogger().warning("Chain " + chain.getValue() + " was null at configuration update");
             }
         }
         return output;
     }
+
     public Class<?> getLegacyItemClass(String itemType, Version version) {
         for (ILegacyModule module : modules) {
             if (module.getItemNames(version).contains(itemType)) {
-                return module.getItemClass(itemType,version);
+                return module.getItemClass(itemType, version);
             }
         }
         return null;

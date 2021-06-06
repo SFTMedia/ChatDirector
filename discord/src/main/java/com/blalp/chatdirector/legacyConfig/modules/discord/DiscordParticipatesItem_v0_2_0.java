@@ -12,19 +12,21 @@ import lombok.Data;
 public class DiscordParticipatesItem_v0_2_0 implements ILegacyItem {
     int length = 50;
     LegacyChain each;
-    String channel,bot;
+    String channel, bot;
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
+
     @Override
     public Version nextUpdateVersion() {
         return null;
     }
+
     @Override
     public String name() {
         return "discord-participants";
     }
 
-    
 }

@@ -8,12 +8,12 @@ import com.blalp.chatdirector.core.model.ILoadable;
 
 public class MQTTConnections extends HashMap<String, MQTTConnection> implements ILoadable {
 
-    boolean loaded=false;
+    boolean loaded = false;
 
     @Override
     public boolean load() {
-        if(!loaded){
-            loaded=true;
+        if (!loaded) {
+            loaded = true;
             for (MQTTConnection connection : this.values()) {
                 if (!connection.load()) {
                     ChatDirector.getLogger().log(Level.SEVERE, connection + " failed to load.");

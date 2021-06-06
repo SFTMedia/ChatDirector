@@ -8,6 +8,8 @@ public interface ILegacyItem {
      * @return (can be null) An array of functionally identical items
      */
     public List<ILegacyItem> updateToNextLegacyItems();
+
     public Version nextUpdateVersion();
+
     public String name();
 }

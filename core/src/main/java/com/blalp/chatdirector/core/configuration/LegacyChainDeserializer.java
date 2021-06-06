@@ -19,7 +19,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class LegacyChainDeserializer extends JsonDeserializer<LegacyChain> {
 
     @Override
-    public LegacyChain deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public LegacyChain deserialize(JsonParser p, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
         ObjectCodec oc = p.getCodec();
         JsonNode chain = oc.readTree(p);
         LegacyChain chainObj = new LegacyChain();
@@ -36,7 +37,8 @@ public class LegacyChainDeserializer extends JsonDeserializer<LegacyChain> {
                     itemValue = innerItem.getValue();
                 }
             }
-            Class<?> itemClass = ChatDirector.getInstance().getLegacyItemClass(itemKey,new Version(ChatDirector.getConfigStaging().getVersion()));
+            Class<?> itemClass = ChatDirector.getInstance().getLegacyItemClass(itemKey,
+                    new Version(ChatDirector.getConfigStaging().getVersion()));
             if (itemClass != null && ILegacyItem.class.isAssignableFrom(itemClass)) {
                 ILegacyItem itemObj = null;
                 if (itemValue == null || itemValue.isNull()) {

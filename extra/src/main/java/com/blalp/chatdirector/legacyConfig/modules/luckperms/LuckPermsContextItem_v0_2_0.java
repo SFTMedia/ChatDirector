@@ -24,5 +24,5 @@ public class LuckPermsContextItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "luckperms-context";
     }
-    
+
 }

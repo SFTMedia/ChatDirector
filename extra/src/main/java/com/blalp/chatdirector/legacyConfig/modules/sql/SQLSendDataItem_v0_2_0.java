@@ -18,14 +18,15 @@ public class SQLSendDataItem_v0_2_0 implements ILegacyItem {
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
+
     @Override
     public Version nextUpdateVersion() {
         return null;
     }
+
     @Override
     public String name() {
         return null;
     }
 
-    
 }

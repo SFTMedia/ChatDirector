@@ -26,7 +26,8 @@ public class SQLModule implements IModule {
                 ChatDirector.getLogger().log(Level.WARNING, "Failed to load SQL module, no module_data");
             } else {
                 // Of if debug mode is on
-                //ChatDirector.getLogger().log(Level.INFO,"Failed to load SQL module, no module_data. If you are not using SQL items, you can safely ignore this.");
+                // ChatDirector.getLogger().log(Level.INFO,"Failed to load SQL module, no
+                // module_data. If you are not using SQL items, you can safely ignore this.");
             }
             return true;
         }

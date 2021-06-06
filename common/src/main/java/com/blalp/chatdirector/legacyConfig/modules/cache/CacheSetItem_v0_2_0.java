@@ -9,12 +9,14 @@ import lombok.Data;
 
 @Data
 public class CacheSetItem_v0_2_0 implements ILegacyItem {
-	String value;
+    String value;
     String key;
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
+
     @Override
     public Version nextUpdateVersion() {
         return null;

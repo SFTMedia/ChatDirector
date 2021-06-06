@@ -15,17 +15,20 @@ public class IfEndsWithItem_v0_2_0 implements ILegacyItem {
     LegacyChain noChain;
     String ends;
     String source = "%CURRENT%";
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
+
     @Override
     public Version nextUpdateVersion() {
         return null;
     }
+
     @Override
     public String name() {
         return "if-ends-with";
     }
-    
+
 }

@@ -22,5 +22,5 @@ public class PlaceholderAPILegacyModule implements ILegacyModule {
         default:
             return null;
         }
-    }    
+    }
 }

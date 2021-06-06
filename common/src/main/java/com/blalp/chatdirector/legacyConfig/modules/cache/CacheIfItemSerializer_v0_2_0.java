@@ -18,5 +18,5 @@ public class CacheIfItemSerializer_v0_2_0 extends JsonSerializer<CacheIfItem_v0_
         gen.writeObjectField("no-chain", value.getNoChain());
         gen.writeEndObject();
     }
-    
+
 }

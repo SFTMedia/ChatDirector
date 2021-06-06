@@ -25,10 +25,10 @@ public class RedisConnection implements ILoadable {
 
     @Override
     public boolean unload() {
-        if(connection!=null){
+        if (connection != null) {
             connection.close();
         }
-        if(redisClient!=null){
+        if (redisClient != null) {
             redisClient.shutdown();
         }
         return true;

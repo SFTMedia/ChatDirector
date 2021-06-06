@@ -24,12 +24,13 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
         JsonNode node = oc.readTree(p);
         Configuration configuration = new Configuration();
         ChatDirector.getInstance().setConfigStaging(configuration);
-        if (node.has("version")&&!node.get("version").asText().equals("0.2.5")) {
+        if (node.has("version") && !node.get("version").asText().equals("0.2.5")) {
             configuration.setVersion(node.get("version").asText());
-            LegacyConfiguration legacyConfiguration = new LegacyConfigurationDeserializer().deserialize(oc,node);
+            LegacyConfiguration legacyConfiguration = new LegacyConfigurationDeserializer().deserialize(oc, node);
             LegacyConfiguration updatedConfiguration = legacyConfiguration.updateTo(new Version("0.2.5"));
-            String updatedConfig = ChatDirector.getInstance().getObjectMapper().writeValueAsString(updatedConfiguration);
-            if(legacyConfiguration.isDebug()){
+            String updatedConfig = ChatDirector.getInstance().getObjectMapper()
+                    .writeValueAsString(updatedConfiguration);
+            if (legacyConfiguration.isDebug()) {
                 ChatDirector.getLogger().info("Updated config to");
                 ChatDirector.getLogger().info(updatedConfig);
             }

@@ -30,5 +30,4 @@ public class RegexItem_v0_2_0 implements ILegacyItem {
         return "regex";
     }
 
-    
 }

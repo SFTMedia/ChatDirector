@@ -11,6 +11,7 @@ import lombok.Data;
 public class ScheduleCronItem_v0_2_0 implements ILegacyItem {
 
     String cron;
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -25,5 +26,5 @@ public class ScheduleCronItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "schedule-cron-input";
     }
-    
+
 }

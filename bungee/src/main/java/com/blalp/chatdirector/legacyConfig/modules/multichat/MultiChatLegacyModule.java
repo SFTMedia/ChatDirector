@@ -10,7 +10,8 @@ import com.blalp.chatdirector.core.model.Version;
 import lombok.Data;
 
 @Data
-public class MultiChatLegacyModule implements ILegacyModule {@Override
+public class MultiChatLegacyModule implements ILegacyModule {
+    @Override
     public List<String> getItemNames(Version version) {
         return Arrays.asList("multichat-input", "multichat-context");
     }
@@ -26,5 +27,5 @@ public class MultiChatLegacyModule implements ILegacyModule {@Override
             return null;
         }
     }
-    
+
 }

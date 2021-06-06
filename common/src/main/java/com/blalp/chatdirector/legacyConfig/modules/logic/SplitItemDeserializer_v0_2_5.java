@@ -22,7 +22,7 @@ public class SplitItemDeserializer_v0_2_5 extends JsonDeserializer<SplitItem_v0_
         SplitItem_v0_2_5 output = new SplitItem_v0_2_5();
 
         for (Entry<String, JsonNode> chain : new IteratorIterable<>(config.fields())) {
-            output.chains.put(chain.getKey(),chain.getValue().traverse(oc).readValueAs(LegacyChain.class));
+            output.chains.put(chain.getKey(), chain.getValue().traverse(oc).readValueAs(LegacyChain.class));
         }
         return output;
     }

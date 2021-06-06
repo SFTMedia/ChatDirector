@@ -44,8 +44,8 @@ public class BungeeModule implements IModule {
                 context.put("PLAYER_SERVER_MOTD", ((ProxiedPlayer) event).getServer().getInfo().getMotd());
             }
         }
-        if(event instanceof Cancellable) {
-            context.put("CANCELED", ((Cancellable) event).isCancelled()?"1":"0");
+        if (event instanceof Cancellable) {
+            context.put("CANCELED", ((Cancellable) event).isCancelled() ? "1" : "0");
         }
         if (event instanceof ServerInfo) {
             context.put("SERVER_NAME", ((ServerInfo) event).getName());
@@ -58,8 +58,8 @@ public class BungeeModule implements IModule {
             context.merge(getContext(((ServerConnectedEvent) event).getPlayer()));
             context.merge(getContext(((ServerConnectedEvent) event).getServer().getInfo()));
         }
-        if(event instanceof PostGlobalChatEvent) {
-            context.merge(getContext(((PostGlobalChatEvent)event).getSender()));
+        if (event instanceof PostGlobalChatEvent) {
+            context.merge(getContext(((PostGlobalChatEvent) event).getSender()));
         }
         if (event instanceof ChatEvent) {
             if (((ChatEvent) event).getSender() instanceof ProxiedPlayer) {

@@ -21,8 +21,8 @@ public class SplitItemDeserializer extends JsonDeserializer<SplitItem> {
         JsonNode config = oc.readTree(p);
         SplitItem output = new SplitItem();
 
-        for (Entry<String, JsonNode> chain: new IteratorIterable<>(config.fields())) {
-            output.getChains().put(chain.getKey(),chain.getValue().traverse(oc).readValueAs(Chain.class));
+        for (Entry<String, JsonNode> chain : new IteratorIterable<>(config.fields())) {
+            output.getChains().put(chain.getKey(), chain.getValue().traverse(oc).readValueAs(Chain.class));
         }
         return output;
     }

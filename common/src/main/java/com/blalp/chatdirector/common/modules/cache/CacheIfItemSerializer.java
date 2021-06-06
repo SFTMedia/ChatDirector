@@ -9,8 +9,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 public class CacheIfItemSerializer extends JsonSerializer<CacheIfItem> {
 
     @Override
-    public void serialize(CacheIfItem value, JsonGenerator gen, SerializerProvider serializers)
-            throws IOException {
+    public void serialize(CacheIfItem value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartObject();
         gen.writeStringField("key", value.getKey());
         gen.writeStringField("source", value.getSource());
@@ -18,5 +17,5 @@ public class CacheIfItemSerializer extends JsonSerializer<CacheIfItem> {
         gen.writeObjectField("no-chain", value.getNoChain());
         gen.writeEndObject();
     }
-    
+
 }

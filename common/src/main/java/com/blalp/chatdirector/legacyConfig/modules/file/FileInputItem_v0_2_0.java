@@ -12,7 +12,7 @@ public class FileInputItem_v0_2_0 implements ILegacyItem {
     String path;
     boolean create = false;
     int delay = 500;
-    
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -27,5 +27,5 @@ public class FileInputItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "file-input";
     }
-    
+
 }

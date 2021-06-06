@@ -15,18 +15,20 @@ public class IfStartsWithItem_v0_2_0 implements ILegacyItem {
     LegacyChain noChain;
     String source = "%CURRENT%";
     String starts;
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
+
     @Override
     public Version nextUpdateVersion() {
         return null;
     }
+
     @Override
     public String name() {
         return "if-starts-with";
     }
 
-    
 }

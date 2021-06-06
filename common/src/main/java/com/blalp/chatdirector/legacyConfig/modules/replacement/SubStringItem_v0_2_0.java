@@ -11,17 +11,20 @@ import lombok.Data;
 public class SubStringItem_v0_2_0 implements ILegacyItem {
     int start = 0;
     int end = -1;
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
+
     @Override
     public Version nextUpdateVersion() {
         return null;
     }
+
     @Override
     public String name() {
         return "sub-string";
     }
-    
+
 }

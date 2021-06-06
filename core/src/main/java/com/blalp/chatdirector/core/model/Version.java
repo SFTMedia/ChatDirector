@@ -11,28 +11,29 @@ public class Version implements Comparable<Version> {
     /**
      * Latest version
      */
-    public Version(){
-        major=minor=patch=Integer.MAX_VALUE;
+    public Version() {
+        major = minor = patch = Integer.MAX_VALUE;
     }
 
-    public Version(String version){
-        if(version==null){
-            major=minor=patch=Integer.MAX_VALUE;
+    public Version(String version) {
+        if (version == null) {
+            major = minor = patch = Integer.MAX_VALUE;
             return;
         }
-        major=Integer.parseInt(version.split("\\.")[0]);
-        minor=Integer.parseInt(version.split("\\.")[1]);
-        patch=Integer.parseInt(version.split("\\.")[2]);
+        major = Integer.parseInt(version.split("\\.")[0]);
+        minor = Integer.parseInt(version.split("\\.")[1]);
+        patch = Integer.parseInt(version.split("\\.")[2]);
     }
 
     /**
      * 
      * @param other
-     * @return +/-3 for a major difference, +/-2 for a minor difference and +/-1 for a patch difference.
+     * @return +/-3 for a major difference, +/-2 for a minor difference and +/-1 for
+     *         a patch difference.
      */
     @Override
     public int compareTo(Version other) {
-        if(other.equals(null)){
+        if (other.equals(null)) {
             return -4;
         }
         if (major < other.getMajor()) {
@@ -55,8 +56,9 @@ public class Version implements Comparable<Version> {
             return 3;
         }
     }
+
     @Override
     public String toString() {
-        return major+"."+minor+"."+patch;
+        return major + "." + minor + "." + patch;
     }
 }

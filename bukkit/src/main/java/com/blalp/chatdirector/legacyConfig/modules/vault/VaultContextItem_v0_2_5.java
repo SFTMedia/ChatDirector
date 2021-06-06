@@ -17,9 +17,8 @@ public class VaultContextItem_v0_2_5 implements ILegacyItem {
         return new Version();
     }
 
-
     @Override
     public String name() {
         return "vault-context";
-    }    
+    }
 }

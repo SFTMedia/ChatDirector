@@ -36,5 +36,5 @@ public class ReplacementLegacyModule implements ILegacyModule {
             return null;
         }
     }
-    
+
 }

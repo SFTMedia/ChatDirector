@@ -23,9 +23,9 @@ public class BungeeCommandDaemon implements IDaemon {
                 command.setValue(new BungeeCommand(command.getKey().getCommand(), command.getKey()));
             }
             // AKA if this is running on a real server
-            if(ProxyServer.getInstance()!=null){
+            if (ProxyServer.getInstance() != null) {
                 ProxyServer.getInstance().getPluginManager().registerCommand(ChatDirectorBungee.instance,
-                    command.getValue());
+                        command.getValue());
             }
         }
         return true;

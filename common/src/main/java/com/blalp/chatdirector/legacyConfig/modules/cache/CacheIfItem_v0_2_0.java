@@ -14,16 +14,17 @@ import lombok.Data;
 @JsonDeserialize(using = CacheIfItemDeserializer_v0_2_0.class)
 @JsonSerialize(using = CacheIfItemSerializer_v0_2_0.class)
 public class CacheIfItem_v0_2_0 implements ILegacyItem {
-    
+
     LegacyChain yesChain;
     LegacyChain noChain;
     String source = "%CURRENT%";
     String key;
-    
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
     }
+
     @Override
     public Version nextUpdateVersion() {
         return new Version();

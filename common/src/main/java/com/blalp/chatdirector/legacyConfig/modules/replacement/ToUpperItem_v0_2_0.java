@@ -21,5 +21,5 @@ public class ToUpperItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "to-upper";
     }
-    
+
 }

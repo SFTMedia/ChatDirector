@@ -15,12 +15,11 @@ public class StopItem_v0_0_4 implements ILegacyItem {
 
     @Override
     public Version nextUpdateVersion() {
-        return new Version(0,1,5);
+        return new Version(0, 1, 5);
     }
-
 
     @Override
     public String name() {
         return "stop";
-    }    
+    }
 }

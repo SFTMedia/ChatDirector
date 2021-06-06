@@ -12,7 +12,6 @@ public class SQLCacheRemoveItem_v0_2_0 implements ILegacyItem {
     String table, name, key, connection;
     boolean cache;
 
-
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -27,5 +26,5 @@ public class SQLCacheRemoveItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "sql-cache-remove";
     }
-    
+
 }

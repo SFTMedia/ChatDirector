@@ -17,13 +17,13 @@ public class ConsoleLegacyModule implements ILegacyModule {
     @Override
     public Class<? extends ILegacyItem> getItemClass(String type, Version version) {
         switch (type) {
-            case "console-output":
-                return ConsoleOutputItem_v0_2_0.class;
-            case "console-output-error":
-                return ConsoleOutputErrorItem_v0_2_0.class;
-            default:
-                return null;
+        case "console-output":
+            return ConsoleOutputItem_v0_2_0.class;
+        case "console-output-error":
+            return ConsoleOutputErrorItem_v0_2_0.class;
+        default:
+            return null;
         }
     }
-    
+
 }

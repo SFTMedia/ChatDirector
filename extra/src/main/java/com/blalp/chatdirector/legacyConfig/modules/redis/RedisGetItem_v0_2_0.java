@@ -6,6 +6,7 @@ import com.blalp.chatdirector.core.model.ILegacyItem;
 import com.blalp.chatdirector.core.model.Version;
 
 import lombok.Data;
+
 @Data
 public class RedisGetItem_v0_2_0 implements ILegacyItem {
     String key, connection;
@@ -24,5 +25,5 @@ public class RedisGetItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "redis-get";
     }
-    
+
 }

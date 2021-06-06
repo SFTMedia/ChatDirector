@@ -21,7 +21,8 @@ public class Chain implements IValid, Runnable {
     List<IItem> items = new ArrayList<>();
     @JsonIgnore
     int index;
-    //TODO: Fix this so we don't get race conditions with runAt (critical component)
+    // TODO: Fix this so we don't get race conditions with runAt (critical
+    // component)
     @JsonIgnore
     Context context;
     @JsonIgnore
@@ -142,7 +143,7 @@ public class Chain implements IValid, Runnable {
                 return false;
             }
         }
-        if(invalidItem){
+        if (invalidItem) {
             ChatDirector.getLogger().log(Level.SEVERE, "failed to read all items.");
             return false;
         } else {
@@ -163,7 +164,8 @@ public class Chain implements IValid, Runnable {
     public List<IItem> getItems() {
         return items;
     }
-    public void setInvalidItem(){
-        invalidItem=true;
+
+    public void setInvalidItem() {
+        invalidItem = true;
     }
 }

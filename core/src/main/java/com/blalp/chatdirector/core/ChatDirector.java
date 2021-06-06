@@ -55,8 +55,7 @@ public class ChatDirector implements IConfiguration {
     }
 
     public ChatDirector() {
-        objectMapper = new ObjectMapper(new YAMLFactory())
-                .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+        objectMapper = new ObjectMapper(new YAMLFactory()).setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         config = new Configuration();
         instance = this;
@@ -121,7 +120,7 @@ public class ChatDirector implements IConfiguration {
     }
 
     public static String format(String format, Context context) {
-        if(format==null){
+        if (format == null) {
             return "";
         }
         synchronized (context) {

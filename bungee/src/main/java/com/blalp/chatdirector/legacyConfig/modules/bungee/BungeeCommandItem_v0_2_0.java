@@ -12,7 +12,6 @@ public class BungeeCommandItem_v0_2_0 implements ILegacyItem {
     String command;
     String permission;
 
-
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -27,5 +26,5 @@ public class BungeeCommandItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "bungee-command";
     }
-    
+
 }

@@ -24,5 +24,5 @@ public class MQTTLegacyModule implements ILegacyModule {
         }
         return null;
     }
-    
+
 }

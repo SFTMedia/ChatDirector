@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class ContextRemoveItem_v0_2_0 implements ILegacyItem {
     String key;
-    
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -25,5 +25,5 @@ public class ContextRemoveItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "remove-context";
     }
-    
+
 }

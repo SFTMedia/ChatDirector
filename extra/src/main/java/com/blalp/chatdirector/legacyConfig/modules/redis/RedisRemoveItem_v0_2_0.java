@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class RedisRemoveItem_v0_2_0 implements ILegacyItem {
     String key, connection;
-    
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -25,5 +25,5 @@ public class RedisRemoveItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "redis-remove";
     }
-    
+
 }

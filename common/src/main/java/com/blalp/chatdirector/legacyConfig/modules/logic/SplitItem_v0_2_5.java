@@ -16,7 +16,7 @@ import lombok.Data;
 @JsonDeserialize(using = SplitItemDeserializer_v0_2_5.class)
 @JsonSerialize(using = SplitItemSerializer_v0_2_5.class)
 public class SplitItem_v0_2_5 implements ILegacyItem {
-    Map<String,LegacyChain> chains = new HashMap<String,LegacyChain>();
+    Map<String, LegacyChain> chains = new HashMap<String, LegacyChain>();
 
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
@@ -32,5 +32,5 @@ public class SplitItem_v0_2_5 implements ILegacyItem {
     public String name() {
         return "split";
     }
-    
+
 }

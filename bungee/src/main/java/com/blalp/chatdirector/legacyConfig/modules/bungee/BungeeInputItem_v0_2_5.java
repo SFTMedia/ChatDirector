@@ -17,7 +17,7 @@ public class BungeeInputItem_v0_2_5 implements ILegacyItem {
     boolean logout, switchServers, chat, login;
     boolean command = false;
     boolean overrideChat = false;
-    
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -32,5 +32,5 @@ public class BungeeInputItem_v0_2_5 implements ILegacyItem {
     public String name() {
         return "bungee-input";
     }
-    
+
 }

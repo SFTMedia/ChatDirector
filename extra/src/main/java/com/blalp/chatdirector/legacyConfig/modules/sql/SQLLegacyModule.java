@@ -31,5 +31,5 @@ public class SQLLegacyModule implements ILegacyModule {
             return null;
         }
     }
-    
+
 }

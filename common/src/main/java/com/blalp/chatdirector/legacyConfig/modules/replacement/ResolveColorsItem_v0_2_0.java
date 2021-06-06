@@ -21,5 +21,5 @@ public class ResolveColorsItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "resolve-colors";
     }
-    
+
 }

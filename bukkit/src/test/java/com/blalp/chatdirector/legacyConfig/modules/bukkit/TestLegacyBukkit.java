@@ -15,8 +15,10 @@ public class TestLegacyBukkit {
 
     @Test
     public void v0_2_0() {
-        File input = new File(this.getClass().getClassLoader().getResource("legacyConfig/modules/bukkit/v0_2_0/input.yml").getFile());
-        File output = new File(this.getClass().getClassLoader().getResource("legacyConfig/modules/bukkit/v0_2_0/output.yml").getFile());
+        File input = new File(
+                this.getClass().getClassLoader().getResource("legacyConfig/modules/bukkit/v0_2_0/input.yml").getFile());
+        File output = new File(this.getClass().getClassLoader()
+                .getResource("legacyConfig/modules/bukkit/v0_2_0/output.yml").getFile());
         ChatDirector chatDirector = new ChatDirector(input);
         assertTrue(chatDirector.load());
         Configuration legacyConfiguration = ChatDirector.getConfig();

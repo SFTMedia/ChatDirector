@@ -11,7 +11,7 @@ public class LogicLegacyModule implements ILegacyModule {
 
     @Override
     public List<String> getItemNames(Version version) {
-                return Arrays.asList("if-contains", "if-equals", "if-regex-match", "split", "if-starts-with", "if-ends-with");
+        return Arrays.asList("if-contains", "if-equals", "if-regex-match", "split", "if-starts-with", "if-ends-with");
 
     }
 
@@ -38,5 +38,5 @@ public class LogicLegacyModule implements ILegacyModule {
             return null;
         }
     }
-    
+
 }

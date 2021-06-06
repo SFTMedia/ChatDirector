@@ -11,7 +11,7 @@ import lombok.Data;
 public class DiscordDeleteMessage_v0_2_0 implements ILegacyItem {
 
     String message;
-    String channel,bot;
+    String channel, bot;
 
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
@@ -27,5 +27,5 @@ public class DiscordDeleteMessage_v0_2_0 implements ILegacyItem {
     public String name() {
         return "discord-delete-message";
     }
-    
+
 }

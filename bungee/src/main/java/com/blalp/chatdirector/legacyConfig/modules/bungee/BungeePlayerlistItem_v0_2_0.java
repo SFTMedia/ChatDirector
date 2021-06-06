@@ -29,5 +29,5 @@ public class BungeePlayerlistItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "bungee-playerlist";
     }
-    
+
 }

@@ -10,8 +10,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 public class SplitItemSerializer extends JsonSerializer<SplitItem> {
 
     @Override
-    public void serialize(SplitItem value, JsonGenerator gen, SerializerProvider serializers)
-            throws IOException {
+    public void serialize(SplitItem value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartArray();
         for (Chain chain : value.getChains().values()) {
             gen.writeObject(chain);

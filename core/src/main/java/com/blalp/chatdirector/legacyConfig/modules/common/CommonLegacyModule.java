@@ -19,18 +19,18 @@ public class CommonLegacyModule implements ILegacyModule {
     @Override
     public Class<? extends ILegacyItem> getItemClass(String type, Version version) {
         switch (type) {
-            case "pass":
-                return PassItem_v0_1_5.class;
-            case "stop":
-                return StopItem_v0_0_4.class;
-            case "halt":
-                return HaltItem_v0_1_5.class;
-            case "break":
-                return BreakItem_v0_1_5.class;
-            case "echo":
-                return EchoItem_v0_1_5.class;
-            case "reload":
-                return ReloadItem_v0_1_5.class;
+        case "pass":
+            return PassItem_v0_1_5.class;
+        case "stop":
+            return StopItem_v0_0_4.class;
+        case "halt":
+            return HaltItem_v0_1_5.class;
+        case "break":
+            return BreakItem_v0_1_5.class;
+        case "echo":
+            return EchoItem_v0_1_5.class;
+        case "reload":
+            return ReloadItem_v0_1_5.class;
         }
         return null;
     }

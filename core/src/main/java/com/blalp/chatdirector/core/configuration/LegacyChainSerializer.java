@@ -20,5 +20,5 @@ public class LegacyChainSerializer extends JsonSerializer<LegacyChain> {
         }
         gen.writeEndArray();
     }
-    
+
 }

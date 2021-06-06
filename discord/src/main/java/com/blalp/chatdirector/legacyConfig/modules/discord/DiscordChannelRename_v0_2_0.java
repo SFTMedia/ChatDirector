@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 public class DiscordChannelRename_v0_2_0 implements ILegacyItem {
-    
+
     String name, channel, bot;
 
     @Override
@@ -26,5 +26,5 @@ public class DiscordChannelRename_v0_2_0 implements ILegacyItem {
     public String name() {
         return "discord-channel-rename";
     }
-    
+
 }

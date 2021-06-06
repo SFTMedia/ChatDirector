@@ -26,18 +26,18 @@ public class ScheduleModule implements IModule {
 
     @Override
     public List<String> getItemNames() {
-        return Arrays.asList("schedule-input","schedule-cron-input");
+        return Arrays.asList("schedule-input", "schedule-cron-input");
     }
 
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-            case "schedule-input":
-                return ScheduleInputItem.class;
-            case "schedule-cron-input":
-                return ScheduleCronItem.class;
-            default:
-                return null;
+        case "schedule-input":
+            return ScheduleInputItem.class;
+        case "schedule-cron-input":
+            return ScheduleCronItem.class;
+        default:
+            return null;
         }
     }
 
@@ -45,5 +45,5 @@ public class ScheduleModule implements IModule {
     public Context getContext(Object object) {
         return new Context();
     }
-    
+
 }

@@ -40,5 +40,5 @@ public class BungeeLegacyModule implements ILegacyModule {
             return null;
         }
     }
-    
+
 }

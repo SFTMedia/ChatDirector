@@ -29,5 +29,5 @@ public class LuckPermsLegacyModule implements ILegacyModule {
             return null;
         }
     }
-    
+
 }

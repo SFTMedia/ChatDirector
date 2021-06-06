@@ -16,7 +16,6 @@ import com.blalp.chatdirector.core.model.Version;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.JsonNode;
 
-
 public class LegacyConfigurationDeserializer extends JsonDeserializer<LegacyConfiguration> {
 
     @Override
@@ -26,8 +25,8 @@ public class LegacyConfigurationDeserializer extends JsonDeserializer<LegacyConf
         JsonNode node = oc.readTree(p);
         return deserialize(oc, node);
     }
-    public LegacyConfiguration deserialize(ObjectCodec oc,JsonNode node)
-    throws IOException, JsonProcessingException {
+
+    public LegacyConfiguration deserialize(ObjectCodec oc, JsonNode node) throws IOException, JsonProcessingException {
         LegacyConfiguration configuration = new LegacyConfiguration();
         configuration.setVersion(ChatDirector.getConfigStaging().getVersion());
         ChatDirector.getInstance().setLegacyConfig(configuration);
@@ -46,7 +45,7 @@ public class LegacyConfigurationDeserializer extends JsonDeserializer<LegacyConf
             }
         }
         LegacyChain chainObj;
-        if(configuration.version.compareTo(new Version(0,2,5).toString())>=0){
+        if (configuration.version.compareTo(new Version(0, 2, 5).toString()) >= 0) {
             for (Entry<String, JsonNode> chain : new IteratorIterable<>(node.get("chains").fields())) {
                 chainObj = chain.getValue().traverse(oc).readValueAs(LegacyChain.class);
                 configuration.chains.put(chain.getKey(), chainObj);

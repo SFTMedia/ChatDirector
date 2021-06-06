@@ -27,23 +27,22 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
 @Data
 @EqualsAndHashCode()
-public class DiscordInputDaemon
-        implements MessageCreateListener, ReactionAddListener, ReactionRemoveListener, IDaemon {
+public class DiscordInputDaemon implements MessageCreateListener, ReactionAddListener, ReactionRemoveListener, IDaemon {
 
     // ONLY used per-load.
     List<DiscordInputItem> pendingItems = new ArrayList<>();
     // constructed from pendingItems during load
-    HashMap<DiscordApi,List<DiscordInputItem>> items = new HashMap<>();
+    HashMap<DiscordApi, List<DiscordInputItem>> items = new HashMap<>();
 
     @Override
     public boolean load() {
         DiscordBots discordBots = ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class));
         // Make sure discord bots are already loaded before continuing.
         discordBots.load();
-        for (Entry<String,DiscordBot> discordBot : discordBots.entrySet()) {
+        for (Entry<String, DiscordBot> discordBot : discordBots.entrySet()) {
             ArrayList<DiscordInputItem> tempItems = new ArrayList<>();
-            for(DiscordInputItem item:pendingItems){
-                if(item.getBot().equals(discordBot.getKey())){
+            for (DiscordInputItem item : pendingItems) {
+                if (item.getBot().equals(discordBot.getKey())) {
                     tempItems.add(item);
                 }
             }
@@ -52,14 +51,14 @@ public class DiscordInputDaemon
             discordBot.getValue().getDiscordApi().addReactionAddListener(this);
             discordBot.getValue().getDiscordApi().addReactionRemoveListener(this);
         }
-        pendingItems=new ArrayList<>();
+        pendingItems = new ArrayList<>();
         return true;
     }
 
     @Override
     public boolean unload() {
-        items=new HashMap<>();
-        pendingItems=new ArrayList<>();
+        items = new HashMap<>();
+        pendingItems = new ArrayList<>();
         return true;
     }
 

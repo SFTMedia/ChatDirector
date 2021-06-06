@@ -5,10 +5,10 @@ module_data:
     connection: "redis://2OJRavsgNNmEOOISxcgJhY1zrxCE3S8avog64MYNOocpID46kRhCOsTbDfk51dSpnvX5eaBFfhPrzO22t6dTcl0SA2rBOpLMlgaUO9DdGRDEwewB1le3u1cKQvWPldErEIEqAdbfWCUvuLU9cdMWv1eHVVUB6spmEMtapN9iHZuKxg@redis"
 chains:
   - node3:
-    - schedule-input:
-        delay: 0
-        period: 250
-    - redis-get:
-        key: test
-        connection: connection
-    - console-output
+      - schedule-input:
+          delay: 0
+          period: 250
+      - redis-get:
+          key: test
+          connection: connection
+      - console-output

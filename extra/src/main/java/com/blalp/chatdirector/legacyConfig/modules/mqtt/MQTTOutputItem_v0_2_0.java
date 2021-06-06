@@ -12,6 +12,7 @@ public class MQTTOutputItem_v0_2_0 implements ILegacyItem {
     boolean async;
     String topic;
     String connection;
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
         return null;
@@ -26,5 +27,5 @@ public class MQTTOutputItem_v0_2_0 implements ILegacyItem {
     public String name() {
         return "mqtt-output";
     }
-    
+
 }
