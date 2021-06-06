@@ -7,6 +7,7 @@ import com.blalp.chatdirector.core.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
+@JsonDeserialize(using = IfContainsItemDeserializer.class)
 public class IfContainsItem extends ConditionalItem {
     String contains;
 
