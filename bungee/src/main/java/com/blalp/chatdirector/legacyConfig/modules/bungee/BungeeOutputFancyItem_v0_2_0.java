@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.blalp.chatdirector.core.model.ILegacyItem;
 import com.blalp.chatdirector.core.model.Version;
-import com.blalp.chatdirector.minecraft.model.FancyMessage;
+import com.blalp.chatdirector.legacyConfig.minecraft.model.FancyMessage_v0_2_0;
 
 import lombok.Data;
 
 @Data
 public class BungeeOutputFancyItem_v0_2_0 implements ILegacyItem {
-    FancyMessage fancyMessage;
+    FancyMessage_v0_2_0 fancyMessage;
     String permission;
     boolean sendToCurrentServer = true;
     String player = null;
