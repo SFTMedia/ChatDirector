@@ -33,7 +33,6 @@ public class SplitItem_v0_2_0 implements ILegacyItem {
 
     @Override
     public String name() {
-        // TODO Auto-generated method stub
         return "split";
     }
     

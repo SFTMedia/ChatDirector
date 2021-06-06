@@ -18,12 +18,10 @@ public class FileOutputItem_v0_2_0 implements ILegacyItem {
     BufferedWriter writer;
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override
     public Version nextUpdateVersion() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override

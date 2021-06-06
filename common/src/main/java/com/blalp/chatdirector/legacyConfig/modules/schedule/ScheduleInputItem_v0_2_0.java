@@ -15,17 +15,14 @@ public class ScheduleInputItem_v0_2_0 implements ILegacyItem {
     int period = -1;
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override
     public Version nextUpdateVersion() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override
     public String name() {
-        // TODO Auto-generated method stub
         return "schedule-input";
     }
     

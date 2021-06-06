@@ -13,17 +13,14 @@ public class RedisSetItem_v0_2_0 implements ILegacyItem {
     String value;
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override
     public Version nextUpdateVersion() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override
     public String name() {
-        // TODO Auto-generated method stub
         return "redis-set";
     }
 

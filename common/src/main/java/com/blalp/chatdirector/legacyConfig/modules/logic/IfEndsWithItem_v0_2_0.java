@@ -17,17 +17,14 @@ public class IfEndsWithItem_v0_2_0 implements ILegacyItem {
     String source = "%CURRENT%";
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override
     public Version nextUpdateVersion() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override
     public String name() {
-        // TODO Auto-generated method stub
         return "if-ends-with";
     }
     
