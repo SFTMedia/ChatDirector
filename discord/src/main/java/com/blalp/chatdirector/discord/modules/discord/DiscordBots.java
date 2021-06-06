@@ -13,7 +13,6 @@ public class DiscordBots extends HashMap<String, DiscordBot> implements ILoadabl
     public boolean load() {
         if (!loaded) {
             loaded = true;
-            System.out.println(ChatDirector.getConfig());
             if (ChatDirector.getConfig().getModuleData().containsKey("discord")) {
                 for (Entry<String, String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
                     if (!this.containsKey(bot.getKey())) {
