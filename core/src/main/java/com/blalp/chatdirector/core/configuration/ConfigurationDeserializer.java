@@ -29,6 +29,10 @@ public class ConfigurationDeserializer extends JsonDeserializer<Configuration> {
             LegacyConfiguration legacyConfiguration = new LegacyConfigurationDeserializer().deserialize(oc,node);
             LegacyConfiguration updatedConfiguration = legacyConfiguration.updateTo(new Version("0.2.5"));
             String updatedConfig = ChatDirector.getInstance().getObjectMapper().writeValueAsString(updatedConfiguration);
+            if(ChatDirector.getConfig().isDebug()){
+                ChatDirector.getLogger().info("Updated config to");
+                ChatDirector.getLogger().info(updatedConfig);
+            }
             return ChatDirector.getInstance().getObjectMapper().readValue(updatedConfig, Configuration.class);
         }
         if (node.has("debug") && node.get("debug").isBoolean()) {
