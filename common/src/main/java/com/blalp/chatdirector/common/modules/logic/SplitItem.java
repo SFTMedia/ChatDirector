@@ -24,7 +24,7 @@ public class SplitItem extends PassItem {
     @Override
     public Context process(Context context) {
         for (Chain chain : chains) {
-            new Thread(chain).start();
+            chain.runAsync(context);
         }
         return new Context();
     }
