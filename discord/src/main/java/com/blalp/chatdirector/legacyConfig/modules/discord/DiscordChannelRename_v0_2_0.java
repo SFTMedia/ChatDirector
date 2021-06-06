@@ -24,7 +24,7 @@ public class DiscordChannelRename_v0_2_0 implements ILegacyItem {
 
     @Override
     public String name() {
-        return "discord-channel-rename";
+        return "discord-rename-channel";
     }
 
 }
