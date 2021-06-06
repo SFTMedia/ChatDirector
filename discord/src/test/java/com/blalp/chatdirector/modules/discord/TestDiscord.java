@@ -37,53 +37,53 @@ public class TestDiscord {
                 assertTrue(ChatDirector.getConfigStaging().getChains().containsKey("discord-input"));
                 assertEquals(7, ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().size());
                 DiscordInputItem discordInputItem = new DiscordInputItem();
-                discordInputItem.channel = "0";
-                discordInputItem.bot = "bot-name";
-                discordInputItem.category = "CATEGORY_ID";
-                discordInputItem.message = "MESSAGE_ID";
-                discordInputItem.reactionAddEvent = true;
-                discordInputItem.reactionRemoveEvent = false;
-                discordInputItem.messageEvent = true;
+                discordInputItem.setChannel("0");
+                discordInputItem.setBot("bot-name");
+                discordInputItem.setCategory("CATEGORY_ID");
+                discordInputItem.setMessage("MESSAGE_ID");
+                discordInputItem.setReactionAddEvent(true);
+                discordInputItem.setReactionRemoveEvent(false);
+                discordInputItem.setMessageEvent(true);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(0));
                 discordInputItem = new DiscordInputItem();
-                discordInputItem.channel = "16";
-                discordInputItem.bot = "bot2";
-                discordInputItem.category = "CATEGORY 2";
-                discordInputItem.message = "MESSAGE 2";
-                discordInputItem.reactionAddEvent = false;
-                discordInputItem.reactionRemoveEvent = true;
-                discordInputItem.messageEvent = false;
+                discordInputItem.setChannel("16");
+                discordInputItem.setBot("bot2");
+                discordInputItem.setCategory("CATEGORY 2");
+                discordInputItem.setMessage("MESSAGE 2");
+                discordInputItem.setReactionAddEvent(false);
+                discordInputItem.setReactionRemoveEvent(true);
+                discordInputItem.setMessageEvent(false);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(1));
                 discordInputItem = new DiscordInputItem();
-                discordInputItem.channel = "16";
-                discordInputItem.bot = "bot2";
-                discordInputItem.category = "CATEGORY 2";
+                discordInputItem.setChannel("16");
+                discordInputItem.setBot("bot2");
+                discordInputItem.setCategory("CATEGORY 2");
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(2));
                 discordInputItem = new DiscordInputItem();
-                discordInputItem.channel = "16";
-                discordInputItem.bot = "bot2";
-                discordInputItem.message = "MESSAGE 2";
+                discordInputItem.setChannel("16");
+                discordInputItem.setBot("bot2");
+                discordInputItem.setMessage("MESSAGE 2");
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(3));
                 discordInputItem = new DiscordInputItem();
-                discordInputItem.channel = "16";
-                discordInputItem.bot = "bot2";
-                discordInputItem.reactionAddEvent = false;
+                discordInputItem.setChannel("16");
+                discordInputItem.setBot("bot2");
+                discordInputItem.setReactionAddEvent(false);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(4));
                 discordInputItem = new DiscordInputItem();
-                discordInputItem.channel = "16";
-                discordInputItem.bot = "bot2";
-                discordInputItem.reactionRemoveEvent = true;
+                discordInputItem.setChannel("16");
+                discordInputItem.setBot("bot2");
+                discordInputItem.setReactionRemoveEvent(true);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(5));
                 discordInputItem = new DiscordInputItem();
-                discordInputItem.channel = "16";
-                discordInputItem.bot = "bot2";
-                discordInputItem.messageEvent = false;
+                discordInputItem.setChannel("16");
+                discordInputItem.setBot("bot2");
+                discordInputItem.setMessageEvent(false);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(6));
         }
@@ -94,17 +94,17 @@ public class TestDiscord {
                 assertTrue(ChatDirector.getConfigStaging().getChains().containsKey("discord-resolve"));
                 assertEquals(2, ChatDirector.getConfigStaging().getChains().get("discord-resolve").getItems().size());
                 DiscordResolveItem discordInputItem = new DiscordResolveItem();
-                discordInputItem.server = "0";
-                discordInputItem.bot = "bot-name";
-                discordInputItem.toDiscord = false;
-                discordInputItem.toPlain = true;
+                discordInputItem.setServer("0");
+                discordInputItem.setBot("bot-name");
+                discordInputItem.setToDiscord(false);
+                discordInputItem.setToPlain(true);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-resolve").getItems().get(0));
                 discordInputItem = new DiscordResolveItem();
-                discordInputItem.server = "SERVER";
-                discordInputItem.bot = "bot";
-                discordInputItem.toDiscord = true;
-                discordInputItem.toPlain = false;
+                discordInputItem.setServer("SERVER");
+                discordInputItem.setBot("bot");
+                discordInputItem.setToDiscord(true);
+                discordInputItem.setToPlain(false);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-resolve").getItems().get(1));
         }
