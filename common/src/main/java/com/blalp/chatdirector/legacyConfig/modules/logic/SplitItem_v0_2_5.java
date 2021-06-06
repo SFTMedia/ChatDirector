@@ -1,6 +1,5 @@
 package com.blalp.chatdirector.legacyConfig.modules.logic;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,21 +13,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 @Data
-@JsonDeserialize(using = SplitItemDeserializer_v0_2_0.class)
-@JsonSerialize(using = SplitItemSerializer_v0_2_0.class)
-public class SplitItem_v0_2_0 implements ILegacyItem {
+@JsonDeserialize(using = SplitItemDeserializer_v0_2_5.class)
+@JsonSerialize(using = SplitItemSerializer_v0_2_5.class)
+public class SplitItem_v0_2_5 implements ILegacyItem {
     Map<String,LegacyChain> chains = new HashMap<String,LegacyChain>();
-    
+
     @Override
     public List<ILegacyItem> updateToNextLegacyItems() {
-        SplitItem_v0_2_5 output = new SplitItem_v0_2_5();
-        output.chains=chains;
-        return Arrays.asList(output);
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
     public Version nextUpdateVersion() {
-        return new Version(0,2,5);
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override

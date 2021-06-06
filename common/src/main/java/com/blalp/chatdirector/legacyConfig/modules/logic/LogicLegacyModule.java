@@ -25,7 +25,11 @@ public class LogicLegacyModule implements ILegacyModule {
         case "if-regex-match":
             return IfRegexMatchesItem_v0_2_0.class;
         case "split":
-            return SplitItem_v0_2_0.class;
+            if (version.compareTo(new SplitItem_v0_2_0().nextUpdateVersion()) > 0) {
+                return SplitItem_v0_2_5.class;
+            } else {
+                return SplitItem_v0_2_0.class;
+            }
         case "if-starts-with":
             return IfStartsWithItem_v0_2_0.class;
         case "if-ends-with":
