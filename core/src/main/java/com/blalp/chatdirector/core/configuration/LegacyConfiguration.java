@@ -33,8 +33,11 @@ public class LegacyConfiguration {
 
     public LegacyConfiguration updateTo(Version version) {
         LegacyConfiguration output = new LegacyConfiguration();
-        for (ILegacyModule iLegacyModule : modules) {
-            System.out.println(iLegacyModule);
+        if (ChatDirector.getInstance().getLegacyConfig().isDebug()){
+            ChatDirector.getLogger().info("Legacy Modules:");
+            for (ILegacyModule iLegacyModule : modules) {
+                ChatDirector.getLogger().info("\t"+iLegacyModule);
+            }
         }
         output.setDebug(debug);
         output.moduleData.putAll(moduleData);
