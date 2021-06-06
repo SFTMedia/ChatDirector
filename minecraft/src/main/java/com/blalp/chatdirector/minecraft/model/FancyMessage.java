@@ -6,13 +6,16 @@ import java.util.List;
 import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.minecraft.utils.FancyMessageDeserializer;
 import com.blalp.chatdirector.minecraft.utils.FancyMessageEnum;
+import com.blalp.chatdirector.minecraft.utils.FancyMessageSerializer;
 import com.blalp.chatdirector.core.model.Context;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @JsonDeserialize(using = FancyMessageDeserializer.class)
+@JsonSerialize(using = FancyMessageSerializer.class)
 @Data
 @EqualsAndHashCode
 public class FancyMessage {
