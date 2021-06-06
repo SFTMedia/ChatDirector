@@ -22,7 +22,7 @@ public class TestDiscord {
                 }
                 chatDirector = new ChatDirector(new File(
                                 this.getClass().getClassLoader().getResource("modules/javacord/config.yml").getFile()));
-                chatDirector.loadConfig();
+                assertTrue(chatDirector.load());
         }
 
         @Test
@@ -60,18 +60,20 @@ public class TestDiscord {
                 discordInputItem.setChannel("16");
                 discordInputItem.setBot("bot2");
                 discordInputItem.setCategory("CATEGORY 2");
+                discordInputItem.setMessageEvent(true);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(2));
                 discordInputItem = new DiscordInputItem();
                 discordInputItem.setChannel("16");
                 discordInputItem.setBot("bot2");
                 discordInputItem.setMessage("MESSAGE 2");
+                discordInputItem.setMessageEvent(true);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(3));
                 discordInputItem = new DiscordInputItem();
                 discordInputItem.setChannel("16");
                 discordInputItem.setBot("bot2");
-                discordInputItem.setReactionAddEvent(false);
+                discordInputItem.setReactionAddEvent(true);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(4));
                 discordInputItem = new DiscordInputItem();
@@ -83,7 +85,7 @@ public class TestDiscord {
                 discordInputItem = new DiscordInputItem();
                 discordInputItem.setChannel("16");
                 discordInputItem.setBot("bot2");
-                discordInputItem.setMessageEvent(false);
+                discordInputItem.setMessageEvent(true);
                 assertEquals(discordInputItem,
                                 ChatDirector.getConfigStaging().getChains().get("discord-input").getItems().get(6));
         }
