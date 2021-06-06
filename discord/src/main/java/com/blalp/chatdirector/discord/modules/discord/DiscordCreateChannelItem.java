@@ -64,6 +64,6 @@ public class DiscordCreateChannelItem extends DiscordItem {
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(category, user, topic, name, server) && super.isValid();
+        return ValidationUtils.hasContent(server) && super.isValid();
     }
 }
