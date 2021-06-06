@@ -1,4 +1,4 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.discord.modules.discord;
 
 import java.io.IOException;
 

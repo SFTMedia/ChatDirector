@@ -1,10 +1,11 @@
-package com.blalp.chatdirector.modules.discord;
+package com.blalp.chatdirector.discord.modules.discord;
 
 import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.Context;
 import com.blalp.chatdirector.core.utils.ValidationUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
@@ -15,20 +16,19 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class DiscordOutputItem extends DiscordItem {
-    String channel;
-    String format = "%CURRENT%";
+public class DiscordChannelRename extends DiscordItem {
+    String name, channel;
 
     @Override
     public Context process(Context context) {
         ((DiscordBots) ChatDirector.getConfig().getOrCreateDaemon(DiscordBots.class)).get(bot).getDiscordApi()
-                .getChannelById(ChatDirector.format(channel, context)).get().asTextChannel().get()
-                .sendMessage(ChatDirector.format(format, context));
+                .getServerChannelById(ChatDirector.format(channel, context)).get()
+                .updateName(ChatDirector.format(name, context));
         return new Context();
     }
 
     @Override
     public boolean isValid() {
-        return ValidationUtils.hasContent(channel) && super.isValid();
+        return super.isValid() && ValidationUtils.hasContent(channel, name);
     }
 }
