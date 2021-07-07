@@ -25,6 +25,7 @@ public class SQLSendDataItem extends SQLItem {
 
     @Override
     public Context process(Context context) {
+        attemptedReload=false;
         if (cache) {
             SQLCacheStore sqlCacheStore = (SQLCacheStore) ChatDirector.getConfig()
                     .getOrCreateDaemon(SQLCacheStore.class);
@@ -47,6 +48,7 @@ public class SQLSendDataItem extends SQLItem {
             ChatDirector.getLogger().log(Level.WARNING, "Failed SQL " + e.getSQLState());
             e.printStackTrace();
             if (!attemptedReload) {
+                attemptedReload=true;
                 connectionObj.unload();
                 connectionObj.load();
                 this.process(context);
