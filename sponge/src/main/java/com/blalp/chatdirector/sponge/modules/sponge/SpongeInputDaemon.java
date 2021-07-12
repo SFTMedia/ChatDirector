@@ -1,0 +1,86 @@
+package com.blalp.chatdirector.sponge.modules.sponge;
+
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.utils.ItemDaemon;
+
+import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
+import org.spongepowered.api.event.message.MessageChannelEvent.Chat;
+import org.spongepowered.api.event.network.ClientConnectionEvent.Disconnect;
+import org.spongepowered.api.event.network.ClientConnectionEvent.Login;
+import org.spongepowered.api.text.Text;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class SpongeInputDaemon extends ItemDaemon {
+
+    public void onServerStop(GameStoppedServerEvent event) {
+        // Loaded the main world. Server started!
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
+        for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
+            if (item.serverStopped) {
+                context.put("CURRENT", ChatDirector.format(item.formatStopped, context));
+                ChatDirector.run(item, context, true);
+            }
+        }
+    }
+
+    public void onServerStart(GameStartedServerEvent event) {
+        // Loaded the main world. Server started!
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
+        for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
+            if (item.serverStarted) {
+                context.put("CURRENT", ChatDirector.format(item.formatStarted, context));
+                ChatDirector.run(item, context, true);
+            }
+        }
+    }
+
+    public void onChat(Chat event) {
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
+        for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
+            if (event.isCancelled() && item.checkCanceled) {
+                continue;
+            }
+            if (item.chat) {
+                context.put("CURRENT", ChatDirector.format(item.formatChat, context));
+                if (item.overrideChat) {
+                    event.setMessage(Text.of(ChatDirector.run(item, context, false)));
+                } else {
+                    ChatDirector.run(item, context, true);
+                }
+                if (item.cancelChat) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    public void onLogin(Login event) {
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
+        for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
+            if (event.isCancelled() && item.checkCanceled) {
+                continue;
+            }
+            if (item.login) {
+                context.put("CURRENT", ChatDirector.format(item.formatLogin, context));
+                ChatDirector.run(item, context, true);
+            }
+        }
+    }
+
+    public void onLogout(Disconnect event) {
+        Context context = ChatDirector.getConfig().getModule(SpongeModule.class).getContext(event);
+        for (SpongeInputItem item : getItems().toArray(new SpongeInputItem[] {})) {
+            if (item.logout) {
+                context.put("CURRENT", ChatDirector.format(item.formatLogout, context));
+                ChatDirector.run(item, context, true);
+            }
+        }
+    }
+
+}

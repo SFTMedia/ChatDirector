@@ -1,0 +1,42 @@
+debug: false
+chains:
+  - cache-parse-test:
+      - cache-get:
+          key: "SomeUniqueKey"
+      - cache-set:
+          key: "EXAMPLE_KEY"
+          value: "EXAMPLE_VALUE"
+      - cache-if:
+          yes-chain:
+            - stop: null
+          no-chain:
+            - break: null
+          key: "KEY"
+  - cache-get-set-test:
+      - cache-set:
+          key: "SomeUniqueKey"
+          value: "EXAMPLE_VALUE"
+      - cache-get:
+          key: "SomeUniqueKey"
+  - cache-get-set-test-2:
+      - cache-set:
+          key: "SomeUniqueKey"
+          value: "EXAMPLE_VALUE"
+      - cache-get:
+          key: "RandomKey"
+  - cache-if-test:
+      - cache-set:
+          key: "SomeUniqueKey"
+          value: "EXAMPLE_VALUE"
+      - cache-if:
+          yes-chain:
+            - echo: "SomeUniqueKey was found!"
+          no-chain:
+            - echo: "SomeUniqueKey was not found!"
+          key: "SomeUniqueKey"
+      - cache-if:
+          yes-chain:
+            - echo: "Random was found!"
+          no-chain:
+            - echo: "Random was not found!"
+          key: "Random"

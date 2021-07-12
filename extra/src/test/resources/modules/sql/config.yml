@@ -1,0 +1,62 @@
+module_data:
+  sql:
+    all: "all"
+    other: "other"
+chains:
+  - sql-send-data:
+      - send-data:
+          connection: "all"
+          table: "Table"
+          name: "Name"
+          key: "Key"
+          value: "Value"
+          cache: true
+      - send-data:
+          connection: "other"
+          table: "table"
+          name: "name"
+          key: "key"
+          value: "value"
+          cache: false
+  - sql-retrieve-data:
+      - retrieve-data:
+          connection: "all"
+          table: "Table"
+          name: "Name"
+          key: "Key"
+          cache: true
+      - retrieve-data:
+          connection: "other"
+          table: "table"
+          name: "name"
+          key: "key"
+          value: "value"
+          cache: false
+  - sql-cache-remove:
+      - sql-cache-remove:
+          connection: "all"
+          table: "Table"
+          name: "Name"
+          key: "Key"
+      - sql-cache-remove:
+          connection: "other"
+          table: "table"
+          name: "name"
+          key: "key"
+  - sql-cache-if:
+      - sql-cache-if:
+          connection: "all"
+          table: "Table"
+          name: "Name"
+          key: "Key"
+          yes-chain:
+            - stop: null
+          no-chain: null
+      - sql-cache-if:
+          connection: "other"
+          table: "table"
+          name: "name"
+          key: "key"
+          yes-chain: null
+          no-chain:
+            - stop: null

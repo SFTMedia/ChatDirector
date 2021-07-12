@@ -1,0 +1,27 @@
+debug: false
+chains:
+  - loading-test:
+      - break
+      - break: null
+      - halt
+      - halt: null
+      - echo: "%CURRENT%"
+      - echo: "raw string"
+      - echo: ""
+      - reload
+      - reload: null
+  - breaking-test:
+      - echo: "This is the first value"
+      - echo: "This is the second value"
+      - break
+      - echo: "This is the third value"
+  - echo-test:
+      - echo: "hello!"
+      - echo: "This was >%CURRENT%<"
+      - echo: "This was >%CURRENT%<, but before that it was >%LAST%<"
+  - halt-test:
+      - echo: "This is the first value"
+      - halt
+      - echo: "This is the second value"
+  - reload-test:
+      - reload

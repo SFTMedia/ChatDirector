@@ -8,3 +8,5 @@ target/
 dependency-reduced-pom.xml
 .factorypath
 logs/
+examples/
+/.env

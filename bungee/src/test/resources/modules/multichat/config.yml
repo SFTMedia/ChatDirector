@@ -1,0 +1,14 @@
+chains:
+  - multichat-context:
+      - multichat-context: null
+  - multichat-input:
+      - multichat-input:
+          global: true
+          staff: true
+          broadcast: true
+      - multichat-input:
+          global: true
+      - multichat-input:
+          staff: true
+      - multichat-input:
+          broadcast: true

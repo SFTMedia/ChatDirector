@@ -1,0 +1,24 @@
+version: "3"
+services: 
+    node1:
+        build:
+            context: "../.."
+            dockerfile: "test/redis/java.Dockerfile"
+        volumes: 
+            - "./node1:/config"
+    node2:
+        build:
+            context: "../.."
+            dockerfile: "test/redis/java.Dockerfile"
+        volumes: 
+            - "./node2:/config"
+    node3:
+        build:
+            context: "../.."
+            dockerfile: "test/redis/java.Dockerfile"
+        volumes: 
+            - "./node3:/config"
+    redis:
+        build:
+            context: "../.."
+            dockerfile: "test/redis/redis.Dockerfile"

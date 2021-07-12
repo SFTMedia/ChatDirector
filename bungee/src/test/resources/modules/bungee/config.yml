@@ -1,0 +1,112 @@
+debug: false
+chains:
+  - bungee-command:
+      - bungee-command:
+          command: "command"
+          permission: "*"
+      - bungee-command:
+          command: "command 2"
+          permission: "permission"
+  - bungee-playerlist:
+      - bungee-playerlist:
+          format: "```\nOnline players (%NUM_PLAYERS%/%MAX_PLAYERS%):\n"
+          format-player: "%PLAYER_NAME%"
+          format-server: "%SERVER_NAME%"
+          format-no-players: "**No online players**"
+          split-by-server: false
+      - bungee-playerlist: null
+      - bungee-playerlist:
+          format: "format"
+      - bungee-playerlist:
+          format-player: "player"
+      - bungee-playerlist:
+          format-server: "server"
+      - bungee-playerlist:
+          format-no-players: "no one"
+      - bungee-playerlist:
+          split-by-server: true
+  - bungee-output:
+      - bungee-output: null
+  - bungee-output-fancy:
+      - bungee-output-fancy:
+          player: "player"
+          send-to-current-server: true
+          fancy-message:
+            - click-command:
+                click-run-command: "/test"
+                text: "click command"
+            - click-suggestion:
+                click-suggest-command: "/suggestion"
+                text: "click suggestion"
+            - click-url:
+                click-url: "https://sftmc.org"
+                text: "click url"
+            - color:
+                color: "RED"
+                bold: false
+                italics: true
+                strikethrough: true
+                obfuscated: false
+                text: "TEST"
+            - hover:
+                show-text: "text"
+                text: "TEST"
+            - raw:
+                text: "TEST"
+      - bungee-output-fancy:
+          permission: "test"
+          send-to-current-server: false
+          fancy-message:
+            - hover:
+                show-text: "hover"
+                text:
+                  - color:
+                      color: "BLUE"
+                      bold: true
+                      italics: false
+                      strikethrough: false
+                      obfuscated: true
+                      text: "I am blue"
+            - raw:
+                text: "RAW"
+  - bungee-output-server:
+      - bungee-output-server:
+          server: "SERVER NAME"
+      - bungee-output-server:
+          server: "Test"
+          permission: "permission"
+  - bungee-output-player:
+      - bungee-output-player:
+          player: "%PLAYER_NAME%"
+          permission: null
+      - bungee-output-player:
+          player: "test"
+          permission: "test"
+  - bungee-input:
+      - bungee-input:
+          chat: true
+          logout: true
+          switch-servers: true
+          login: true
+          override-chat: true
+          command: false
+          format-chat: "[%SERVER_NAME%] %PLAYER_NAME%: %CHAT_MESSAGE%"
+          format-logout: "&0[&4<-&0] &e%PLAYER_NAME% has left the network from %PLAYER_SERVER_NAME%, Have a good day!"
+          format-join: "&0[&2->&0] &e%PLAYER_NAME% joined the network on %PLAYER_SERVER_NAME%!"
+          format-switch-servers: "&0[&e<->&0] &e%PLAYER_NAME% has switched to %PLAYER_SERVER_NAME%"
+      - bungee-input:
+          logout: true
+          switch-servers: true
+          login: true
+          override-chat: true
+          command: false
+          format-chat: "form 1"
+          format-logout: "dc 1"
+          format-join: "join"
+          format-switch-servers: "switch"
+      - bungee-input:
+          switch-servers: true
+      - bungee-input:
+          login: true
+      - bungee-input:
+          command: true

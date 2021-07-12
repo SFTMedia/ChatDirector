@@ -1,0 +1,20 @@
+debug: false
+chains:
+  - context-parse-test:
+      - get-context:
+          key: "CONTEXT_NAME"
+      - set-context:
+          key: "TARGET_CONTEXT"
+          value: "CONTEXT_VALUE"
+      - set-context:
+          key: "TARGET_CONTEXT"
+      - remove-context:
+          key: "SERVER_NAME"
+  - context-get-set-test:
+      - set-context:
+          key: "TARGET_CONTEXT"
+          value: "CONTEXT_VALUE"
+      - get-context:
+          key: "TARGET_CONTEXT"
+      - remove-context:
+          key: "SERVER_NAME"

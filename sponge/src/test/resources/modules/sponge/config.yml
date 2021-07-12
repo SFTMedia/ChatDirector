@@ -1,0 +1,87 @@
+chains:
+  - sponge-command:
+      - sponge-command:
+          command: "command"
+          permission: "*"
+          args: true
+      - sponge-command:
+          command: "command 2"
+          permission: "permission"
+          args: false
+      - sponge-command:
+          command: "command2"
+          permission: "permission2"
+  - sponge-input:
+      - sponge-input:
+          chat: false
+          logout: true
+          login: true
+          server-started: true
+          server-stopped: true
+          override-chat: true
+          check-canceled: true
+          cancel-chat: true
+          format-chat: "%PLAYER_NAME%: %CHAT_MESSAGE%"
+          format-started: "started"
+          format-stopped: "stopped"
+          format-login: "login"
+          format-logout: "logout"
+      - sponge-input:
+          chat: true
+          logout: false
+          login: false
+          server-started: false
+          server-stopped: false
+          override-chat: false
+          check-canceled: false
+          cancel-chat: false
+          format-chat: "%PLAYER_NAME%: %Test%"
+          format-started: "started 2"
+          format-stopped: "stopped 2"
+          format-login: "login 2"
+          format-logout: "logout 2"
+      - sponge-input:
+          chat: true
+          format-chat: "formatting"
+      - sponge-input:
+          login: true
+          format-login: "login 3"
+      - sponge-input:
+          login: true
+      - sponge-input:
+          logout: true
+          format-logout: "logout 3"
+      - sponge-input:
+          server-started: true
+          format-started: "started 3"
+      - sponge-input:
+          server-stopped: true
+          format-stopped: "stopped 3"
+      - sponge-input:
+          chat: true
+          override-chat: true
+          check-canceled: true
+          cancel-chat: true
+          format-chat: "chat 2"
+      - sponge-input:
+          chat: true
+          override-chat: false
+          check-canceled: false
+          cancel-chat: false
+          format-chat: "chat 3"
+  - sponge-playerlist:
+      - sponge-playerlist:
+          format: "format 1"
+          format-player: "player 1"
+          format-no-players: "no players 1"
+      - sponge-playerlist:
+          format: "format"
+      - sponge-playerlist:
+          format-player: "player"
+      - sponge-playerlist:
+          format-no-players: "no players"
+  - sponge-output:
+      - sponge-output:
+          permission: null
+      - sponge-output:
+          permission: "permission"

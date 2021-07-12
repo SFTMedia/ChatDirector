@@ -1,0 +1,80 @@
+debug: false
+chains:
+  - if-contains:
+      - if-contains:
+          yes-chain:
+            - stop: null
+          no-chain:
+            - stop: null
+          contains: "String"
+          source: "Source"
+      - if-contains:
+          contains: "String"
+          yes-chain:
+            - stop: null
+      - if-contains:
+          contains: "String"
+          yes-chain:
+            - if-contains:
+                contains: "String"
+                no-chain:
+                  - stop: null
+  - if-equals:
+      - if-equals:
+          yes-chain:
+            - if-equals:
+                equals: "test"
+                no-chain:
+                  - stop: null
+          no-chain:
+            - stop: null
+          equals: "String"
+          source: "%CURRENT%"
+          ignore-case: false
+      - if-equals:
+          equals: "String"
+          no-chain:
+            - stop: null
+  - if-regex-match:
+      - if-regex-match:
+          yes-chain:
+            - echo: "yes"
+          no-chain:
+            - echo: "no"
+          match: "[sS]tring"
+          source: "%CURRENT%"
+      - if-regex-match:
+          match: "[sS]tring"
+          yes-chain:
+            - halt
+  - split:
+      - split:
+          - stream-1:
+              - echo: "1"
+          - stream-2:
+              - echo: "2"
+      - split
+  - if-starts-with:
+      - if-starts-with:
+          yes-chain:
+            - echo: "yes"
+          no-chain:
+            - echo: "no"
+          starts: "String"
+          source: "%CURRENT%"
+      - if-starts-with:
+          starts: "2"
+          yes-chain:
+            - halt
+  - if-ends-with:
+      - if-ends-with:
+          yes-chain:
+            - echo: "yes"
+          no-chain:
+            - echo: "no"
+          ends: "String"
+          source: "%CURRENT%"
+      - if-ends-with:
+          ends: "2"
+          yes-chain:
+            - halt

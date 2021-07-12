@@ -1,0 +1,214 @@
+module_data:
+  discord:
+    - bot2: "LOL NO"
+    - bot-name: "REDACTED"
+chains:
+  - discord-input:
+      - discord-input:
+          channel: "0"
+          bot: bot-name
+          category: "CATEGORY_ID"
+          message: "MESSAGE_ID"
+          reaction-add-event: true
+          reaction-remove-event: false
+          message-event: true
+      - discord-input:
+          channel: "16"
+          bot: bot2
+          category: "CATEGORY 2"
+          message: "MESSAGE 2"
+          reaction-add-event: false
+          reaction-remove-event: true
+          message-event: false
+      - discord-input:
+          channel: "16"
+          bot: bot2
+          category: "CATEGORY 2"
+      - discord-input:
+          channel: "16"
+          bot: bot2
+          message: "MESSAGE 2"
+      - discord-input:
+          channel: "16"
+          bot: bot2
+          reaction-add-event: false
+      - discord-input:
+          channel: "16"
+          bot: bot2
+          reaction-remove-event: true
+      - discord-input:
+          channel: "16"
+          bot: bot2
+          message-event: false
+  - discord-resolve:
+      - discord-resolve:
+          server: "0"
+          bot: bot-name
+          to-discord: false
+          to-plain: true
+      - discord-resolve:
+          server: "SERVER"
+          bot: bot
+          to-discord: true
+          to-plain: false
+  - discord-output:
+      - discord-output:
+          channel: "0"
+          format: "[%DISCORD_ROLE%]%DISCORD_AUTHOR_NICK_NAME%: %DISCORD_MESSAGE%"
+          bot: bot-name
+      - discord-output:
+          channel: "123"
+          bot: bot
+      - discord-output:
+          channel: "0"
+          bot: bot-name
+  - discord-output-reaction:
+      - discord-output-reaction:
+          channel: "0"
+          bot: bot-name
+          message: "MESSAGE ID"
+          emoji: "either a custom emoji id or unicode"
+          add: true
+      - discord-output-reaction:
+          channel: "789024"
+          bot: bot2
+          message: "MESSAGE"
+          emoji: "r"
+          add: false
+  - discord-get-dm-channel:
+      - discord-get-dm-channel:
+          bot: "bot-name"
+          user: "USER ID"
+      - discord-get-dm-channel:
+          bot: "bot"
+          user: "USER"
+  - discord-output-file:
+      - discord-output-file:
+          channel: "0"
+          name: "hello world"
+          bot: bot-name
+      - discord-output-file:
+          channel: "0456"
+          name: "hello"
+          bot: bot
+  - discord-create-channel:
+      - discord-create-channel:
+          server: "0"
+          bot: bot-name
+          name: "channel"
+          category: "%CATEGORY_ID%"
+          user: "%DISCORD_AUTHOR ID%"
+          topic: "hello world"
+      - discord-create-channel:
+          server: "4560"
+          bot: bot
+          name: "channel2"
+          category: "%CATEGORY_ID_2%"
+          user: "%DISCORD_AUTHOR ID 2%"
+          topic: "hello world 2"
+      - discord-create-channel:
+          server: "4560"
+          bot: bot
+          name: "channel2"
+      - discord-create-channel:
+          server: "4560"
+          bot: bot
+          category: "%CATEGORY_ID_2%"
+      - discord-create-channel:
+          server: "4560"
+          bot: bot
+          user: "%DISCORD_AUTHOR ID 2%"
+      - discord-create-channel:
+          server: "4560"
+          bot: bot
+          topic: "hello world 2"
+  - discord-message-history:
+      - discord-message-history:
+          bot: "bot name"
+          channel: "channel id"
+          length: 50
+          format: "%DISCORD_MESSAGE%"
+      - discord-message-history:
+          bot: "bot name"
+          channel: "channel id"
+          length: 50
+          format: "%DISCORD_MESSAGE yikes%"
+      - discord-message-history:
+          bot: "bot"
+          channel: "channel"
+          length: 100
+  - discord-embed:
+      - discord-embed:
+          bot: "bot name"
+          channel: "channel name"
+          author-avatar: "Author Avatar"
+          author-link: "Author Link"
+          author-name: "Author Name"
+          color: "BLUE"
+          description: "Description"
+          footer-avatar: "Footer Avatar"
+          footer-name: "Footer Name"
+          fields:
+            "field 1 header": "field 1 body"
+            "field 2 header": "field 2 body"
+          inline-fields:
+            "inline field 1 header": "inline field 1 body"
+            "inline field 2 header": "inline field 2 body"
+          image: "Image"
+          thumbnail: "Thumbnail"
+          title: "Title"
+      - discord-embed:
+          bot: "bot"
+          channel: "channel"
+          author-avatar: "Author Avatar 2"
+          author-link: "Author Link 2"
+          author-name: "Author Name 2"
+          color: "BLUE"
+          description: "Description 2"
+          footer-avatar: "Footer Avatar 2"
+          footer-name: "Footer Name 2"
+          fields:
+            "field 1 header 2": "field 1 body 2"
+            "field 2 header 2": "field 2 body 2"
+          inline-fields:
+            "inline field 1 header 2": "inline field 1 body 2"
+            "inline field 2 header 2": "inline field 2 body 2"
+          image: "Image 2"
+          thumbnail: "Thumbnail 2"
+          title: "Title 2"
+      - discord-embed:
+          bot: "bot"
+          channel: "channel"
+  - discord-delete-channel:
+      - discord-delete-channel:
+          bot: "bot name"
+          channel: "channel id"
+      - discord-delete-channel:
+          bot: "bot"
+          channel: "channel"
+  - discord-rename-channel:
+      - discord-rename-channel:
+          bot: "bot name"
+          channel: "channel id"
+          name: "channel name"
+      - discord-rename-channel:
+          bot: "bot"
+          channel: "channel"
+          name: "channel"
+  - discord-participants:
+      - discord-participants:
+          bot: "bot name"
+          length: 50
+          channel: "channel id"
+          each: null
+      - discord-participants:
+          bot: "bot"
+          length: 100
+          channel: "channel"
+          each:
+            - echo: "hello"
+            - echo: "hello 2"
+      - discord-participants:
+          bot: "bot"
+          channel: "channel"
+          each: null
