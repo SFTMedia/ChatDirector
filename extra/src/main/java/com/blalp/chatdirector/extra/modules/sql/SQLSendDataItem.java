@@ -21,11 +21,10 @@ import lombok.NoArgsConstructor;
 @JsonDeserialize(using = SQLSendDataDeserializer.class)
 public class SQLSendDataItem extends SQLItem {
     String value;
-    private boolean attemptedReload = false;
+    private long lastReload = 0;
 
     @Override
     public Context process(Context context) {
-        attemptedReload=false;
         if (cache) {
             SQLCacheStore sqlCacheStore = (SQLCacheStore) ChatDirector.getConfig()
                     .getOrCreateDaemon(SQLCacheStore.class);
@@ -47,8 +46,8 @@ public class SQLSendDataItem extends SQLItem {
             System.err.println(this + " failed on " + context.getCurrent());
             ChatDirector.getLogger().log(Level.WARNING, "Failed SQL " + e.getSQLState());
             e.printStackTrace();
-            if (!attemptedReload) {
-                attemptedReload=true;
+            if (lastReload+1000<System.currentTimeMillis()) {
+                lastReload=System.currentTimeMillis();
                 connectionObj.unload();
                 connectionObj.load();
                 this.process(context);
