@@ -40,10 +40,13 @@ chains:
           format-no-players: "**No online players**" # Optional
       - bukkit-output:
           permission: null # Optional
-      - bukkit-command:
+      - bukkit-command: # Registers a new command with permission
           command: "example-command"
           permission: "example-permission"
       - bukkit-context: null
+      - bukkit-execute:
+          command: "say hello there!" # STATIC command to run. No contexts resolved here for security reasons.
+          sender: "%PLAYER_UUID%" # Optional UUID of player to execute as. If omitted, defaults to console.
   - bungee-demo:
       - bungee-to:
           channel: "custom-channel"
