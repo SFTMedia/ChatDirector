@@ -11,6 +11,9 @@ import com.blalp.chatdirector.core.utils.ValidationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import lombok.Data;
+
+@Data
 public class BukkitExecuteItem implements IItem {
 
     String command;
