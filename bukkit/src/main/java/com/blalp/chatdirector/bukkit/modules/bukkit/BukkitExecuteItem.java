@@ -3,6 +3,7 @@ package com.blalp.chatdirector.bukkit.modules.bukkit;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import com.blalp.chatdirector.bukkit.ChatDirectorBukkit;
 import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.Context;
 import com.blalp.chatdirector.core.model.IItem;
@@ -10,6 +11,7 @@ import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import lombok.Data;
 
@@ -33,9 +35,14 @@ public class BukkitExecuteItem implements IItem {
         } else {
             sender = Bukkit.getPlayer(UUID.fromString(this.sender));
         }
-        if (!Bukkit.getServer().dispatchCommand(sender, command)) {
-            ChatDirector.getLogger().log(Level.WARNING, "Invalid player UUID '" + sender + "'");
-        }
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                if (!Bukkit.getServer().dispatchCommand(sender, command)) {
+                    ChatDirector.getLogger().log(Level.WARNING, "Invalid player UUID '" + sender + "'");
+                }
+            }
+        }.runTask(ChatDirectorBukkit.getInstance());
         return new Context();
     }
 
