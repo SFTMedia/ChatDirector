@@ -9,29 +9,32 @@ import com.blalp.chatdirector.core.ChatDirector;
 public class CronCalculator {
     private Date start;
     private Date output;
-    /*
-        This Cron
-        <second>
-        <minute>
-        <hour>
-        <day of week>
-        <month>
-        <year>
+    // <second> <minute> <hour> <day of month> <month> <day of week> <year>
+    // <second> 0-59
+    // <minute> 0-59
+    // <hour> 0-23
 
+    // <day of month> 1-end (0 is an alias for last day of month)
+    // <month> 0-11
+    // <day of week> SUN|MON|TUE|WED|THU|FRI|SAT|?|0-6
+    // <year> 0-?
 
-        Normal Cron
-        <second>
-        <minute>
-        <hour>
-        <day of month>
-        <month>
-        <day of week>
-        <year>
-    */
+    // Formats:
+    // * Anything
+    // <remainder>/<modulo> Remainder after modulo operation
+    // <number>-<number> Interval
+    // <number>,<number> Multiple possible
+
+    // DOES NOT SUPPORT:
+    // <day of month> The #th DoW (i.e. 1#5)
+    // <day of month> days from end of month (i.e. L-1)
+    // <day of month> weekday (i.e. W)
+
     private String[] cron;
 
     public CronCalculator(String cron, Date start) {
         this.cron = cron.split(" ");
+        enforceFormat();
         this.start = start;
         this.output = (Date) this.start.clone();
     }
@@ -92,15 +95,27 @@ public class CronCalculator {
         enforceHours();
     }
 
-    private void enforceDOW() {
-        if (cron.length > 3) {
-            int dow = getNumericNext(cron[3], output.getDay());
+    private void enforceDate() {
+        int previousDate = -1;
+        int previousMonth = -1;
+        // While the enforce functions change the date or month, continue enforcing
+        while (previousDate != output.getDate() || previousMonth != output.getMonth()) {
+            previousDate = output.getDate();
+            previousMonth = output.getMonth();
+            this.enforceDayOfMonth();
+            this.enforceDayOfWeek();
+        }
+    }
+
+    private void enforceDayOfWeek() {
+        if (cron.length > 5) {
+            int dow = getNumericNext(cron[5], output.getDay());
             if (dow < output.getDay()) {
                 dow += 7;
             } else if (dow > 7) {
                 // Couldn't find a valid for this week, try again next week.
-                output.setDate(output.getDate()+7-output.getDay());
-                enforceDOW();
+                output.setDate(output.getDate() + 7 - output.getDay());
+                enforceDayOfWeek();
                 return;
             }
             int newDate = output.getDate() - output.getDay() + dow;
@@ -115,11 +130,24 @@ public class CronCalculator {
         }
     }
 
+    private void enforceDayOfMonth() {
+        if (cron.length > 3) {
+            int newDate = getNumericNext(cron[3], output.getDate());
+            if (output.getDate() > newDate) {
+                output.setMonth(output.getMonth() + 1);
+            }
+            output.setDate(newDate);
+
+            if (start.getDate() != output.getDate()) {
+                resetHours();
+            }
+        }
+    }
+
     private void resetDate() {
         resetHours();
-        output.setDate(0);
-        enforceDOW();
-        // TODO: Date?
+        output.setDate(1);
+        enforceDate();
     }
 
     private void enforceMonths() {
@@ -130,7 +158,7 @@ public class CronCalculator {
             }
             output.setMonth(newMonths);
 
-            if (start.getMonth()!=output.getMonth()) {
+            if (start.getMonth() != output.getMonth()) {
                 resetDate();
             }
         }
@@ -144,8 +172,8 @@ public class CronCalculator {
 
     private void enforceYears() {
         // Month
-        if (cron.length > 5) {
-            int newYear = getNumericNext(cron[5], output.getYear());
+        if (cron.length > 6) {
+            int newYear = getNumericNext(cron[6], output.getYear());
             if (output.getYear() > newYear) {
                 // In the PAST! YIKES!
             }
@@ -162,7 +190,7 @@ public class CronCalculator {
         this.enforceSeconds();
         this.enforceMinutes();
         this.enforceHours();
-        this.enforceDOW();
+        this.enforceDate();
         this.enforceMonths();
         this.enforceYears();
 
@@ -181,9 +209,25 @@ public class CronCalculator {
         if (timeUnit.equals("*")) {
             return currentTime;
         }
-        if (timeUnit.startsWith("*/")) {
-            int interval = Integer.parseInt(timeUnit.substring(2));
-            return currentTime + interval - currentTime % interval;
+        if (timeUnit.contains("/")) {
+            int interval = Integer.parseInt(timeUnit.split("/")[1]);
+            String remainderStr = timeUnit.split("/")[0];
+            int remainder;
+            if (remainderStr.equals("*")) {
+                remainder = 0;
+            } else {
+                remainder = Integer.parseInt(remainderStr);
+            }
+            if (currentTime % interval != remainder) {
+                int toNextRemainder = remainder - currentTime % interval;
+                if (toNextRemainder < 0) {
+                    toNextRemainder += interval;
+                }
+                return currentTime + toNextRemainder;
+                // 2006-0
+            } else {
+                return currentTime;
+            }
         }
         if (timeUnit.contains("-")) {
             int start = Integer.parseInt(timeUnit.split("-")[0]);
@@ -202,7 +246,7 @@ public class CronCalculator {
             int diff = Integer.MAX_VALUE;
             for (String option : timeUnit.split(",")) {
                 int candidateDiff = Integer.parseInt(option) - currentTime;
-                if (candidateDiff > 0 && candidateDiff < diff) {
+                if (candidateDiff >= 0 && candidateDiff < diff) {
                     diff = candidateDiff;
                 }
             }
@@ -215,5 +259,54 @@ public class CronCalculator {
         }
         ChatDirector.getLogger().log(Level.WARNING, "Could not interpret " + timeUnit);
         return 0;
+    }
+
+    private void enforceFormat() {
+        enforceDayOfWeekFormat();
+        enforceMonthFormat();
+        enforceDayOfMonthFormat();
+    }
+
+    private void enforceDayOfWeekFormat() {
+        if (cron.length > 5) {
+            String dayOfWeek = cron[5].toUpperCase();
+            dayOfWeek = dayOfWeek.replaceAll("SUN?D?A?Y?", "0");
+            dayOfWeek = dayOfWeek.replaceAll("MO?N?D?A?Y?", "1");
+            dayOfWeek = dayOfWeek.replaceAll("TUE?S?D?A?Y?", "2");
+            dayOfWeek = dayOfWeek.replaceAll("WE?D?N?E?S?D?A?Y?", "3");
+            dayOfWeek = dayOfWeek.replaceAll("THU?R?S?D?A?Y?", "4");
+            dayOfWeek = dayOfWeek.replaceAll("FR?I?D?A?Y?", "5");
+            dayOfWeek = dayOfWeek.replaceAll("SAT?U?R?D?A?Y?", "6");
+            // For those normal cron uses out there
+            dayOfWeek = dayOfWeek.replaceAll("\\?", "*");
+            cron[5] = dayOfWeek;
+        }
+    }
+
+    private void enforceDayOfMonthFormat() {
+        if (cron.length > 3) {
+            String dayOfWeek = cron[3].toUpperCase();
+            dayOfWeek = dayOfWeek.replaceAll("L", "0");
+            cron[3] = dayOfWeek;
+        }
+    }
+
+    private void enforceMonthFormat() {
+        if (cron.length > 4) {
+            String dayOfWeek = cron[4].toUpperCase();
+            dayOfWeek = dayOfWeek.replaceAll("\\?", "*");
+            dayOfWeek = dayOfWeek.replaceAll("JA?N?U?A?R?Y?", "0");
+            dayOfWeek = dayOfWeek.replaceAll("FE?B?U?A?R?Y?", "1");
+            dayOfWeek = dayOfWeek.replaceAll("MARC?H?", "2");
+            dayOfWeek = dayOfWeek.replaceAll("APR?I?L?", "3");
+            dayOfWeek = dayOfWeek.replaceAll("MAY", "4");
+            dayOfWeek = dayOfWeek.replaceAll("JUNE?", "5");
+            dayOfWeek = dayOfWeek.replaceAll("JULY?", "6");
+            dayOfWeek = dayOfWeek.replaceAll("AUG?U?S?T?", "7");
+            dayOfWeek = dayOfWeek.replaceAll("SE?PT?E?M?B?E?R?", "9");
+            dayOfWeek = dayOfWeek.replaceAll("NO?V?E?M?B?E?R?", "10");
+            dayOfWeek = dayOfWeek.replaceAll("DE?C?E?M?B?E?R?", "11");
+            cron[4] = dayOfWeek;
+        }
     }
 }

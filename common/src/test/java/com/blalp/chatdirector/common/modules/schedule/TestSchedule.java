@@ -122,8 +122,8 @@ public class TestSchedule {
         calc = new CronCalculator("* * */5", start);
         expected = new Date(2000, 1, 2, 5, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * 1,17", start);
-        expected = new Date(2000, 1, 2, 17, 0, 0);
+        calc = new CronCalculator("* * 5,17", start);
+        expected = new Date(2000, 1, 2, 5, 0, 0);
         assertEquals(expected, calc.getNextDate());
         calc = new CronCalculator("* * 3-17", start);
         expected = new Date(2000, 1, 2, 3, 0, 0);
@@ -135,28 +135,31 @@ public class TestSchedule {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void unitTestDayOfWeekCron() {
+    public void unitTestDayOfMonthCron() {
         ChatDirector test = new ChatDirector();
         Date start = new Date(2000, 1, 2, 1, 2, 3);
         CronCalculator calc;
         Date expected;
         calc = new CronCalculator("* * * 0", start);
-        expected = new Date(2000, 1, 4, 0, 0, 0);
+        expected = new Date(2000, 1, 28, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * */5", start);
-        expected = new Date(2000, 1, 9, 0, 0, 0);
-        assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * 1,17", start);
+        calc = new CronCalculator("* * * 5", start);
         expected = new Date(2000, 1, 5, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * 3-17", start);
-        expected = new Date(2000, 1, 2, 1, 2, 4);
+        calc = new CronCalculator("* * * */5", start);
+        expected = new Date(2000, 1, 5, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * 6-7", start);
+        calc = new CronCalculator("* * * 1,17", start);
+        expected = new Date(2000, 1, 17, 0, 0, 0);
+        assertEquals(expected, calc.getNextDate());
+        calc = new CronCalculator("* * * 3-17", start);
         expected = new Date(2000, 1, 3, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * 2", start);
+        calc = new CronCalculator("* * * 6-7", start);
         expected = new Date(2000, 1, 6, 0, 0, 0);
+        assertEquals(expected, calc.getNextDate());
+        calc = new CronCalculator("* * * 2", start);
+        expected = new Date(2000, 1, 2, 1, 2, 4);
         assertEquals(expected, calc.getNextDate());
     }
 
@@ -168,19 +171,43 @@ public class TestSchedule {
         CronCalculator calc;
         Date expected;
         calc = new CronCalculator("* * * * 0", start);
-        expected = new Date(2001, 0, 0, 0, 0, 0);
+        expected = new Date(2001, 0, 1, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * * */5", start);
-        expected = new Date(2000, 5, 0, 0, 0, 0);
+        calc = new CronCalculator("* * * * 0/5", start);
+        expected = new Date(2000, 5, 1, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * * 1,8", start);
-        expected = new Date(2000, 8, 0, 0, 0, 0);
+        calc = new CronCalculator("* * * * 2,8", start);
+        expected = new Date(2000, 2, 1, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
         calc = new CronCalculator("* * * * 3-17", start);
-        expected = new Date(2000, 3, 0, 0, 0, 0);
+        expected = new Date(2000, 3, 1, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
         calc = new CronCalculator("* * * * 12-17", start);
-        expected = new Date(2000, 12, 0, 0, 0, 0);
+        expected = new Date(2000, 12, 1, 0, 0, 0);
+        assertEquals(expected, calc.getNextDate());
+    }
+
+    @Test
+    @SuppressWarnings("deprecation")
+    public void unitTestDayOfTheWeekCron() {
+        ChatDirector test = new ChatDirector();
+        Date start = new Date(2000, 1, 2, 1, 2, 3);
+        CronCalculator calc;
+        Date expected;
+        calc = new CronCalculator("* * * * * 1", start);
+        expected = new Date(2000, 1, 5, 0, 0, 0);
+        assertEquals(expected, calc.getNextDate());
+        calc = new CronCalculator("* * * * * */3", start);
+        expected = new Date(2000, 1, 3, 0, 0, 0);
+        assertEquals(expected, calc.getNextDate());
+        calc = new CronCalculator("* * * * * 3,6", start);
+        expected = new Date(2000, 1, 3, 0, 0, 0);
+        assertEquals(expected, calc.getNextDate());
+        calc = new CronCalculator("* * * * * 5-6", start);
+        expected = new Date(2000, 1, 2, 1, 2, 4);
+        assertEquals(expected, calc.getNextDate());
+        calc = new CronCalculator("* * * * * 1-3", start);
+        expected = new Date(2000, 1, 5, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
     }
 
@@ -191,20 +218,30 @@ public class TestSchedule {
         Date start = new Date(2000, 1, 2, 1, 2, 3);
         CronCalculator calc;
         Date expected;
-        calc = new CronCalculator("* * * * * 2222", start);
-        expected = new Date(2222, 0, 0, 0, 0, 0);
+        calc = new CronCalculator("* * * * * * 2222", start);
+        expected = new Date(2222, 0, 1, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * * * */5", start);
-        expected = new Date(2005, 0, 0, 0, 0, 0);
+        calc = new CronCalculator("* * * * * * 1/5", start);
+        expected = new Date(2001, 0, 1, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * * * 2006,2009", start);
-        expected = new Date(2006, 0, 0, 0, 0, 0);
+        calc = new CronCalculator("* * * * * * 2006,2009", start);
+        expected = new Date(2006, 0, 1, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * * * 1990-2500", start);
+        calc = new CronCalculator("* * * * * * 1990-2500", start);
         expected = new Date(2000, 1, 2, 1, 2, 4);
         assertEquals(expected, calc.getNextDate());
-        calc = new CronCalculator("* * * * * 2015-2055", start);
-        expected = new Date(2015, 0, 0, 0, 0, 0);
+        calc = new CronCalculator("* * * * * * 2015-2055", start);
+        expected = new Date(2015, 0, 1, 0, 0, 0);
         assertEquals(expected, calc.getNextDate());
+    }
+
+    @Test
+    public void unitTestDayOfWeekFormat() {
+
+    }
+
+    @Test
+    public void unitTestMonthFormat() {
+
     }
 }
