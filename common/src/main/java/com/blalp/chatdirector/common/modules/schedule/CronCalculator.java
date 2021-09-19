@@ -194,8 +194,6 @@ public class CronCalculator {
         this.enforceMonths();
         this.enforceYears();
 
-        ChatDirector.getLogger().log(Level.INFO, "The starts " + output.toString() + " " + start.toString());
-
         // Make sure that the time is the the future just in case.
         // Take * * * * * * for example, if the function starts running before the
         // minute but ends after it will have a time in the past.
