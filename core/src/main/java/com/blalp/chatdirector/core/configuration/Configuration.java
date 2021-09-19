@@ -108,7 +108,6 @@ public class Configuration implements IConfiguration {
             System.out.println("Loading Daemons...");
         }
         for (ILoadable daemon : getDaemons().values()) {
-            System.out.println("\t"+daemon);
             if (!daemon.load()) {
                 ChatDirector.getLogger().log(Level.SEVERE, "daemon " + daemon.getClass() + " " + daemon + " failed to load.");
                 return false;

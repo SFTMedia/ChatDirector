@@ -1,5 +1,7 @@
 package com.blalp.chatdirector.bungee.modules.multichat;
 
+import java.util.logging.Level;
+
 import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.Context;
 import com.blalp.chatdirector.core.utils.ItemDaemon;
@@ -35,7 +37,7 @@ public class MultiChatInputDaemon extends ItemDaemon implements Listener {
                 context.put("CURRENT", e.getMessage());
                 ChatDirector.run(item, context, true);
             } else {
-                System.out.println(" no global for " + item);
+                ChatDirector.getLogger().log(Level.WARNING, " no global for " + item);
             }
         }
     }
