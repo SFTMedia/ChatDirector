@@ -1,5 +1,5 @@
 main: com.blalp.chatdirector.bukkit.ChatDirectorBukkit
-version: 0.2.10
+version: 0.2.11
 name: ChatDirector
 softdepend: [Vault, LuckPerms, PlaceholderAPI]
 load: POSTWORLD
