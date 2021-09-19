@@ -236,6 +236,19 @@ public class TestSchedule {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
+    public void unitTestComplexCron() {
+        ChatDirector test = new ChatDirector();
+        Date start = new Date(2000, 1, 2, 1, 2, 3);
+        CronCalculator calc;
+        Date expected;
+        // At noon daily
+        calc = new CronCalculator("0 12 * * *", start);
+        expected = new Date(2000, 1, 2, 1, 12, 0);
+        assertEquals(expected, calc.getNextDate());
+    }
+
+    @Test
     public void unitTestDayOfWeekFormat() {
 
     }
