@@ -1,5 +1,6 @@
 package com.blalp.chatdirector.common.modules.schedule;
 
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,16 +15,19 @@ public class ScheduleCronDaemon extends ItemDaemon {
     @Override
     public boolean load() {
         for (ScheduleCronItem item : this.getItems().toArray(new ScheduleCronItem[]{})) {
-            TimerTask task = new TimerTask(){
-                @Override
-                public void run() {
-                    ChatDirector.run(item, new Context(), true);
-                    timer.schedule(this, item.getDelayUntilNext());
-                }
-            };
-            timer.schedule(task, item.getDelayUntilNext());
+            timer.schedule(newTimer(item), item.getDelayUntilNext(new Date()));
         }
         return true;
+    }
+
+    private TimerTask newTimer(ScheduleCronItem item) {
+        return new TimerTask(){
+            @Override
+            public void run() {
+                ChatDirector.run(item, new Context(), true);
+                timer.schedule(newTimer(item), item.getDelayUntilNext(new Date()));
+            }
+        };
     }
 
     @Override

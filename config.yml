@@ -303,7 +303,7 @@ chains:
       - schedule-input:
           delay: 100 # Delay in Milliseconds
           period: 100 # Milliseconds to repeat (optional)
-      - schedule-cron:
+      - schedule-cron-input:
           cron: "" # Cron formatted string (not year or dow)
   - sponge-demo:
       - sponge-command:
