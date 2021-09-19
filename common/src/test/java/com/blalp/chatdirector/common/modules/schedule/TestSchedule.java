@@ -246,6 +246,9 @@ public class TestSchedule {
         calc = new CronCalculator("0 12 * * *", start);
         expected = new Date(2000, 1, 2, 1, 12, 0);
         assertEquals(expected, calc.getNextDate());
+        calc = new CronCalculator("3 * * * *", start);
+        expected = new Date(2000, 1, 2, 1, 3, 3);
+        assertEquals(expected, calc.getNextDate());
     }
 
     @Test

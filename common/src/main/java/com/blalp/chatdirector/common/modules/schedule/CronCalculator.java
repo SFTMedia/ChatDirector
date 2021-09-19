@@ -199,7 +199,9 @@ public class CronCalculator {
         // minute but ends after it will have a time in the past.
         if (output.getTime() <= start.getTime()) {
             output.setTime(start.getTime() + 1000);
+            return getNextDate();
         }
+
         return output;
     }
 
