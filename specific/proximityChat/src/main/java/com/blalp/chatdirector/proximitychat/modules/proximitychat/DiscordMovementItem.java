@@ -1,11 +1,11 @@
 package com.blalp.chatdirector.proximitychat.modules.proximitychat;
 
-import com.blalp.chatdirector.ChatDirector;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.modules.javacord.DiscordBot;
-import com.blalp.chatdirector.modules.javacord.DiscordBots;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.ChatDirector;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.modules.discord.DiscordBot;
+import com.blalp.chatdirector.modules.discord.DiscordBots;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.ChannelCategory;

@@ -1,9 +1,9 @@
 package com.blalp.chatdirector.proximitychat.modules.proximitychat;
 
 import com.blalp.chatdirector.extra.modules.sql.SQLRetrieveDataItem;
-import com.blalp.chatdirector.model.Context;
-import com.blalp.chatdirector.model.IItem;
-import com.blalp.chatdirector.utils.ValidationUtils;
+import com.blalp.chatdirector.core.model.Context;
+import com.blalp.chatdirector.core.model.IItem;
+import com.blalp.chatdirector.core.utils.ValidationUtils;
 
 // Later this entire item will be replaced with a generic for loop, for now though we need this.
 public class ConvertUUIDToDiscordId implements IItem {
