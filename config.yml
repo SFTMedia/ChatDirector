@@ -290,6 +290,10 @@ chains:
             - echo: "yes"
           no-chain:
             -echo: "no"
+  - random-demo:
+      - random:
+        min: 1 # smallest number
+        max: 10 # largest number
   - replacement-demo:
       - regex:
           - "Regex to find": "regex to replace"
