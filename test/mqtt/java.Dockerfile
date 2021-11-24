@@ -1,3 +1,3 @@
 FROM java
-COPY "./universal/target/ChatDirector-0.2.11-universal.jar" ChatDirector.jar
+COPY "./universal/target/ChatDirector-0.2.12-universal.jar" ChatDirector.jar
 CMD java -jar ChatDirector.jar config/config.yml
