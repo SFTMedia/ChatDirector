@@ -20,7 +20,12 @@ public class Context extends HashMap<String, String> {
     }
 
     public Context(String current) {
-        this.put("CURRENT", current);
+        if (current == null) {
+            System.err.println("CURRENT Tried to get set to null, something's gone rouge");
+            this.put("CURRENT", "");
+        } else {
+            this.put("CURRENT", current);
+        }
     }
 
     public Context(String current, String last) {
