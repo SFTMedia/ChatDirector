@@ -13,7 +13,7 @@ public class BungeeCommand extends Command {
     public BungeeCommandItem item;
 
     public BungeeCommand(String name, BungeeCommandItem item) {
-        super(name);
+        super(name, item.permission);
         this.item = item;
         commands.add(this);
     }
