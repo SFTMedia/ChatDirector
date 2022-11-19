@@ -124,6 +124,11 @@ chains:
       - console-output: null
       - console-output-error: null
   - discord-demo:
+      - discord-add-role:
+          bot: bot-name
+          role: ROLE_ID
+          user: USER_ID
+          server: SERVER_ID
       - discord-input:
           channel: "0" # CHANNEL_ID
           bot: bot-name

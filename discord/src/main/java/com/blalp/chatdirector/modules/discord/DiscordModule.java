@@ -38,7 +38,7 @@ public class DiscordModule implements IModule {
         return Arrays.asList("discord-input", "discord-output", "discord-output-file", "discord-output-reaction",
                 "discord-resolve", "discord-embed", "discord-get-dm-channel", "discord-message-history",
                 "discord-create-channel", "discord-delete-channel", "discord-rename-channel", "discord-participants",
-                "discord-delete-message");
+                "discord-delete-message", "discord-add-role", "discord-remove-role");
     }
 
     @Override
@@ -152,34 +152,38 @@ public class DiscordModule implements IModule {
     @Override
     public Class<? extends IItem> getItemClass(String type) {
         switch (type) {
-        case "discord-input":
-            return DiscordInputItem.class;
-        case "discord-output":
-            return DiscordOutputItem.class;
-        case "discord-output-file":
-            return DiscordOutputFileItem.class;
-        case "discord-output-reaction":
-            return DiscordOutputReactionItem.class;
-        case "discord-resolve":
-            return DiscordResolveItem.class;
-        case "discord-embed":
-            return DiscordEmbedItem.class;
-        case "discord-get-dm-channel":
-            return DiscordGetDMChannelItem.class;
-        case "discord-message-history":
-            return DiscordMessageHistoryItem.class;
-        case "discord-create-channel":
-            return DiscordCreateChannelItem.class;
-        case "discord-delete-channel":
-            return DiscordDeleteChannel.class;
-        case "discord-delete-message":
-            return DiscordDeleteMessage.class;
-        case "discord-rename-channel":
-            return DiscordChannelRename.class;
-        case "discord-participants":
-            return DiscordParticipatesItem.class;
-        default:
-            return null;
+            case "discord-input":
+                return DiscordInputItem.class;
+            case "discord-output":
+                return DiscordOutputItem.class;
+            case "discord-output-file":
+                return DiscordOutputFileItem.class;
+            case "discord-output-reaction":
+                return DiscordOutputReactionItem.class;
+            case "discord-resolve":
+                return DiscordResolveItem.class;
+            case "discord-embed":
+                return DiscordEmbedItem.class;
+            case "discord-get-dm-channel":
+                return DiscordGetDMChannelItem.class;
+            case "discord-message-history":
+                return DiscordMessageHistoryItem.class;
+            case "discord-create-channel":
+                return DiscordCreateChannelItem.class;
+            case "discord-delete-channel":
+                return DiscordDeleteChannel.class;
+            case "discord-delete-message":
+                return DiscordDeleteMessage.class;
+            case "discord-rename-channel":
+                return DiscordChannelRename.class;
+            case "discord-participants":
+                return DiscordParticipatesItem.class;
+            case "discord-add-role":
+                return DiscordAddRoleItem.class;
+            case "discord-remove-role":
+                return DiscordRemoveRoleItem.class;
+            default:
+                return null;
         }
     }
 }
