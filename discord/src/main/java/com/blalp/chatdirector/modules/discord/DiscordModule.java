@@ -135,7 +135,9 @@ public class DiscordModule implements IModule {
                 context.put("DISCORD_AUTHOR_NICK_NAME", user.getDisplayName(server.get()));
             }
             List<Role> roles = user.getRoles(server.get());
-            context.put("DISCORD_AUTHOR_ROLE", roles.get(roles.size() - 1).getName());
+            if (!roles.isEmpty()) {
+                context.put("DISCORD_AUTHOR_ROLE", roles.get(roles.size() - 1).getName());
+            }
             if (context.get("DISCORD_AUTHOR_ROLE").equals("@everyone")) {
                 context.put("DISCORD_AUTHOR_ROLE", "Default");
             }
