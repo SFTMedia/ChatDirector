@@ -6,10 +6,10 @@ import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.Context;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.KebabCaseStrategy.class)
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SQLCacheRemoveItem extends SQLItem {

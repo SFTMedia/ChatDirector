@@ -2,7 +2,7 @@ package com.blalp.chatdirector.extra.modules.mqtt;
 
 import com.blalp.chatdirector.core.ChatDirector;
 import com.blalp.chatdirector.core.model.Context;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import org.fusesource.mqtt.client.QoS;
@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)

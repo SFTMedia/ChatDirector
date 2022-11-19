@@ -6,12 +6,12 @@ import com.blalp.chatdirector.core.model.Context;
 import net.luckperms.api.LuckPermsProvider;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)

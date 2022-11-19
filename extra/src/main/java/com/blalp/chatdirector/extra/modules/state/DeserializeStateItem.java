@@ -12,7 +12,7 @@ import com.blalp.chatdirector.core.utils.ValidationUtils;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 public class DeserializeStateItem implements IItem {
 
@@ -34,7 +34,7 @@ public class DeserializeStateItem implements IItem {
             if (hash == context.getCurrent().substring(0, mac.getMacLength()).getBytes()) {
                 // All is dandy
                 ObjectMapper om = new ObjectMapper(new JsonFactory())
-                        .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+                        .setPropertyNamingStrategy(PropertyNamingStrategies.KEBAB_CASE);
 
                 return om.readValue(input, Context.class);
             } else {

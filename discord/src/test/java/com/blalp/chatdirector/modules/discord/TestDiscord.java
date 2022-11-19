@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 
 import com.blalp.chatdirector.core.ChatDirector;
-import com.blalp.chatdirector.modules.discord.DiscordInputItem;
-import com.blalp.chatdirector.modules.discord.DiscordResolveItem;
 
 import org.junit.jupiter.api.Test;
 

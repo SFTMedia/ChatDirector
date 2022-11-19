@@ -3,13 +3,13 @@ package com.blalp.chatdirector.bukkit.modules.bungeeMessage;
 import com.blalp.chatdirector.core.model.Context;
 import com.blalp.chatdirector.core.model.IItem;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.KebabCaseStrategy.class)
 @Data
 @NoArgsConstructor
 public class ToBungeeItem implements IItem {

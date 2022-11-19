@@ -6,12 +6,12 @@ import com.blalp.chatdirector.core.model.IItem;
 import com.blalp.chatdirector.core.utils.ItemDaemon;
 import com.blalp.chatdirector.core.utils.ValidationUtils;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import lombok.Data;
 
-@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.KebabCaseStrategy.class)
 @Data
 public class BukkitInputItem implements IItem {
     boolean chat = false, checkCanceled = false, login = false, logout = false, serverStarted = false,

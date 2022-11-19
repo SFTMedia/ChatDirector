@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 public class SerializeStateItem implements IItem {
 
@@ -28,7 +28,7 @@ public class SerializeStateItem implements IItem {
     public Context process(Context context) {
         try {
             ObjectMapper om = new ObjectMapper(new JsonFactory())
-                    .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+                    .setPropertyNamingStrategy(PropertyNamingStrategies.KEBAB_CASE);
             String input = om.writeValueAsString(context);
 
             Mac mac = Mac.getInstance("HmacSHA512");

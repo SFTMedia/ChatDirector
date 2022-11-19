@@ -11,7 +11,7 @@ import com.blalp.chatdirector.core.configuration.Configuration;
 import com.blalp.chatdirector.core.model.IModule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import lombok.Data;
@@ -58,7 +58,7 @@ public class ChatDirector implements IConfiguration {
 
     public boolean loadConfig() {
         ObjectMapper om = new ObjectMapper(new YAMLFactory())
-                .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
+                .setPropertyNamingStrategy(PropertyNamingStrategies.KEBAB_CASE);
         try {
             if (rawData != null) {
                 configStaging = om.readValue(rawData, Configuration.class);
@@ -115,7 +115,7 @@ public class ChatDirector implements IConfiguration {
     }
 
     public static String format(String format, Context context) {
-        if(format==null){
+        if (format == null) {
             return "";
         }
         synchronized (context) {

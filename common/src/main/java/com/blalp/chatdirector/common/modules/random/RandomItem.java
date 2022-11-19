@@ -3,13 +3,13 @@ package com.blalp.chatdirector.common.modules.random;
 import com.blalp.chatdirector.core.model.Context;
 import com.blalp.chatdirector.core.model.IItem;
 import lombok.Data;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
 public class RandomItem implements IItem {

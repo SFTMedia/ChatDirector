@@ -15,12 +15,13 @@ import org.javacord.api.entity.permission.PermissionsBuilder;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@JsonNaming(PropertyNamingStrategy.KebabCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.KebabCaseStrategy.class)
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -50,7 +51,7 @@ public class DiscordCreateChannelItem extends DiscordItem {
         }
         if (user != null) {
             builder.addPermissionOverwrite(api.getUserById(ChatDirector.format(user, context)).join(),
-                    new PermissionsBuilder().setAllowed(PermissionType.SEND_MESSAGES, PermissionType.READ_MESSAGES)
+                    new PermissionsBuilder().setAllowed(PermissionType.SEND_MESSAGES, PermissionType.VIEW_CHANNEL)
                             .build());
         }
         builder.setName(ChatDirector.format(name, context));
