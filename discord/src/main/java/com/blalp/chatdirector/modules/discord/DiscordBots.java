@@ -7,16 +7,28 @@ import com.blalp.chatdirector.core.model.ILoadable;
 
 public class DiscordBots extends HashMap<String, DiscordBot> implements ILoadable {
 
-    boolean loaded=false;
+    boolean loaded = false;
 
     @Override
     public boolean load() {
-        if(!loaded){
-            loaded=true;
-            if(ChatDirector.getConfig().getModuleData().containsKey("discord")) {
+        if (!loaded) {
+            loaded = true;
+            if (ChatDirector.getConfig().getModuleData().containsKey("discord")) {
                 for (Entry<String, String> bot : ChatDirector.getConfig().getModuleData().get("discord").entrySet()) {
                     if (!this.containsKey(bot.getKey())) {
-                        this.put(bot.getKey(), new DiscordBot(bot.getValue()));
+                        DiscordBot api = new DiscordBot(bot.getValue());
+
+                        // Set message content if any of the chains has a messageHistoryItem or
+                        // inputItem
+                        api.messageContent = ChatDirector.getConfig().getChains().values().stream()
+                                .filter(chain -> chain.getItems().stream()
+                                        .filter(item -> (item instanceof DiscordMessageHistoryItem
+                                                || item instanceof DiscordInputItem)
+                                                && ((DiscordItem) item).bot.equals(bot.getKey()))
+                                        .iterator().hasNext())
+                                .iterator().hasNext();
+
+                        this.put(bot.getKey(), api);
                     }
                 }
                 boolean result = true;
@@ -33,7 +45,7 @@ public class DiscordBots extends HashMap<String, DiscordBot> implements ILoadabl
 
     @Override
     public boolean unload() {
-        loaded=false;
+        loaded = false;
         boolean result = true;
         for (DiscordBot discordBot : this.values()) {
             result = result && discordBot.unload();

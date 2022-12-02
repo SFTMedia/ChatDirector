@@ -4,10 +4,12 @@ import com.blalp.chatdirector.core.model.ILoadable;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+import org.javacord.api.entity.intent.Intent;
 
 public class DiscordBot implements ILoadable {
     private DiscordApi discordApi;
     private String token;
+    protected Boolean messageContent = false;
 
     public DiscordBot(String token) {
         this.token = token;
@@ -19,7 +21,11 @@ public class DiscordBot implements ILoadable {
 
     @Override
     public boolean load() {
-        discordApi = new DiscordApiBuilder().setToken(token).login().join();
+        DiscordApiBuilder builder = new DiscordApiBuilder().setToken(token);
+        if (messageContent) {
+            builder = builder.addIntents(Intent.MESSAGE_CONTENT);
+        }
+        discordApi = builder.login().join();
         return true;
     }
 
