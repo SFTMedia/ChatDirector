@@ -51,6 +51,7 @@ public class DiscordParticipatesItem extends DiscordItem {
                     .merge(((DiscordModule) ChatDirector.getConfig().getModule(DiscordModule.class)).getContext(user));
             each.run(workingContext);
             workingContext = new Context();
+            workingContext.merge(context);
         }
         return new Context();
     }
