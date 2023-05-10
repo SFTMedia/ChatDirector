@@ -2,7 +2,7 @@
 
 Manages chat however you specify in the config. Not plug and play, but very customizable.
 
-![Discord](https://img.shields.io/discord/113990411063656454)
+[![Discord](https://img.shields.io/discord/113990411063656454)](https://discord.gg/P56dXsD)
 ![Minecraft Versions](https://img.shields.io/badge/Minecraft%20Versions-1.7%2B-blue)
 [![Support us on Patreon](https://img.shields.io/badge/support-patreon-F96854.svg)](https://www.patreon.com/sftmedia)
 
