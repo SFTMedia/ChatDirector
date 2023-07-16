@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>xyz.olivermartin.multichat</groupId>
 			<artifactId>multichat</artifactId>
-			<version>1.9.6-custom-8</version>
+			<version>1.9.6-custom-9</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
